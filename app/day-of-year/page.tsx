@@ -1,5 +1,5 @@
-import { getDailyChallenge } from "../lib/dailyChallenge";
-import ToolsNav from "../components/ToolsNav";
+import { getDailyChallenge } from "../../lib/dailyChallenge";
+import ToolsNav from "../../components/ToolsNav";
 import {
   getDayOfYear,
   getTotalDaysInYear,
@@ -8,7 +8,7 @@ import {
   getDaysLeftInYear,
   getYearProgressPercent,
   getDaysUntilWeekend,
-} from "../lib/date";
+} from "../../lib/date";
 
 export const metadata = {
   title: "What day is it today?",
