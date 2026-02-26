@@ -1,0 +1,69 @@
+import ToolsNav from "../../components/ToolsNav";
+import {
+  getDaysUntilWeekend,
+  getISOWeekNumber,
+  getDayOfYear,
+  getTotalDaysInYear,
+  getDaysLeftInYear,
+  getYearProgressPercent,
+  getQuarter,
+} from "../../lib/date";
+
+export const metadata = {
+  title: "How many days until the weekend?",
+  description:
+    "See how many days until Saturday, plus week number, day of year, year progress and days left.",
+};
+
+export default function DaysUntilWeekendPage() {
+  const now = new Date();
+
+  const daysUntilWeekend = getDaysUntilWeekend(now);
+  const weekNumber = getISOWeekNumber(now);
+  const dayOfYear = getDayOfYear(now);
+  const totalDays = getTotalDaysInYear(now.getFullYear());
+  const daysLeft = getDaysLeftInYear(now);
+  const progress = getYearProgressPercent(now);
+  const quarter = getQuarter(now);
+
+  return (
+    <main className="min-h-screen bg-white text-neutral-900 px-6 py-12">
+      <div className="max-w-3xl mx-auto">
+        <div className="mb-10">
+          <p className="text-sm text-neutral-500 mb-2">Days until weekend</p>
+          <h1 className="text-5xl font-semibold mb-2">{daysUntilWeekend}</h1>
+          <p className="text-lg text-neutral-600">Until Saturday</p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
+          <div>
+            <p className="text-neutral-500">Week number</p>
+            <p className="text-lg font-medium">{weekNumber}</p>
+          </div>
+          <div>
+            <p className="text-neutral-500">Day of year</p>
+            <p className="text-lg font-medium">
+              {dayOfYear} / {totalDays}
+            </p>
+          </div>
+          <div>
+            <p className="text-neutral-500">Year progress</p>
+            <p className="text-lg font-medium">{progress}%</p>
+          </div>
+          <div>
+            <p className="text-neutral-500">Days left this year</p>
+            <p className="text-lg font-medium">{daysLeft}</p>
+          </div>
+          <div>
+            <p className="text-neutral-500">Quarter</p>
+            <p className="text-lg font-medium">{quarter}</p>
+          </div>
+        </div>
+
+        <div className="mt-10">
+          <ToolsNav />
+        </div>
+      </div>
+    </main>
+  );
+}
