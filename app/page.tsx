@@ -1,5 +1,6 @@
-import { getDailyChallenge } from "../lib/dailyChallenge";
 import ToolsNav from "../components/ToolsNav";
+import { getDailyChallenge } from "../lib/dailyChallenge";
+import { getDailyCreature } from "../lib/dailyCreature";
 import {
   getDayOfYear,
   getTotalDaysInYear,
@@ -33,6 +34,8 @@ export default function Home() {
   const progress = getYearProgressPercent(now);
   const quarter = getQuarter(now);
   const daysUntilWeekend = getDaysUntilWeekend(now);
+
+  const creature = getDailyCreature(now);
   const challenge = getDailyChallenge(now);
 
   return (
@@ -84,6 +87,20 @@ export default function Home() {
               className="bg-blue-600 h-3 rounded-full"
               style={{ width: `${progress}%` }}
             />
+          </div>
+        </div>
+
+        <div className="mt-12 border-t border-neutral-200 pt-6">
+          <p className="text-xs uppercase tracking-wide text-neutral-500 mb-2">
+            Creature of the day
+          </p>
+
+          <div className="flex items-center gap-4">
+            <span className="text-4xl">{creature.emoji}</span>
+            <div>
+              <p className="text-sm font-medium">{creature.name}</p>
+              <p className="text-sm text-neutral-600">{creature.vibe}</p>
+            </div>
           </div>
         </div>
 
