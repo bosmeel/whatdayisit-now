@@ -1,6 +1,6 @@
+import CreatureWidget from "../components/CreatureWidget";
 import ToolsNav from "../components/ToolsNav";
 import { getDailyChallenge } from "../lib/dailyChallenge";
-import { getDailyCreature } from "../lib/dailyCreature";
 import {
   getDayOfYear,
   getTotalDaysInYear,
@@ -34,9 +34,8 @@ export default function Home() {
   const progress = getYearProgressPercent(now);
   const quarter = getQuarter(now);
   const daysUntilWeekend = getDaysUntilWeekend(now);
-
-  const creature = getDailyCreature(now);
   const challenge = getDailyChallenge(now);
+  const isoDate = now.toISOString().slice(0, 10);
 
   return (
     <main className="min-h-screen bg-white text-neutral-900 px-6 py-12">
@@ -89,22 +88,8 @@ export default function Home() {
             />
           </div>
         </div>
-
-        <div className="mt-12 border-t border-neutral-200 pt-6">
-          <p className="text-xs uppercase tracking-wide text-neutral-500 mb-2">
-            Creature of the day
-          </p>
-
-          <div className="flex items-center gap-4">
-            <span className="text-4xl">{creature.emoji}</span>
-            <div>
-              <p className="text-sm font-medium">{creature.name}</p>
-              <p className="text-sm text-neutral-600">{creature.vibe}</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-12 border-t border-neutral-200 pt-6">
+        <CreatureWidget isoDate={isoDate} />
+                <div className="mt-12 border-t border-neutral-200 pt-6">
           <p className="text-xs uppercase tracking-wide text-neutral-500 mb-2">
             Today’s tiny challenge
           </p>
