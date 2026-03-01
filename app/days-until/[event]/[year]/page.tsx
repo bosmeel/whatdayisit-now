@@ -8,16 +8,13 @@ export async function generateMetadata(
 ) {
   const { event, year } = await params;
   const numericYear = Number(year);
-
   const eventData = EVENTS[event];
-  if (!eventData) return {};
 
-  const title = `How many days until ${eventData.name} ${numericYear}?`;
-  const description = `Live countdown showing how many days are left until ${eventData.name} ${numericYear}.`;
+  if (!eventData || Number.isNaN(numericYear)) return {};
 
   return {
-    title,
-    description,
+    title: `How many days until ${eventData.name} ${numericYear}?`,
+    description: `Live countdown showing how many days are left until ${eventData.name} ${numericYear}.`,
     alternates: {
       canonical: `/days-until/${event}/${numericYear}`,
     },
@@ -27,7 +24,6 @@ export async function generateMetadata(
 function getDaysUntil(year: number, month: number, day: number) {
   const now = new Date();
   const target = new Date(year, month - 1, day);
-
   const diff = target.getTime() - now.getTime();
   return Math.ceil(diff / (1000 * 60 * 60 * 24));
 }
@@ -36,7 +32,6 @@ export default async function DaysUntilYearPage(
   { params }: { params: Promise<{ event: string; year: string }> }
 ) {
   const { event, year } = await params;
-
   const numericYear = Number(year);
   const eventData = EVENTS[event];
 
@@ -54,8 +49,22 @@ export default async function DaysUntilYearPage(
     eventData.day
   );
 
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: `${eventData.name} ${numericYear}`,
+    startDate: `${numericYear}-${String(eventData.month).padStart(2, "0")}-${String(eventData.day).padStart(2, "0")}`,
+    eventStatus: "https://schema.org/EventScheduled",
+    description: `Countdown to ${eventData.name} ${numericYear}`,
+  };
+
   return (
     <main className="min-h-screen bg-white text-neutral-900 px-6 py-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
+
       <div className="max-w-3xl mx-auto">
 
         <nav className="text-sm text-neutral-500 mb-4">
@@ -77,15 +86,6 @@ export default async function DaysUntilYearPage(
         <p className="text-xl mb-6">
           There are <strong>{daysLeft}</strong> days until {eventData.name} {numericYear}.
         </p>
-
-        <div className="mt-8">
-          <Link
-            href={`/days-until/${event}`}
-            className="underline"
-          >
-            View recurring countdown
-          </Link>
-        </div>
 
       </div>
     </main>
