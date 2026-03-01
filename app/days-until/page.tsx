@@ -1,39 +1,42 @@
 import Link from "next/link";
 import { EVENTS } from "@/lib/events";
 
-export const dynamic = "force-dynamic";
-
 export const metadata = {
-  title: "Days Until Calculator – Countdown to Popular Events",
+  title: "Days Until Calculator – All Countdown Events",
   description:
-    "Live countdown tools showing how many days remain until major holidays and events.",
+    "Browse all popular countdowns. See how many days until Christmas, Halloween, New Year and dozens of other events.",
+  alternates: { canonical: "/days-until" },
 };
 
-export default function DaysUntilHub() {
-  const events = Object.entries(EVENTS);
+export default function DaysUntilIndex() {
+  const sortedEvents = Object.entries(EVENTS).sort((a, b) =>
+    a[1].name.localeCompare(b[1].name)
+  );
 
   return (
     <main className="min-h-screen bg-white text-neutral-900 px-6 py-12">
-      <div className="max-w-3xl mx-auto">
-
+      <div className="max-w-4xl mx-auto">
         <h1 className="text-4xl font-semibold mb-6">
-          Days Until – Event Countdowns
+          Days Until – Popular Countdowns
         </h1>
 
-        <p className="mb-8 text-neutral-700">
-          Track how many days remain until popular holidays and important dates.
+        <p className="text-neutral-600 mb-8">
+          Select an event to see how many days are left.
         </p>
 
-        <ul className="space-y-3 text-blue-600">
-          {events.map(([slug, config]) => (
-            <li key={slug}>
-              <Link href={`/days-until/${slug}`} className="underline">
-                How many days until {config.name}?
-              </Link>
-            </li>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {sortedEvents.map(([slug, event]) => (
+            <Link
+              key={slug}
+              href={`/days-until/${slug}`}
+              className="border rounded-lg p-4 hover:bg-neutral-50 transition"
+            >
+              <p className="font-medium text-blue-600">
+                Days until {event.name}
+              </p>
+            </Link>
           ))}
-        </ul>
-
+        </div>
       </div>
     </main>
   );
