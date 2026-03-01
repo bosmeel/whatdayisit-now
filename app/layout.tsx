@@ -1,36 +1,29 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: {
-    default: "What Day Is It? | Daily Calendar Overview",
-    template: "%s | What Day Is It?",
-  },
-  description:
-    "Instant daily calendar overview: current day, week number, day of year, year progress, days left and more.",
+  metadataBase: new URL("https://whatdayisit.now"),
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
+      <head>
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+      </head>
       <body className="bg-white text-neutral-900 antialiased">
-  {children}
-</body>
+        {children}
+      </body>
     </html>
   );
 }

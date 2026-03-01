@@ -1,5 +1,6 @@
 import CreatureWidget from "../components/CreatureWidget";
 import ToolsNav from "../components/ToolsNav";
+import Link from "next/link";
 import { getDailyChallenge } from "../lib/dailyChallenge";
 import {
   getDayOfYear,
@@ -12,9 +13,22 @@ import {
 } from "../lib/date";
 
 export const metadata = {
-  title: "What day is it today?",
+  title: "What day is it today? Live date, week number & year progress",
   description:
-    "See today’s date, week number, day of year, year progress and days left in the year instantly.",
+    "See today's date, week number, day of year, year progress and days left in the year. Updated live.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "What day is it today?",
+    description:
+      "Live dashboard with date, week number, year progress and daily challenge.",
+    url: "/",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 
 export default function Home() {
@@ -65,9 +79,19 @@ export default function Home() {
           </div>
 
           <div>
-            <p className="text-neutral-500">Days left this year</p>
-            <p className="text-lg font-medium">{daysLeft}</p>
-          </div>
+  <p className="text-neutral-500">Days left this year</p>
+  <p className="text-lg font-medium">{daysLeft}</p>
+
+  <p className="text-sm mt-2">
+    Curious about other years?{" "}
+    <Link
+      href={`/how-many-days-left-in/${new Date().getFullYear() + 1}`}
+      className="underline"
+    >
+      See next year
+    </Link>
+  </p>
+</div>
 
           <div>
             <p className="text-neutral-500">Days until weekend</p>
@@ -100,6 +124,19 @@ export default function Home() {
           <ToolsNav />
         </div>
       </div>
+      <div className="mt-12 border-t pt-8">
+  <h2 className="text-xl font-semibold mb-4">
+    Popular countdowns
+  </h2>
+
+  <ul className="space-y-2 text-blue-600">
+    <li><Link href="/days-until/christmas">Days until Christmas</Link></li>
+    <li><Link href="/days-until/new-year">Days until New Year</Link></li>
+    <li><Link href="/days-until/halloween">Days until Halloween</Link></li>
+    <li><Link href="/days-until/thanksgiving">Days until Thanksgiving</Link></li>
+    <li><Link href="/days-until/valentines-day">Days until Valentine's Day</Link></li>
+  </ul>
+</div>
     </main>
   );
 }

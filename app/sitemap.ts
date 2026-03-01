@@ -1,43 +1,31 @@
-import { MetadataRoute } from "next";
+import { EVENTS } from "@/lib/events";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default function sitemap() {
   const baseUrl = "https://whatdayisit.now";
+  const now = new Date();
 
-  const staticPages = [
+  // Core pages
+  const coreRoutes = [
     "",
-    "/week-number",
-    "/day-of-year",
-    "/days-left-in-year",
-    "/year-progress",
-    "/days-until-weekend",
+    "/days-until",
+    "/how-many-days-left-in/2025",
+    "/how-many-weeks-left-in/2025",
   ];
 
-  const staticUrls = staticPages.map((path) => ({
-    url: `${baseUrl}${path}`,
-    lastModified: new Date(),
+  const core = coreRoutes.map((route) => ({
+    url: `${baseUrl}${route}`,
+    lastModified: now,
+    changeFrequency: "daily" as const,
+    priority: route === "" ? 1 : 0.8,
   }));
 
-  // Generate date pages (2000–2035)
-  const startYear = 2000;
-  const endYear = 2035;
+  // Event pages
+  const events = Object.keys(EVENTS).map((slug) => ({
+    url: `${baseUrl}/days-until/${slug}`,
+    lastModified: now,
+    changeFrequency: "daily" as const,
+    priority: 0.7,
+  }));
 
-  const dateUrls: MetadataRoute.Sitemap = [];
-
-  for (let year = startYear; year <= endYear; year++) {
-    for (let month = 0; month < 12; month++) {
-      const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-      for (let day = 1; day <= daysInMonth; day++) {
-        const date = new Date(year, month, day);
-        const slug = date.toISOString().split("T")[0];
-
-        dateUrls.push({
-          url: `${baseUrl}/date/${slug}`,
-          lastModified: new Date(),
-        });
-      }
-    }
-  }
-
-  return [...staticUrls, ...dateUrls];
+  return [...core, ...events];
 }
