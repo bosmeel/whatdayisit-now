@@ -23,7 +23,7 @@ export default function DaysUntilIndex() {
         <p className="text-neutral-600 mb-8">
           Select an event to see how many days are left.
         </p>
-
+        
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {sortedEvents.map(([slug, event]) => (
             <Link
@@ -34,6 +34,7 @@ export default function DaysUntilIndex() {
               <p className="font-medium text-blue-600">
                 Days until {event.name}
               </p>
+        
             </Link>
           ))}
         </div>
