@@ -123,12 +123,16 @@ export default function Home() {
           </h2>
 
           <ul className="space-y-2 text-blue-600">
-            <li><Link href="/days-until/christmas">Days until Christmas</Link></li>
-            <li><Link href="/days-until/new-year">Days until New Year</Link></li>
-            <li><Link href="/days-until/halloween">Days until Halloween</Link></li>
-            <li><Link href="/days-until/thanksgiving">Days until Thanksgiving</Link></li>
-            <li><Link href="/days-until/valentines-day">Days until Valentine's Day</Link></li>
-          </ul>
+  {Object.entries(require("@/lib/events").EVENTS)
+    .slice(0, 10)
+    .map(([slug, event]: any) => (
+      <li key={slug}>
+        <Link href={`/days-until/${slug}`}>
+          Days until {event.name}
+        </Link>
+      </li>
+    ))}
+</ul>
         </section>
 
         <section className="mt-12 border-t pt-8">
