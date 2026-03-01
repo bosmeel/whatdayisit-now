@@ -15,19 +15,14 @@ import {
 export const metadata = {
   title: "What day is it today? Live date, week number & year progress",
   description:
-    "See today's date, week number, day of year, year progress and days left in the year. Updated live.",
-  alternates: {
-    canonical: "/",
-  },
+    "Find out what day it is today. See the full date, week number, day of year, year progress and popular countdowns. Updated live.",
+  alternates: { canonical: "/" },
   openGraph: {
     title: "What day is it today?",
     description:
-      "Live dashboard with date, week number, year progress and daily challenge.",
+      "Live dashboard with today's date, week number, year progress and countdown tools.",
     url: "/",
     type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
   },
 };
 
@@ -54,13 +49,14 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-white text-neutral-900 px-6 py-12">
       <div className="max-w-3xl mx-auto">
-        <div className="mb-10">
+
+        <header className="mb-10">
           <p className="text-sm text-neutral-500 mb-2">Today is</p>
           <h1 className="text-5xl font-semibold mb-2">{dayName}</h1>
           <p className="text-lg text-neutral-600">{fullDate}</p>
-        </div>
+        </header>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
+        <section className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
           <div>
             <p className="text-neutral-500">Week number</p>
             <p className="text-lg font-medium">{weekNumber}</p>
@@ -79,19 +75,18 @@ export default function Home() {
           </div>
 
           <div>
-  <p className="text-neutral-500">Days left this year</p>
-  <p className="text-lg font-medium">{daysLeft}</p>
+            <p className="text-neutral-500">Days left this year</p>
+            <p className="text-lg font-medium">{daysLeft}</p>
 
-  <p className="text-sm mt-2">
-    Curious about other years?{" "}
-    <Link
-      href={`/how-many-days-left-in/${new Date().getFullYear() + 1}`}
-      className="underline"
-    >
-      See next year
-    </Link>
-  </p>
-</div>
+            <p className="text-sm mt-2">
+              <Link
+                href={`/how-many-days-left-in/${now.getFullYear()}`}
+                className="underline"
+              >
+                View detailed year page
+              </Link>
+            </p>
+          </div>
 
           <div>
             <p className="text-neutral-500">Days until weekend</p>
@@ -102,7 +97,7 @@ export default function Home() {
             <p className="text-neutral-500">Quarter</p>
             <p className="text-lg font-medium">{quarter}</p>
           </div>
-        </div>
+        </section>
 
         <div className="mt-10">
           <div className="w-full bg-neutral-200 h-3 rounded-full">
@@ -112,31 +107,59 @@ export default function Home() {
             />
           </div>
         </div>
+
         <CreatureWidget isoDate={isoDate} />
-                <div className="mt-12 border-t border-neutral-200 pt-6">
+
+        <section className="mt-12 border-t border-neutral-200 pt-6">
           <p className="text-xs uppercase tracking-wide text-neutral-500 mb-2">
             Today’s tiny challenge
           </p>
           <p className="text-sm text-neutral-700">{challenge}</p>
-        </div>
+        </section>
+
+        <section className="mt-12 border-t pt-8">
+          <h2 className="text-xl font-semibold mb-4">
+            Popular countdowns
+          </h2>
+
+          <ul className="space-y-2 text-blue-600">
+            <li><Link href="/days-until/christmas">Days until Christmas</Link></li>
+            <li><Link href="/days-until/new-year">Days until New Year</Link></li>
+            <li><Link href="/days-until/halloween">Days until Halloween</Link></li>
+            <li><Link href="/days-until/thanksgiving">Days until Thanksgiving</Link></li>
+            <li><Link href="/days-until/valentines-day">Days until Valentine's Day</Link></li>
+          </ul>
+        </section>
+
+        <section className="mt-12 border-t pt-8">
+          <h2 className="text-xl font-semibold mb-4">
+            Countdown tools
+          </h2>
+
+          <ul className="space-y-2 text-blue-600">
+            <li>
+              <Link href="/days-until" className="underline">
+                Days until any event
+              </Link>
+            </li>
+            <li>
+              <Link href={`/how-many-days-left-in/${now.getFullYear()}`} className="underline">
+                How many days are left this year?
+              </Link>
+            </li>
+            <li>
+              <Link href={`/how-many-weeks-left-in/${now.getFullYear()}`} className="underline">
+                How many weeks are left this year?
+              </Link>
+            </li>
+          </ul>
+        </section>
 
         <div className="mt-10">
           <ToolsNav />
         </div>
-      </div>
-      <div className="mt-12 border-t pt-8">
-  <h2 className="text-xl font-semibold mb-4">
-    Popular countdowns
-  </h2>
 
-  <ul className="space-y-2 text-blue-600">
-    <li><Link href="/days-until/christmas">Days until Christmas</Link></li>
-    <li><Link href="/days-until/new-year">Days until New Year</Link></li>
-    <li><Link href="/days-until/halloween">Days until Halloween</Link></li>
-    <li><Link href="/days-until/thanksgiving">Days until Thanksgiving</Link></li>
-    <li><Link href="/days-until/valentines-day">Days until Valentine's Day</Link></li>
-  </ul>
-</div>
+      </div>
     </main>
   );
 }
