@@ -2,30 +2,35 @@ import { EVENTS } from "@/lib/events";
 
 export default function sitemap() {
   const baseUrl = "https://whatdayisit.now";
-  const now = new Date();
+  const currentYear = new Date().getFullYear();
 
-  // Core pages
-  const coreRoutes = [
+  const staticRoutes = [
     "",
     "/days-until",
-    "/how-many-days-left-in/2025",
-    "/how-many-weeks-left-in/2025",
+    `/how-many-days-left-in/${currentYear}`,
+    `/how-many-weeks-left-in/${currentYear}`,
   ];
 
-  const core = coreRoutes.map((route) => ({
-    url: `${baseUrl}${route}`,
-    lastModified: now,
-    changeFrequency: "daily" as const,
-    priority: route === "" ? 1 : 0.8,
-  }));
+  const eventRoutes = Object.keys(EVENTS).flatMap((slug) => [
+    {
+      url: `${baseUrl}/days-until/${slug}`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/days-until/${slug}/${currentYear}`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/days-until/${slug}/${currentYear + 1}`,
+      lastModified: new Date(),
+    },
+  ]);
 
-  // Event pages
-  const events = Object.keys(EVENTS).map((slug) => ({
-    url: `${baseUrl}/days-until/${slug}`,
-    lastModified: now,
-    changeFrequency: "daily" as const,
-    priority: 0.7,
-  }));
-
-  return [...core, ...events];
+  return [
+    ...staticRoutes.map((route) => ({
+      url: `${baseUrl}${route}`,
+      lastModified: new Date(),
+    })),
+    ...eventRoutes,
+  ];
 }
