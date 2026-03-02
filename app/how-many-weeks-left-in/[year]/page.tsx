@@ -94,7 +94,6 @@ export default async function WeeksLeftPage(
             })}
           </div>
         </div>
-
       </div>
     </main>
   );
