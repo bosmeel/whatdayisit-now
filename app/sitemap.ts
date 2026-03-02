@@ -30,6 +30,20 @@ export default function sitemap() {
     return [baseEvent, ...yearVariants];
   });
 
+  // NEW: month/day routes (372 URLs)
+  const monthDayRoutes = [];
+
+  for (let month = 1; month <= 12; month++) {
+    for (let day = 1; day <= 31; day++) {
+      monthDayRoutes.push({
+        url: `${baseUrl}/days-until-date/${month}/${day}`,
+        lastModified: now,
+        changefreq: "daily" as const,
+        priority: 0.5,
+      });
+    }
+  }
+
   return [
     ...staticRoutes.map((route, index) => ({
       url: `${baseUrl}${route}`,
@@ -38,5 +52,6 @@ export default function sitemap() {
       priority: index === 0 ? 1 : 0.8,
     })),
     ...eventRoutes,
+    ...monthDayRoutes,
   ];
 }
