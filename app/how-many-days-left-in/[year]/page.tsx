@@ -80,6 +80,29 @@ export default async function DaysLeftPage(
             for full date information.
           </p>
         </div>
+
+        {/* Expanded year linking */}
+        <div className="mt-10">
+          <h2 className="text-lg font-semibold mb-3">Other years</h2>
+
+          <div className="flex flex-wrap gap-3 text-sm text-blue-600">
+            {Array.from({ length: 10 }).map((_, i) => {
+              const year = numericYear - 5 + i;
+              if (year < 1900 || year > 2100) return null;
+
+              return (
+                <Link
+                  key={year}
+                  href={`/how-many-days-left-in/${year}`}
+                  className="underline"
+                >
+                  {year}
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+
       </div>
     </main>
   );
