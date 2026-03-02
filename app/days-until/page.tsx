@@ -23,7 +23,7 @@ export default function DaysUntilIndex() {
         <p className="text-neutral-600 mb-8">
           Select an event to see how many days are left.
         </p>
-        
+
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {sortedEvents.map(([slug, event]) => (
             <Link
@@ -34,9 +34,30 @@ export default function DaysUntilIndex() {
               <p className="font-medium text-blue-600">
                 Days until {event.name}
               </p>
-        
             </Link>
           ))}
+        </div>
+
+        <div className="mt-12 prose max-w-none text-neutral-700">
+          <h2>All event countdowns</h2>
+
+          <p>
+            This page lists all available countdowns for major holidays,
+            cultural events, retail milestones, and seasonal dates.
+            Each countdown updates automatically and always points to
+            the next upcoming occurrence.
+          </p>
+
+          <p>
+            These countdown tools help with planning travel, preparing
+            celebrations, organizing shopping periods, or tracking
+            important annual milestones.
+          </p>
+
+          <p>
+            You can explore individual event pages for more details
+            and year-specific countdown variations.
+          </p>
         </div>
       </div>
     </main>
