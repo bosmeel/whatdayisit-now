@@ -37,20 +37,18 @@ export default async function WeeksLeftPage(
     <main className="min-h-screen bg-white text-neutral-900 px-6 py-12">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
       <div className="max-w-3xl mx-auto">
         <nav className="text-sm text-neutral-500 mb-4">
           <Link href="/" className="underline">Home</Link>
           {" > "}
-          <Link href="/how-many-weeks-left-in" className="underline">
-            Weeks left
-          </Link>
+          <span>Weeks left</span>
           {" > "}
           <span>{numericYear}</span>
         </nav>
@@ -65,8 +63,8 @@ export default async function WeeksLeftPage(
 
         <div className="prose max-w-none text-neutral-700">
           <p>
-            This page automatically calculates how many weeks remain in{" "}
-            {numericYear}. The number updates daily based on the current date.
+            This page automatically calculates how many weeks remain
+            in {numericYear}. The number updates daily based on the current date.
           </p>
 
           <p>
@@ -75,29 +73,28 @@ export default async function WeeksLeftPage(
           </p>
         </div>
 
-        <div className="mt-8 text-sm text-neutral-600">
-          <p className="mb-2 font-medium">Other years:</p>
+        {/* Expanded year linking */}
+        <div className="mt-10">
+          <h2 className="text-lg font-semibold mb-3">Other years</h2>
 
-          <div className="flex gap-4 flex-wrap">
-            {numericYear > 1900 && (
-              <Link
-                href={`/how-many-weeks-left-in/${numericYear - 1}`}
-                className="underline"
-              >
-                {numericYear - 1}
-              </Link>
-            )}
+          <div className="flex flex-wrap gap-3 text-sm text-blue-600">
+            {Array.from({ length: 10 }).map((_, i) => {
+              const year = numericYear - 5 + i;
+              if (year < 1900 || year > 2100) return null;
 
-            {numericYear < 2100 && (
-              <Link
-                href={`/how-many-weeks-left-in/${numericYear + 1}`}
-                className="underline"
-              >
-                {numericYear + 1}
-              </Link>
-            )}
+              return (
+                <Link
+                  key={year}
+                  href={`/how-many-weeks-left-in/${year}`}
+                  className="underline"
+                >
+                  {year}
+                </Link>
+              );
+            })}
           </div>
         </div>
+
       </div>
     </main>
   );
