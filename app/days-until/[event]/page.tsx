@@ -84,7 +84,26 @@ export default async function DaysUntilPage(
             <li><Link href="/days-until/valentines-day">Days until Valentine's Day</Link></li>
           </ul>
         </div>
+<div className="mt-10 prose max-w-none text-neutral-700">
+  <h2>About this countdown</h2>
 
+  <p>
+    This countdown shows how many days remain until the selected event.
+    The calculation automatically adjusts each year and always counts
+    forward to the next upcoming date.
+  </p>
+
+  <p>
+    Many people use countdowns to plan holidays, prepare celebrations,
+    schedule travel, organize shopping, or simply track important
+    milestones throughout the year.
+  </p>
+
+  <p>
+    As the date approaches, the remaining number of days updates daily,
+    making this page a reliable reference for planning and anticipation.
+  </p>
+</div>
       </div>
     </main>
   );
