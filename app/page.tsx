@@ -118,6 +118,15 @@ export default function Home() {
         </section>
 
         <section className="mt-12 border-t pt-8">
+
+          <div className="mb-6">
+  <Link
+    href="/days-until"
+    className="inline-block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
+  >
+    View All Countdown Events
+  </Link>
+</div>
           <h2 className="text-xl font-semibold mb-4">
             Popular countdowns
           </h2>
