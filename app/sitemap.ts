@@ -2,62 +2,41 @@ import { EVENTS } from "@/lib/events";
 
 export default function sitemap() {
   const baseUrl = "https://whatdayisit.now";
-  const currentYear = new Date().getFullYear();
+  const now = new Date();
+  const currentYear = now.getFullYear();
 
-  const urls: {
-    url: string;
-    lastModified: Date;
-  }[] = [];
+  const staticRoutes = [
+    "",
+    "/days-until",
+    `/how-many-days-left-in/${currentYear}`,
+    `/how-many-weeks-left-in/${currentYear}`,
+  ];
 
-  // Homepage
-  urls.push({
-    url: `${baseUrl}`,
-    lastModified: new Date(),
-  });
-
-  // Core pages
-  urls.push({
-    url: `${baseUrl}/days-until`,
-    lastModified: new Date(),
-  });
-
-  urls.push({
-    url: `${baseUrl}/how-many-days-left-in/${currentYear}`,
-    lastModified: new Date(),
-  });
-
-  urls.push({
-    url: `${baseUrl}/how-many-weeks-left-in/${currentYear}`,
-    lastModified: new Date(),
-  });
-
-  // Event pages + year pages
-  Object.keys(EVENTS).forEach((slug) => {
-    urls.push({
+  const eventRoutes = Object.keys(EVENTS).flatMap((slug) => {
+    const baseEvent = {
       url: `${baseUrl}/days-until/${slug}`,
-      lastModified: new Date(),
-    });
+      lastModified: now,
+      changefreq: "daily" as const,
+      priority: 0.7,
+    };
 
-    urls.push({
-      url: `${baseUrl}/days-until/${slug}/${currentYear}`,
-      lastModified: new Date(),
-    });
+    const yearVariants = Array.from({ length: 6 }).map((_, i) => ({
+      url: `${baseUrl}/days-until/${slug}/${currentYear + i}`,
+      lastModified: now,
+      changefreq: "daily" as const,
+      priority: 0.6,
+    }));
 
-    urls.push({
-      url: `${baseUrl}/days-until/${slug}/${currentYear + 1}`,
-      lastModified: new Date(),
-    });
+    return [baseEvent, ...yearVariants];
   });
 
-  // 365 static month/day pages
-  for (let month = 1; month <= 12; month++) {
-    for (let day = 1; day <= 31; day++) {
-      urls.push({
-        url: `${baseUrl}/days-until-date/${month}/${day}`,
-        lastModified: new Date(),
-      });
-    }
-  }
-
-  return urls;
+  return [
+    ...staticRoutes.map((route, index) => ({
+      url: `${baseUrl}${route}`,
+      lastModified: now,
+      changefreq: "daily" as const,
+      priority: index === 0 ? 1 : 0.8,
+    })),
+    ...eventRoutes,
+  ];
 }
