@@ -53,21 +53,23 @@ export default async function DaysUntilPage(
           There are <strong>{daysLeft}</strong> days until {eventData.name}.
         </p>
 
-        <div className="mt-6 border-t pt-6">
-          <p className="mb-2 font-medium">Other years:</p>
+        {/* Expanded year links */}
+        <div className="mt-10">
+          <h2 className="text-lg font-semibold mb-3">Other years</h2>
 
-          <div className="flex gap-4 flex-wrap text-blue-600">
-            <Link href={`/days-until/${event}/${currentYear}`}>
-              {currentYear}
-            </Link>
-
-            <Link href={`/days-until/${event}/${currentYear + 1}`}>
-              {currentYear + 1}
-            </Link>
-
-            <Link href={`/days-until/${event}/${currentYear + 2}`}>
-              {currentYear + 2}
-            </Link>
+          <div className="flex flex-wrap gap-3 text-sm text-blue-600">
+            {Array.from({ length: 6 }).map((_, i) => {
+              const year = currentYear + i;
+              return (
+                <Link
+                  key={year}
+                  href={`/days-until/${event}/${year}`}
+                  className="underline"
+                >
+                  {year}
+                </Link>
+              );
+            })}
           </div>
         </div>
 
@@ -84,26 +86,27 @@ export default async function DaysUntilPage(
             <li><Link href="/days-until/valentines-day">Days until Valentine's Day</Link></li>
           </ul>
         </div>
-<div className="mt-10 prose max-w-none text-neutral-700">
-  <h2>About this countdown</h2>
 
-  <p>
-    This countdown shows how many days remain until the selected event.
-    The calculation automatically adjusts each year and always counts
-    forward to the next upcoming date.
-  </p>
+        <div className="mt-10 prose max-w-none text-neutral-700">
+          <h2>About this countdown</h2>
 
-  <p>
-    Many people use countdowns to plan holidays, prepare celebrations,
-    schedule travel, organize shopping, or simply track important
-    milestones throughout the year.
-  </p>
+          <p>
+            This countdown shows how many days remain until the selected event.
+            The calculation automatically adjusts each year and always counts
+            forward to the next upcoming date.
+          </p>
 
-  <p>
-    As the date approaches, the remaining number of days updates daily,
-    making this page a reliable reference for planning and anticipation.
-  </p>
-</div>
+          <p>
+            Many people use countdowns to plan holidays, prepare celebrations,
+            schedule travel, organize shopping, or simply track important
+            milestones throughout the year.
+          </p>
+
+          <p>
+            As the date approaches, the remaining number of days updates daily,
+            making this page a reliable reference for planning and anticipation.
+          </p>
+        </div>
       </div>
     </main>
   );
