@@ -162,7 +162,27 @@ export default function Home() {
         <div className="mt-10">
           <ToolsNav />
         </div>
+<div className="mt-12 prose max-w-none text-neutral-700">
+  <h2>About this site</h2>
 
+  <p>
+    WhatDayIsIt.now is a live date dashboard that shows today's date,
+    week number, day of year, quarter, and year progress in real time.
+    It also provides countdown tools for holidays, events, and important
+    calendar dates.
+  </p>
+
+  <p>
+    Whether you're planning for Christmas, tracking tax deadlines,
+    preparing for seasonal events, or simply checking how many days are
+    left in the year, this site updates automatically every day.
+  </p>
+
+  <p>
+    All calculations are based on the current date and are designed to
+    give accurate and easy-to-read results without clutter.
+  </p>
+</div>
       </div>
     </main>
   );
