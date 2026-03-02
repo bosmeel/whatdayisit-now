@@ -66,6 +66,19 @@ export default async function DaysUntilDatePage({
         <p className="text-xl mb-6">
           There are <strong>{days}</strong> days until {targetDate}.
         </p>
+        <div className="mt-8 border-t pt-6">
+  <h2 className="text-lg font-semibold mb-3">
+    Popular countdowns
+  </h2>
+
+  <ul className="space-y-2 text-blue-600">
+    <li><Link href="/days-until/christmas">Days until Christmas</Link></li>
+    <li><Link href="/days-until/new-year">Days until New Year</Link></li>
+    <li><Link href="/days-until/halloween">Days until Halloween</Link></li>
+    <li><Link href="/days-until/thanksgiving">Days until Thanksgiving</Link></li>
+    <li><Link href="/days-until/valentines-day">Days until Valentine's Day</Link></li>
+  </ul>
+</div>
       </div>
     </main>
   );
