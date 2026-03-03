@@ -13,16 +13,11 @@ import {
 } from "../lib/date";
 
 export const metadata = {
-  title: "What day is it today? Live date, week number & year progress",
+  title: "What day is it today? Live date dashboard",
   description:
-    "Find out what day it is today. See the full date, week number, day of year, year progress and popular countdowns. Updated live.",
-  alternates: { canonical: "/" },
-  openGraph: {
-    title: "What day is it today?",
-    description:
-      "Live dashboard with today's date, week number, year progress and countdown tools.",
-    url: "/",
-    type: "website",
+    "Live date dashboard showing today's date, week number, day of year, year progress and countdown tools.",
+  alternates: {
+    canonical: "/",
   },
 };
 
@@ -47,179 +42,89 @@ export default function Home() {
   const isoDate = now.toISOString().slice(0, 10);
 
   return (
-    <main className="min-h-screen bg-white text-neutral-900 px-6 py-12">
-      <div className="max-w-3xl mx-auto">
+    <main className="min-h-screen bg-neutral-50 text-neutral-900 px-6 py-16">
+      <div className="max-w-5xl mx-auto">
 
-        <header className="mb-10">
-          <p className="text-sm text-neutral-500 mb-2">Today is</p>
-          <h1 className="text-5xl font-semibold mb-2">{dayName}</h1>
-          <p className="text-lg text-neutral-600">{fullDate}</p>
-        </header>
+        {/* HERO */}
+        <div className="mb-14 text-center">
+          <p className="text-sm tracking-wide text-neutral-500 uppercase">
+            Live Calendar Dashboard
+          </p>
+          <h1 className="text-6xl font-semibold mt-2 mb-3">
+            {dayName}
+          </h1>
+          <p className="text-lg text-neutral-600">
+            {fullDate}
+          </p>
+        </div>
 
-        <section className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
-          <div>
-            <p className="text-neutral-500">Week number</p>
-            <p className="text-lg font-medium">{weekNumber}</p>
-          </div>
+        {/* METRIC CARDS */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-14">
 
-          <div>
-            <p className="text-neutral-500">Day of year</p>
-            <p className="text-lg font-medium">
-              {dayOfYear} / {totalDays}
-            </p>
-          </div>
+          <Card label="Week Number" value={weekNumber} />
+          <Card label="Day of Year" value={`${dayOfYear} / ${totalDays}`} />
+          <Card label="Year Progress" value={`${progress}%`} />
+          <Card label="Days Left This Year" value={daysLeft} />
+          <Card label="Days Until Weekend" value={daysUntilWeekend} />
+          <Card label="Quarter" value={quarter} />
 
-          <div>
-            <p className="text-neutral-500">Year progress</p>
-            <p className="text-lg font-medium">{progress}%</p>
-          </div>
+        </div>
 
-          <div>
-            <p className="text-neutral-500">Days left this year</p>
-            <p className="text-lg font-medium">{daysLeft}</p>
-
-            <p className="text-sm mt-2">
-              <Link
-                href={`/how-many-days-left-in/${now.getFullYear()}`}
-                className="underline"
-              >
-                View detailed year page
-              </Link>
-            </p>
-          </div>
-
-          <div>
-            <p className="text-neutral-500">Days until weekend</p>
-            <p className="text-lg font-medium">{daysUntilWeekend}</p>
-          </div>
-
-          <div>
-            <p className="text-neutral-500">Quarter</p>
-            <p className="text-lg font-medium">{quarter}</p>
-          </div>
-        </section>
-
-        <div className="mt-10">
+        {/* PROGRESS BAR */}
+        <div className="mb-14">
           <div className="w-full bg-neutral-200 h-3 rounded-full">
             <div
-              className="bg-blue-600 h-3 rounded-full"
+              className="bg-indigo-600 h-3 rounded-full transition-all"
               style={{ width: `${progress}%` }}
             />
           </div>
         </div>
 
-        <CreatureWidget isoDate={isoDate} />
+        {/* CREATURE */}
+        <div className="mb-14 text-center">
+          <CreatureWidget isoDate={isoDate} />
+        </div>
 
-        <section className="mt-12 border-t border-neutral-200 pt-6">
+        {/* DAILY CHALLENGE */}
+        <div className="bg-white rounded-xl shadow-sm p-8 mb-14">
           <p className="text-xs uppercase tracking-wide text-neutral-500 mb-2">
-            Today’s tiny challenge
+            Today’s Tiny Challenge
           </p>
-          <p className="text-sm text-neutral-700">{challenge}</p>
-        </section>
+          <p className="text-neutral-700">{challenge}</p>
+        </div>
 
-        <section className="mt-12 border-t pt-8">
-
-          <div className="mb-6">
-  <Link
-    href="/days-until"
-    className="inline-block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
-  >
-    View All Countdown Events
-  </Link>
-</div>
-          <h2 className="text-xl font-semibold mb-4">
-            Popular countdowns
-          </h2>
-
-          <ul className="space-y-2 text-blue-600">
-  {Object.entries(require("@/lib/events").EVENTS)
-    .slice(0, 10)
-    .map(([slug, event]: any) => (
-      <li key={slug}>
-        <Link href={`/days-until/${slug}`}>
-          Days until {event.name}
-        </Link>
-      </li>
-    ))}
-</ul>
-        </section>
-
-        <section className="mt-12 border-t pt-8">
-          <h2 className="text-xl font-semibold mb-4">
-            Countdown tools
-          </h2>
-
-          <ul className="space-y-2 text-blue-600">
-            <li>
-              <Link href="/days-until" className="underline">
-                Days until any event
-              </Link>
-            </li>
-            <li>
-              <Link href={`/how-many-days-left-in/${now.getFullYear()}`} className="underline">
-                How many days are left this year?
-              </Link>
-            </li>
-            <li>
-              <Link href={`/how-many-weeks-left-in/${now.getFullYear()}`} className="underline">
-                How many weeks are left this year?
-              </Link>
-            </li>
-          </ul>
-        </section>
-
-        <div className="mt-10">
+        {/* NAVIGATION */}
+        <div className="mb-16">
           <ToolsNav />
         </div>
-<div className="mt-12 prose max-w-none text-neutral-700">
-  <h2>About this site</h2>
 
-  <p>
-    WhatDayIsIt.now is a live date dashboard that shows today's date,
-    week number, day of year, quarter, and year progress in real time.
-    It also provides countdown tools for holidays, events, and important
-    calendar dates.
-  </p>
+        {/* POPULAR COUNTDOWNS */}
+        <div>
+          <h2 className="text-xl font-semibold mb-4">
+            Popular Countdowns
+          </h2>
 
-  <p>
-    Whether you're planning for Christmas, tracking tax deadlines,
-    preparing for seasonal events, or simply checking how many days are
-    left in the year, this site updates automatically every day.
-  </p>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-indigo-600">
+            <li><Link href="/days-until/christmas">Days until Christmas</Link></li>
+            <li><Link href="/days-until/new-year">Days until New Year</Link></li>
+            <li><Link href="/days-until/halloween">Days until Halloween</Link></li>
+            <li><Link href="/days-until/thanksgiving">Days until Thanksgiving</Link></li>
+            <li><Link href="/days-until/valentines-day">Days until Valentine's Day</Link></li>
+            <li><Link href="/days-until/easter">Days until Easter</Link></li>
+          </ul>
+        </div>
 
-  <p>
-    All calculations are based on the current date and are designed to
-    give accurate and easy-to-read results without clutter.
-  </p>
-</div>
       </div>
-      <div className="mt-16 border-t pt-10">
-  <h2 className="text-2xl font-semibold mb-6">
-    Learn about calendars & date systems
-  </h2>
-
-  <div className="grid sm:grid-cols-2 gap-4 text-blue-600">
-    <Link href="/how-many-days-in-a-year" className="underline">
-      How many days are in a year?
-    </Link>
-
-    <Link href="/how-many-weeks-in-a-year" className="underline">
-      How many weeks are in a year?
-    </Link>
-
-    <Link href="/what-is-a-leap-year" className="underline">
-      What is a leap year?
-    </Link>
-
-    <Link href="/how-week-numbers-work" className="underline">
-      How week numbers work
-    </Link>
-
-    <Link href="/how-date-calculations-work" className="underline">
-      How date calculations work
-    </Link>
-  </div>
-</div>
     </main>
+  );
+}
+
+/* Reusable Card Component */
+function Card({ label, value }: { label: string; value: string | number }) {
+  return (
+    <div className="bg-white rounded-xl shadow-sm p-6">
+      <p className="text-sm text-neutral-500 mb-1">{label}</p>
+      <p className="text-2xl font-semibold text-neutral-900">{value}</p>
+    </div>
   );
 }
