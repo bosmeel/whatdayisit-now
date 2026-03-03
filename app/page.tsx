@@ -193,6 +193,33 @@ export default function Home() {
   </p>
 </div>
       </div>
+      <div className="mt-16 border-t pt-10">
+  <h2 className="text-2xl font-semibold mb-6">
+    Learn about calendars & date systems
+  </h2>
+
+  <div className="grid sm:grid-cols-2 gap-4 text-blue-600">
+    <Link href="/how-many-days-in-a-year" className="underline">
+      How many days are in a year?
+    </Link>
+
+    <Link href="/how-many-weeks-in-a-year" className="underline">
+      How many weeks are in a year?
+    </Link>
+
+    <Link href="/what-is-a-leap-year" className="underline">
+      What is a leap year?
+    </Link>
+
+    <Link href="/how-week-numbers-work" className="underline">
+      How week numbers work
+    </Link>
+
+    <Link href="/how-date-calculations-work" className="underline">
+      How date calculations work
+    </Link>
+  </div>
+</div>
     </main>
   );
 }
