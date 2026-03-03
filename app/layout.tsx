@@ -5,6 +5,9 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://whatdayisit.now"),
+  icons: {
+    icon: "/icon.svg",
+  },
 };
 
 export default function RootLayout({
