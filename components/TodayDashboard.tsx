@@ -98,7 +98,32 @@ export default function TodayDashboard() {
             <Link href="/date-calculators" className="hover:underline">All calculators</Link>
           </div>
         </div>
+<div className="mt-12 border-t pt-8">
+  <h2 className="text-xl font-semibold mb-4">
+    Popular date calculators
+  </h2>
 
+  <ul className="space-y-2 text-blue-600">
+    <li>
+      <Link href="/days-between">Days between dates</Link>
+    </li>
+    <li>
+      <Link href="/days-since">Days since date</Link>
+    </li>
+    <li>
+      <Link href="/days-until-date">Days until date</Link>
+    </li>
+    <li>
+      <Link href="/weeks-between">Weeks between dates</Link>
+    </li>
+    <li>
+      <Link href="/months-between">Months between dates</Link>
+    </li>
+    <li>
+      <Link href="/years-between">Years between dates</Link>
+    </li>
+  </ul>
+</div>
         <div className="mt-12 border-t pt-8">
           <h2 className="text-xl font-semibold mb-4">Popular countdowns</h2>
 
