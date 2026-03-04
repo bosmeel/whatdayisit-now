@@ -120,38 +120,6 @@ export default function Page() {
       </section>
 
       <section style={{ marginTop: 40 }}>
-        <h2>Popular comparisons</h2>
-
-        <ul>
-          <li>
-            <Link href="/days-between/today-and-christmas">
-              Days between today and Christmas
-            </Link>
-          </li>
-          <li>
-            <Link href="/days-between/today-and-new-year">
-              Days between today and New Year
-            </Link>
-          </li>
-          <li>
-            <Link href="/days-between/today-and-halloween">
-              Days between today and Halloween
-            </Link>
-          </li>
-          <li>
-            <Link href="/days-between/jan-1-and-dec-31">
-              Days between January 1 and December 31
-            </Link>
-          </li>
-          <li>
-            <Link href="/days-between/2020-and-2030">
-              Days between 2020 and 2030
-            </Link>
-          </li>
-        </ul>
-      </section>
-
-      <section style={{ marginTop: 40 }}>
         <h2>How the calculator works</h2>
 
         <p>
