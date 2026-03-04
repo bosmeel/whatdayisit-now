@@ -5,17 +5,37 @@ import { getDaysBetween, getWeeksBetween, getMonthsBetween, getYearsBetween } fr
 
 export const dynamic = "force-dynamic";
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const title = `Days between ${params.slug.replaceAll("-", " ")}`;
+export function generateMetadata({ params }: { params?: { slug?: string } }): Metadata {
+
+  const slug = params?.slug ?? "";
+
+  const title = slug
+    ? `Days between ${slug.replaceAll("-", " ")}`
+    : "Days between dates";
+
   return {
     title,
     description: "Calculate the number of days between two dates.",
-    alternates: { canonical: `/days-between/${params.slug}` },
+    alternates: { canonical: slug ? `/days-between/${slug}` : "/days-between" },
   };
 }
 
-export default function Page({ params }: { params: { slug: string } }) {
-  const parsed = parseBetweenSlug(params.slug);
+export default function Page({ params }: { params?: { slug?: string } }) {
+
+  const slug = params?.slug;
+
+  if (!slug) {
+    return (
+      <main style={{ maxWidth: 900, margin: "0 auto", padding: "24px 16px" }}>
+        <h1 style={{ fontSize: 32, fontWeight: 800 }}>Invalid comparison</h1>
+        <p style={{ marginTop: 10 }}>
+          <Link href="/days-between">Go to days between calculator</Link>
+        </p>
+      </main>
+    );
+  }
+
+  const parsed = parseBetweenSlug(slug);
 
   if (!parsed) {
     return (
@@ -30,6 +50,7 @@ export default function Page({ params }: { params: { slug: string } }) {
   }
 
   const { date1, date2 } = parsed;
+
   const days = getDaysBetween(date1, date2);
   const weeks = getWeeksBetween(date1, date2);
   const months = getMonthsBetween(date1, date2);
@@ -40,7 +61,11 @@ export default function Page({ params }: { params: { slug: string } }) {
 
   return (
     <main style={{ maxWidth: 900, margin: "0 auto", padding: "24px 16px" }}>
-      <h1 style={{ fontSize: 36, fontWeight: 800 }}>Days between {label1} and {label2}</h1>
+
+      <h1 style={{ fontSize: 36, fontWeight: 800 }}>
+        Days between {label1} and {label2}
+      </h1>
+
       <p style={{ marginTop: 10, lineHeight: 1.6 }}>
         There are <strong>{days}</strong> days between {label1} and {label2}.
       </p>
@@ -60,6 +85,7 @@ export default function Page({ params }: { params: { slug: string } }) {
       <p style={{ marginTop: 10 }}>
         <Link href="/date-calculators">All date calculators</Link>
       </p>
+
     </main>
   );
 }
