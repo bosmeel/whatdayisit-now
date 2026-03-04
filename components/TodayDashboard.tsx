@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import ToolsNav from "./ToolsNav";
+import CreatureWidget from "./CreatureWidget";
+
 import {
   getDayOfYear,
   getTotalDaysInYear,
@@ -93,6 +95,11 @@ export default function TodayDashboard() {
         {/* Tools navigation */}
         <div className="mt-12">
           <ToolsNav />
+        </div>
+
+        {/* Daily widget */}
+        <div className="mt-12">
+          <CreatureWidget />
         </div>
 
         {/* Popular calculators */}
