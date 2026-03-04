@@ -81,3 +81,26 @@ display:flex;
 gap:20px;
 justify-content:center;
 }
+.tool-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:16px;
+}
+
+.tool-card{
+display:block;
+padding:18px;
+border:1px solid #e5e5e5;
+border-radius:8px;
+background:white;
+text-decoration:none;
+color:#222;
+font-weight:500;
+transition:all .15s ease;
+}
+
+.tool-card:hover{
+border-color:#bbb;
+box-shadow:0 4px 10px rgba(0,0,0,0.05);
+transform:translateY(-2px);
+}
