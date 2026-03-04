@@ -25,10 +25,10 @@ export default function sitemap() {
     "/day-of-year",
     "/days-left-in-year",
     "/how-many-days-in-a-year",
-
+"/year-progress"
     `/how-many-days-left-in/${currentYear}`,
     `/how-many-weeks-left-in/${currentYear}`,
-  ];
+      ];
 
   const eventRoutes = Object.keys(EVENTS).flatMap((slug) => {
     const baseEvent = {
