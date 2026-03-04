@@ -1,4 +1,6 @@
 import Link from "next/link";
+import DateCalculatorsLink from "@/components/DateCalculatorsLink";
+import RelatedDateTools from "@/components/RelatedDateTools";
 
 export const metadata = {
   title: "How many days are in a year? (365 or 366) – Quick explanation",
@@ -150,6 +152,10 @@ export default function HowManyDaysInAYearPage() {
           </ul>
         </div>
       </div>
+
+      <RelatedDateTools />
+
+      <DateCalculatorsLink />
     </main>
   );
 }

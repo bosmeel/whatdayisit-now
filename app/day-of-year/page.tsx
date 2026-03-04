@@ -1,5 +1,7 @@
 import { getDailyChallenge } from "../../lib/dailyChallenge";
 import ToolsNav from "../../components/ToolsNav";
+import DateCalculatorsLink from "@/components/DateCalculatorsLink";
+import TodayTools from "@/components/TodayTools";
 import {
   getDayOfYear,
   getTotalDaysInYear,
@@ -38,11 +40,15 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-white text-neutral-900 px-6 py-12">
       <div className="max-w-3xl mx-auto">
+
         <div className="mb-10">
           <p className="text-sm text-neutral-500 mb-2">Today is</p>
           <h1 className="text-5xl font-semibold mb-2">{dayName}</h1>
           <p className="text-lg text-neutral-600">{fullDate}</p>
         </div>
+
+        {/* NIEUW BLOK */}
+        <TodayTools />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
           <div>
@@ -98,6 +104,8 @@ export default function Home() {
           <ToolsNav />
         </div>
       </div>
+
+      <DateCalculatorsLink />
     </main>
   );
 }

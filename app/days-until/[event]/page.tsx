@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { EVENTS } from "@/lib/events";
+import TodayTools from "@/components/TodayTools";
+import RelatedDateTools from "@/components/RelatedDateTools";
+import DateCalculatorsLink from "@/components/DateCalculatorsLink";
 
 export const dynamic = "force-dynamic";
 
@@ -52,6 +55,8 @@ export default async function DaysUntilPage(
         <p className="text-xl mb-6">
           There are <strong>{daysLeft}</strong> days until {eventData.name}.
         </p>
+
+        <TodayTools />
 
         {/* Expanded year links */}
         <div className="mt-10">
@@ -107,7 +112,13 @@ export default async function DaysUntilPage(
             making this page a reliable reference for planning and anticipation.
           </p>
         </div>
+
       </div>
+
+      <RelatedDateTools />
+
+      <DateCalculatorsLink />
+
     </main>
   );
 }

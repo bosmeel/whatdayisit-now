@@ -7,6 +7,12 @@ export default function sitemap() {
 
   const staticRoutes = [
     "",
+    "/date-calculators",
+    "/days-between-dates",
+    "/days-until-date",
+    "/day-of-year",
+    "/days-left-in-year",
+    "/how-many-days-in-a-year",
     "/days-until",
     `/how-many-days-left-in/${currentYear}`,
     `/how-many-weeks-left-in/${currentYear}`,
@@ -30,7 +36,6 @@ export default function sitemap() {
     return [baseEvent, ...yearVariants];
   });
 
-  // NEW: month/day routes (372 URLs)
   const monthDayRoutes = [];
 
   for (let month = 1; month <= 12; month++) {

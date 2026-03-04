@@ -1,4 +1,7 @@
 import ToolsNav from "../../components/ToolsNav";
+import DateCalculatorsLink from "@/components/DateCalculatorsLink";
+import TodayTools from "@/components/TodayTools";
+import RelatedDateTools from "@/components/RelatedDateTools";
 import {
   getDaysLeftInYear,
   getTotalDaysInYear,
@@ -37,6 +40,8 @@ export default function DaysLeftInYearPage() {
           </p>
         </div>
 
+        <TodayTools />
+
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
           <div>
             <p className="text-neutral-500">Week number</p>
@@ -60,6 +65,10 @@ export default function DaysLeftInYearPage() {
           <ToolsNav />
         </div>
       </div>
+
+      <RelatedDateTools />
+
+      <DateCalculatorsLink />
     </main>
   );
 }

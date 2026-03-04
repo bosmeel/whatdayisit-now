@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import Link from "next/link";
+import DateCalculatorsLink from "@/components/DateCalculatorsLink"
 
 function getDaysUntil(month: number, day: number) {
   const now = new Date();
@@ -110,6 +111,7 @@ export default async function DaysUntilDatePage(
         </div>
 
       </div>
+      <DateCalculatorsLink />
     </main>
   );
 }
