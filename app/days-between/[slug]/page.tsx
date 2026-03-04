@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
-const monthMap: Record<string, number> = {
+const months: Record<string, number> = {
   january: 0,
   february: 1,
   march: 2,
@@ -17,37 +17,35 @@ const monthMap: Record<string, number> = {
   december: 11,
 };
 
-function parseDatePart(text: string) {
-  const parts = text.split("-");
+function parsePart(text: string) {
+  const pieces = text.split("-");
 
-  if (parts.length !== 2) return null;
+  const month = pieces[0];
+  const day = Number(pieces[1]);
 
-  const month = monthMap[parts[0]];
-  const day = Number(parts[1]);
-
-  if (month === undefined || !day) return null;
+  if (!months.hasOwnProperty(month)) return null;
+  if (!day) return null;
 
   const year = new Date().getFullYear();
 
-  return new Date(year, month, day);
+  return new Date(year, months[month], day);
 }
 
 function parseSlug(slug: string) {
-  if (!slug) return null;
 
-  const parts = slug.split("-and-");
+  if (!slug.includes("-and-")) return null;
 
-  if (parts.length !== 2) return null;
+  const [p1, p2] = slug.split("-and-");
 
-  const d1 = parseDatePart(parts[0]);
-  const d2 = parseDatePart(parts[1]);
+  const d1 = parsePart(p1);
+  const d2 = parsePart(p2);
 
   if (!d1 || !d2) return null;
 
   return { d1, d2 };
 }
 
-function daysBetween(a: Date, b: Date) {
+function diff(a: Date, b: Date) {
   const MS = 86400000;
   return Math.round((b.getTime() - a.getTime()) / MS);
 }
@@ -61,25 +59,20 @@ export default function Page({ params }: any) {
   if (!parsed) {
     return (
       <main className="max-w-2xl mx-auto py-12">
-
-        <h1 className="text-3xl font-bold mb-6">
+        <h1 className="text-4xl font-bold mb-6">
           Invalid comparison
         </h1>
 
-        <Link
-          href="/days-between"
-          className="text-indigo-600"
-        >
+        <Link href="/days-between" className="text-indigo-600">
           Go to calculator
         </Link>
-
       </main>
     );
   }
 
   const { d1, d2 } = parsed;
 
-  const days = daysBetween(d1, d2);
+  const days = diff(d1, d2);
 
   const label1 = d1.toLocaleDateString("en-US", {
     month: "long",
