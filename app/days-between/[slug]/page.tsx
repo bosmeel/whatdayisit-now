@@ -17,35 +17,40 @@ const months: Record<string, number> = {
   december: 11,
 };
 
-function parsePart(text: string) {
-  const pieces = text.split("-");
+function parseDatePart(text: string) {
+  const parts = text.split("-");
 
-  const month = pieces[0];
-  const day = Number(pieces[1]);
+  if (parts.length < 2) return null;
 
-  if (!months.hasOwnProperty(month)) return null;
-  if (!day) return null;
+  const monthName = parts[0].toLowerCase();
+  const day = Number(parts[1]);
+
+  if (!(monthName in months)) return null;
+  if (!day || day < 1 || day > 31) return null;
 
   const year = new Date().getFullYear();
 
-  return new Date(year, months[month], day);
+  return new Date(year, months[monthName], day);
 }
 
 function parseSlug(slug: string) {
+  if (!slug) return null;
 
-  if (!slug.includes("-and-")) return null;
+  const cleaned = slug.toLowerCase().trim();
 
-  const [p1, p2] = slug.split("-and-");
+  const pieces = cleaned.split("-and-");
 
-  const d1 = parsePart(p1);
-  const d2 = parsePart(p2);
+  if (pieces.length !== 2) return null;
+
+  const d1 = parseDatePart(pieces[0]);
+  const d2 = parseDatePart(pieces[1]);
 
   if (!d1 || !d2) return null;
 
   return { d1, d2 };
 }
 
-function diff(a: Date, b: Date) {
+function daysBetween(a: Date, b: Date) {
   const MS = 86400000;
   return Math.round((b.getTime() - a.getTime()) / MS);
 }
@@ -72,7 +77,7 @@ export default function Page({ params }: any) {
 
   const { d1, d2 } = parsed;
 
-  const days = diff(d1, d2);
+  const days = daysBetween(d1, d2);
 
   const label1 = d1.toLocaleDateString("en-US", {
     month: "long",
