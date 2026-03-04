@@ -1,9 +1,12 @@
-import { Suspense } from "react"
-import DateCalculatorsLink from "@/components/DateCalculatorsLink"
-import TodayTools from "@/components/TodayTools"
-import RelatedDateTools from "@/components/RelatedDateTools"
-import Calculator from "./Calculator"
-import type { Metadata } from "next"
+import { Suspense } from "react";
+import Link from "next/link";
+import Script from "next/script";
+import type { Metadata } from "next";
+
+import DateCalculatorsLink from "@/components/DateCalculatorsLink";
+import TodayTools from "@/components/TodayTools";
+import RelatedDateTools from "@/components/RelatedDateTools";
+import Calculator from "./Calculator";
 
 export const metadata: Metadata = {
   title: "Days Between Dates Calculator",
@@ -19,7 +22,7 @@ export const metadata: Metadata = {
     url: "/days-between",
     type: "website",
   },
-}
+};
 
 const faqJsonLd = {
   "@context": "https://schema.org",
@@ -44,7 +47,7 @@ const faqJsonLd = {
       },
     },
   ],
-}
+};
 
 const webAppJsonLd = {
   "@context": "https://schema.org",
@@ -61,11 +64,10 @@ const webAppJsonLd = {
     price: "0",
     priceCurrency: "USD",
   },
-}
+};
 
 export default function Page() {
-
-  const year = new Date().getFullYear()
+  const year = new Date().getFullYear();
 
   const examples = [
     {
@@ -84,11 +86,10 @@ export default function Page() {
       label: "Days between Valentine's Day and Christmas",
       url: `/days-between?start=${year}-02-14&end=${year}-12-25`,
     },
-  ]
+  ];
 
   return (
     <main style={{ maxWidth: 900, margin: "0 auto", padding: "24px 16px" }}>
-
       <h1 style={{ fontSize: 36, fontWeight: 800 }}>
         Days Between Dates
       </h1>
@@ -101,10 +102,10 @@ export default function Page() {
       <TodayTools />
 
       <section style={{ marginTop: 30 }}>
-  <Suspense fallback={null}>
-    <Calculator />
-  </Suspense>
-</section>
+        <Suspense fallback={null}>
+          <Calculator />
+        </Suspense>
+      </section>
 
       <section style={{ marginTop: 40 }}>
         <h2>Example calculations</h2>
@@ -112,11 +113,42 @@ export default function Page() {
         <ul>
           {examples.map((ex) => (
             <li key={ex.url}>
-              <a href={ex.url}>{ex.label}</a>
+              <Link href={ex.url}>{ex.label}</Link>
             </li>
           ))}
         </ul>
+      </section>
 
+      <section style={{ marginTop: 40 }}>
+        <h2>Popular comparisons</h2>
+
+        <ul>
+          <li>
+            <Link href="/days-between/today-and-christmas">
+              Days between today and Christmas
+            </Link>
+          </li>
+          <li>
+            <Link href="/days-between/today-and-new-year">
+              Days between today and New Year
+            </Link>
+          </li>
+          <li>
+            <Link href="/days-between/today-and-halloween">
+              Days between today and Halloween
+            </Link>
+          </li>
+          <li>
+            <Link href="/days-between/jan-1-and-dec-31">
+              Days between January 1 and December 31
+            </Link>
+          </li>
+          <li>
+            <Link href="/days-between/2020-and-2030">
+              Days between 2020 and 2030
+            </Link>
+          </li>
+        </ul>
       </section>
 
       <section style={{ marginTop: 40 }}>
@@ -128,10 +160,9 @@ export default function Page() {
         </p>
 
         <p>
-          You can optionally enable inclusive counting to include both the
-          start and end date.
+          You can optionally enable inclusive counting to include both the start
+          and end date.
         </p>
-
       </section>
 
       <section style={{ marginTop: 40 }}>
@@ -139,35 +170,35 @@ export default function Page() {
 
         <ul>
           <li>
-            <a href="/days-until-date">Days Until Date</a>
+            <Link href="/days-until-date">Days Until Date</Link>
           </li>
           <li>
-            <a href="/day-of-year">Day of Year</a>
+            <Link href="/day-of-year">Day of Year</Link>
           </li>
           <li>
-            <a href="/days-left-in-year">Days Left in Year</a>
+            <Link href="/days-left-in-year">Days Left in Year</Link>
           </li>
           <li>
-            <a href="/how-many-days-in-a-year">How Many Days in a Year</a>
+            <Link href="/how-many-days-in-a-year">How Many Days in a Year</Link>
           </li>
         </ul>
-
       </section>
 
       <RelatedDateTools />
 
       <DateCalculatorsLink />
 
-      <script
+      <Script
+        id="faq-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
-      <script
+      <Script
+        id="webapp-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd) }}
       />
-
     </main>
-  )
+  );
 }
