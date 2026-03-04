@@ -9,22 +9,49 @@ type Params = {
   };
 };
 
-function parseSlug(slug: string) {
+const monthMap: Record<string, number> = {
+  january: 0,
+  february: 1,
+  march: 2,
+  april: 3,
+  may: 4,
+  june: 5,
+  july: 6,
+  august: 7,
+  september: 8,
+  october: 9,
+  november: 10,
+  december: 11,
+};
 
+function parseDatePart(text: string): Date | null {
+  const parts = text.split("-");
+
+  if (parts.length !== 2) return null;
+
+  const monthName = parts[0];
+  const day = Number(parts[1]);
+
+  const month = monthMap[monthName];
+
+  if (month === undefined || !day) return null;
+
+  const year = new Date().getFullYear();
+
+  return new Date(year, month, day);
+}
+
+function parseSlug(slug: string) {
   const parts = slug.split("-and-");
 
   if (parts.length !== 2) return null;
 
-  const normalize = (text: string) => {
-    return text.replaceAll("-", " ");
-  };
+  const date1 = parseDatePart(parts[0]);
+  const date2 = parseDatePart(parts[1]);
 
-  const a = new Date(normalize(parts[0]));
-  const b = new Date(normalize(parts[1]));
+  if (!date1 || !date2) return null;
 
-  if (isNaN(a.getTime()) || isNaN(b.getTime())) return null;
-
-  return { date1: a, date2: b };
+  return { date1, date2 };
 }
 
 function getDaysBetween(a: Date, b: Date) {
@@ -33,39 +60,27 @@ function getDaysBetween(a: Date, b: Date) {
 }
 
 export function generateMetadata({ params }: Params): Metadata {
-
   const readable = params.slug.replaceAll("-", " ");
 
   return {
     title: `Days between ${readable}`,
     description: `Calculate how many days are between ${readable}.`,
-    alternates: {
-      canonical: `/days-between/${params.slug}`,
-    },
   };
 }
 
 export default function Page({ params }: Params) {
-
   const parsed = parseSlug(params.slug);
 
   if (!parsed) {
-
     return (
       <main className="max-w-2xl mx-auto py-12">
-
         <h1 className="text-3xl font-bold mb-6">
           Invalid date comparison
         </h1>
 
-        <p className="mb-6">
-          Please use the main calculator.
-        </p>
-
         <Link href="/days-between" className="text-indigo-600">
           Go to calculator
         </Link>
-
       </main>
     );
   }
@@ -75,13 +90,11 @@ export default function Page({ params }: Params) {
   const days = getDaysBetween(date1, date2);
 
   const label1 = date1.toLocaleDateString("en-US", {
-    year: "numeric",
     month: "long",
     day: "numeric",
   });
 
   const label2 = date2.toLocaleDateString("en-US", {
-    year: "numeric",
     month: "long",
     day: "numeric",
   });
@@ -102,10 +115,10 @@ export default function Page({ params }: Params) {
       </p>
 
       <Link
-        href={`/days-between?start=${date1.toISOString().slice(0,10)}&end=${date2.toISOString().slice(0,10)}`}
+        href={`/days-between`}
         className="text-indigo-600"
       >
-        Open in calculator
+        Open calculator
       </Link>
 
     </main>
