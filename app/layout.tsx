@@ -70,7 +70,8 @@ return ( <html lang="en"> <body>
 
   </body>
 </html>
-```
-
-);
+```tsx
+      </body>
+    </html>
+ );
 }
