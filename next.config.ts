@@ -5,3 +5,13 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+
+async redirects() {
+  return [
+    {
+      source: "/days-between-dates",
+      destination: "/days-between",
+      permanent: true,
+    },
+  ];
+}
