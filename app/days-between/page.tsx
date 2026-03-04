@@ -91,7 +91,7 @@ export default function Page() {
   return (
     <main style={{ maxWidth: 900, margin: "0 auto", padding: "24px 16px" }}>
       <h1 style={{ fontSize: 36, fontWeight: 800 }}>
-        Days Between Dates
+        Days Between Dates Calculator
       </h1>
 
       <p style={{ marginTop: 10, lineHeight: 1.6 }}>
@@ -119,6 +119,44 @@ export default function Page() {
         </ul>
       </section>
 
+      {/* SEO traffic multiplier */}
+
+      <section style={{ marginTop: 40 }}>
+        <h2>Popular date comparisons</h2>
+
+        <ul>
+          <li>
+            <Link href="/days-between/january-1-and-december-31">
+              Days between January 1 and December 31
+            </Link>
+          </li>
+
+          <li>
+            <Link href="/days-between/january-1-and-christmas">
+              Days between January 1 and Christmas
+            </Link>
+          </li>
+
+          <li>
+            <Link href="/days-between/valentines-day-and-christmas">
+              Days between Valentine's Day and Christmas
+            </Link>
+          </li>
+
+          <li>
+            <Link href="/days-between/halloween-and-christmas">
+              Days between Halloween and Christmas
+            </Link>
+          </li>
+
+          <li>
+            <Link href="/days-between/july-4-and-new-year">
+              Days between July 4 and New Year
+            </Link>
+          </li>
+        </ul>
+      </section>
+
       <section style={{ marginTop: 40 }}>
         <h2>How the calculator works</h2>
 
@@ -138,14 +176,21 @@ export default function Page() {
 
         <ul>
           <li>
-            <Link href="/days-until-date">Days Until Date</Link>
+            <Link href="/days-until">Days Until Date</Link>
           </li>
+
+          <li>
+            <Link href="/days-since">Days Since Date</Link>
+          </li>
+
           <li>
             <Link href="/day-of-year">Day of Year</Link>
           </li>
+
           <li>
             <Link href="/days-left-in-year">Days Left in Year</Link>
           </li>
+
           <li>
             <Link href="/how-many-days-in-a-year">How Many Days in a Year</Link>
           </li>
