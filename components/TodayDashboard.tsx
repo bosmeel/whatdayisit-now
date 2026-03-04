@@ -15,7 +15,10 @@ import {
 } from "../lib/date";
 
 export default function TodayDashboard() {
+
   const now = new Date();
+
+  const isoDate = now.toISOString().slice(0, 10);
 
   const dayName = now.toLocaleDateString("en-US", { weekday: "long" });
 
@@ -45,7 +48,7 @@ export default function TodayDashboard() {
           <p className="text-lg text-neutral-600">{fullDate}</p>
         </div>
 
-        {/* DASHBOARD CARDS */}
+        {/* Dashboard cards */}
         <div className="today-grid">
 
           <div className="today-card">
@@ -99,7 +102,7 @@ export default function TodayDashboard() {
 
         {/* Daily widget */}
         <div className="mt-12">
-          <CreatureWidget />
+          <CreatureWidget isoDate={isoDate} />
         </div>
 
         {/* Popular calculators */}

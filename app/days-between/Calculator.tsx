@@ -43,7 +43,6 @@ export default function Calculator() {
 
   }, [searchParams])
 
-  // update URL when values change
   useEffect(() => {
 
     if (!start || !end) return
@@ -100,41 +99,54 @@ export default function Calculator() {
   }
 
   return (
-    <div style={{ display: "grid", gap: 14, maxWidth: 420 }}>
+    <div className="calculator-box">
 
-      <label>
-        Start date
+      <div className="input-group">
+        <label>Start date</label>
         <input
           type="date"
+          className="date-input"
           value={start}
           onChange={(e)=>setStart(e.target.value)}
         />
-      </label>
+      </div>
 
-      <label>
-        End date
+      <div className="input-group">
+        <label>End date</label>
         <input
           type="date"
+          className="date-input"
           value={end}
           onChange={(e)=>setEnd(e.target.value)}
         />
-      </label>
+      </div>
 
-      <div style={{ display:"flex", gap:8, flexWrap:"wrap" }}>
-        <button onClick={swapDates}>
+      <div className="button-row">
+
+        <button
+          className="tool-button"
+          onClick={swapDates}
+        >
           Swap dates
         </button>
 
-        <button onClick={setTodayToEndOfYear}>
+        <button
+          className="tool-button"
+          onClick={setTodayToEndOfYear}
+        >
           Today → End of year
         </button>
 
-        <button onClick={setTodayToChristmas}>
+        <button
+          className="tool-button"
+          onClick={setTodayToChristmas}
+        >
           Today → Christmas
         </button>
+
       </div>
 
-      <label>
+      <label className="checkbox-row">
         <input
           type="checkbox"
           checked={inclusive}
@@ -144,17 +156,19 @@ export default function Calculator() {
       </label>
 
       {result !== null && (
-        <div>
 
-          <h2 style={{ marginTop: 10 }}>
+        <div className="result-box">
+
+          <h2 className="result-number">
             {result} days
           </h2>
 
-          <p>
+          <p className="result-sub">
             {weeks} weeks and {days} days
           </p>
 
         </div>
+
       )}
 
     </div>
