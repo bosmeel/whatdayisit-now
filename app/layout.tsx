@@ -16,6 +16,7 @@ export const metadata: Metadata = {
     ],
   },
 };
+
 export default function RootLayout({
   children,
 }: {
@@ -24,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* AdSense */}
+        {/* Google AdSense */}
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5866549959429332"
@@ -34,12 +35,12 @@ export default function RootLayout({
 
       <body className="bg-white text-neutral-900 antialiased flex flex-col min-h-screen">
 
-        {/* GA4 */}
+        {/* Google Analytics 4 */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-T4W5TE4EFN"
           strategy="afterInteractive"
         />
-        <Script id="ga4" strategy="afterInteractive">
+        <Script id="ga4-init" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
