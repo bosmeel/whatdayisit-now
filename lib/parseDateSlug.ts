@@ -1,64 +1,89 @@
 import { EVENTS } from "@/lib/events";
 
-function monthNameToNumber(name: string): number | null {
-  const map: Record<string, number> = {
-    january: 0,
-    february: 1,
-    march: 2,
-    april: 3,
-    may: 4,
-    june: 5,
-    july: 6,
-    august: 7,
-    september: 8,
-    october: 9,
-    november: 10,
-    december: 11,
-  };
-  return map[name] ?? null;
+function startOfDay(date: Date) {
+  const d = new Date(date);
+  d.setHours(0, 0, 0, 0);
+  return d;
+}
+
+function getNextEventDate(month: number, day: number) {
+  const now = new Date();
+  const year = now.getFullYear();
+
+  let target = new Date(year, month - 1, day);
+  target = startOfDay(target);
+
+  const today = startOfDay(now);
+
+  if (target < today) {
+    target = new Date(year + 1, month - 1, day);
+  }
+
+  return target;
 }
 
 function parseToken(token: string): Date | null {
-  const t = token.trim().toLowerCase();
 
-  if (t === "today") return new Date();
+  const t = token.toLowerCase();
 
-  // year only: 2026 -> Jan 1
-  if (/^\d{4}$/.test(t)) return new Date(Number(t), 0, 1);
-
-  // yyyy-mm-dd
-  if (/^\d{4}-\d{2}-\d{2}$/.test(t)) {
-    const d = new Date(t);
-    return isNaN(d.getTime()) ? null : d;
+  if (t === "today") {
+    return startOfDay(new Date());
   }
 
-  // month-day: jan-1 / january-1
-  const md = t.match(/^([a-z]+)-(\d{1,2})$/);
-  if (md) {
-    const m = monthNameToNumber(md[1]);
-    const day = Number(md[2]);
-    if (m === null || day < 1 || day > 31) return null;
-    const now = new Date();
-    return new Date(now.getFullYear(), m, day);
-  }
-
-  // event slug
-  if (t in EVENTS) {
+  if (EVENTS[t]) {
     const { month, day } = EVENTS[t];
-    const now = new Date();
-    return new Date(now.getFullYear(), month - 1, day);
+    return getNextEventDate(month, day);
+  }
+
+  if (/^\d{4}$/.test(t)) {
+    return new Date(Number(t), 0, 1);
+  }
+
+  const parts = t.split("-");
+
+  if (parts.length === 2) {
+
+    const monthNames: Record<string, number> = {
+      jan: 0, january: 0,
+      feb: 1, february: 1,
+      mar: 2, march: 2,
+      apr: 3, april: 3,
+      may: 4,
+      jun: 5, june: 5,
+      jul: 6, july: 6,
+      aug: 7, august: 7,
+      sep: 8, september: 8,
+      oct: 9, october: 9,
+      nov: 10, november: 10,
+      dec: 11, december: 11,
+    };
+
+    const month = monthNames[parts[0]];
+    const day = Number(parts[1]);
+
+    if (month !== undefined && day) {
+      const year = new Date().getFullYear();
+      return new Date(year, month, day);
+    }
   }
 
   return null;
 }
 
-export function parseBetweenSlug(slug: string): { date1: Date; date2: Date } | null {
-  const parts = slug.toLowerCase().split("-and-");
-  if (parts.length !== 2) return null;
+export function parseBetweenSlug(slug: string) {
 
-  const d1 = parseToken(parts[0]);
-  const d2 = parseToken(parts[1]);
-  if (!d1 || !d2) return null;
+  const parts = slug.split("-and-");
 
-  return { date1: d1, date2: d2 };
+  if (parts.length !== 2) {
+    return null;
+  }
+
+  const date1 = parseToken(parts[0]);
+  const date2 = parseToken(parts[1]);
+
+  if (!date1 || !date2) {
+    return null;
+  }
+
+  return { date1, date2 };
 }
