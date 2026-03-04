@@ -57,7 +57,7 @@ export default function Calculator() {
       params.set("inclusive", "1")
     }
 
-    router.replace(`/days-between-dates?${params.toString()}`)
+    router.replace(`/days-between?${params.toString()}`)
 
   }, [start, end, inclusive, router])
 

@@ -10,13 +10,13 @@ export const metadata: Metadata = {
   description:
     "Calculate the exact number of days between two dates instantly. Includes inclusive counting and weeks + days breakdown.",
   alternates: {
-    canonical: "/days-between-dates",
+    canonical: "/days-between",
   },
   openGraph: {
     title: "Days Between Dates Calculator",
     description:
       "Find the exact number of days between two calendar dates instantly.",
-    url: "/days-between-dates",
+    url: "/days-between",
     type: "website",
   },
 }
@@ -52,7 +52,7 @@ const webAppJsonLd = {
   name: "Days Between Dates Calculator",
   applicationCategory: "CalculatorApplication",
   operatingSystem: "Any",
-  url: "https://whatdayisit.now/days-between-dates",
+  url: "https://whatdayisit.now/days-between",
   description:
     "Online calculator that determines the exact number of days between two dates.",
   browserRequirements: "Requires JavaScript",
@@ -70,19 +70,19 @@ export default function Page() {
   const examples = [
     {
       label: "Days between January 1 and December 31",
-      url: `/days-between-dates?start=${year}-01-01&end=${year}-12-31`,
+      url: `/days-between?start=${year}-01-01&end=${year}-12-31`,
     },
     {
       label: "Days between January 1 and Christmas",
-      url: `/days-between-dates?start=${year}-01-01&end=${year}-12-25`,
+      url: `/days-between?start=${year}-01-01&end=${year}-12-25`,
     },
     {
       label: "Days between July 4 and New Year's Eve",
-      url: `/days-between-dates?start=${year}-07-04&end=${year}-12-31`,
+      url: `/days-between?start=${year}-07-04&end=${year}-12-31`,
     },
     {
       label: "Days between Valentine's Day and Christmas",
-      url: `/days-between-dates?start=${year}-02-14&end=${year}-12-25`,
+      url: `/days-between?start=${year}-02-14&end=${year}-12-25`,
     },
   ]
 

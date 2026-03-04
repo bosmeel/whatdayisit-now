@@ -1,4 +1,7 @@
 import { EVENTS } from "@/lib/events";
+import { POPULAR_COMBINATIONS } from "@/lib/programmaticDaysBetween";
+import { POPULAR_DAYS_SINCE } from "@/lib/programmaticDaysSince";
+import { POPULAR_DATES } from "@/lib/popularDates";
 
 export default function sitemap() {
   const baseUrl = "https://whatdayisit.now";
@@ -8,12 +11,21 @@ export default function sitemap() {
   const staticRoutes = [
     "",
     "/date-calculators",
-    "/days-between-dates",
-    "/days-until-date",
+
+    "/days-between",
+    "/days-until",
+    "/days-since",
+
+    "/weeks-between",
+    "/months-between",
+    "/years-between",
+    "/business-days-between",
+    "/age-calculator",
+
     "/day-of-year",
     "/days-left-in-year",
     "/how-many-days-in-a-year",
-    "/days-until",
+
     `/how-many-days-left-in/${currentYear}`,
     `/how-many-weeks-left-in/${currentYear}`,
   ];
@@ -36,18 +48,26 @@ export default function sitemap() {
     return [baseEvent, ...yearVariants];
   });
 
-  const monthDayRoutes = [];
+  const programmaticBetween = POPULAR_COMBINATIONS.map((slug) => ({
+    url: `${baseUrl}/days-between/${slug}`,
+    lastModified: now,
+    changefreq: "daily" as const,
+    priority: 0.6,
+  }));
 
-  for (let month = 1; month <= 12; month++) {
-    for (let day = 1; day <= 31; day++) {
-      monthDayRoutes.push({
-        url: `${baseUrl}/days-until-date/${month}/${day}`,
-        lastModified: now,
-        changefreq: "daily" as const,
-        priority: 0.5,
-      });
-    }
-  }
+  const programmaticSince = POPULAR_DAYS_SINCE.map((slug) => ({
+    url: `${baseUrl}/days-since/${slug}`,
+    lastModified: now,
+    changefreq: "daily" as const,
+    priority: 0.5,
+  }));
+
+  const programmaticUntilDates = POPULAR_DATES.map(({ month, day }) => ({
+    url: `${baseUrl}/days-until/${month}/${day}`,
+    lastModified: now,
+    changefreq: "daily" as const,
+    priority: 0.6,
+  }));
 
   return [
     ...staticRoutes.map((route, index) => ({
@@ -57,6 +77,8 @@ export default function sitemap() {
       priority: index === 0 ? 1 : 0.8,
     })),
     ...eventRoutes,
-    ...monthDayRoutes,
+    ...programmaticBetween,
+    ...programmaticSince,
+    ...programmaticUntilDates,
   ];
 }

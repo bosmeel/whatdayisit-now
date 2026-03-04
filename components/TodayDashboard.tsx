@@ -34,7 +34,6 @@ export default function TodayDashboard() {
   return (
     <main className="min-h-screen bg-white text-neutral-900 px-6 py-12">
       <div className="max-w-3xl mx-auto">
-
         <div className="mb-10">
           <p className="text-sm text-neutral-500 mb-2">Today is</p>
           <h1 className="text-5xl font-semibold mb-2">{dayName}</h1>
@@ -89,9 +88,19 @@ export default function TodayDashboard() {
         </div>
 
         <div className="mt-12 border-t pt-8">
-          <h2 className="text-xl font-semibold mb-4">
-            Popular countdowns
-          </h2>
+          <h2 className="text-xl font-semibold mb-4">Popular date calculators</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-blue-600">
+            <Link href="/days-between" className="hover:underline">Days between dates</Link>
+            <Link href="/days-until" className="hover:underline">Days until date</Link>
+            <Link href="/days-since" className="hover:underline">Days since date</Link>
+            <Link href="/day-of-year" className="hover:underline">Day of year</Link>
+            <Link href="/days-left-in-year" className="hover:underline">Days left in year</Link>
+            <Link href="/date-calculators" className="hover:underline">All calculators</Link>
+          </div>
+        </div>
+
+        <div className="mt-12 border-t pt-8">
+          <h2 className="text-xl font-semibold mb-4">Popular countdowns</h2>
 
           <ul className="space-y-2 text-blue-600">
             <li><Link href="/days-until/christmas">Days until Christmas</Link></li>
@@ -101,7 +110,6 @@ export default function TodayDashboard() {
             <li><Link href="/days-until/valentines-day">Days until Valentine's Day</Link></li>
           </ul>
         </div>
-
       </div>
     </main>
   );
