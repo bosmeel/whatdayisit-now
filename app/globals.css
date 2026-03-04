@@ -39,9 +39,12 @@ padding:0 20px;
 /* --- Header --- */
 
 .site-header{
-border-bottom:1px solid var(--border);
-padding:10px 0;
+border-bottom:1px solid #e5e5e5;
+padding:14px 0;
 background:white;
+position:sticky;
+top:0;
+z-index:50;
 }
 
 .header-inner{
@@ -191,4 +194,17 @@ font-size:22px;
 font-weight:700;
 margin-top:30px;
 margin-bottom:10px;
+}
+.today-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+gap:18px;
+margin-top:20px;
+}
+
+.today-card{
+border:1px solid #e5e7eb;
+border-radius:10px;
+padding:16px;
+background:#fafafa;
 }
