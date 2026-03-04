@@ -5,16 +5,11 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://whatdayisit.now"),
-  icons: {
-    icon: [
-      { url: "/icon.svg", type: "image/svg+xml" },
-      { url: "/icons/icon-32.png", sizes: "32x32", type: "image/png" },
-      { url: "/icons/icon-16.png", sizes: "16x16", type: "image/png" },
-    ],
-    apple: [
-      { url: "/icons/apple-touch-icon.png", sizes: "180x180" },
-    ],
+  title: {
+    default: "What Day Is It",
+    template: "%s | WhatDayIsIt.now",
   },
+  description: "Free online date calculators and calendar tools.",
 };
 
 export default function RootLayout({
@@ -24,45 +19,38 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        {/* Google AdSense */}
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5866549959429332"
-          crossOrigin="anonymous"
-        ></script>
-      </head>
+      <body>
 
-      <body className="bg-white text-neutral-900 antialiased flex flex-col min-h-screen">
+        <header className="site-header">
+          <div className="container header-inner">
 
-        {/* Google Analytics 4 */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-T4W5TE4EFN"
-          strategy="afterInteractive"
-        />
-        <Script id="ga4-init" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-T4W5TE4EFN');
-          `}
-        </Script>
+            <div className="logo">
+              <Link href="/">WhatDayIsIt.now</Link>
+            </div>
 
-        <div className="flex-grow">
-          {children}
-        </div>
+            <nav className="main-nav">
+              <Link href="/days-between">Days Between</Link>
+              <Link href="/days-since">Days Since</Link>
+              <Link href="/days-until">Days Until</Link>
+              <Link href="/weeks-between">Weeks</Link>
+              <Link href="/months-between">Months</Link>
+              <Link href="/years-between">Years</Link>
+              <Link href="/age-calculator">Age</Link>
+            </nav>
 
-        <footer className="border-t mt-16 py-8 text-sm text-neutral-600">
-          <div className="max-w-4xl mx-auto px-6 flex flex-wrap gap-6 justify-center">
-            <Link href="/about" className="hover:underline">About</Link>
-            <Link href="/contact" className="hover:underline">Contact</Link>
-            <Link href="/privacy-policy" className="hover:underline">Privacy Policy</Link>
-            <Link href="/terms" className="hover:underline">Terms</Link>
           </div>
+        </header>
 
-          <div className="text-center mt-4 text-xs text-neutral-500">
-            © {new Date().getFullYear()} WhatDayIsIt.now
+        <main className="container main-content">
+          {children}
+        </main>
+
+        <footer className="site-footer">
+          <div className="container footer-inner">
+            <Link href="/about">About</Link>
+            <Link href="/contact">Contact</Link>
+            <Link href="/privacy-policy">Privacy Policy</Link>
+            <Link href="/terms">Terms</Link>
           </div>
         </footer>
 

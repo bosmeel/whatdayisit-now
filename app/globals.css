@@ -24,3 +24,60 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+.container{
+max-width:1100px;
+margin:0 auto;
+padding:0 20px;
+}
+
+.site-header{
+border-bottom:1px solid #e5e5e5;
+padding:14px 0;
+background:white;
+}
+
+.header-inner{
+display:flex;
+align-items:center;
+justify-content:space-between;
+}
+
+.logo a{
+font-weight:700;
+font-size:18px;
+text-decoration:none;
+color:#000;
+}
+
+.main-nav{
+display:flex;
+gap:18px;
+font-size:14px;
+}
+
+.main-nav a{
+text-decoration:none;
+color:#444;
+}
+
+.main-nav a:hover{
+color:#000;
+}
+
+.main-content{
+padding-top:30px;
+padding-bottom:60px;
+}
+
+.site-footer{
+border-top:1px solid #e5e5e5;
+padding:20px 0;
+margin-top:60px;
+font-size:14px;
+}
+
+.footer-inner{
+display:flex;
+gap:20px;
+justify-content:center;
+}
