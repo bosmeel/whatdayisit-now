@@ -70,8 +70,27 @@ function label(p: Parts) {
 }
 
 function normalizeSlug(slug: unknown): string {
-  if (Array.isArray(slug)) return slug.join("-").toLowerCase();
-  if (typeof slug === "string") return slug.toLowerCase();
+
+  if (!slug) return "";
+
+  if (Array.isArray(slug)) {
+
+    const joined = slug.join("-");
+
+    // split "january-1-and-december-31"
+    if (joined.includes("and")) {
+      return joined
+        .replaceAll("-and-", "-and-")
+        .toLowerCase();
+    }
+
+    return joined.toLowerCase();
+  }
+
+  if (typeof slug === "string") {
+    return slug.toLowerCase();
+  }
+
   return "";
 }
 
