@@ -26,7 +26,9 @@ const months: Record<string, number> = {
   dec: 11,
 };
 
-function parseSlug(slug: string) {
+function parseSlug(slug: string | undefined) {
+
+  if (!slug) return null;
 
   const parts = slug.split("-and-");
 
@@ -56,7 +58,9 @@ function daysBetween(a: Date, b: Date) {
 
 export default function Page({ params }: any) {
 
-  const parsed = parseSlug(params.slug);
+  const slug = params?.slug;
+
+  const parsed = parseSlug(slug);
 
   if (!parsed) {
     return (
@@ -65,6 +69,10 @@ export default function Page({ params }: any) {
         <h1 className="text-4xl font-bold mb-6">
           Invalid comparison
         </h1>
+
+        <p className="mb-6">
+          Example: january-1-and-december-31
+        </p>
 
         <Link href="/days-between" className="text-indigo-600">
           Go to calculator
