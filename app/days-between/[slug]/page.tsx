@@ -17,9 +17,9 @@ const months: Record<string, number> = {
   december: 11,
 };
 
-function parseDate(month: string, day: number) {
+function createDate(month: string, day: number) {
   if (!(month in months)) return null;
-  if (!day) return null;
+  if (!day || isNaN(day)) return null;
 
   const year = new Date().getFullYear();
 
@@ -28,27 +28,35 @@ function parseDate(month: string, day: number) {
 
 function parseSlug(slug: any) {
 
-  // Next can pass slug as array OR string
+  if (!slug) return null;
+
+  // Next sometimes passes array
   if (Array.isArray(slug)) {
     slug = slug.join("-");
   }
 
   if (typeof slug !== "string") return null;
 
-  const parts = slug.toLowerCase().split("-");
+  slug = slug.toLowerCase();
 
-  const andIndex = parts.indexOf("and");
+  // split at "-and-"
+  const parts = slug.split("-and-");
 
-  if (andIndex === -1) return null;
+  if (parts.length !== 2) return null;
 
-  const m1 = parts[0];
-  const d1 = Number(parts[1]);
+  const first = parts[0].split("-");
+  const second = parts[1].split("-");
 
-  const m2 = parts[andIndex + 1];
-  const d2 = Number(parts[andIndex + 2]);
+  if (first.length < 2 || second.length < 2) return null;
 
-  const date1 = parseDate(m1, d1);
-  const date2 = parseDate(m2, d2);
+  const m1 = first[0];
+  const d1 = Number(first[1]);
+
+  const m2 = second[0];
+  const d2 = Number(second[1]);
+
+  const date1 = createDate(m1, d1);
+  const date2 = createDate(m2, d2);
 
   if (!date1 || !date2) return null;
 
@@ -71,6 +79,10 @@ export default function Page({ params }: any) {
         <h1 className="text-4xl font-bold mb-6">
           Invalid comparison
         </h1>
+
+        <p className="mb-6">
+          The requested date comparison could not be parsed.
+        </p>
 
         <Link
           href="/days-between"
