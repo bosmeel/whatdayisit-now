@@ -15,15 +15,14 @@ import {
 } from "../lib/date";
 
 export default function TodayDashboard() {
-
   const now = new Date();
 
-  const dayName = now.toLocaleDateString("en-US",{weekday:"long"});
+  const dayName = now.toLocaleDateString("en-US", { weekday: "long" });
 
-  const fullDate = now.toLocaleDateString("en-US",{
-    year:"numeric",
-    month:"long",
-    day:"numeric",
+  const fullDate = now.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
 
   const weekNumber = getISOWeekNumber(now);
@@ -35,27 +34,16 @@ export default function TodayDashboard() {
   const daysUntilWeekend = getDaysUntilWeekend(now);
 
   return (
-
     <main className="container">
+      <div style={{ marginBottom: 40 }}>
+        <p style={{ fontSize: 14, color: "#666" }}>Today is</p>
 
-      <div style={{marginBottom:40}}>
+        <h1 style={{ fontSize: 40, fontWeight: 800 }}>{dayName}</h1>
 
-        <p style={{fontSize:14,color:"#666"}}>
-          Today is
-        </p>
-
-        <h1 style={{fontSize:40,fontWeight:800}}>
-          {dayName}
-        </h1>
-
-        <p style={{color:"#666"}}>
-          {fullDate}
-        </p>
-
+        <p style={{ color: "#666" }}>{fullDate}</p>
       </div>
 
       <div className="today-grid">
-
         <div className="today-card">
           <div>Week number</div>
           <strong>{weekNumber}</strong>
@@ -63,7 +51,9 @@ export default function TodayDashboard() {
 
         <div className="today-card">
           <div>Day of year</div>
-          <strong>{dayOfYear} / {totalDays}</strong>
+          <strong>
+            {dayOfYear} / {totalDays}
+          </strong>
         </div>
 
         <div className="today-card">
@@ -85,51 +75,50 @@ export default function TodayDashboard() {
           <div>Quarter</div>
           <strong>{quarter}</strong>
         </div>
-
       </div>
 
-      <div style={{marginTop:24}}>
-
-        <div style={{
-          width:"100%",
-          height:6,
-          background:"#e5e7eb",
-          borderRadius:6
-        }}>
-
+      <div style={{ marginTop: 24 }}>
+        <div
+          style={{
+            width: "100%",
+            height: 6,
+            background: "#e5e7eb",
+            borderRadius: 6,
+          }}
+        >
           <div
             style={{
-              width:`${progress}%`,
-              height:6,
-              background:"#6366f1",
-              borderRadius:6
+              width: `${progress}%`,
+              height: 6,
+              background: "#6366f1",
+              borderRadius: 6,
             }}
           />
-
         </div>
-
       </div>
 
-      <div style={{marginTop:40}}>
+      <div style={{ marginTop: 40 }}>
         <ToolsNav />
       </div>
 
-      <div style={{marginTop:50}}>
-  <CreatureWidget isoDate={now.toISOString().slice(0,10)} />
-</div>
+      <div style={{ marginTop: 50 }}>
+        <CreatureWidget isoDate={now.toISOString().slice(0, 10)} />
+      </div>
 
-      <div style={{marginTop:50}}>
-
+      <div style={{ marginTop: 50 }}>
         <h2>Popular date calculators</h2>
 
         <div className="tool-grid">
-
           <Link className="tool-card" href="/days-between">
             Days between dates
           </Link>
 
           <Link className="tool-card" href="/days-until">
             Days until date
+          </Link>
+
+          <Link className="tool-card" href="/days-until-my-birthday">
+            Days until my birthday
           </Link>
 
           <Link className="tool-card" href="/days-since">
@@ -147,52 +136,34 @@ export default function TodayDashboard() {
           <Link className="tool-card" href="/date-calculators">
             All calculators
           </Link>
-
         </div>
-
       </div>
 
-      <div style={{marginTop:50}}>
-
+      <div style={{ marginTop: 50 }}>
         <h2>Popular countdowns</h2>
 
-        <ul style={{lineHeight:1.8}}>
-
+        <ul style={{ lineHeight: 1.8 }}>
           <li>
-            <Link href="/days-until/christmas">
-              Days until Christmas
-            </Link>
+            <Link href="/days-until/christmas">Days until Christmas</Link>
           </li>
 
           <li>
-            <Link href="/days-until/new-year">
-              Days until New Year
-            </Link>
+            <Link href="/days-until/new-year">Days until New Year</Link>
           </li>
 
           <li>
-            <Link href="/days-until/halloween">
-              Days until Halloween
-            </Link>
+            <Link href="/days-until/halloween">Days until Halloween</Link>
           </li>
 
           <li>
-            <Link href="/days-until/thanksgiving">
-              Days until Thanksgiving
-            </Link>
+            <Link href="/days-until/thanksgiving">Days until Thanksgiving</Link>
           </li>
 
           <li>
-            <Link href="/days-until/valentines-day">
-              Days until Valentine's Day
-            </Link>
+            <Link href="/days-until/valentines-day">Days until Valentine's Day</Link>
           </li>
-
         </ul>
-
       </div>
-
     </main>
-
   );
 }
