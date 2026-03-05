@@ -42,6 +42,7 @@ export default function sitemap() {
     "/year-progress",
     "/what-is-a-leap-year",
     "/days-until-date",
+    "/days-until-my-birthday",
     `/how-many-days-left-in/${currentYear}`,
     `/how-many-weeks-left-in/${currentYear}`,
     "/privacy-policy",
