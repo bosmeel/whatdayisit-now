@@ -10,11 +10,18 @@ export function GET(request: Request, { params }: any) {
 
   try {
 
-    const slug = params?.slug;
+    let slug = params?.slug;
+
+    // Next.js kan slug als array geven
+    if (Array.isArray(slug)) {
+      slug = slug.join("-");
+    }
 
     if (!slug || typeof slug !== "string") {
       return NextResponse.redirect(new URL("/days-between", request.url));
     }
+
+    slug = slug.toLowerCase();
 
     const parts = slug.split("-and-");
 
@@ -22,15 +29,25 @@ export function GET(request: Request, { params }: any) {
       return NextResponse.redirect(new URL("/days-between", request.url));
     }
 
-    const [a,b] = parts;
+    const [a, b] = parts;
 
-    const [m1,d1] = a.split("-");
-    const [m2,d2] = b.split("-");
+    const parts1 = a.split("-");
+    const parts2 = b.split("-");
+
+    if (parts1.length < 2 || parts2.length < 2) {
+      return NextResponse.redirect(new URL("/days-between", request.url));
+    }
+
+    const m1 = parts1[0];
+    const d1 = Number(parts1[1]);
+
+    const m2 = parts2[0];
+    const d2 = Number(parts2[1]);
 
     const month1 = months[m1];
     const month2 = months[m2];
 
-    if(!month1 || !month2){
+    if (month1 === undefined || month2 === undefined || !d1 || !d2) {
       return NextResponse.redirect(new URL("/days-between", request.url));
     }
 
