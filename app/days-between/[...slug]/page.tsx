@@ -17,9 +17,24 @@ const months: Record<string, number> = {
   december: 11,
 };
 
-function parseSlug(slugParts: string[]) {
+function normalizeSlug(slug: any): string {
 
-  const slug = slugParts.join("-").toLowerCase();
+  if (!slug) return "";
+
+  if (Array.isArray(slug)) {
+    return slug.join("-");
+  }
+
+  if (typeof slug === "string") {
+    return slug;
+  }
+
+  return "";
+}
+
+function parseSlug(slugRaw: any) {
+
+  const slug = normalizeSlug(slugRaw).toLowerCase();
 
   const parts = slug.split("-");
 
@@ -27,18 +42,19 @@ function parseSlug(slugParts: string[]) {
 
   if (andIndex === -1) return null;
 
-  const m1 = parts[0];
-  const d1 = Number(parts[1]);
+  const month1 = parts[0];
+  const day1 = Number(parts[1]);
 
-  const m2 = parts[andIndex + 1];
-  const d2 = Number(parts[andIndex + 2]);
+  const month2 = parts[andIndex + 1];
+  const day2 = Number(parts[andIndex + 2]);
 
-  if (!(m1 in months) || !(m2 in months)) return null;
+  if (!(month1 in months)) return null;
+  if (!(month2 in months)) return null;
 
   const year = new Date().getFullYear();
 
-  const date1 = new Date(year, months[m1], d1);
-  const date2 = new Date(year, months[m2], d2);
+  const date1 = new Date(year, months[month1], day1);
+  const date2 = new Date(year, months[month2], day2);
 
   return { date1, date2 };
 }
@@ -49,9 +65,7 @@ function daysBetween(a: Date, b: Date) {
 
 export default function Page({ params }: any) {
 
-  const slugParts = params?.slug || [];
-
-  const parsed = parseSlug(slugParts);
+  const parsed = parseSlug(params?.slug);
 
   if (!parsed) {
     return (
