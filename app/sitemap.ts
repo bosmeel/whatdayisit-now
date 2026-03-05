@@ -1,7 +1,9 @@
 import { EVENTS } from "@/lib/events";
 import { DATE_PAIRS } from "@/lib/data/datePairs";
+import { generateDatePages } from "@/lib/data/datePages";
 
 export default function sitemap() {
+
   const baseUrl = "https://whatdayisit.now";
   const now = new Date();
   const currentYear = now.getFullYear();
@@ -37,6 +39,7 @@ export default function sitemap() {
   }));
 
   const eventRoutes = Object.keys(EVENTS).flatMap((slug) => {
+
     const baseEvent = {
       url: `${baseUrl}/days-until/${slug}`,
       lastModified: now,
@@ -46,6 +49,7 @@ export default function sitemap() {
 
     const yearly = Array.from({ length: 4 }).map((_, i) => {
       const year = currentYear + i;
+
       return {
         url: `${baseUrl}/days-until/${slug}/${year}`,
         lastModified: now,
@@ -61,8 +65,23 @@ export default function sitemap() {
     url: `${baseUrl}/days-between/${p.slug}`,
     lastModified: now,
     changefreq: "weekly" as const,
-    priority: p.priority ? Math.min(0.9, 0.5 + p.priority / 20) : 0.6,
+    priority: 0.6,
   }));
 
-  return [...staticEntries, ...eventRoutes, ...daysBetweenRoutes];
+  const datePages = generateDatePages(2020,2030);
+
+  const whatDayIsRoutes = datePages.map((p) => ({
+    url: `${baseUrl}/what-day-is/${p.slug}`,
+    lastModified: now,
+    changefreq: "yearly" as const,
+    priority: 0.4,
+  }));
+
+  return [
+    ...staticEntries,
+    ...eventRoutes,
+    ...daysBetweenRoutes,
+    ...whatDayIsRoutes
+  ];
+
 }
