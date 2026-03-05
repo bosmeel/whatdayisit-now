@@ -3,8 +3,9 @@ import { MetadataRoute } from "next";
 export default function sitemap(): MetadataRoute.Sitemap {
 
   const baseUrl = "https://whatdayisit.now";
+  const now = new Date();
 
-  const staticPages = [
+  const routes = [
 
     "",
     "/date-calculators",
@@ -21,16 +22,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/days-left-in-year",
     "/how-many-days-in-a-year",
 
+    "/how-many-days-until-christmas",
+    "/how-many-days-until-new-year",
+    "/how-many-days-until-halloween",
+
   ];
 
-  const now = new Date();
-
-  const routes = staticPages.map((path) => ({
-    url: `${baseUrl}${path}`,
+  return routes.map((route) => ({
+    url: `${baseUrl}${route}`,
     lastModified: now,
-    changeFrequency: "weekly" as const,
-    priority: path === "" ? 1 : 0.8,
+    changeFrequency: "weekly",
+    priority: route === "" ? 1 : 0.8,
   }));
 
-  return routes;
 }
