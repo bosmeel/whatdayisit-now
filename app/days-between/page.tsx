@@ -11,7 +11,7 @@ import Calculator from "./Calculator";
 export const metadata: Metadata = {
   title: "Days Between Dates Calculator",
   description:
-    "Calculate the exact number of days between two dates instantly. Includes inclusive counting and weeks + days breakdown.",
+    "Calculate the exact number of days between two dates instantly. Includes inclusive counting and weeks and days breakdown.",
   alternates: {
     canonical: "/days-between",
   },
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     title: "Days Between Dates Calculator",
     description:
       "Find the exact number of days between two calendar dates instantly.",
-    url: "/days-between",
+    url: "https://whatdayisit.now/days-between",
     type: "website",
   },
 };
@@ -43,7 +43,7 @@ const faqJsonLd = {
       acceptedAnswer: {
         "@type": "Answer",
         text:
-          "By default the calculation excludes the start date. Enabling inclusive counting includes both dates.",
+          "By default the calculation excludes the start date. Enabling inclusive counting includes both the start and end date.",
       },
     },
   ],
@@ -72,19 +72,19 @@ export default function Page() {
   const examples = [
     {
       label: "Days between January 1 and December 31",
-      url: `/days-between?start=${year}-01-01&end=${year}-12-31`,
+      url: `/days-between/january-1-and-december-31`,
     },
     {
       label: "Days between January 1 and Christmas",
-      url: `/days-between?start=${year}-01-01&end=${year}-12-25`,
+      url: `/days-between/january-1-and-christmas`,
     },
     {
       label: "Days between July 4 and New Year's Eve",
-      url: `/days-between?start=${year}-07-04&end=${year}-12-31`,
+      url: `/days-between/july-4-and-new-year`,
     },
     {
       label: "Days between Valentine's Day and Christmas",
-      url: `/days-between?start=${year}-02-14&end=${year}-12-25`,
+      url: `/days-between/valentines-day-and-christmas`,
     },
   ];
 
@@ -96,7 +96,8 @@ export default function Page() {
 
       <p style={{ marginTop: 10, lineHeight: 1.6 }}>
         Use this calculator to quickly determine the exact number of days
-        between two calendar dates.
+        between two calendar dates. Simply choose a start date and end date
+        to calculate the difference instantly.
       </p>
 
       <TodayTools />
@@ -119,7 +120,7 @@ export default function Page() {
         </ul>
       </section>
 
-      {/* SEO traffic multiplier */}
+      {/* SEO discovery links */}
 
       <section style={{ marginTop: 40 }}>
         <h2>Popular date comparisons</h2>
@@ -167,7 +168,7 @@ export default function Page() {
 
         <p>
           You can optionally enable inclusive counting to include both the start
-          and end date.
+          and end date when calculating the difference.
         </p>
       </section>
 
