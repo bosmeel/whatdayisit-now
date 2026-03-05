@@ -21,16 +21,19 @@ function parseSlug(slugParts: string[]) {
 
   const slug = slugParts.join("-").toLowerCase();
 
-  const match = slug.match(
-    /(january|february|march|april|may|june|july|august|september|october|november|december)-(\d{1,2})-and-(january|february|march|april|may|june|july|august|september|october|november|december)-(\d{1,2})/
-  );
+  const parts = slug.split("-");
 
-  if (!match) return null;
+  const andIndex = parts.indexOf("and");
 
-  const m1 = match[1];
-  const d1 = Number(match[2]);
-  const m2 = match[3];
-  const d2 = Number(match[4]);
+  if (andIndex === -1) return null;
+
+  const m1 = parts[0];
+  const d1 = Number(parts[1]);
+
+  const m2 = parts[andIndex + 1];
+  const d2 = Number(parts[andIndex + 2]);
+
+  if (!(m1 in months) || !(m2 in months)) return null;
 
   const year = new Date().getFullYear();
 
@@ -46,7 +49,9 @@ function daysBetween(a: Date, b: Date) {
 
 export default function Page({ params }: any) {
 
-  const parsed = parseSlug(params.slug || []);
+  const slugParts = params?.slug || [];
+
+  const parsed = parseSlug(slugParts);
 
   if (!parsed) {
     return (
@@ -57,7 +62,7 @@ export default function Page({ params }: any) {
         </h1>
 
         <p className="mb-6">
-          Expected format: january-1-and-december-31
+          Example: january-1-and-december-31
         </p>
 
         <Link href="/days-between" className="text-indigo-600">
