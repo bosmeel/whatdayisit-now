@@ -115,8 +115,8 @@ export default function TodayDashboard() {
       </div>
 
       <div style={{marginTop:50}}>
-        <CreatureWidget />
-      </div>
+  <CreatureWidget isoDate={now.toISOString().slice(0,10)} />
+</div>
 
       <div style={{marginTop:50}}>
 

@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Link from "next/link"
 import TodayTools from "@/components/TodayTools"
 
 export const metadata: Metadata = {
@@ -21,12 +22,17 @@ const tools = [
   {
     title: "Days Between Dates",
     description: "Calculate the number of days between two calendar dates.",
-    url: "/days-between-dates",
+    url: "/days-between",
   },
   {
     title: "Days Until Date",
     description: "Find how many days remain until a specific date.",
-    url: "/days-until-date",
+    url: "/days-until",
+  },
+  {
+    title: "Days Since Date",
+    description: "Find how many days have passed since a specific date.",
+    url: "/days-since",
   },
   {
     title: "Day of Year",
@@ -48,6 +54,7 @@ const tools = [
 export default function Page() {
   return (
     <main style={{ maxWidth: 900, margin: "0 auto", padding: "24px 16px" }}>
+
       <h1 style={{ fontSize: 36, fontWeight: 800 }}>
         Date Calculators
       </h1>
@@ -58,10 +65,10 @@ export default function Page() {
         and answer common date-related questions.
       </p>
 
-      {/* NIEUW BLOK */}
       <TodayTools />
 
       <section style={{ marginTop: 30 }}>
+
         <div
           style={{
             display: "grid",
@@ -69,8 +76,10 @@ export default function Page() {
             gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
           }}
         >
+
           {tools.map((tool) => (
-            <a
+
+            <Link
               key={tool.url}
               href={tool.url}
               style={{
@@ -83,13 +92,21 @@ export default function Page() {
               }}
             >
               <h3 style={{ margin: 0 }}>{tool.title}</h3>
-              <p style={{ marginTop: 6 }}>{tool.description}</p>
-            </a>
+
+              <p style={{ marginTop: 6 }}>
+                {tool.description}
+              </p>
+
+            </Link>
+
           ))}
+
         </div>
+
       </section>
 
       <section style={{ marginTop: 40 }}>
+
         <h2>Why use date calculators?</h2>
 
         <p>
@@ -98,7 +115,9 @@ export default function Page() {
           days remain until an event or how many days are between two dates,
           these tools provide instant answers.
         </p>
+
       </section>
+
     </main>
   )
 }
