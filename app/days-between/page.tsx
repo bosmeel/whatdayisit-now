@@ -51,7 +51,7 @@ const faqJsonLd = {
 
 const webAppJsonLd = {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
+  "@type": "SoftwareApplication",
   name: "Days Between Dates Calculator",
   applicationCategory: "CalculatorApplication",
   operatingSystem: "Any",
@@ -64,11 +64,14 @@ const webAppJsonLd = {
     price: "0",
     priceCurrency: "USD",
   },
+  featureList: [
+    "Calculate days between two dates",
+    "Inclusive date counting",
+    "Weeks and days breakdown",
+  ],
 };
 
 export default function Page() {
-  const year = new Date().getFullYear();
-
   const examples = [
     {
       label: "Days between January 1 and December 31",
@@ -119,8 +122,6 @@ export default function Page() {
           ))}
         </ul>
       </section>
-
-      {/* SEO discovery links */}
 
       <section style={{ marginTop: 40 }}>
         <h2>Popular date comparisons</h2>
@@ -193,7 +194,9 @@ export default function Page() {
           </li>
 
           <li>
-            <Link href="/how-many-days-in-a-year">How Many Days in a Year</Link>
+            <Link href="/how-many-days-in-a-year">
+              How Many Days in a Year
+            </Link>
           </li>
         </ul>
       </section>
@@ -208,27 +211,11 @@ export default function Page() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
-      const webAppJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: "Days Between Dates Calculator",
-  applicationCategory: "CalculatorApplication",
-  operatingSystem: "Any",
-  url: "https://whatdayisit.now/days-between",
-  description:
-    "Online calculator that determines the exact number of days between two dates.",
-  browserRequirements: "Requires JavaScript",
-  offers: {
-    "@type": "Offer",
-    price: "0",
-    priceCurrency: "USD",
-  },
-  featureList: [
-    "Calculate days between two dates",
-    "Inclusive date counting",
-    "Weeks and days breakdown",
-  ],
-};
+      <Script
+        id="webapp-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd) }}
+      />
     </main>
   );
 }
