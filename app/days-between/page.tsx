@@ -75,19 +75,19 @@ export default function Page() {
   const examples = [
     {
       label: "Days between January 1 and December 31",
-      url: `/days-between/january-1-and-december-31`,
+      url: "/days-between/january-1-and-december-31",
     },
     {
       label: "Days between January 1 and Christmas",
-      url: `/days-between/january-1-and-christmas`,
+      url: "/days-between/january-1-and-christmas",
     },
     {
       label: "Days between July 4 and New Year's Eve",
-      url: `/days-between/july-4-and-new-year`,
+      url: "/days-between/july-4-and-new-year",
     },
     {
       label: "Days between Valentine's Day and Christmas",
-      url: `/days-between/valentines-day-and-christmas`,
+      url: "/days-between/valentines-day-and-christmas",
     },
   ];
 
@@ -113,7 +113,6 @@ export default function Page() {
 
       <section style={{ marginTop: 40 }}>
         <h2>Example calculations</h2>
-
         <ul>
           {examples.map((ex) => (
             <li key={ex.url}>
@@ -125,32 +124,27 @@ export default function Page() {
 
       <section style={{ marginTop: 40 }}>
         <h2>Popular date comparisons</h2>
-
         <ul>
           <li>
             <Link href="/days-between/january-1-and-december-31">
               Days between January 1 and December 31
             </Link>
           </li>
-
           <li>
             <Link href="/days-between/january-1-and-christmas">
               Days between January 1 and Christmas
             </Link>
           </li>
-
           <li>
             <Link href="/days-between/valentines-day-and-christmas">
               Days between Valentine's Day and Christmas
             </Link>
           </li>
-
           <li>
             <Link href="/days-between/halloween-and-christmas">
               Days between Halloween and Christmas
             </Link>
           </li>
-
           <li>
             <Link href="/days-between/july-4-and-new-year">
               Days between July 4 and New Year
@@ -161,12 +155,10 @@ export default function Page() {
 
       <section style={{ marginTop: 40 }}>
         <h2>How the calculator works</h2>
-
         <p>
           The calculator subtracts the start date from the end date to determine
           the total number of calendar days between them.
         </p>
-
         <p>
           You can optionally enable inclusive counting to include both the start
           and end date when calculating the difference.
@@ -175,34 +167,16 @@ export default function Page() {
 
       <section style={{ marginTop: 40 }}>
         <h2>Related date calculators</h2>
-
         <ul>
-          <li>
-            <Link href="/days-until">Days Until Date</Link>
-          </li>
-
-          <li>
-            <Link href="/days-since">Days Since Date</Link>
-          </li>
-
-          <li>
-            <Link href="/day-of-year">Day of Year</Link>
-          </li>
-
-          <li>
-            <Link href="/days-left-in-year">Days Left in Year</Link>
-          </li>
-
-          <li>
-            <Link href="/how-many-days-in-a-year">
-              How Many Days in a Year
-            </Link>
-          </li>
+          <li><Link href="/days-until">Days Until Date</Link></li>
+          <li><Link href="/days-since">Days Since Date</Link></li>
+          <li><Link href="/day-of-year">Day of Year</Link></li>
+          <li><Link href="/days-left-in-year">Days Left in Year</Link></li>
+          <li><Link href="/how-many-days-in-a-year">How Many Days in a Year</Link></li>
         </ul>
       </section>
 
       <RelatedDateTools />
-
       <DateCalculatorsLink />
 
       <Script
