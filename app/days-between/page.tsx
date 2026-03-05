@@ -208,11 +208,27 @@ export default function Page() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
-      <Script
-        id="webapp-schema"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd) }}
-      />
+      const webAppJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "Days Between Dates Calculator",
+  applicationCategory: "CalculatorApplication",
+  operatingSystem: "Any",
+  url: "https://whatdayisit.now/days-between",
+  description:
+    "Online calculator that determines the exact number of days between two dates.",
+  browserRequirements: "Requires JavaScript",
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
+  },
+  featureList: [
+    "Calculate days between two dates",
+    "Inclusive date counting",
+    "Weeks and days breakdown",
+  ],
+};
     </main>
   );
 }
