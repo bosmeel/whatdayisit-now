@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 const months: Record<string, number> = {
   january:1,february:2,march:3,april:4,may:5,june:6,
@@ -6,23 +6,20 @@ const months: Record<string, number> = {
   jan:1,feb:2,mar:3,apr:4,jun:6,jul:7,aug:8,sep:9,oct:10,nov:11,dec:12
 };
 
-export function GET(request: Request, { params }: { params: { slug: string | string[] } }) {
+export async function GET(
+  request: NextRequest,
+  context: { params: Promise<{ slug: string }> }
+) {
 
   try {
 
-    let slug = params.slug;
-
-    if (Array.isArray(slug)) {
-      slug = slug.join("-");
-    }
+    const { slug } = await context.params;
 
     if (!slug) {
       return NextResponse.redirect(new URL("/days-between", request.url));
     }
 
-    slug = slug.toLowerCase();
-
-    const parts = slug.split("-and-");
+    const parts = slug.toLowerCase().split("-and-");
 
     if (parts.length !== 2) {
       return NextResponse.redirect(new URL("/days-between", request.url));
