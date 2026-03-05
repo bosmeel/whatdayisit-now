@@ -52,9 +52,7 @@ export default function Calculator() {
     params.set("start", start)
     params.set("end", end)
 
-    if (inclusive) {
-      params.set("inclusive", "1")
-    }
+    if (inclusive) params.set("inclusive", "1")
 
     router.replace(`/days-between?${params.toString()}`)
 
@@ -85,9 +83,7 @@ export default function Calculator() {
 
   let result = daysBetween(start, end)
 
-  if (result !== null && inclusive) {
-    result = result + 1
-  }
+  if (result !== null && inclusive) result = result + 1
 
   let weeks = null
   let days = null
@@ -99,71 +95,77 @@ export default function Calculator() {
   }
 
   return (
-    <div className="calculator-box">
+    <div style={{marginTop:20}}>
 
-      <div className="input-group">
-        <label>Start date</label>
-        <input
-          type="date"
-          className="date-input"
-          value={start}
-          onChange={(e)=>setStart(e.target.value)}
-        />
+      <div style={{
+        border:"1px solid #e5e7eb",
+        borderRadius:8,
+        padding:20,
+        background:"#fafafa",
+        maxWidth:460
+      }}>
+
+        <div style={{display:"grid",gap:14}}>
+
+          <label>
+            <div style={{fontSize:14,marginBottom:4}}>Start date</div>
+            <input
+              type="date"
+              className="date-input"
+              value={start}
+              onChange={(e)=>setStart(e.target.value)}
+            />
+          </label>
+
+          <label>
+            <div style={{fontSize:14,marginBottom:4}}>End date</div>
+            <input
+              type="date"
+              className="date-input"
+              value={end}
+              onChange={(e)=>setEnd(e.target.value)}
+            />
+          </label>
+
+          <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
+
+            <button className="tool-btn" onClick={swapDates}>
+              Swap
+            </button>
+
+            <button className="tool-btn" onClick={setTodayToEndOfYear}>
+              Today → End of year
+            </button>
+
+            <button className="tool-btn" onClick={setTodayToChristmas}>
+              Today → Christmas
+            </button>
+
+          </div>
+
+          <label style={{fontSize:14}}>
+            <input
+              type="checkbox"
+              checked={inclusive}
+              onChange={(e)=>setInclusive(e.target.checked)}
+              style={{marginRight:6}}
+            />
+            Include both dates
+          </label>
+
+        </div>
+
       </div>
-
-      <div className="input-group">
-        <label>End date</label>
-        <input
-          type="date"
-          className="date-input"
-          value={end}
-          onChange={(e)=>setEnd(e.target.value)}
-        />
-      </div>
-
-      <div className="button-row">
-
-        <button
-          className="tool-button"
-          onClick={swapDates}
-        >
-          Swap dates
-        </button>
-
-        <button
-          className="tool-button"
-          onClick={setTodayToEndOfYear}
-        >
-          Today → End of year
-        </button>
-
-        <button
-          className="tool-button"
-          onClick={setTodayToChristmas}
-        >
-          Today → Christmas
-        </button>
-
-      </div>
-
-      <label className="checkbox-row">
-        <input
-          type="checkbox"
-          checked={inclusive}
-          onChange={(e)=>setInclusive(e.target.checked)}
-        />
-        Include both dates
-      </label>
 
       {result !== null && (
 
-        <div className="result-box">
+        <div style={{marginTop:24}}>
 
-          <h2 className="result-number">
+          <h2 style={{fontSize:28,fontWeight:700}}>
             {result} days
           </h2>
 
-          <p className="result-sub">
+          <p style={{color:"#666"}}>
             {weeks} weeks and {days} days
           </p>
 
