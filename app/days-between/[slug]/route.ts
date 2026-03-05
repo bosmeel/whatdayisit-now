@@ -6,18 +6,17 @@ const months: Record<string, number> = {
   jan:1,feb:2,mar:3,apr:4,jun:6,jul:7,aug:8,sep:9,oct:10,nov:11,dec:12
 };
 
-export function GET(request: Request, { params }: any) {
+export function GET(request: Request, { params }: { params: { slug: string | string[] } }) {
 
   try {
 
-    let slug = params?.slug;
+    let slug = params.slug;
 
-    // Next.js kan slug als array geven
     if (Array.isArray(slug)) {
       slug = slug.join("-");
     }
 
-    if (!slug || typeof slug !== "string") {
+    if (!slug) {
       return NextResponse.redirect(new URL("/days-between", request.url));
     }
 
@@ -29,32 +28,28 @@ export function GET(request: Request, { params }: any) {
       return NextResponse.redirect(new URL("/days-between", request.url));
     }
 
-    const [a, b] = parts;
+    const [left, right] = parts;
 
-    const parts1 = a.split("-");
-    const parts2 = b.split("-");
-
-    if (parts1.length < 2 || parts2.length < 2) {
-      return NextResponse.redirect(new URL("/days-between", request.url));
-    }
-
-    const m1 = parts1[0];
-    const d1 = Number(parts1[1]);
-
-    const m2 = parts2[0];
-    const d2 = Number(parts2[1]);
+    const [m1, d1] = left.split("-");
+    const [m2, d2] = right.split("-");
 
     const month1 = months[m1];
     const month2 = months[m2];
 
-    if (month1 === undefined || month2 === undefined || !d1 || !d2) {
+    const day1 = Number(d1);
+    const day2 = Number(d2);
+
+    if (!month1 || !month2 || !day1 || !day2) {
       return NextResponse.redirect(new URL("/days-between", request.url));
     }
 
     const year = new Date().getFullYear();
 
-    const start = `${year}-${String(month1).padStart(2,"0")}-${String(d1).padStart(2,"0")}`;
-    const end   = `${year}-${String(month2).padStart(2,"0")}-${String(d2).padStart(2,"0")}`;
+    const start =
+      `${year}-${String(month1).padStart(2,"0")}-${String(day1).padStart(2,"0")}`;
+
+    const end =
+      `${year}-${String(month2).padStart(2,"0")}-${String(day2).padStart(2,"0")}`;
 
     return NextResponse.redirect(
       new URL(`/days-between?start=${start}&end=${end}`, request.url)
