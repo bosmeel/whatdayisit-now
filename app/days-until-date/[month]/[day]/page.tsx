@@ -1,53 +1,90 @@
-import Link from "next/link";
-import type { Metadata } from "next";
-import { MONTHS } from "@/lib/months";
-import { getDaysBetween } from "@/lib/dateDifference";
+import { notFound } from "next/navigation";
 
-export const dynamic = "force-dynamic";
+type Props = {
+  params: Promise<{
+    month: string;
+    day: string;
+  }>;
+};
 
-export function generateMetadata({ params }: { params: { month: string; day: string } }): Metadata {
+const MONTHS = [
+  "january","february","march","april","may","june",
+  "july","august","september","october","november","december"
+];
+
+function daysUntil(monthIndex: number, day: number) {
+  const now = new Date();
+  const year = now.getFullYear();
+
+  const today = new Date(year, now.getMonth(), now.getDate(), 12, 0, 0, 0);
+  let target = new Date(year, monthIndex, day, 12, 0, 0, 0);
+
+  if (target.getTime() < today.getTime()) {
+    target = new Date(year + 1, monthIndex, day, 12, 0, 0, 0);
+  }
+
+  const diff = target.getTime() - today.getTime();
+  return Math.ceil(diff / (1000 * 60 * 60 * 24));
+}
+
+export async function generateStaticParams() {
+  const params: { month: string; day: string }[] = [];
+
+  for (let m = 0; m < 12; m++) {
+    const maxDay = new Date(2025, m + 1, 0).getDate();
+    for (let d = 1; d <= maxDay; d++) {
+      params.push({ month: MONTHS[m], day: String(d) });
+    }
+  }
+
+  return params;
+}
+
+export async function generateMetadata({ params }: Props) {
+  const { month, day } = await params;
+
+  const m = MONTHS.indexOf((month || "").toLowerCase());
+  const d = parseInt(String(day), 10);
+
+  if (m === -1 || Number.isNaN(d)) {
+    return { title: "Days Until Date" };
+  }
+
+  const title = `How many days until ${month} ${d}?`;
+  const description = `Countdown showing how many days remain until ${month} ${d}.`;
+
   return {
-    title: `Days until ${params.month} ${params.day}`,
-    description: "Calculate how many days are left until a date.",
-    alternates: { canonical: `/days-until/${params.month}/${params.day}` },
+    title,
+    description,
+    alternates: {
+      canonical: `https://whatdayisit.now/days-until-date/${month}/${d}`,
+    },
   };
 }
 
-export default function Page({ params }: { params: { month: string; day: string } }) {
-  const monthKey = params.month.toLowerCase();
-  const monthIndex = MONTHS[monthKey];
-  const day = Number(params.day);
+export default async function Page({ params }: Props) {
+  const { month, day } = await params;
 
-  if (monthIndex === undefined || !Number.isFinite(day) || day < 1 || day > 31) {
-    return (
-      <main style={{ maxWidth: 900, margin: "0 auto", padding: "24px 16px" }}>
-        <h1 style={{ fontSize: 32, fontWeight: 800 }}>Invalid date</h1>
-        <p style={{ marginTop: 10 }}>
-          <Link href="/days-until">Go to days until calculator</Link>
-        </p>
-      </main>
-    );
-  }
+  const m = MONTHS.indexOf((month || "").toLowerCase());
+  const d = parseInt(String(day), 10);
 
-  const today = new Date();
-  let target = new Date(today.getFullYear(), monthIndex, day);
-  if (target.getTime() < today.getTime()) target = new Date(today.getFullYear() + 1, monthIndex, day);
+  if (m === -1 || Number.isNaN(d)) notFound();
 
-  const days = getDaysBetween(today, target);
-  const monthName = target.toLocaleDateString("en-US", { month: "long" });
+  const maxDay = new Date(2025, m + 1, 0).getDate();
+  if (d < 1 || d > maxDay) notFound();
+
+  const remaining = daysUntil(m, d);
+  const label = `${month.charAt(0).toUpperCase() + month.slice(1)} ${d}`;
 
   return (
-    <main style={{ maxWidth: 900, margin: "0 auto", padding: "24px 16px" }}>
-      <h1 style={{ fontSize: 36, fontWeight: 800 }}>Days until {monthName} {day}</h1>
-      <p style={{ marginTop: 10, lineHeight: 1.6 }}>
-        There are <strong>{days}</strong> days until {monthName} {day}.
+    <main style={{ maxWidth: 900, margin: "40px auto", padding: 20 }}>
+      <h1>How many days until {label}?</h1>
+
+      <p>
+        There are <strong>{remaining}</strong> days until {label}.
       </p>
-      <p style={{ marginTop: 18 }}>
-        <Link href={`/days-until?month=${monthKey}&day=${day}`}>Open in calculator</Link>
-      </p>
-      <p style={{ marginTop: 10 }}>
-        <Link href="/date-calculators">All date calculators</Link>
-      </p>
+
+      <p>Use this countdown to track upcoming dates and events.</p>
     </main>
   );
 }
