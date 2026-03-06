@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { eventsOnThisDay } from "@/lib/events-on-this-day";
 
 type PageProps = {
   params: Promise<{
@@ -44,7 +43,6 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-
   const { date } = await params;
   const formatted = formatSlug(date);
 
@@ -58,8 +56,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function Page({ params }: PageProps) {
-
   const { date } = await params;
+
+  const { eventsOnThisDay } = await import("@/lib/events-on-this-day");
 
   const formatted = formatSlug(date);
 
@@ -85,7 +84,6 @@ export default async function Page({ params }: PageProps) {
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-10">
-
       <nav className="mb-6 text-sm">
         <Link href="/">Home</Link>
         {" / "}
@@ -103,25 +101,18 @@ export default async function Page({ params }: PageProps) {
       </p>
 
       {events.length > 0 ? (
-
         <ul className="list-disc pl-6 space-y-2 mb-10">
-
-          {events.map((event) => (
+          {events.map((event: string) => (
             <li key={event}>{event}</li>
           ))}
-
         </ul>
-
       ) : (
-
         <p className="mb-10">
           No events available for this date yet.
         </p>
-
       )}
 
       <section className="mt-10 border-t pt-8">
-
         <h2 className="text-xl font-semibold mb-4">
           Famous birthdays on this day
         </h2>
@@ -132,17 +123,14 @@ export default async function Page({ params }: PageProps) {
         >
           See people born on {formatted}
         </Link>
-
       </section>
 
       <section className="mt-10 border-t pt-8">
-
         <h2 className="text-xl font-semibold mb-4">
           Related historical dates
         </h2>
 
         <div className="flex flex-wrap gap-2">
-
           {related.map((d) => (
             <Link
               key={d}
@@ -152,13 +140,10 @@ export default async function Page({ params }: PageProps) {
               {formatSlug(d)}
             </Link>
           ))}
-
         </div>
-
       </section>
 
       <div className="mt-10 flex justify-between text-sm">
-
         <Link href={`/what-happened-on/${prev}`}>
           ← {formatSlug(prev)}
         </Link>
@@ -166,9 +151,7 @@ export default async function Page({ params }: PageProps) {
         <Link href={`/what-happened-on/${next}`}>
           {formatSlug(next)} →
         </Link>
-
       </div>
-
     </main>
   );
 }
