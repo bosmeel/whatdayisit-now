@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { EVENTS } from "@/lib/events";
 import { notFound } from "next/navigation";
 
@@ -49,6 +50,11 @@ export default async function Page({ params }: Props) {
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-10">
+      <p className="mb-6 text-sm">
+        <Link href="/days-until" className="underline">
+          ← Back to all countdowns
+        </Link>
+      </p>
 
       <h1 className="text-3xl font-bold mb-6">
         Days Until {data.name}
@@ -61,7 +67,6 @@ export default async function Page({ params }: Props) {
       <p>
         Date: {eventDate.toDateString()}
       </p>
-
     </main>
   );
 }
