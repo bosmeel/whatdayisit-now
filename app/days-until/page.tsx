@@ -49,11 +49,12 @@ export default function DaysUntilIndex() {
           />
 
           <button
-            onClick={calculate}
-            className="mt-3 px-4 py-2 rounded bg-black text-white"
-          >
-            Calculate
-          </button>
+  onClick={calculate}
+  className="mt-3 rounded px-4 py-2 text-white"
+  style={{ backgroundColor: "#111111" }}
+>
+  Calculate
+</button>
 
           {result !== null && (
             <div className="mt-4">
