@@ -46,7 +46,7 @@ function getDayOfYear(month: string, day: number) {
 }
 
 function getZodiac(month: number, day: number) {
-  const signs = [
+  const signs: [string, number, number][] = [
     ["Capricorn", 1, 19],
     ["Aquarius", 2, 18],
     ["Pisces", 3, 20],
@@ -62,8 +62,7 @@ function getZodiac(month: number, day: number) {
     ["Capricorn", 12, 31],
   ];
 
-  for (let i = 0; i < signs.length; i++) {
-    const [name, m, d] = signs[i];
+  for (const [name, m, d] of signs) {
     if (month === m && day <= d) return name;
   }
 
@@ -153,7 +152,6 @@ export default async function Page({ params }: PageProps) {
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-10">
-
       <Script
         id="schema"
         type="application/ld+json"
@@ -199,7 +197,7 @@ export default async function Page({ params }: PageProps) {
           </h2>
 
           <ul className="list-disc pl-6 space-y-1">
-            {famous.map((p) => (
+            {famous.map((p: string) => (
               <li key={p}>{p}</li>
             ))}
           </ul>
@@ -213,7 +211,7 @@ export default async function Page({ params }: PageProps) {
           </h2>
 
           <ul className="list-disc pl-6 space-y-1">
-            {events.map((e) => (
+            {events.map((e: string) => (
               <li key={e}>{e}</li>
             ))}
           </ul>
