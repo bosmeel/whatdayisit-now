@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
-import { famousBirthdays } from "@/lib/famous-birthdays";
-import { eventsOnThisDay } from "@/lib/events-on-this-day";
 
 type PageProps = {
   params: Promise<{
@@ -109,6 +107,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function Page({ params }: PageProps) {
   const { date } = await params;
+
+  const { famousBirthdays } = await import("@/lib/famous-birthdays");
+  const { eventsOnThisDay } = await import("@/lib/events-on-this-day");
 
   const [monthSlug, dayStr] = date.split("-");
   const day = parseInt(dayStr);
