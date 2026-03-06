@@ -5,7 +5,6 @@ import Link from "next/link";
 import DateInput from "@/components/DateInput";
 import { EVENTS } from "@/lib/events";
 
-
 export default function DaysUntilIndex() {
 
   const sortedEvents = Object.entries(EVENTS).sort((a, b) =>
@@ -23,7 +22,6 @@ export default function DaysUntilIndex() {
     const now = new Date();
 
     const diff = target.getTime() - now.getTime();
-
     const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
 
     setResult(days);
@@ -58,9 +56,20 @@ export default function DaysUntilIndex() {
           </button>
 
           {result !== null && (
-            <p className="mt-4 font-semibold">
-              {result} days
-            </p>
+            <div className="mt-4">
+              <p className="font-semibold">
+                {result} days
+              </p>
+
+              {date && (
+                <Link
+                  href={`/days-until/${date}`}
+                  className="text-blue-600 underline text-sm"
+                >
+                  View full countdown page
+                </Link>
+              )}
+            </div>
           )}
 
         </div>
