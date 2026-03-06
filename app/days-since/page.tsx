@@ -1,58 +1,65 @@
-import { Suspense } from "react";
-import type { Metadata } from "next";
-import DateCalculatorsLink from "@/components/DateCalculatorsLink";
-import TodayTools from "@/components/TodayTools";
-import RelatedDateTools from "@/components/RelatedDateTools";
-import Calculator from "./Calculator";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Days Since Date Calculator",
-  description: "Calculate how many days have passed since a date.",
-  alternates: { canonical: "/days-since" },
-  openGraph: {
-    title: "Days Since Date Calculator",
-    description: "Find the number of days since a past date.",
-    url: "/days-since",
-    type: "website",
-  },
-};
+import { useState } from "react";
+import DateInput from "@/components/DateInput";
 
-export default function Page() {
-  const year = new Date().getFullYear();
-  const examples = [
-    { label: "Days since January 1", url: `/days-since?date=${year}-01-01` },
-    { label: "Days since 2000-01-01", url: `/days-since?date=2000-01-01` },
-    { label: "Days since Christmas", url: `/days-since?date=${year}-12-25` },
-  ];
+export default function DaysSincePage() {
+
+  const [date, setDate] = useState("");
+  const [result, setResult] = useState<number | null>(null);
+
+  function calculate() {
+
+    if (!date) return;
+
+    const start = new Date(date);
+    const now = new Date();
+
+    const diff = now.getTime() - start.getTime();
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+    setResult(days);
+  }
 
   return (
-    <main style={{ maxWidth: 900, margin: "0 auto", padding: "24px 16px" }}>
-      <h1 style={{ fontSize: 36, fontWeight: 800 }}>Days Since Date</h1>
-      <p style={{ marginTop: 10, lineHeight: 1.6 }}>
-        Use this calculator to determine how many days have passed since a specific date.
+    <main className="mx-auto max-w-3xl px-4 py-10">
+
+      <h1 className="text-3xl font-bold mb-6">
+        Days Since
+      </h1>
+
+      <p className="mb-6">
+        Find out how many days have passed since a specific date.
       </p>
 
-      <TodayTools />
+      <DateInput
+        label="Start date"
+        value={date}
+        onChange={setDate}
+      />
 
-      <section style={{ marginTop: 30 }}>
-        <Suspense fallback={null}>
-          <Calculator />
-        </Suspense>
-      </section>
+      <button
+        onClick={calculate}
+        style={{
+          marginTop: 10,
+          padding: "10px 16px",
+          borderRadius: 6,
+          border: "none",
+          background: "#111",
+          color: "#fff",
+          cursor: "pointer"
+        }}
+      >
+        Calculate
+      </button>
 
-      <section style={{ marginTop: 40 }}>
-        <h2>Example calculations</h2>
-        <ul>
-          {examples.map((ex) => (
-            <li key={ex.url}>
-              <a href={ex.url}>{ex.label}</a>
-            </li>
-          ))}
-        </ul>
-      </section>
+      {result !== null && (
+        <p style={{ marginTop: 20, fontWeight: 600 }}>
+          {result} days
+        </p>
+      )}
 
-      <RelatedDateTools />
-      <DateCalculatorsLink />
     </main>
   );
 }
