@@ -136,7 +136,35 @@ export default function TodayDashboard() {
           <Link className="tool-card" href="/date-calculators">
             All calculators
           </Link>
+
+          <Link className="tool-card" href="/born-on">
+            Browse birthdays by date
+          </Link>
         </div>
+      </div>
+
+      <div style={{ marginTop: 50 }}>
+        <h2>Explore dates</h2>
+
+        <ul style={{ lineHeight: 1.8 }}>
+          <li>
+            <Link href="/born-on">Browse birthdays by date</Link>
+          </li>
+
+          <li>
+            <Link href="/famous-birthdays">Famous birthdays by date</Link>
+          </li>
+
+          <li>
+            <Link href="/what-happened-on">Historical events by date</Link>
+          </li>
+
+          <li>
+            <Link href="/how-many-days-until/january-1">
+              How many days until a date
+            </Link>
+          </li>
+        </ul>
       </div>
 
       <div style={{ marginTop: 50 }}>
@@ -160,7 +188,9 @@ export default function TodayDashboard() {
           </li>
 
           <li>
-            <Link href="/days-until/valentines-day">Days until Valentine's Day</Link>
+            <Link href="/days-until/valentines-day">
+              Days until Valentine's Day
+            </Link>
           </li>
         </ul>
       </div>

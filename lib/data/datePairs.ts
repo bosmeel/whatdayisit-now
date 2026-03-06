@@ -1,56 +1,83 @@
-import { generateMonthDayPairs } from "./datePairs.generated";
+type Pair = {
+  slug: string;
+  label: string;
+  priority?: number;
+};
 
-export type DatePairKind = "md-md" | "year-year";
-export type MonthDay = { month: number; day: number };
-
-export type DatePair =
-  | {
-      kind: "md-md";
-      slug: string;
-      start: MonthDay;
-      end: MonthDay;
-      label: string;
-      priority?: number;
-    }
-  | {
-      kind: "year-year";
-      slug: string;
-      startYear: number;
-      endYear: number;
-      label: string;
-      priority?: number;
-    };
-
-const generated: DatePair[] = generateMonthDayPairs().map((p) => ({
-  kind: "md-md" as const,
-  slug: p.slug,
-  start: p.start,
-  end: p.end,
-  label: p.label,
-  priority: p.priority,
-}));
-
-const yearPairs: DatePair[] = [
-  {
-    kind: "year-year",
-    slug: "2024-and-2025",
-    startYear: 2024,
-    endYear: 2025,
-    label: "2024 and 2025",
-    priority: 9,
-  },
-  {
-    kind: "year-year",
-    slug: "2025-and-2026",
-    startYear: 2025,
-    endYear: 2026,
-    label: "2025 and 2026",
-    priority: 9,
-  },
+const fixedPairs: Pair[] = [
+  { slug: "christmas-and-new-year", label: "Christmas and New Year", priority: 10 },
+  { slug: "halloween-and-christmas", label: "Halloween and Christmas", priority: 9 },
+  { slug: "thanksgiving-and-christmas", label: "Thanksgiving and Christmas", priority: 9 },
+  { slug: "new-year-and-valentines-day", label: "New Year and Valentine's Day", priority: 8 },
+  { slug: "valentines-day-and-halloween", label: "Valentine's Day and Halloween", priority: 7 },
+  { slug: "jan-1-and-dec-31", label: "January 1 and December 31", priority: 10 },
+  { slug: "birthday-and-christmas", label: "Birthday and Christmas", priority: 9 },
+  { slug: "2024-and-2025", label: "2024 and 2025", priority: 8 },
 ];
 
-export const DATE_PAIRS: DatePair[] = [...yearPairs, ...generated];
+const months = [
+  { name: "january", days: 31 },
+  { name: "february", days: 29 },
+  { name: "march", days: 31 },
+  { name: "april", days: 30 },
+  { name: "may", days: 31 },
+  { name: "june", days: 30 },
+  { name: "july", days: 31 },
+  { name: "august", days: 31 },
+  { name: "september", days: 30 },
+  { name: "october", days: 31 },
+  { name: "november", days: 30 },
+  { name: "december", days: 31 },
+];
 
-export function getDatePairBySlug(slug: string): DatePair | undefined {
-  return DATE_PAIRS.find((p) => p.slug === slug);
+function formatMonth(name: string) {
+  return name.charAt(0).toUpperCase() + name.slice(1);
 }
+
+const generatedPairs: Pair[] = [];
+
+/* same-month combinations */
+
+months.forEach((month) => {
+  const first = `${month.name}-1`;
+  const middle = `${month.name}-15`;
+  const last = `${month.name}-${month.days}`;
+
+  generatedPairs.push({
+    slug: `${first}-and-${middle}`,
+    label: `${formatMonth(month.name)} 1 and ${formatMonth(month.name)} 15`,
+  });
+
+  generatedPairs.push({
+    slug: `${middle}-and-${last}`,
+    label: `${formatMonth(month.name)} 15 and ${formatMonth(month.name)} ${month.days}`,
+  });
+
+  generatedPairs.push({
+    slug: `${first}-and-${last}`,
+    label: `${formatMonth(month.name)} 1 and ${formatMonth(month.name)} ${month.days}`,
+  });
+});
+
+/* cross-month combinations */
+
+months.forEach((a) => {
+  months.forEach((b) => {
+    if (a.name === b.name) return;
+
+    generatedPairs.push({
+      slug: `${a.name}-1-and-${b.name}-1`,
+      label: `${formatMonth(a.name)} 1 and ${formatMonth(b.name)} 1`,
+    });
+
+    generatedPairs.push({
+      slug: `${a.name}-15-and-${b.name}-15`,
+      label: `${formatMonth(a.name)} 15 and ${formatMonth(b.name)} 15`,
+    });
+  });
+});
+
+export const DATE_PAIRS: Pair[] = [
+  ...fixedPairs,
+  ...generatedPairs,
+];
