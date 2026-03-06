@@ -2,6 +2,21 @@ import { MetadataRoute } from "next";
 import { EVENTS } from "@/lib/events";
 import { DATE_PAIRS } from "@/lib/data/datePairs";
 
+const months = [
+  { name: "january", days: 31 },
+  { name: "february", days: 29 },
+  { name: "march", days: 31 },
+  { name: "april", days: 30 },
+  { name: "may", days: 31 },
+  { name: "june", days: 30 },
+  { name: "july", days: 31 },
+  { name: "august", days: 31 },
+  { name: "september", days: 30 },
+  { name: "october", days: 31 },
+  { name: "november", days: 30 },
+  { name: "december", days: 31 },
+];
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://whatdayisit.now";
   const now = new Date();
@@ -11,6 +26,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "",
     "/days-until",
     "/days-between",
+    "/born-on",
+    "/what-happened-on",
     `/how-many-days-left-in/${currentYear}`,
     `/how-many-weeks-left-in/${currentYear}`,
   ];
@@ -29,20 +46,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  const eventYearPages = Object.keys(EVENTS).map((slug) => ({
-    url: `${baseUrl}/days-until/${slug}-${currentYear}`,
-    lastModified: now,
-    changeFrequency: "daily" as const,
-    priority: 0.7,
-  }));
-
-  const daysBetweenHub = {
-    url: `${baseUrl}/days-between`,
-    lastModified: now,
-    changeFrequency: "daily" as const,
-    priority: 0.9,
-  };
-
   const daysBetweenPages = DATE_PAIRS.map((pair) => ({
     url: `${baseUrl}/days-between/${pair.slug}`,
     lastModified: now,
@@ -50,11 +53,32 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
+  const bornOnPages: MetadataRoute.Sitemap = [];
+  const happenedPages: MetadataRoute.Sitemap = [];
+
+  months.forEach((m) => {
+    for (let d = 1; d <= m.days; d++) {
+      bornOnPages.push({
+        url: `${baseUrl}/born-on/${m.name}-${d}`,
+        lastModified: now,
+        changeFrequency: "yearly",
+        priority: 0.6,
+      });
+
+      happenedPages.push({
+        url: `${baseUrl}/what-happened-on/${m.name}-${d}`,
+        lastModified: now,
+        changeFrequency: "yearly",
+        priority: 0.6,
+      });
+    }
+  });
+
   return [
     ...staticPages,
-    daysBetweenHub,
     ...eventPages,
-    ...eventYearPages,
     ...daysBetweenPages,
+    ...bornOnPages,
+    ...happenedPages,
   ];
 }
