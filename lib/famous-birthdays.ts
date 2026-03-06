@@ -1,3 +1,4 @@
+import "server-only";
 export const famousBirthdays: Record<string, string[]> = {
 
   "january-1": [
