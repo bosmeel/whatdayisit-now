@@ -5,12 +5,6 @@ import Link from "next/link";
 import DateInput from "@/components/DateInput";
 import { EVENTS } from "@/lib/events";
 
-export const metadata = {
-  title: "Days Until Calculator – All Countdown Events",
-  description:
-    "Calculate how many days until any date or browse countdowns to popular events like Christmas, Halloween and New Year.",
-  alternates: { canonical: "/days-until" },
-};
 
 export default function DaysUntilIndex() {
 
