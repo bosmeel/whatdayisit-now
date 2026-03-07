@@ -7,21 +7,21 @@
 ================================ */
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --accent: #6366f1;
-  --card: #f5f6fb;
-  --border: #e5e7eb;
-  --muted: #6b7280;
+  --background:#ffffff;
+  --foreground:#171717;
+  --accent:#6366f1;
+  --card:#f5f6fb;
+  --border:#e5e7eb;
+  --muted:#6b7280;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0b0b0c;
-    --foreground: #f3f4f6;
-    --card: #151517;
-    --border: #2b2b31;
-    --muted: #9ca3af;
+@media (prefers-color-scheme: dark){
+  :root{
+    --background:#0b0b0c;
+    --foreground:#f3f4f6;
+    --card:#151517;
+    --border:#2b2b31;
+    --muted:#9ca3af;
   }
 }
 
@@ -29,351 +29,356 @@
    Global layout
 ================================ */
 
-* {
-  box-sizing: border-box;
+*{
+  box-sizing:border-box;
 }
 
-html {
-  overflow-x: hidden;
+html{
+  overflow-x:hidden;
 }
 
-body {
-  margin: 0;
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: 1.55;
+body{
+  margin:0;
+  background:var(--background);
+  color:var(--foreground);
+  font-family:Arial,Helvetica,sans-serif;
+  line-height:1.55;
 }
 
-img {
-  max-width: 100%;
-  height: auto;
+img{
+  max-width:100%;
+  height:auto;
 }
 
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 20px;
+.container{
+  max-width:1100px;
+  margin:0 auto;
+  padding:0 20px;
 }
 
 /* ===============================
    Header
 ================================ */
 
-.site-header {
-  border-bottom: 1px solid var(--border);
-  padding: 12px 0;
-  background: var(--background);
-  position: sticky;
-  top: 0;
-  z-index: 50;
+.site-header{
+  border-bottom:1px solid var(--border);
+  padding:12px 0;
+  background:var(--background);
+  position:sticky;
+  top:0;
+  z-index:50;
 }
 
-.header-inner {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+.header-inner{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
 }
 
-.logo-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
-  color: var(--foreground);
-  font-weight: 700;
-  font-size: 16px;
+.logo-link{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  text-decoration:none;
+  color:var(--foreground);
+  font-weight:700;
+  font-size:16px;
 }
 
-.logo-icon {
-  width: 18px;
-  height: 18px;
+.logo-icon{
+  width:18px;
+  height:18px;
 }
 
 /* ===============================
    Navigation
 ================================ */
 
-.main-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px 14px;
-  font-size: 14px;
+.main-nav{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 14px;
+  font-size:14px;
 }
 
-.main-nav a {
-  text-decoration: none;
-  color: var(--muted);
+.main-nav a{
+  text-decoration:none;
+  color:var(--muted);
 }
 
-.main-nav a:hover {
-  color: var(--accent);
+.main-nav a:hover{
+  color:var(--accent);
 }
 
 /* ===============================
    Main content
 ================================ */
 
-.main-content {
-  padding-top: 32px;
-  padding-bottom: 60px;
+.main-content{
+  padding-top:32px;
+  padding-bottom:60px;
 }
 
 /* consistent spacing */
 
-.main-content > * + * {
-  margin-top: 22px;
+.main-content > * + *{
+  margin-top:22px;
 }
 
-.main-content p {
-  max-width: 65ch;
+.main-content p{
+  max-width:65ch;
 }
 
 /* ===============================
    Footer
 ================================ */
 
-.site-footer {
-  border-top: 1px solid var(--border);
-  padding: 20px 0;
-  margin-top: 60px;
-  font-size: 14px;
-  color: var(--muted);
+.site-footer{
+  border-top:1px solid var(--border);
+  padding:20px 0;
+  margin-top:60px;
+  font-size:14px;
+  color:var(--muted);
 }
 
-.footer-inner {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px 20px;
-  justify-content: center;
+.footer-inner{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px 20px;
+  justify-content:center;
 }
 
 /* ===============================
    Dashboard grids
 ================================ */
 
-.today-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(160px,1fr));
-  gap: 18px;
-  margin-top: 20px;
+.today-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:18px;
+  margin-top:20px;
 }
 
-.today-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 16px;
-  font-size: 14px;
-}
-
-.tool-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-  gap: 16px;
-  margin-top: 20px;
-}
-
-.tool-card {
-  display: block;
-  padding: 18px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: var(--card);
-  text-decoration: none;
-  color: var(--foreground);
-  font-weight: 500;
-}
-
-.tool-card:hover {
-  border-color: var(--accent);
-  transform: translateY(-2px);
+.today-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:16px;
+  font-size:14px;
 }
 
 /* ===============================
-   Tool link upgrade
+   Tool grids
 ================================ */
 
-.main-content ul {
-  list-style: none;
-  padding-left: 0;
+.tool-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:16px;
+  margin-top:20px;
 }
 
-.main-content ul li {
-  margin-bottom: 6px;
+.tool-card{
+  display:block;
+  padding:18px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:var(--card);
+  text-decoration:none;
+  color:var(--foreground);
+  font-weight:500;
+  transition:all .15s ease;
 }
 
-.main-content ul li a {
-  display: inline-block;
-  padding: 8px 12px;
-  border-radius: 6px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  color: var(--foreground);
-  text-decoration: none;
-  margin: 4px 6px 4px 0;
+.tool-card:hover{
+  border-color:var(--accent);
+  transform:translateY(-2px);
 }
 
-.main-content ul li a:hover {
-  border-color: var(--accent);
+/* ===============================
+   Popular calculators grid
+================================ */
+
+.popular-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:16px;
+  margin-top:18px;
+}
+
+.popular-card{
+  display:block;
+  padding:16px 18px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:var(--card);
+  text-decoration:none;
+  color:var(--foreground);
+  font-weight:500;
+  transition:all .15s ease;
+}
+
+.popular-card:hover{
+  border-color:var(--accent);
+  transform:translateY(-2px);
 }
 
 /* ===============================
    Date input
 ================================ */
 
-.date-field {
-  margin-bottom: 14px;
+.date-field{
+  margin-bottom:14px;
 }
 
-.date-label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 6px;
-  font-size: 14px;
+.date-label{
+  display:block;
+  font-weight:600;
+  margin-bottom:6px;
+  font-size:14px;
 }
 
-.date-input-row {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
+.date-input-row{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
 }
 
-.date-input {
-  width: 100%;
-  max-width: 260px;
-  padding: 10px 12px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  font-size: 16px;
-  background: var(--background);
-  color: var(--foreground);
+.date-input{
+  width:100%;
+  max-width:260px;
+  padding:10px 12px;
+  border:1px solid var(--border);
+  border-radius:6px;
+  font-size:16px;
+  background:var(--background);
+  color:var(--foreground);
 }
 
-.date-input:focus {
-  outline: none;
-  border-color: var(--accent);
+.date-input:focus{
+  outline:none;
+  border-color:var(--accent);
 }
 
-.date-picker-button {
-  padding: 10px 14px;
-  border-radius: 6px;
-  border: 1px solid var(--border);
-  background: var(--card);
-  cursor: pointer;
+.date-picker-button{
+  padding:10px 14px;
+  border-radius:6px;
+  border:1px solid var(--border);
+  background:var(--card);
+  cursor:pointer;
 }
 
 /* ===============================
    Calculator layout
 ================================ */
 
-.calculator {
-  max-width: 420px;
-  margin-top: 18px;
+.calculator{
+  max-width:420px;
+  margin-top:18px;
 }
 
 /* ===============================
    Result card
 ================================ */
 
-.result-box {
-  margin-top: 22px;
-  padding: 24px 22px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: var(--card);
+.result-box{
+  margin-top:22px;
+  padding:24px 22px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:var(--card);
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
 
-  text-align: center;
+  text-align:center;
 }
 
-.result-number {
-  font-size: 48px;
-  font-weight: 800;
-  color: var(--foreground);
-  line-height: 1.1;
+.result-number{
+  font-size:48px;
+  font-weight:800;
+  color:var(--foreground);
+  line-height:1.1;
 }
 
-.result-label {
-  font-size: 14px;
-  color: var(--muted);
-  margin-top: 6px;
+.result-label{
+  font-size:14px;
+  color:var(--muted);
+  margin-top:6px;
 }
 
 /* ===============================
    Buttons
 ================================ */
 
-button {
-  padding: 8px 14px;
-  border-radius: 6px;
-  border: 1px solid var(--border);
-  background: var(--card);
-  cursor: pointer;
+button{
+  padding:8px 14px;
+  border-radius:6px;
+  border:1px solid var(--border);
+  background:var(--card);
+  cursor:pointer;
 }
 
-button:hover {
-  border-color: var(--accent);
+button:hover{
+  border-color:var(--accent);
 }
 
 /* ===============================
    Headings
 ================================ */
 
-h1 {
-  font-size: 36px;
-  font-weight: 800;
+h1{
+  font-size:36px;
+  font-weight:800;
 }
 
-h2 {
-  font-size: 22px;
-  font-weight: 700;
-  margin-top: 28px;
+h2{
+  font-size:22px;
+  font-weight:700;
+  margin-top:28px;
 }
 
 /* ===============================
    Responsive
 ================================ */
 
-@media (min-width: 900px) {
-  .header-inner {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+@media (min-width:900px){
+  .header-inner{
+    flex-direction:row;
+    align-items:center;
+    justify-content:space-between;
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width:640px){
 
-  .container {
-    padding: 0 16px;
+  .container{
+    padding:0 16px;
   }
 
-  .main-nav {
-    gap: 8px 12px;
-    font-size: 13px;
+  .main-nav{
+    gap:8px 12px;
+    font-size:13px;
   }
 
-  .calculator {
-    max-width: 100%;
+  .calculator{
+    max-width:100%;
   }
 
-  .date-input-row {
-    flex-direction: column;
+  .date-input-row{
+    flex-direction:column;
   }
 
   .date-input,
-  .date-picker-button {
-    width: 100%;
-    max-width: 100%;
+  .date-picker-button{
+    width:100%;
+    max-width:100%;
   }
 
-  .result-number {
-    font-size: 40px;
+  .result-number{
+    font-size:40px;
   }
 
 }
