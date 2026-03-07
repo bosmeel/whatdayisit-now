@@ -42,33 +42,33 @@ export default function TodayDashboard() {
       <div className="today-grid">
 
         <div className="today-card">
-          <div className="result-number">{weekNumber}</div>
-          <div className="result-label">Week number</div>
+          <strong>Week number</strong>
+          <div>Week {weekNumber}</div>
         </div>
 
         <div className="today-card">
-          <div className="result-number">{dayOfYear}</div>
-          <div className="result-label">Day of year</div>
+          <strong>Day of the year</strong>
+          <div>{dayOfYear} / {totalDays}</div>
         </div>
 
         <div className="today-card">
-          <div className="result-number">{daysLeft}</div>
-          <div className="result-label">Days left in year</div>
+          <strong>Days left in year</strong>
+          <div>{daysLeft}</div>
         </div>
 
         <div className="today-card">
-          <div className="result-number">{yearProgress}%</div>
-          <div className="result-label">Year progress</div>
+          <strong>Year progress</strong>
+          <div>{yearProgress}%</div>
         </div>
 
         <div className="today-card">
-          <div className="result-number">{weekend}</div>
-          <div className="result-label">Days until weekend</div>
+          <strong>Days until weekend</strong>
+          <div>{weekend}</div>
         </div>
 
         <div className="today-card">
-          <div className="result-number">Q{quarter}</div>
-          <div className="result-label">Quarter</div>
+          <strong>Quarter</strong>
+          <div>Q{quarter}</div>
         </div>
 
       </div>
