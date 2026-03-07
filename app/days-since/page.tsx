@@ -37,6 +37,13 @@ export default function DaysSincePage() {
         Calculate how many days have passed since a specific date.
       </p>
 
+      {result !== null && (
+        <div className="result-box">
+          <div className="result-number">{result}</div>
+          <div className="result-label">days</div>
+        </div>
+      )}
+
       <div className="calculator">
 
         <DateInput
@@ -44,12 +51,6 @@ export default function DaysSincePage() {
           value={date}
           onChange={setDate}
         />
-
-        {result !== null && (
-          <div className="result-box">
-            {result} days
-          </div>
-        )}
 
       </div>
 
