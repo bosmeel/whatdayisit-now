@@ -117,7 +117,7 @@ export default function DateInput({
         aria-hidden="true"
       />
 
-      <p className="date-help">Gebruik dd-mm-jjjj of kies een datum via kalender.</p>
+      <p className="date-help">Use dd-mm-yyyy or choose a date from the calendar.</p>
     </div>
   );
 }
