@@ -27,13 +27,9 @@
    Global layout
 ================================ */
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
-html {
-  overflow-x: hidden;
-}
+html { overflow-x: hidden; }
 
 body {
   margin: 0;
@@ -44,10 +40,7 @@ body {
   overflow-x: hidden;
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-}
+img { max-width: 100%; height: auto; }
 
 .container {
   max-width: 1100px;
@@ -84,10 +77,7 @@ img {
   font-size: 16px;
 }
 
-.logo-icon {
-  width: 18px;
-  height: 18px;
-}
+.logo-icon { width: 18px; height: 18px; }
 
 /* ===============================
    Navigation
@@ -105,9 +95,7 @@ img {
   color: var(--muted);
 }
 
-.main-nav a:hover {
-  color: var(--accent);
-}
+.main-nav a:hover { color: var(--accent); }
 
 /* ===============================
    Links
@@ -118,9 +106,7 @@ a {
   text-decoration: none;
 }
 
-a:hover {
-  opacity: 0.85;
-}
+a:hover { opacity: 0.85; }
 
 /* ===============================
    Main content
@@ -199,9 +185,7 @@ a:hover {
    Date input
 ================================ */
 
-.date-field {
-  margin-bottom: 16px;
-}
+.date-field { margin-bottom: 16px; }
 
 .date-label {
   display: block;
@@ -232,27 +216,11 @@ a:hover {
   border-color: var(--accent);
 }
 
-/* calendar button */
-
 .date-picker-button {
   padding: 10px 14px;
   border-radius: 6px;
   border: 1px solid var(--border);
   background: var(--card);
-  cursor: pointer;
-}
-
-/* calendar overlay */
-
-.calendar-wrapper {
-  position: relative;
-  display: inline-block;
-}
-
-.native-date-overlay {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
   cursor: pointer;
 }
 
@@ -265,14 +233,36 @@ a:hover {
   margin-top: 20px;
 }
 
-.calculator button {
-  margin-top: 10px;
-}
+/* ===============================
+   Result card (NEW)
+================================ */
 
 .result-box {
-  margin-top: 20px;
-  font-size: 20px;
+  margin-top: 24px;
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
   font-weight: 700;
+  text-align: center;
+}
+
+/* split number + label */
+
+.result-box::first-line {
+  font-size: 42px;
+  font-weight: 800;
+}
+
+.result-box span {
+  font-size: 14px;
+  color: var(--muted);
 }
 
 /* ===============================
@@ -287,9 +277,7 @@ button {
   cursor: pointer;
 }
 
-button:hover {
-  border-color: var(--accent);
-}
+button:hover { border-color: var(--accent); }
 
 /* ===============================
    Headings
@@ -311,47 +299,35 @@ h2 {
 ================================ */
 
 @media (min-width:900px){
-
-.header-inner{
-flex-direction:row;
-align-items:center;
-justify-content:space-between;
-}
-
+  .header-inner{
+    flex-direction:row;
+    align-items:center;
+    justify-content:space-between;
+  }
 }
 
 @media (max-width:640px){
 
-.container{
-padding:0 16px;
-}
+  .container{ padding:0 16px; }
 
-.main-nav{
-gap:8px 12px;
-font-size:13px;
-}
+  .main-nav{
+    gap:8px 12px;
+    font-size:13px;
+  }
 
-.tool-grid,
-.today-grid{
-grid-template-columns:1fr;
-}
+  .tool-grid,
+  .today-grid{
+    grid-template-columns:1fr;
+  }
 
-.calculator{
-max-width:100%;
-}
+  .calculator{ max-width:100%; }
 
-.calculator button{
-width:100%;
-}
+  .date-input-row{ flex-direction:column; }
 
-.date-input-row{
-flex-direction:column;
-}
-
-.date-input,
-.date-picker-button{
-max-width:100%;
-width:100%;
-}
+  .date-input,
+  .date-picker-button{
+    max-width:100%;
+    width:100%;
+  }
 
 }
