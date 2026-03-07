@@ -16,15 +16,19 @@ export default function DaysSincePage() {
     }
 
     const start = new Date(date);
+
+    if (Number.isNaN(start.getTime())) {
+      setResult(null);
+      return;
+    }
+
     const today = new Date();
 
     const diff = today.getTime() - start.getTime();
 
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
 
-    if (!Number.isNaN(days)) {
-      setResult(days);
-    }
+    setResult(days);
 
   }, [date]);
 
