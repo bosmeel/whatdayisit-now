@@ -51,22 +51,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
+
         <header className="site-header">
           <div className="container header-inner">
+
             <div className="logo">
               <Link href="/" className="logo-link">
                 <img
                   src="/icon.svg"
                   alt="WhatDayIsIt icon"
                   className="logo-icon"
+                  width="18"
+                  height="18"
                 />
                 <span>WhatDayIsIt.now</span>
               </Link>
             </div>
 
-            <nav className="main-nav">
+            <nav className="main-nav" aria-label="Main navigation">
               <Link href="/days-between">Days Between</Link>
               <Link href="/days-since">Days Since</Link>
               <Link href="/days-until">Days Until</Link>
@@ -75,10 +79,13 @@ export default function RootLayout({
               <Link href="/years-between">Years</Link>
               <Link href="/age-calculator">Age</Link>
             </nav>
+
           </div>
         </header>
 
-        <main className="container main-content">{children}</main>
+        <main className="container main-content">
+          {children}
+        </main>
 
         <footer className="site-footer">
           <div className="container footer-inner">
@@ -88,6 +95,7 @@ export default function RootLayout({
             <Link href="/terms">Terms</Link>
           </div>
         </footer>
+
       </body>
     </html>
   );
