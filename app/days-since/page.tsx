@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DateInput from "@/components/DateInput";
 
 export default function DaysSincePage() {
@@ -8,58 +8,51 @@ export default function DaysSincePage() {
   const [date, setDate] = useState("");
   const [result, setResult] = useState<number | null>(null);
 
-  function calculate() {
+  useEffect(() => {
 
-    if (!date) return;
+    if (!date) {
+      setResult(null);
+      return;
+    }
 
     const start = new Date(date);
-    const now = new Date();
+    const today = new Date();
 
-    const diff = now.getTime() - start.getTime();
+    const diff = today.getTime() - start.getTime();
 
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
 
-    setResult(days);
-  }
+    if (!Number.isNaN(days)) {
+      setResult(days);
+    }
+
+  }, [date]);
 
   return (
-    <main className="mx-auto max-w-3xl px-4 py-10">
+    <div>
 
-      <h1 className="text-3xl font-bold mb-6">
-        Days Since
-      </h1>
+      <h1>Days Since Date</h1>
 
-      <p className="mb-6">
-        Find out how many days have passed since a specific date.
+      <p>
+        Calculate how many days have passed since a specific date.
       </p>
 
-      <DateInput
-        label="Start date"
-        value={date}
-        onChange={setDate}
-      />
+      <div className="calculator">
 
-      <button
-        onClick={calculate}
-        style={{
-          marginTop: 10,
-          padding: "10px 16px",
-          borderRadius: 6,
-          border: "none",
-          background: "#111",
-          color: "#fff",
-          cursor: "pointer"
-        }}
-      >
-        Calculate
-      </button>
+        <DateInput
+          label="Start date"
+          value={date}
+          onChange={setDate}
+        />
 
-      {result !== null && (
-        <p style={{ marginTop: 20, fontWeight: 600 }}>
-          {result} days
-        </p>
-      )}
+        {result !== null && (
+          <div className="result-box">
+            {result} days
+          </div>
+        )}
 
-    </main>
+      </div>
+
+    </div>
   );
 }
