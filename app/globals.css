@@ -13,8 +13,6 @@
   --muted: #6b7280;
 }
 
-/* Dark mode */
-
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0b0b0c;
@@ -73,11 +71,8 @@ img {
 .header-inner {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
   gap: 12px;
 }
-
-/* Logo */
 
 .logo-link {
   display: inline-flex;
@@ -87,13 +82,11 @@ img {
   color: var(--foreground);
   font-weight: 700;
   font-size: 16px;
-  line-height: 1.2;
 }
 
 .logo-icon {
   width: 18px;
   height: 18px;
-  flex: 0 0 auto;
 }
 
 /* ===============================
@@ -110,7 +103,6 @@ img {
 .main-nav a {
   text-decoration: none;
   color: var(--muted);
-  white-space: nowrap;
 }
 
 .main-nav a:hover {
@@ -159,12 +151,12 @@ a:hover {
 }
 
 /* ===============================
-   Tool grid (dashboard tools)
+   Tool grid
 ================================ */
 
 .tool-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
   gap: 16px;
   margin-top: 20px;
 }
@@ -178,22 +170,20 @@ a:hover {
   text-decoration: none;
   color: var(--foreground);
   font-weight: 500;
-  transition: all 0.15s ease;
 }
 
 .tool-card:hover {
   border-color: var(--accent);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
   transform: translateY(-2px);
 }
 
 /* ===============================
-   Today dashboard cards
+   Today cards
 ================================ */
 
 .today-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fit,minmax(160px,1fr));
   gap: 18px;
   margin-top: 24px;
 }
@@ -203,11 +193,10 @@ a:hover {
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 16px;
-  font-size: 14px;
 }
 
 /* ===============================
-   Date input component
+   Date input
 ================================ */
 
 .date-field {
@@ -219,13 +208,11 @@ a:hover {
   font-weight: 600;
   margin-bottom: 6px;
   font-size: 14px;
-  color: var(--foreground);
 }
 
 .date-input-row {
   display: flex;
   gap: 10px;
-  align-items: stretch;
   flex-wrap: wrap;
 }
 
@@ -243,36 +230,30 @@ a:hover {
 .date-input:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 2px rgba(99,102,241,0.15);
 }
+
+/* calendar button */
 
 .date-picker-button {
   padding: 10px 14px;
   border-radius: 6px;
   border: 1px solid var(--border);
   background: var(--card);
-  color: var(--foreground);
-  font-size: 14px;
   cursor: pointer;
-  white-space: nowrap;
 }
 
-.date-picker-button:hover {
-  border-color: var(--accent);
+/* calendar overlay */
+
+.calendar-wrapper {
+  position: relative;
+  display: inline-block;
 }
 
-.native-date-input {
+.native-date-overlay {
   position: absolute;
+  inset: 0;
   opacity: 0;
-  pointer-events: none;
-  width: 1px;
-  height: 1px;
-}
-
-.date-help {
-  margin-top: 6px;
-  font-size: 13px;
-  color: var(--muted);
+  cursor: pointer;
 }
 
 /* ===============================
@@ -303,8 +284,6 @@ button {
   border-radius: 6px;
   border: 1px solid var(--border);
   background: var(--card);
-  color: var(--foreground);
-  font-size: 14px;
   cursor: pointer;
 }
 
@@ -319,83 +298,60 @@ button:hover {
 h1 {
   font-size: 36px;
   font-weight: 800;
-  margin-bottom: 12px;
-  line-height: 1.15;
 }
 
 h2 {
   font-size: 22px;
   font-weight: 700;
   margin-top: 32px;
-  margin-bottom: 10px;
-  line-height: 1.2;
 }
 
 /* ===============================
    Responsive
 ================================ */
 
-@media (min-width: 900px) {
-  .header-inner {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-  }
+@media (min-width:900px){
 
-  .main-nav {
-    justify-content: flex-end;
-  }
+.header-inner{
+flex-direction:row;
+align-items:center;
+justify-content:space-between;
 }
 
-@media (max-width: 640px) {
+}
 
-  .container {
-    padding: 0 16px;
-  }
+@media (max-width:640px){
 
-  .site-header {
-    padding: 10px 0;
-  }
+.container{
+padding:0 16px;
+}
 
-  .main-content {
-    padding-top: 24px;
-    padding-bottom: 48px;
-  }
+.main-nav{
+gap:8px 12px;
+font-size:13px;
+}
 
-  .main-nav {
-    gap: 8px 12px;
-    font-size: 13px;
-  }
+.tool-grid,
+.today-grid{
+grid-template-columns:1fr;
+}
 
-  h1 {
-    font-size: 30px;
-  }
+.calculator{
+max-width:100%;
+}
 
-  h2 {
-    font-size: 20px;
-  }
+.calculator button{
+width:100%;
+}
 
-  .tool-grid,
-  .today-grid {
-    grid-template-columns: 1fr;
-  }
+.date-input-row{
+flex-direction:column;
+}
 
-  .calculator {
-    max-width: 100%;
-  }
+.date-input,
+.date-picker-button{
+max-width:100%;
+width:100%;
+}
 
-  .calculator button {
-    width: 100%;
-  }
-
-  .date-input-row {
-    flex-direction: column;
-  }
-
-  .date-input,
-  .date-picker-button {
-    max-width: 100%;
-    width: 100%;
-  }
 }

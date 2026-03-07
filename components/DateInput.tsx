@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 type Props = {
   label: string;
@@ -15,13 +15,13 @@ function isoToDisplay(iso: string) {
 }
 
 function displayToIso(display: string) {
-  const cleaned = display.replace(/[^\d]/g, "");
+  const digits = display.replace(/\D/g, "");
 
-  if (cleaned.length !== 8) return "";
+  if (digits.length !== 8) return "";
 
-  const day = cleaned.slice(0, 2);
-  const month = cleaned.slice(2, 4);
-  const year = cleaned.slice(4, 8);
+  const day = digits.slice(0, 2);
+  const month = digits.slice(2, 4);
+  const year = digits.slice(4, 8);
 
   return `${year}-${month}-${day}`;
 }
@@ -38,7 +38,6 @@ function formatDisplay(value: string) {
 export default function DateInput({ label, value = "", onChange }: Props) {
 
   const [displayValue, setDisplayValue] = useState("");
-  const nativeInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setDisplayValue(isoToDisplay(value));
@@ -62,13 +61,6 @@ export default function DateInput({ label, value = "", onChange }: Props) {
     if (onChange) onChange(iso);
   }
 
-  function openCalendar() {
-
-    if (!nativeInput.current) return;
-
-    nativeInput.current.click();
-  }
-
   return (
     <div className="date-field">
 
@@ -87,23 +79,26 @@ export default function DateInput({ label, value = "", onChange }: Props) {
           className="date-input"
         />
 
-        <button
-          type="button"
-          className="date-picker-button"
-          onClick={openCalendar}
-        >
-          Calendar
-        </button>
+        <div className="calendar-wrapper">
+
+          <button
+            type="button"
+            className="date-picker-button"
+            tabIndex={-1}
+          >
+            Calendar
+          </button>
+
+          <input
+            type="date"
+            value={value || ""}
+            onChange={handleNativeChange}
+            className="native-date-overlay"
+          />
+
+        </div>
 
       </div>
-
-      <input
-        ref={nativeInput}
-        type="date"
-        value={value}
-        onChange={handleNativeChange}
-        className="native-date-input"
-      />
 
     </div>
   );
