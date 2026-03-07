@@ -1,61 +1,65 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import Calculator from "./Calculator";
-import { DATE_PAIRS } from "@/lib/data/datePairs";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Days Between Dates Calculator",
-  description:
-    "Calculate the exact number of days between two dates. Free online days between dates calculator.",
-  alternates: {
-    canonical: "https://whatdayisit.now/days-between",
-  },
-};
+import { useState, useEffect } from "react";
+import DateInput from "@/components/DateInput";
 
-export default function DaysBetweenIndexPage() {
+export default function DaysBetweenPage() {
 
-  const sorted = [...DATE_PAIRS].sort(
-    (a, b) => (b.priority ?? 0) - (a.priority ?? 0)
-  );
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [result, setResult] = useState<number | null>(null);
 
-  const featured = sorted.slice(0, 10);
-  const all = sorted.slice(10);
+  useEffect(() => {
+
+    if (!startDate || !endDate) {
+      setResult(null);
+      return;
+    }
+
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    const diff = end.getTime() - start.getTime();
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+    if (!Number.isNaN(days)) {
+      setResult(Math.abs(days));
+    }
+
+  }, [startDate, endDate]);
 
   return (
-    <main style={{ maxWidth: 900, margin: "40px auto", padding: 20 }}>
+    <div>
 
       <h1>Days Between Dates</h1>
 
       <p>
-        Use the calculator below to find the number of days between two dates.
+        Calculate the number of days between two dates.
       </p>
 
-      <Calculator />
+      <div className="calculator">
 
-      <h2 style={{ marginTop: 50 }}>Popular date pairs</h2>
+        <DateInput
+          label="Start date"
+          value={startDate}
+          onChange={setStartDate}
+        />
 
-      <ul style={{ lineHeight: 1.9 }}>
-        {featured.map((p) => (
-          <li key={p.slug}>
-            <Link href={`/days-between/${p.slug}`}>
-              Days between {p.label}
-            </Link>
-          </li>
-        ))}
-      </ul>
+        <DateInput
+          label="End date"
+          value={endDate}
+          onChange={setEndDate}
+        />
 
-      <h2 style={{ marginTop: 40 }}>All date comparisons</h2>
+        {result !== null && (
+          <div className="result-box">
+            {result} days
+          </div>
+        )}
 
-      <ul style={{ columns: 2, lineHeight: 1.8 }}>
-        {all.map((p) => (
-          <li key={p.slug}>
-            <Link href={`/days-between/${p.slug}`}>
-              {p.label}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      </div>
 
-    </main>
+    </div>
   );
 }
