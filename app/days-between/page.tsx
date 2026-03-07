@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import DateInput from "@/components/DateInput";
 
 function formatDate(dateString: string) {
@@ -13,10 +14,29 @@ function formatDate(dateString: string) {
   });
 }
 
+function isValidIsoDate(value: string) {
+  return /^\d{4}-\d{2}-\d{2}$/.test(value);
+}
+
 export default function DaysBetweenPage() {
+  const searchParams = useSearchParams();
+
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [result, setResult] = useState<number | null>(null);
+
+  useEffect(() => {
+    const start = searchParams.get("start") ?? "";
+    const end = searchParams.get("end") ?? "";
+
+    if (isValidIsoDate(start)) {
+      setStartDate(start);
+    }
+
+    if (isValidIsoDate(end)) {
+      setEndDate(end);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     if (!startDate || !endDate) {
@@ -43,12 +63,9 @@ export default function DaysBetweenPage() {
 
   return (
     <div>
-
       <h1>Days Between Dates</h1>
 
-      <p>
-        Calculate the number of days between two dates.
-      </p>
+      <p>Calculate the number of days between two dates.</p>
 
       {result !== null && (
         <>
@@ -64,7 +81,6 @@ export default function DaysBetweenPage() {
       )}
 
       <div className="calculator">
-
         <DateInput
           label="Start date"
           value={startDate}
@@ -76,9 +92,7 @@ export default function DaysBetweenPage() {
           value={endDate}
           onChange={setEndDate}
         />
-
       </div>
-
     </div>
   );
 }

@@ -40,6 +40,7 @@ const featuredLinks = [
   { href: "/weeks-between", label: "Weeks Between Dates" },
   { href: "/months-between", label: "Months Between Dates" },
   { href: "/years-between", label: "Years Between Dates" },
+  { href: "/business-days-between", label: "Business Days Between Dates" },
   { href: "/age-calculator", label: "Age Calculator" },
   { href: "/days-until-my-birthday", label: "Birthday Tools" },
 ];
@@ -49,14 +50,12 @@ export default function Home() {
     <>
       <TodayDashboard />
 
-      {/* Popular calculators */}
-
       <section className="container">
         <h2>Popular Date Calculators</h2>
 
         <p>
-          Use these free online calculators to compare dates, count days,
-          track time between events, and plan important deadlines.
+          Use these free online calculators to compare dates, count days, track
+          time between events, and plan important deadlines.
         </p>
 
         <div className="tool-grid">
@@ -68,8 +67,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Popular date comparisons */}
-
       <section className="container">
         <h2>Popular Date Comparisons</h2>
 
@@ -79,7 +76,6 @@ export default function Home() {
         </p>
 
         <div className="tool-grid">
-
           <Link
             className="tool-card"
             href="/days-between?start=2024-01-01&end=2025-01-01"
@@ -107,29 +103,23 @@ export default function Home() {
           >
             Days between July 4 and Christmas
           </Link>
-
         </div>
       </section>
-
-      {/* Calendar */}
 
       <section className="container">
         <h2>Calendar by Year</h2>
 
         <p>
-          Browse calendars by year including months, holidays, birthdays and
+          Browse calendars by year including months, birthdays, holidays and
           notable historical events.
         </p>
 
         <div className="tool-grid">
-
           <Link href="/calendar" className="tool-card">
             View Year Calendars
           </Link>
-
         </div>
       </section>
-
     </>
   );
 }
