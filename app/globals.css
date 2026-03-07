@@ -1,10 +1,204 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===============================
+   Base colors
+================================ */
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --accent: #6366f1;
+  --card: #f5f6fb;
+  --border: #e5e7eb;
+  --muted: #6b7280;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0b0b0c;
+    --foreground: #f3f4f6;
+    --card: #151517;
+    --border: #2b2b31;
+    --muted: #9ca3af;
+  }
+}
+
+/* ===============================
+   Global layout
+================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.55;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ===============================
+   Header
+================================ */
+
+.site-header {
+  border-bottom: 1px solid var(--border);
+  padding: 12px 0;
+  background: var(--background);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.header-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.logo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--foreground);
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.logo-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* ===============================
+   Navigation
+================================ */
+
+.main-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  font-size: 14px;
+}
+
+.main-nav a {
+  text-decoration: none;
+  color: var(--muted);
+}
+
+.main-nav a:hover {
+  color: var(--accent);
+}
+
+/* ===============================
+   Main content
+================================ */
+
+.main-content {
+  padding-top: 32px;
+  padding-bottom: 60px;
+}
+
+/* ===============================
+   Footer
+================================ */
+
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 20px 0;
+  margin-top: 60px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  justify-content: center;
+}
+
+/* ===============================
+   Date input
+================================ */
+
+.date-field {
+  margin-bottom: 16px;
+}
+
+.date-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.date-input-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.date-input {
+  width: 100%;
+  max-width: 260px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 16px;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.date-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.date-picker-button {
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  cursor: pointer;
+}
+
+/* ===============================
+   Calculator layout
+================================ */
+
+.calculator {
+  max-width: 420px;
+  margin-top: 20px;
+}
+
 /* ===============================
    Result card
 ================================ */
 
 .result-box {
   margin-top: 24px;
-  padding: 22px;
+  padding: 24px 22px;
   border: 1px solid var(--border);
   border-radius: 12px;
   background: var(--card);
@@ -18,7 +212,7 @@
 }
 
 .result-number {
-  font-size: 44px;
+  font-size: 48px;
   font-weight: 800;
   color: var(--foreground);
   line-height: 1.1;
@@ -27,5 +221,79 @@
 .result-label {
   font-size: 14px;
   color: var(--muted);
-  margin-top: 4px;
+  margin-top: 6px;
+}
+
+/* ===============================
+   Buttons
+================================ */
+
+button {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  cursor: pointer;
+}
+
+button:hover {
+  border-color: var(--accent);
+}
+
+/* ===============================
+   Headings
+================================ */
+
+h1 {
+  font-size: 36px;
+  font-weight: 800;
+}
+
+h2 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-top: 32px;
+}
+
+/* ===============================
+   Responsive
+================================ */
+
+@media (min-width: 900px) {
+  .header-inner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 640px) {
+
+  .container {
+    padding: 0 16px;
+  }
+
+  .main-nav {
+    gap: 8px 12px;
+    font-size: 13px;
+  }
+
+  .calculator {
+    max-width: 100%;
+  }
+
+  .date-input-row {
+    flex-direction: column;
+  }
+
+  .date-input,
+  .date-picker-button {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .result-number {
+    font-size: 40px;
+  }
+
 }
