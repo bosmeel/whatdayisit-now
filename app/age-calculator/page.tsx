@@ -6,32 +6,42 @@ import DateInput from "@/components/DateInput";
 export default function AgeCalculatorPage() {
 
   const [birthDate, setBirthDate] = useState("");
-  const [result, setResult] = useState<number | null>(null);
+  const [years, setYears] = useState<number | null>(null);
+  const [months, setMonths] = useState<number | null>(null);
+  const [days, setDays] = useState<number | null>(null);
 
   useEffect(() => {
 
     if (!birthDate) {
-      setResult(null);
+      setYears(null);
+      setMonths(null);
+      setDays(null);
       return;
     }
 
     const birth = new Date(birthDate);
     const today = new Date();
 
-    let age = today.getFullYear() - birth.getFullYear();
+    if (Number.isNaN(birth.getTime())) return;
 
-    const monthDiff = today.getMonth() - birth.getMonth();
+    let y = today.getFullYear() - birth.getFullYear();
+    let m = today.getMonth() - birth.getMonth();
+    let d = today.getDate() - birth.getDate();
 
-    if (
-      monthDiff < 0 ||
-      (monthDiff === 0 && today.getDate() < birth.getDate())
-    ) {
-      age--;
+    if (d < 0) {
+      m--;
+      const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+      d += prevMonth.getDate();
     }
 
-    if (!Number.isNaN(age)) {
-      setResult(age);
+    if (m < 0) {
+      y--;
+      m += 12;
     }
+
+    setYears(y);
+    setMonths(m);
+    setDays(d);
 
   }, [birthDate]);
 
@@ -52,9 +62,14 @@ export default function AgeCalculatorPage() {
           onChange={setBirthDate}
         />
 
-        {result !== null && (
+        {years !== null && (
           <div className="result-box">
-            {result} years
+            <div className="result-number">{years}</div>
+            <div className="result-label">years</div>
+
+            <div style={{marginTop:"8px",fontSize:"14px",color:"var(--muted)"}}>
+              {months} months {days} days
+            </div>
           </div>
         )}
 

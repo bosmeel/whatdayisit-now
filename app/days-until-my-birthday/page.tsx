@@ -6,37 +6,66 @@ import DateInput from "@/components/DateInput";
 export default function DaysUntilBirthdayPage() {
 
   const [birthDate, setBirthDate] = useState("");
-  const [result, setResult] = useState<number | null>(null);
 
-  useEffect(() => {
+  const [days,setDays] = useState<number | null>(null);
+  const [weeks,setWeeks] = useState<number | null>(null);
+  const [months,setMonths] = useState<number | null>(null);
+  const [extraDays,setExtraDays] = useState<number | null>(null);
 
-    if (!birthDate) {
-      setResult(null);
+  useEffect(()=>{
+
+    if(!birthDate){
+      setDays(null);
+      setWeeks(null);
+      setMonths(null);
+      setExtraDays(null);
       return;
     }
 
     const birth = new Date(birthDate);
     const today = new Date();
 
-    const nextBirthday = new Date(
+    if(Number.isNaN(birth.getTime())) return;
+
+    let nextBirthday = new Date(
       today.getFullYear(),
       birth.getMonth(),
       birth.getDate()
     );
 
-    if (nextBirthday < today) {
-      nextBirthday.setFullYear(today.getFullYear() + 1);
+    if(nextBirthday < today){
+      nextBirthday.setFullYear(today.getFullYear()+1);
     }
 
     const diff = nextBirthday.getTime() - today.getTime();
 
-    const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+    const totalDays = Math.ceil(diff/(1000*60*60*24));
 
-    if (!Number.isNaN(days)) {
-      setResult(days);
+    const totalWeeks = Math.floor(totalDays/7);
+
+    let m = nextBirthday.getMonth() - today.getMonth();
+    let d = nextBirthday.getDate() - today.getDate();
+
+    if(d < 0){
+      m--;
+      const prevMonth = new Date(
+        nextBirthday.getFullYear(),
+        nextBirthday.getMonth(),
+        0
+      );
+      d += prevMonth.getDate();
     }
 
-  }, [birthDate]);
+    if(m < 0){
+      m += 12;
+    }
+
+    setDays(totalDays);
+    setWeeks(totalWeeks);
+    setMonths(m);
+    setExtraDays(d);
+
+  },[birthDate]);
 
   return (
     <div>
@@ -55,9 +84,20 @@ export default function DaysUntilBirthdayPage() {
           onChange={setBirthDate}
         />
 
-        {result !== null && (
+        {days !== null && (
           <div className="result-box">
-            {result} days
+
+            <div className="result-number">{days}</div>
+            <div className="result-label">days</div>
+
+            <div style={{marginTop:"10px",fontSize:"14px",color:"var(--muted)"}}>
+              {weeks} weeks
+            </div>
+
+            <div style={{fontSize:"14px",color:"var(--muted)"}}>
+              {months} months {extraDays} days
+            </div>
+
           </div>
         )}
 

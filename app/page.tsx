@@ -49,6 +49,8 @@ export default function Home() {
     <>
       <TodayDashboard />
 
+      {/* Popular calculators */}
+
       <section className="container">
         <h2>Popular Date Calculators</h2>
 
@@ -65,6 +67,69 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      {/* Popular date comparisons */}
+
+      <section className="container">
+        <h2>Popular Date Comparisons</h2>
+
+        <p>
+          Quickly calculate the number of days between common dates and
+          well-known events.
+        </p>
+
+        <div className="tool-grid">
+
+          <Link
+            className="tool-card"
+            href="/days-between?start=2024-01-01&end=2025-01-01"
+          >
+            Days between Jan 1 2024 and Jan 1 2025
+          </Link>
+
+          <Link
+            className="tool-card"
+            href="/days-between?start=2024-12-25&end=2025-01-01"
+          >
+            Days between Christmas and New Year
+          </Link>
+
+          <Link
+            className="tool-card"
+            href="/days-between?start=2024-01-01&end=2024-12-31"
+          >
+            Days between Jan 1 and Dec 31
+          </Link>
+
+          <Link
+            className="tool-card"
+            href="/days-between?start=2024-07-04&end=2024-12-25"
+          >
+            Days between July 4 and Christmas
+          </Link>
+
+        </div>
+      </section>
+
+      {/* Calendar */}
+
+      <section className="container">
+        <h2>Calendar by Year</h2>
+
+        <p>
+          Browse calendars by year including months, holidays, birthdays and
+          notable historical events.
+        </p>
+
+        <div className="tool-grid">
+
+          <Link href="/calendar" className="tool-card">
+            View Year Calendars
+          </Link>
+
+        </div>
+      </section>
+
     </>
   );
 }
