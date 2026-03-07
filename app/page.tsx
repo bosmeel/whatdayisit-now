@@ -41,6 +41,7 @@ const featuredLinks = [
   { href: "/months-between", label: "Months Between Dates" },
   { href: "/years-between", label: "Years Between Dates" },
   { href: "/business-days-between", label: "Business Days Between Dates" },
+  { href: "/business-days-until", label: "Business Days Until Date" },
   { href: "/age-calculator", label: "Age Calculator" },
   { href: "/days-until-my-birthday", label: "Birthday Tools" },
 ];
