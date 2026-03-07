@@ -34,14 +34,14 @@ export const metadata: Metadata = {
 };
 
 const featuredLinks = [
-  { href: "/days-between", label: "Days Between Dates Calculator" },
-  { href: "/days-until", label: "Days Until Calculator" },
-  { href: "/days-since", label: "Days Since Calculator" },
-  { href: "/weeks-between", label: "Weeks Between Dates Calculator" },
-  { href: "/months-between", label: "Months Between Dates Calculator" },
-  { href: "/years-between", label: "Years Between Dates Calculator" },
+  { href: "/days-between", label: "Days Between Dates" },
+  { href: "/days-until", label: "Days Until Date" },
+  { href: "/days-since", label: "Days Since Date" },
+  { href: "/weeks-between", label: "Weeks Between Dates" },
+  { href: "/months-between", label: "Months Between Dates" },
+  { href: "/years-between", label: "Years Between Dates" },
   { href: "/age-calculator", label: "Age Calculator" },
-  { href: "/birthday", label: "Birthday Tools" },
+  { href: "/days-until-my-birthday", label: "Birthday Tools" },
 ];
 
 export default function Home() {
@@ -49,23 +49,20 @@ export default function Home() {
     <>
       <TodayDashboard />
 
-      <section className="mx-auto max-w-5xl px-4 pb-8 pt-4">
-        <div className="rounded-xl border p-6">
-          <h2 className="mb-3 text-2xl font-semibold">Popular Date Calculators</h2>
-          <p className="mb-5">
-            Use these free online calculators to compare dates, count days, track
-            time between events, and plan important deadlines.
-          </p>
+      <section className="container">
+        <h2>Popular Date Calculators</h2>
 
-          <ul className="grid gap-3 sm:grid-cols-2">
-            {featuredLinks.map((item) => (
-              <li key={item.href} className="rounded-lg border p-4 transition hover:bg-neutral-50">
-                <Link href={item.href} className="font-medium">
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+        <p>
+          Use these free online calculators to compare dates, count days,
+          track time between events, and plan important deadlines.
+        </p>
+
+        <div className="tool-grid">
+          {featuredLinks.map((item) => (
+            <Link key={item.href} href={item.href} className="tool-card">
+              {item.label}
+            </Link>
+          ))}
         </div>
       </section>
     </>
