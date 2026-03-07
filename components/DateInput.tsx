@@ -9,7 +9,6 @@ type Props = {
 };
 
 export default function DateInput({ label, value = "", onChange }: Props) {
-
   const [date, setDate] = useState(value);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -19,29 +18,16 @@ export default function DateInput({ label, value = "", onChange }: Props) {
   }
 
   return (
-    <div style={{ marginBottom: 16 }}>
-      <label
-        style={{
-          display: "block",
-          fontWeight: 600,
-          marginBottom: 6,
-        }}
-      >
-        {label}
-      </label>
+    <div className="date-field">
+      <label className="date-label">{label}</label>
 
       <input
-        type="date"
+        type="text"
+        inputMode="numeric"
+        placeholder="YYYY-MM-DD"
         value={date}
         onChange={handleChange}
-        style={{
-          padding: "10px 12px",
-          borderRadius: 6,
-          border: "1px solid #ccc",
-          fontSize: 16,
-          width: "100%",
-          maxWidth: 260,
-        }}
+        className="date-input"
       />
     </div>
   );
