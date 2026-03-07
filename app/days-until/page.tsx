@@ -16,15 +16,19 @@ export default function DaysUntilPage() {
     }
 
     const target = new Date(date);
+
+    if (Number.isNaN(target.getTime())) {
+      setResult(null);
+      return;
+    }
+
     const today = new Date();
 
     const diff = target.getTime() - today.getTime();
 
     const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
 
-    if (!Number.isNaN(days)) {
-      setResult(days);
-    }
+    setResult(days);
 
   }, [date]);
 
@@ -37,19 +41,16 @@ export default function DaysUntilPage() {
         Calculate how many days remain until a specific date.
       </p>
 
+      {result !== null && (
+        <div className="result-box">
+          <div className="result-number">{result}</div>
+          <div className="result-label">days</div>
+        </div>
+      )}
+
       <div className="calculator">
 
-        <DateInput
-          label="Target date"
-          value={date}
-          onChange={setDate}
-        />
-
-        {result !== null && (
-          <div className="result-box">
-            {result} days
-          </div>
-        )}
+        <DateInput label="Target date" value={date} onChange={setDate} />
 
       </div>
 

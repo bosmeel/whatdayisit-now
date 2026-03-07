@@ -19,13 +19,16 @@ export default function WeeksBetweenPage() {
     const start = new Date(startDate);
     const end = new Date(endDate);
 
+    if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) {
+      setResult(null);
+      return;
+    }
+
     const diff = end.getTime() - start.getTime();
 
     const weeks = Math.floor(diff / (1000 * 60 * 60 * 24 * 7));
 
-    if (!Number.isNaN(weeks)) {
-      setResult(Math.abs(weeks));
-    }
+    setResult(Math.abs(weeks));
 
   }, [startDate, endDate]);
 
@@ -38,25 +41,17 @@ export default function WeeksBetweenPage() {
         Calculate the number of weeks between two dates.
       </p>
 
+      {result !== null && (
+        <div className="result-box">
+          <div className="result-number">{result}</div>
+          <div className="result-label">weeks</div>
+        </div>
+      )}
+
       <div className="calculator">
 
-        <DateInput
-          label="Start date"
-          value={startDate}
-          onChange={setStartDate}
-        />
-
-        <DateInput
-          label="End date"
-          value={endDate}
-          onChange={setEndDate}
-        />
-
-        {result !== null && (
-          <div className="result-box">
-            {result} weeks
-          </div>
-        )}
+        <DateInput label="Start date" value={startDate} onChange={setStartDate} />
+        <DateInput label="End date" value={endDate} onChange={setEndDate} />
 
       </div>
 
