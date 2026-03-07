@@ -119,6 +119,16 @@ img {
   padding-bottom: 60px;
 }
 
+/* consistent spacing */
+
+.main-content > * + * {
+  margin-top: 22px;
+}
+
+.main-content p {
+  max-width: 65ch;
+}
+
 /* ===============================
    Footer
 ================================ */
@@ -144,9 +154,9 @@ img {
 
 .today-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fit,minmax(160px,1fr));
   gap: 18px;
-  margin-top: 24px;
+  margin-top: 20px;
 }
 
 .today-card {
@@ -159,7 +169,7 @@ img {
 
 .tool-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
   gap: 16px;
   margin-top: 20px;
 }
@@ -181,11 +191,39 @@ img {
 }
 
 /* ===============================
+   Tool link upgrade
+================================ */
+
+.main-content ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.main-content ul li {
+  margin-bottom: 6px;
+}
+
+.main-content ul li a {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  text-decoration: none;
+  margin: 4px 6px 4px 0;
+}
+
+.main-content ul li a:hover {
+  border-color: var(--accent);
+}
+
+/* ===============================
    Date input
 ================================ */
 
 .date-field {
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .date-label {
@@ -231,7 +269,7 @@ img {
 
 .calculator {
   max-width: 420px;
-  margin-top: 20px;
+  margin-top: 18px;
 }
 
 /* ===============================
@@ -239,7 +277,7 @@ img {
 ================================ */
 
 .result-box {
-  margin-top: 24px;
+  margin-top: 22px;
   padding: 24px 22px;
   border: 1px solid var(--border);
   border-radius: 12px;
@@ -294,7 +332,7 @@ h1 {
 h2 {
   font-size: 22px;
   font-weight: 700;
-  margin-top: 32px;
+  margin-top: 28px;
 }
 
 /* ===============================
@@ -330,8 +368,8 @@ h2 {
 
   .date-input,
   .date-picker-button {
-    max-width: 100%;
     width: 100%;
+    max-width: 100%;
   }
 
   .result-number {
