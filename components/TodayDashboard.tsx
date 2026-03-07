@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-
 import {
   getDayOfYear,
   getTotalDaysInYear,
@@ -33,7 +31,7 @@ export default function TodayDashboard() {
   const weekend = getDaysUntilWeekend(now);
 
   return (
-    <div>
+    <section className="container">
 
       <h1>What Day Is It Today?</h1>
 
@@ -44,71 +42,37 @@ export default function TodayDashboard() {
       <div className="today-grid">
 
         <div className="today-card">
-          <strong>Day of the year</strong>
-          <div>{dayOfYear} / {totalDays}</div>
+          <div className="result-number">{weekNumber}</div>
+          <div className="result-label">Week number</div>
         </div>
 
         <div className="today-card">
-          <strong>Week number</strong>
-          <div>Week {weekNumber}</div>
+          <div className="result-number">{dayOfYear}</div>
+          <div className="result-label">Day of year</div>
         </div>
 
         <div className="today-card">
-          <strong>Quarter</strong>
-          <div>Q{quarter}</div>
+          <div className="result-number">{daysLeft}</div>
+          <div className="result-label">Days left in year</div>
         </div>
 
         <div className="today-card">
-          <strong>Days left in year</strong>
-          <div>{daysLeft}</div>
+          <div className="result-number">{yearProgress}%</div>
+          <div className="result-label">Year progress</div>
         </div>
 
         <div className="today-card">
-          <strong>Year progress</strong>
-          <div>{yearProgress}%</div>
+          <div className="result-number">{weekend}</div>
+          <div className="result-label">Days until weekend</div>
         </div>
 
         <div className="today-card">
-          <strong>Days until weekend</strong>
-          <div>{weekend}</div>
+          <div className="result-number">Q{quarter}</div>
+          <div className="result-label">Quarter</div>
         </div>
 
       </div>
 
-      <h2>Popular date tools</h2>
-
-      <div className="tool-grid">
-
-        <Link className="tool-card" href="/days-between">
-          Days Between Dates
-        </Link>
-
-        <Link className="tool-card" href="/days-since">
-          Days Since Date
-        </Link>
-
-        <Link className="tool-card" href="/days-until">
-          Days Until Date
-        </Link>
-
-        <Link className="tool-card" href="/weeks-between">
-          Weeks Between Dates
-        </Link>
-
-        <Link className="tool-card" href="/months-between">
-          Months Between Dates
-        </Link>
-
-        <Link className="tool-card" href="/years-between">
-          Years Between Dates
-        </Link>
-
-        <Link className="tool-card" href="/age-calculator">
-          Age Calculator
-        </Link>
-
-      </div>
-
-    </div>
+    </section>
   );
 }
