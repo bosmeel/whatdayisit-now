@@ -1,32 +1,72 @@
-import { Suspense } from "react";
-import type { Metadata } from "next";
-import DateCalculatorsLink from "@/components/DateCalculatorsLink";
-import TodayTools from "@/components/TodayTools";
-import RelatedDateTools from "@/components/RelatedDateTools";
-import Calculator from "./Calculator";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Years Between Dates Calculator",
-  description: "Calculate the number of years between two dates.",
-  alternates: { canonical: "/years-between" },
-};
+import { useState, useEffect } from "react";
+import DateInput from "@/components/DateInput";
 
-export default function Page() {
+export default function YearsBetweenPage() {
+
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [result, setResult] = useState<number | null>(null);
+
+  useEffect(() => {
+
+    if (!startDate || !endDate) {
+      setResult(null);
+      return;
+    }
+
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    let years = end.getFullYear() - start.getFullYear();
+
+    const monthDiff = end.getMonth() - start.getMonth();
+
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && end.getDate() < start.getDate())
+    ) {
+      years--;
+    }
+
+    if (!Number.isNaN(years)) {
+      setResult(Math.abs(years));
+    }
+
+  }, [startDate, endDate]);
+
   return (
-    <main style={{ maxWidth: 900, margin: "0 auto", padding: "24px 16px" }}>
-      <h1 style={{ fontSize: 36, fontWeight: 800 }}>Years Between Dates</h1>
-      <p style={{ marginTop: 10, lineHeight: 1.6 }}>Calculate how many years are between two dates.</p>
+    <div>
 
-      <TodayTools />
+      <h1>Years Between Dates</h1>
 
-      <section style={{ marginTop: 30 }}>
-        <Suspense fallback={null}>
-          <Calculator />
-        </Suspense>
-      </section>
+      <p>
+        Calculate the number of full years between two dates.
+      </p>
 
-      <RelatedDateTools />
-      <DateCalculatorsLink />
-    </main>
+      <div className="calculator">
+
+        <DateInput
+          label="Start date"
+          value={startDate}
+          onChange={setStartDate}
+        />
+
+        <DateInput
+          label="End date"
+          value={endDate}
+          onChange={setEndDate}
+        />
+
+        {result !== null && (
+          <div className="result-box">
+            {result} years
+          </div>
+        )}
+
+      </div>
+
+    </div>
   );
 }
