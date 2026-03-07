@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Props = {
   label: string;
@@ -38,6 +38,7 @@ function formatDisplay(value: string) {
 export default function DateInput({ label, value = "", onChange }: Props) {
 
   const [displayValue, setDisplayValue] = useState("");
+  const nativeRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setDisplayValue(isoToDisplay(value));
@@ -46,7 +47,6 @@ export default function DateInput({ label, value = "", onChange }: Props) {
   function handleTextChange(e: React.ChangeEvent<HTMLInputElement>) {
 
     const formatted = formatDisplay(e.target.value);
-
     setDisplayValue(formatted);
 
     const iso = displayToIso(formatted);
@@ -59,6 +59,18 @@ export default function DateInput({ label, value = "", onChange }: Props) {
     const iso = e.target.value;
 
     if (onChange) onChange(iso);
+  }
+
+  function openCalendar() {
+
+    const input = nativeRef.current;
+    if (!input) return;
+
+    input.focus();
+
+    if (input.showPicker) {
+      input.showPicker();
+    }
   }
 
   return (
@@ -79,24 +91,26 @@ export default function DateInput({ label, value = "", onChange }: Props) {
           className="date-input"
         />
 
-        <div className="calendar-wrapper">
+        <button
+          type="button"
+          className="date-picker-button"
+          onClick={openCalendar}
+        >
+          Calendar
+        </button>
 
-          <button
-            type="button"
-            className="date-picker-button"
-            tabIndex={-1}
-          >
-            Calendar
-          </button>
-
-          <input
-            type="date"
-            value={value || ""}
-            onChange={handleNativeChange}
-            className="native-date-overlay"
-          />
-
-        </div>
+        <input
+          ref={nativeRef}
+          type="date"
+          value={value || ""}
+          onChange={handleNativeChange}
+          style={{
+            width: "1px",
+            height: "1px",
+            opacity: 0,
+            position: "absolute"
+          }}
+        />
 
       </div>
 
