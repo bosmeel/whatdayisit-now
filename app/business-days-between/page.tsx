@@ -1,34 +1,84 @@
-import { Suspense } from "react";
-import type { Metadata } from "next";
-import DateCalculatorsLink from "@/components/DateCalculatorsLink";
-import TodayTools from "@/components/TodayTools";
-import RelatedDateTools from "@/components/RelatedDateTools";
-import Calculator from "./Calculator";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Business Days Between Dates Calculator",
-  description: "Calculate the number of business days between two dates (excludes weekends).",
-  alternates: { canonical: "/business-days-between" },
-};
+import { useState, useEffect } from "react";
+import DateInput from "@/components/DateInput";
 
-export default function Page() {
+function calculateBusinessDays(start: Date, end: Date) {
+
+  let count = 0;
+
+  const current = new Date(start);
+
+  while (current <= end) {
+
+    const day = current.getDay();
+
+    if (day !== 0 && day !== 6) {
+      count++;
+    }
+
+    current.setDate(current.getDate() + 1);
+  }
+
+  return count;
+}
+
+export default function BusinessDaysBetweenPage() {
+
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [result, setResult] = useState<number | null>(null);
+
+  useEffect(() => {
+
+    if (!startDate || !endDate) {
+      setResult(null);
+      return;
+    }
+
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    const days = calculateBusinessDays(start, end);
+
+    if (!Number.isNaN(days)) {
+      setResult(Math.abs(days));
+    }
+
+  }, [startDate, endDate]);
+
   return (
-    <main style={{ maxWidth: 900, margin: "0 auto", padding: "24px 16px" }}>
-      <h1 style={{ fontSize: 36, fontWeight: 800 }}>Business Days Between Dates</h1>
-      <p style={{ marginTop: 10, lineHeight: 1.6 }}>
-        Calculate how many business days (weekdays) are between two dates.
+    <div>
+
+      <h1>Business Days Between Dates</h1>
+
+      <p>
+        Calculate the number of working days between two dates
+        (excluding weekends).
       </p>
 
-      <TodayTools />
+      <div className="calculator">
 
-      <section style={{ marginTop: 30 }}>
-        <Suspense fallback={null}>
-          <Calculator />
-        </Suspense>
-      </section>
+        <DateInput
+          label="Start date"
+          value={startDate}
+          onChange={setStartDate}
+        />
 
-      <RelatedDateTools />
-      <DateCalculatorsLink />
-    </main>
+        <DateInput
+          label="End date"
+          value={endDate}
+          onChange={setEndDate}
+        />
+
+        {result !== null && (
+          <div className="result-box">
+            {result} business days
+          </div>
+        )}
+
+      </div>
+
+    </div>
   );
 }
