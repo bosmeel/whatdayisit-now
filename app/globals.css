@@ -207,13 +207,32 @@ a:hover {
 }
 
 /* ===============================
-   Calculator inputs
+   Date input component
 ================================ */
+
+.date-field {
+  margin-bottom: 16px;
+}
+
+.date-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: var(--foreground);
+}
+
+.date-input-row {
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
 
 .date-input {
   width: 100%;
-  max-width: 100%;
-  padding: 8px 10px;
+  max-width: 260px;
+  padding: 10px 12px;
   border: 1px solid var(--border);
   border-radius: 6px;
   font-size: 16px;
@@ -227,7 +246,57 @@ a:hover {
   box-shadow: 0 0 0 2px rgba(99,102,241,0.15);
 }
 
-/* Buttons */
+.date-picker-button {
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--foreground);
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.date-picker-button:hover {
+  border-color: var(--accent);
+}
+
+.native-date-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 1px;
+  height: 1px;
+}
+
+.date-help {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* ===============================
+   Calculator layout
+================================ */
+
+.calculator {
+  max-width: 420px;
+  margin-top: 20px;
+}
+
+.calculator button {
+  margin-top: 10px;
+}
+
+.result-box {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* ===============================
+   Buttons
+================================ */
 
 button {
   padding: 8px 14px;
@@ -280,6 +349,7 @@ h2 {
 }
 
 @media (max-width: 640px) {
+
   .container {
     padding: 0 16px;
   }
@@ -309,5 +379,23 @@ h2 {
   .tool-grid,
   .today-grid {
     grid-template-columns: 1fr;
+  }
+
+  .calculator {
+    max-width: 100%;
+  }
+
+  .calculator button {
+    width: 100%;
+  }
+
+  .date-input-row {
+    flex-direction: column;
+  }
+
+  .date-input,
+  .date-picker-button {
+    max-width: 100%;
+    width: 100%;
   }
 }
