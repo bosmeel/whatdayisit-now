@@ -17,7 +17,8 @@ type BasePair = {
 type SeoPair = {
   slug: string;
   title: string;
-  intro: string;
+  start: { year: number; month: number; day: number; label: string };
+  end: { year: number; month: number; day: number; label: string };
 };
 
 function findPair(slug: string): BasePair | SeoPair | undefined {
@@ -31,6 +32,11 @@ function getLabel(data: BasePair | SeoPair) {
   return "label" in data ? data.label : data.title;
 }
 
+function daysBetween(start: Date, end: Date) {
+  const diff = end.getTime() - start.getTime();
+  return Math.round(diff / 86400000);
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { pair } = await params;
   const data = findPair(pair);
@@ -39,21 +45,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const label = getLabel(data);
 
-  const title = `Days Between ${label}`;
-  const description = `Calculate the number of days between ${label}. Free online days between dates calculator.`;
-
   return {
-    title,
-    description,
+    title: `Days Between ${label}`,
+    description: `Find how many days are between ${label}.`,
     alternates: {
       canonical: `https://whatdayisit.now/days-between/${data.slug}`,
-    },
-    openGraph: {
-      title,
-      description,
-      url: `https://whatdayisit.now/days-between/${data.slug}`,
-      siteName: "WhatDayIsIt.now",
-      type: "website",
     },
   };
 }
@@ -74,6 +70,19 @@ export default async function DaysBetweenPairPage({ params }: Props) {
 
   const label = getLabel(data);
 
+  let result: number | null = null;
+  let startLabel: string | null = null;
+  let endLabel: string | null = null;
+
+  if ("start" in data && "end" in data) {
+    const start = new Date(data.start.year, data.start.month - 1, data.start.day);
+    const end = new Date(data.end.year, data.end.month - 1, data.end.day);
+
+    result = daysBetween(start, end);
+    startLabel = data.start.label;
+    endLabel = data.end.label;
+  }
+
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
@@ -81,38 +90,6 @@ export default async function DaysBetweenPairPage({ params }: Props) {
     applicationCategory: "CalculatorApplication",
     operatingSystem: "Any",
     url: `https://whatdayisit.now/days-between/${data.slug}`,
-    description: `Calculator for the number of days between ${label}.`,
-  };
-
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: `How many days between ${label}?`,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: `Use this calculator to find the number of days between ${label}.`,
-        },
-      },
-      {
-        "@type": "Question",
-        name: "How many weeks are between these dates?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "The number of weeks can be calculated by dividing the total days by 7.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "How many months are between these dates?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "The number of months depends on the exact calendar dates and month lengths.",
-        },
-      },
-    ],
   };
 
   const related = DATE_PAIRS.filter((p) => p.slug !== data.slug).slice(0, 8);
@@ -125,20 +102,22 @@ export default async function DaysBetweenPairPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
       />
 
-      <Script
-        id="faq-schema"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-
       <h1>Days Between {label}</h1>
 
-      <p>
-        This page calculates the number of days between{" "}
-        <strong>{label}</strong>.
-      </p>
+      {result !== null && (
+        <div style={{ marginTop: 20, fontSize: 28, fontWeight: 700 }}>
+          {result} days
+        </div>
+      )}
 
-      <p style={{ marginTop: 20 }}>
+      {startLabel && endLabel && (
+        <p style={{ marginTop: 10 }}>
+          Between <strong>{startLabel}</strong> and{" "}
+          <strong>{endLabel}</strong>.
+        </p>
+      )}
+
+      <p style={{ marginTop: 30 }}>
         Use our main calculator if you want to compare custom dates.
       </p>
 
