@@ -1,7 +1,5 @@
 import { MetadataRoute } from "next";
 import { EVENTS } from "@/lib/events";
-import { DATE_PAIRS } from "@/lib/data/datePairs";
-import { DATE_PAIRS_SEO } from "@/lib/data/datePairsSeo";
 
 const months = [
   { name: "january", days: 31 },
@@ -19,6 +17,7 @@ const months = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
+
   const baseUrl = "https://whatdayisit.now";
   const now = new Date();
   const currentYear = now.getFullYear();
@@ -47,25 +46,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  const daysBetweenPages = DATE_PAIRS.map((pair) => ({
-    url: `${baseUrl}/days-between/${pair.slug}`,
-    lastModified: now,
-    changeFrequency: "monthly" as const,
-    priority: 0.6,
-  }));
-
-  const seoPairPages = DATE_PAIRS_SEO.map((pair) => ({
-    url: `${baseUrl}/days-between/${pair.slug}`,
-    lastModified: now,
-    changeFrequency: "weekly" as const,
-    priority: 0.7,
-  }));
-
   const bornOnPages: MetadataRoute.Sitemap = [];
   const happenedPages: MetadataRoute.Sitemap = [];
 
   months.forEach((m) => {
+
     for (let d = 1; d <= m.days; d++) {
+
       bornOnPages.push({
         url: `${baseUrl}/born-on/${m.name}-${d}`,
         lastModified: now,
@@ -79,14 +66,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
         changeFrequency: "yearly",
         priority: 0.6,
       });
+
     }
+
   });
 
   return [
     ...staticPages,
     ...eventPages,
-    ...daysBetweenPages,
-    ...seoPairPages,
     ...bornOnPages,
     ...happenedPages,
   ];

@@ -198,16 +198,28 @@ export default async function Page({ params }: PageProps) {
         </section>
       )}
 
-      {events.length > 0 && (
-        <section style={{ marginTop: 30 }}>
-          <h2>Historical events on {formatted}</h2>
-          <ul>
-            {events.map((e: string) => (
-              <li key={e}>{e}</li>
-            ))}
-          </ul>
-        </section>
-      )}
+      <section style={{ marginTop: 30 }}>
+  <h2>Historical events on {formatted}</h2>
+
+  {events.length > 0 ? (
+    <ul>
+      {events.map((e: string) => (
+        <li key={e}>{e}</li>
+      ))}
+    </ul>
+  ) : (
+    <p>
+      Historical records and notable events that happened on {formatted}
+      are available on the full timeline page.
+    </p>
+  )}
+
+  <p style={{ marginTop: 10 }}>
+    <Link href={`/what-happened-on/${date}`}>
+      View everything that happened on {formatted} →
+    </Link>
+  </p>
+</section>
 
       <section style={{ marginTop: 40, borderTop: "1px solid #ddd", paddingTop: 20 }}>
         <h2>Related birthdays</h2>

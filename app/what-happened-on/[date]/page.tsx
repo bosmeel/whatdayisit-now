@@ -4,9 +4,7 @@ import Link from "next/link";
 export const dynamic = "force-dynamic";
 
 type PageProps = {
-  params: Promise<{
-    date: string;
-  }>;
+  params: Promise<{ date: string }>;
 };
 
 const months = [
@@ -30,13 +28,23 @@ function formatSlug(slug: string) {
   return `${monthName} ${day}`;
 }
 
+function buildAllDates() {
+  const arr: string[] = [];
+  months.forEach((m) => {
+    for (let d = 1; d <= m.days; d++) {
+      arr.push(`${m.name}-${d}`);
+    }
+  });
+  return arr;
+}
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { date } = await params;
   const formatted = formatSlug(date);
 
   return {
     title: `What happened on ${formatted}?`,
-    description: `Historical events that happened on ${formatted}.`,
+    description: `Historical events and notable moments that happened on ${formatted}.`,
     alternates: {
       canonical: `https://whatdayisit.now/what-happened-on/${date}`,
     },
@@ -44,6 +52,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function Page({ params }: PageProps) {
+
   const { date } = await params;
 
   const { eventsOnThisDay } = await import("@/lib/events-on-this-day");
@@ -52,14 +61,7 @@ export default async function Page({ params }: PageProps) {
 
   const events = eventsOnThisDay[date] || [];
 
-  const allDates: string[] = [];
-
-  months.forEach((m) => {
-    for (let d = 1; d <= m.days; d++) {
-      allDates.push(`${m.name}-${d}`);
-    }
-  });
-
+  const allDates = buildAllDates();
   const index = allDates.indexOf(date);
 
   const prev =
@@ -68,78 +70,122 @@ export default async function Page({ params }: PageProps) {
   const next =
     index === allDates.length - 1 ? allDates[0] : allDates[index + 1];
 
-  const related = allDates.slice(index + 2, index + 7);
+  const related = [
+    allDates[(index + 1) % allDates.length],
+    allDates[(index + 2) % allDates.length],
+    allDates[(index + 3) % allDates.length],
+    allDates[(index + 4) % allDates.length],
+    allDates[(index + 5) % allDates.length],
+  ];
 
   return (
-    <main className="mx-auto max-w-4xl px-4 py-10">
-      <nav className="mb-6 text-sm">
-        <Link href="/">Home</Link>
-        {" / "}
-        <Link href="/what-happened-on">Historical Events</Link>
-        {" / "}
-        {formatted}
+    <main style={{ maxWidth: 900, margin: "40px auto", padding: 20 }}>
+
+      <nav style={{ marginBottom: 20 }}>
+        <Link href="/">Home</Link> /{" "}
+        <Link href="/what-happened-on">Historical Events</Link> / {formatted}
       </nav>
 
-      <h1 className="text-3xl font-bold mb-6">
-        What happened on {formatted}?
-      </h1>
+      <h1>What happened on {formatted}?</h1>
 
-      <p className="mb-8">
-        Here are historical events that happened on {formatted}.
+      <p>
+        Here are historical events and notable moments that happened on{" "}
+        <strong>{formatted}</strong>.
       </p>
 
       {events.length > 0 ? (
-        <ul className="list-disc pl-6 space-y-2 mb-10">
+        <ul style={{ marginTop: 20 }}>
           {events.map((event: string) => (
             <li key={event}>{event}</li>
           ))}
         </ul>
       ) : (
-        <p className="mb-10">
-          No events available for this date yet.
+        <p style={{ marginTop: 20 }}>
+          Historical records for {formatted} are still being compiled.
         </p>
       )}
 
-      <section className="mt-10 border-t pt-8">
-        <h2 className="text-xl font-semibold mb-4">
-          Famous birthdays on this day
-        </h2>
+      <section style={{ marginTop: 40 }}>
+        <h2>People born on {formatted}</h2>
 
-        <Link
-          href={`/born-on/${date}`}
-          className="underline"
-        >
-          See people born on {formatted}
+        <p>
+          See famous people and notable birthdays that fall on this date.
+        </p>
+
+        <Link href={`/born-on/${date}`}>
+          View birthdays on {formatted} →
         </Link>
       </section>
+<section style={{ marginTop: 40 }}>
+  <h2>People born on {formatted}</h2>
 
-      <section className="mt-10 border-t pt-8">
-        <h2 className="text-xl font-semibold mb-4">
-          Related historical dates
-        </h2>
+  <p>
+    See famous people and notable birthdays that fall on this date.
+  </p>
 
-        <div className="flex flex-wrap gap-2">
+  <Link href={`/born-on/${date}`}>
+    View birthdays on {formatted} →
+  </Link>
+
+  <p style={{ marginTop: 10 }}>
+    You can also explore nearby birthday pages like{" "}
+    <Link href={`/born-on/${prev}`}>{formatSlug(prev)}</Link>{" "}
+    and{" "}
+    <Link href={`/born-on/${next}`}>{formatSlug(next)}</Link>.
+  </p>
+</section>
+      <section style={{ marginTop: 40, borderTop: "1px solid #ddd", paddingTop: 20 }}>
+        <h2>Related historical dates</h2>
+
+        <ul style={{ display: "flex", flexWrap: "wrap", gap: "10px", padding: 0, listStyle: "none" }}>
           {related.map((d) => (
-            <Link
-              key={d}
-              href={`/what-happened-on/${d}`}
-              className="border rounded px-2 py-1 text-sm"
-            >
-              {formatSlug(d)}
-            </Link>
+            <li key={d}>
+              <Link
+                href={`/what-happened-on/${d}`}
+                style={{
+                  border: "1px solid #ccc",
+                  borderRadius: "6px",
+                  padding: "4px 10px",
+                  fontSize: "14px",
+                  display: "inline-block",
+                }}
+              >
+                {formatSlug(d)}
+              </Link>
+            </li>
           ))}
-        </div>
+        </ul>
       </section>
 
-      <div className="mt-10 flex justify-between text-sm">
-        <Link href={`/what-happened-on/${prev}`}>
-          ← {formatSlug(prev)}
-        </Link>
+      <section style={{ marginTop: 40 }}>
+        <h2>Explore nearby dates</h2>
 
-        <Link href={`/what-happened-on/${next}`}>
-          {formatSlug(next)} →
-        </Link>
+        <ul>
+          <li>
+            <Link href={`/what-happened-on/${prev}`}>
+              Events on {formatSlug(prev)}
+            </Link>
+          </li>
+
+          <li>
+            <Link href={`/what-happened-on/${date}`}>
+              Historical events on {formatted}
+            </Link>
+          </li>
+
+          <li>
+            <Link href={`/what-happened-on/${next}`}>
+              Events on {formatSlug(next)}
+            </Link>
+          </li>
+        </ul>
+      </section>
+
+      <div style={{ marginTop: 40, display: "flex", justifyContent: "space-between" }}>
+        <Link href={`/what-happened-on/${prev}`}>← {formatSlug(prev)}</Link>
+        <Link href={`/what-happened-on/${next}`}>{formatSlug(next)} →</Link>
       </div>
+
     </main>
   );
 }
