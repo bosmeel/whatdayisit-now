@@ -9,11 +9,26 @@ type Props = {
   params: Promise<{ pair: string }>;
 };
 
-function findPair(slug: string) {
+type BasePair = {
+  slug: string;
+  label: string;
+};
+
+type SeoPair = {
+  slug: string;
+  title: string;
+  intro: string;
+};
+
+function findPair(slug: string): BasePair | SeoPair | undefined {
   return (
     DATE_PAIRS.find((p) => p.slug === slug) ||
     DATE_PAIRS_SEO.find((p) => p.slug === slug)
   );
+}
+
+function getLabel(data: BasePair | SeoPair) {
+  return "label" in data ? data.label : data.title;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -22,8 +37,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!data) return {};
 
-  const title = `Days Between ${data.label}`;
-  const description = `Calculate the number of days between ${data.label}. Free online days between dates calculator.`;
+  const label = getLabel(data);
+
+  const title = `Days Between ${label}`;
+  const description = `Calculate the number of days between ${label}. Free online days between dates calculator.`;
 
   return {
     title,
@@ -42,10 +59,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export function generateStaticParams() {
-  return [
-    ...DATE_PAIRS,
-    ...DATE_PAIRS_SEO,
-  ].map((pair) => ({
+  return [...DATE_PAIRS, ...DATE_PAIRS_SEO].map((pair) => ({
     pair: pair.slug,
   }));
 }
@@ -58,14 +72,16 @@ export default async function DaysBetweenPairPage({ params }: Props) {
     notFound();
   }
 
+  const label = getLabel(data);
+
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    name: `Days Between ${data.label}`,
+    name: `Days Between ${label}`,
     applicationCategory: "CalculatorApplication",
     operatingSystem: "Any",
     url: `https://whatdayisit.now/days-between/${data.slug}`,
-    description: `Calculator for the number of days between ${data.label}.`,
+    description: `Calculator for the number of days between ${label}.`,
   };
 
   const faqSchema = {
@@ -74,10 +90,10 @@ export default async function DaysBetweenPairPage({ params }: Props) {
     mainEntity: [
       {
         "@type": "Question",
-        name: `How many days between ${data.label}?`,
+        name: `How many days between ${label}?`,
         acceptedAnswer: {
           "@type": "Answer",
-          text: `Use this calculator to find the number of days between ${data.label}.`,
+          text: `Use this calculator to find the number of days between ${label}.`,
         },
       },
       {
@@ -115,11 +131,11 @@ export default async function DaysBetweenPairPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      <h1>Days Between {data.label}</h1>
+      <h1>Days Between {label}</h1>
 
       <p>
         This page calculates the number of days between{" "}
-        <strong>{data.label}</strong>.
+        <strong>{label}</strong>.
       </p>
 
       <p style={{ marginTop: 20 }}>
