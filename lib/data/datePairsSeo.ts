@@ -7,7 +7,7 @@ type DateSpec = {
 
 export type DatePairSeo = {
   slug: string;
-  category: "year" | "month" | "holiday";
+  category: "year" | "month" | "holiday" | "monthpair";
   title: string;
   intro: string;
   start: DateSpec;
@@ -62,6 +62,7 @@ function buildYearPairs(): DatePairSeo[] {
 
   for (let i = 0; i < years.length; i++) {
     for (let j = i + 1; j < years.length; j++) {
+
       const startYear = years[i];
       const endYear = years[j];
 
@@ -83,6 +84,7 @@ function buildYearPairs(): DatePairSeo[] {
           label: `January 1, ${endYear}`,
         },
       });
+
     }
   }
 
@@ -93,6 +95,7 @@ function buildMonthPairs(): DatePairSeo[] {
   const pairs: DatePairSeo[] = [];
 
   for (let month = 1; month <= 12; month++) {
+
     const endDay = lastDayOfMonth(CURRENT_YEAR, month);
 
     pairs.push({
@@ -113,16 +116,19 @@ function buildMonthPairs(): DatePairSeo[] {
         label: `${monthLong(month)} ${endDay}, ${CURRENT_YEAR}`,
       },
     });
+
   }
 
   return pairs;
 }
 
 function buildHolidayPairs(): DatePairSeo[] {
+
   const pairs: DatePairSeo[] = [];
 
   for (let i = 0; i < HOLIDAYS.length; i++) {
     for (let j = i + 1; j < HOLIDAYS.length; j++) {
+
       const start = HOLIDAYS[i];
       const end = HOLIDAYS[j];
 
@@ -144,6 +150,41 @@ function buildHolidayPairs(): DatePairSeo[] {
           label: `${end.label}, ${CURRENT_YEAR}`,
         },
       });
+
+    }
+  }
+
+  return pairs;
+}
+
+/* NEW — month to month SEO pages */
+
+function buildMonthToMonthPairs(): DatePairSeo[] {
+
+  const pairs: DatePairSeo[] = [];
+
+  for (let i = 1; i <= 12; i++) {
+    for (let j = i + 1; j <= 12; j++) {
+
+      pairs.push({
+        slug: `${monthShort(i)}-1-and-${monthShort(j)}-1`,
+        category: "monthpair",
+        title: `Days between ${monthLong(i)} 1 and ${monthLong(j)} 1`,
+        intro: `Calculate how many days fall between the start of ${monthLong(i)} and the start of ${monthLong(j)}.`,
+        start: {
+          year: CURRENT_YEAR,
+          month: i,
+          day: 1,
+          label: `${monthLong(i)} 1, ${CURRENT_YEAR}`,
+        },
+        end: {
+          year: CURRENT_YEAR,
+          month: j,
+          day: 1,
+          label: `${monthLong(j)} 1, ${CURRENT_YEAR}`,
+        },
+      });
+
     }
   }
 
@@ -154,7 +195,8 @@ export const DATE_PAIRS_SEO: DatePairSeo[] = [
   ...buildYearPairs(),
   ...buildMonthPairs(),
   ...buildHolidayPairs(),
-].slice(0, 320);
+  ...buildMonthToMonthPairs(),
+].slice(0, 450);
 
 export const DATE_PAIR_SEO_MAP: Record<string, DatePairSeo> =
   Object.fromEntries(DATE_PAIRS_SEO.map((p) => [p.slug, p]));
