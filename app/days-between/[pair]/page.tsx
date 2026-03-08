@@ -23,8 +23,8 @@ type SeoPair = {
 
 function findPair(slug: string): BasePair | SeoPair | undefined {
   return (
-    DATE_PAIRS.find((p) => p.slug === slug) ||
-    DATE_PAIRS_SEO.find((p) => p.slug === slug)
+    DATE_PAIRS_SEO.find((p) => p.slug === slug) ||
+    DATE_PAIRS.find((p) => p.slug === slug)
   );
 }
 
@@ -32,7 +32,7 @@ function getLabel(data: BasePair | SeoPair) {
   return "label" in data ? data.label : data.title;
 }
 
-function daysBetween(start: Date, end: Date) {
+function calculateDays(start: Date, end: Date) {
   const diff = end.getTime() - start.getTime();
   return Math.round(diff / 86400000);
 }
@@ -75,10 +75,19 @@ export default async function DaysBetweenPairPage({ params }: Props) {
   let endLabel: string | null = null;
 
   if ("start" in data && "end" in data) {
-    const start = new Date(data.start.year, data.start.month - 1, data.start.day);
-    const end = new Date(data.end.year, data.end.month - 1, data.end.day);
+    const startDate = new Date(
+      data.start.year,
+      data.start.month - 1,
+      data.start.day
+    );
 
-    result = daysBetween(start, end);
+    const endDate = new Date(
+      data.end.year,
+      data.end.month - 1,
+      data.end.day
+    );
+
+    result = calculateDays(startDate, endDate);
     startLabel = data.start.label;
     endLabel = data.end.label;
   }
@@ -122,7 +131,7 @@ export default async function DaysBetweenPairPage({ params }: Props) {
       </p>
 
       <p style={{ marginTop: 20 }}>
-        <Link href="/days-between">
+        <Link href="/days-between" prefetch={false}>
           ← Back to days between calculator
         </Link>
       </p>
@@ -132,7 +141,7 @@ export default async function DaysBetweenPairPage({ params }: Props) {
       <ul style={{ lineHeight: 1.9 }}>
         {related.map((p) => (
           <li key={p.slug}>
-            <Link href={`/days-between/${p.slug}`}>
+            <Link href={`/days-between/${p.slug}`} prefetch={false}>
               Days between {p.label}
             </Link>
           </li>

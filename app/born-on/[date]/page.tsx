@@ -3,35 +3,32 @@ import Link from "next/link";
 import Script from "next/script";
 
 type PageProps = {
-  params: Promise<{
-    date: string;
-  }>;
+  params: Promise<{ date: string }>;
 };
 
 const months = [
-  { name: "january", days: 31, index: 0 },
-  { name: "february", days: 29, index: 1 },
-  { name: "march", days: 31, index: 2 },
-  { name: "april", days: 30, index: 3 },
-  { name: "may", days: 31, index: 4 },
-  { name: "june", days: 30, index: 5 },
-  { name: "july", days: 31, index: 6 },
-  { name: "august", days: 31, index: 7 },
-  { name: "september", days: 30, index: 8 },
-  { name: "october", days: 31, index: 9 },
-  { name: "november", days: 30, index: 10 },
-  { name: "december", days: 31, index: 11 },
+  { name: "january", days: 31 },
+  { name: "february", days: 29 },
+  { name: "march", days: 31 },
+  { name: "april", days: 30 },
+  { name: "may", days: 31 },
+  { name: "june", days: 30 },
+  { name: "july", days: 31 },
+  { name: "august", days: 31 },
+  { name: "september", days: 30 },
+  { name: "october", days: 31 },
+  { name: "november", days: 30 },
+  { name: "december", days: 31 },
 ];
 
 function formatSlug(slug: string) {
   const [month, day] = slug.split("-");
-  const monthName = month.charAt(0).toUpperCase() + month.slice(1);
-  return `${monthName} ${day}`;
+  return `${month.charAt(0).toUpperCase() + month.slice(1)} ${day}`;
 }
 
 function getMonthIndex(month: string) {
-  const m = months.find((m) => m.name === month);
-  return m ? m.index : 0;
+  const index = months.findIndex((m) => m.name === month);
+  return index === -1 ? 0 : index;
 }
 
 function getDayOfYear(month: string, day: number) {
@@ -43,8 +40,22 @@ function getDayOfYear(month: string, day: number) {
   return total + day;
 }
 
+function daysUntilNextBirthday(monthIndex: number, day: number) {
+  const today = new Date();
+  const now = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+  let next = new Date(now.getFullYear(), monthIndex, day);
+
+  if (next < now) {
+    next = new Date(now.getFullYear() + 1, monthIndex, day);
+  }
+
+  const diff = next.getTime() - now.getTime();
+  return Math.ceil(diff / 86400000);
+}
+
 function getZodiac(month: number, day: number) {
-  const signs: [string, number, number][] = [
+  const zodiac = [
     ["Capricorn", 1, 19],
     ["Aquarius", 2, 18],
     ["Pisces", 3, 20],
@@ -60,67 +71,51 @@ function getZodiac(month: number, day: number) {
     ["Capricorn", 12, 31],
   ];
 
-  for (const [name, m, d] of signs) {
+  for (const [name, m, d] of zodiac) {
     if (month === m && day <= d) return name;
   }
 
   return "Capricorn";
 }
 
-function daysUntilNextBirthday(monthIndex: number, day: number) {
-  const today = new Date();
-  const year = today.getFullYear();
-
-  let next = new Date(year, monthIndex, day);
-  if (next < today) next = new Date(year + 1, monthIndex, day);
-
-  const diff = next.getTime() - today.getTime();
-  return Math.ceil(diff / (1000 * 60 * 60 * 24));
+function buildAllDates() {
+  const arr: string[] = [];
+  months.forEach((m) => {
+    for (let d = 1; d <= m.days; d++) {
+      arr.push(`${m.name}-${d}`);
+    }
+  });
+  return arr;
 }
 
 export function generateStaticParams() {
-  const routes: { date: string }[] = [];
-
-  months.forEach((month) => {
-    for (let d = 1; d <= month.days; d++) {
-      routes.push({
-        date: `${month.name}-${d}`,
-      });
-    }
-  });
-
-  return routes;
+  return buildAllDates().map((date) => ({ date }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { date } = await params;
-  const formatted = formatSlug(date);
 
   return {
-    title: `Born on ${formatted} – Birthday Facts`,
-    description: `Discover famous birthdays, historical events and facts about ${formatted}.`,
-    alternates: {
-      canonical: `https://whatdayisit.now/born-on/${date}`,
-    },
+    title: `Born on ${formatSlug(date)} – Birthday Facts`,
+    description: `Discover zodiac sign, famous birthdays and historical events for ${formatSlug(date)}.`,
   };
 }
 
 export default async function Page({ params }: PageProps) {
+
   const { date } = await params;
 
   const { famousBirthdays } = await import("@/lib/famous-birthdays");
   const { eventsOnThisDay } = await import("@/lib/events-on-this-day");
 
   const [monthSlug, dayStr] = date.split("-");
-  const day = parseInt(dayStr);
+  const day = parseInt(dayStr, 10);
 
-  const formatted = formatSlug(date);
   const monthIndex = getMonthIndex(monthSlug);
+  const formatted = formatSlug(date);
 
-  const refYear = 2024;
-  const dateObj = new Date(refYear, monthIndex, day);
-
-  const weekday = dateObj.toLocaleDateString("en-US", { weekday: "long" });
+  const refDate = new Date(2024, monthIndex, day);
+  const weekday = refDate.toLocaleDateString("en-US", { weekday: "long" });
 
   const dayOfYear = getDayOfYear(monthSlug, day);
   const zodiac = getZodiac(monthIndex + 1, day);
@@ -129,11 +124,7 @@ export default async function Page({ params }: PageProps) {
   const famous = famousBirthdays[date] || [];
   const events = eventsOnThisDay[date] || [];
 
-  const allDates: string[] = [];
-  months.forEach((m) => {
-    for (let d = 1; d <= m.days; d++) allDates.push(`${m.name}-${d}`);
-  });
-
+  const allDates = buildAllDates();
   const currentIndex = allDates.indexOf(date);
 
   const prevDate =
@@ -142,7 +133,13 @@ export default async function Page({ params }: PageProps) {
   const nextDate =
     currentIndex === allDates.length - 1 ? allDates[0] : allDates[currentIndex + 1];
 
-  const relatedDates = allDates.slice(currentIndex + 2, currentIndex + 7);
+  const relatedDates = [
+    allDates[(currentIndex + 1) % allDates.length],
+    allDates[(currentIndex + 2) % allDates.length],
+    allDates[(currentIndex + 3) % allDates.length],
+    allDates[(currentIndex + 4) % allDates.length],
+    allDates[(currentIndex + 5) % allDates.length],
+  ];
 
   const schema = {
     "@context": "https://schema.org",
@@ -152,52 +149,48 @@ export default async function Page({ params }: PageProps) {
   };
 
   return (
-    <main className="mx-auto max-w-4xl px-4 py-10">
+    <main style={{ maxWidth: 900, margin: "40px auto", padding: 20 }}>
+
       <Script
         id="schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
 
-      <nav className="mb-6 text-sm">
-        <Link href="/">Home</Link> /{" "}
-        <Link href="/birthday">Birthday Tools</Link> /{" "}
-        <Link href="/born-on">Browse birthdays</Link> / {formatted}
-      </nav>
+      <h1>Born on {formatted}</h1>
 
-      <h1 className="text-3xl font-bold mb-6">
-        Born on {formatted}
-      </h1>
-
-      <p className="mb-6">
-        If you were born on {formatted}, your birthday falls on a <strong>{weekday}</strong>.
-        It is the <strong>{dayOfYear}th day of the year</strong> and the zodiac sign for this
-        date is <strong>{zodiac}</strong>. There are currently <strong>{daysUntil}</strong> days
-        until the next {formatted}.
+      <p>
+        If you were born on <strong>{formatted}</strong>, your birthday falls on a{" "}
+        <strong>{weekday}</strong>. It is the{" "}
+        <strong>{dayOfYear}th day of the year</strong>. The zodiac sign for this date is{" "}
+        <strong>{zodiac}</strong>.
       </p>
 
-      <p className="mb-6">
-        See the live countdown on the{" "}
-        <Link href={`/days-until/${monthSlug}-${day}`}>
-          days until {formatted}
-        </Link>{" "}
-        page.
+      <p>
+        There are currently <strong>{daysUntil}</strong> days until the next {formatted}.
       </p>
 
-      <p className="mb-8">
-        View the complete list of{" "}
-        <Link href={`/famous-birthdays/${date}`}>
-          famous birthdays on {formatted}
-        </Link>.
-      </p>
+      <section style={{ marginTop: 30 }}>
+        <h2>{formatted} birthday facts</h2>
+
+        <p>
+          People born on <strong>{formatted}</strong> belong to the{" "}
+          <strong>{zodiac}</strong> zodiac sign. Many well known figures share a{" "}
+          <strong>{formatted} birthday</strong>, and the date appears in many
+          historical timelines.
+        </p>
+
+        <p>
+          If you are researching <strong>{formatted} birthdays</strong>, this page
+          lists notable people born on this date and important historical events
+          that happened on {formatted}.
+        </p>
+      </section>
 
       {famous.length > 0 && (
-        <section className="mb-10">
-          <h2 className="text-xl font-semibold mb-3">
-            Famous people born on {formatted}
-          </h2>
-
-          <ul className="list-disc pl-6 space-y-1">
+        <section style={{ marginTop: 30 }}>
+          <h2>Famous people born on {formatted}</h2>
+          <ul>
             {famous.map((p: string) => (
               <li key={p}>{p}</li>
             ))}
@@ -206,12 +199,9 @@ export default async function Page({ params }: PageProps) {
       )}
 
       {events.length > 0 && (
-        <section className="mb-10">
-          <h2 className="text-xl font-semibold mb-3">
-            Historical events on {formatted}
-          </h2>
-
-          <ul className="list-disc pl-6 space-y-1">
+        <section style={{ marginTop: 30 }}>
+          <h2>Historical events on {formatted}</h2>
+          <ul>
             {events.map((e: string) => (
               <li key={e}>{e}</li>
             ))}
@@ -219,37 +209,54 @@ export default async function Page({ params }: PageProps) {
         </section>
       )}
 
-      <section className="mt-12 border-t pt-8">
-        <h2 className="text-xl font-semibold mb-4">
-          Birthday tools
-        </h2>
+      <section style={{ marginTop: 40, borderTop: "1px solid #ddd", paddingTop: 20 }}>
+        <h2>Related birthdays</h2>
 
-        <ul className="list-disc pl-6 space-y-2">
-          <li><Link href="/age-calculator">Age calculator</Link></li>
-          <li><Link href="/days-until-my-birthday">Days until my birthday</Link></li>
-          <li><Link href="/what-day-was-i-born">What day was I born</Link></li>
+        <ul style={{ display: "flex", flexWrap: "wrap", gap: "10px", padding: 0, listStyle: "none" }}>
+          {relatedDates.map((d) => (
+            <li key={d}>
+              <Link
+                href={`/born-on/${d}`}
+                style={{
+                  border: "1px solid #ccc",
+                  borderRadius: "6px",
+                  padding: "4px 10px",
+                  fontSize: "14px",
+                  display: "inline-block",
+                }}
+              >
+                {formatSlug(d)}
+              </Link>
+            </li>
+          ))}
         </ul>
       </section>
 
-      <section className="mt-12 border-t pt-8">
-        <h2 className="text-xl font-semibold mb-4">
-          Related birthdays
-        </h2>
+      <section style={{ marginTop: 40 }}>
+        <h2>More birthdays around {formatted}</h2>
 
-        <div className="flex flex-wrap gap-3">
-          {relatedDates.map((d) => (
-            <Link
-              key={d}
-              href={`/born-on/${d}`}
-              className="border rounded px-3 py-1 text-sm"
-            >
-              {formatSlug(d)}
+        <ul>
+          <li>
+            <Link href={`/born-on/${prevDate}`}>
+              People born on {formatSlug(prevDate)}
             </Link>
-          ))}
-        </div>
+          </li>
+
+          <li>
+            <Link href={`/born-on/${date}`}>
+              Famous birthdays on {formatted}
+            </Link>
+          </li>
+
+          <li>
+            <Link href={`/born-on/${nextDate}`}>
+              People born on {formatSlug(nextDate)}
+            </Link>
+          </li>
+        </ul>
       </section>
 
-      <div className="mt-10 flex justify-between text-sm">
+      <div style={{ marginTop: 40, display: "flex", justifyContent: "space-between" }}>
         <Link href={`/born-on/${prevDate}`}>← {formatSlug(prevDate)}</Link>
         <Link href={`/born-on/${nextDate}`}>{formatSlug(nextDate)} →</Link>
       </div>
