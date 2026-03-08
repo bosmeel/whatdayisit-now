@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import DateInput from "@/components/DateInput";
 import { DATE_PAIRS } from "@/lib/data/datePairs";
@@ -11,11 +11,13 @@ function calculateDaysBetween(start: Date, end: Date) {
 }
 
 export default function DaysBetweenPage() {
+
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [result, setResult] = useState<number | null>(null);
 
-  function handleCalculate() {
+  useEffect(() => {
+
     if (!startDate || !endDate) {
       setResult(null);
       return;
@@ -30,11 +32,14 @@ export default function DaysBetweenPage() {
     }
 
     const days = calculateDaysBetween(start, end);
+
     setResult(days);
-  }
+
+  }, [startDate, endDate]);
 
   return (
     <div>
+
       <h1>Days Between Two Dates</h1>
 
       <p>
@@ -42,6 +47,7 @@ export default function DaysBetweenPage() {
       </p>
 
       <div className="calculator">
+
         <DateInput
           label="Start date"
           value={startDate}
@@ -54,19 +60,13 @@ export default function DaysBetweenPage() {
           onChange={setEndDate}
         />
 
-        <button
-          onClick={handleCalculate}
-          className="calculate-button"
-        >
-          Calculate
-        </button>
-
         {result !== null && (
           <div className="result-box">
             <div className="result-number">{result}</div>
             <div className="result-label">days</div>
           </div>
         )}
+
       </div>
 
       <section style={{ marginTop: 50 }}>
@@ -82,6 +82,7 @@ export default function DaysBetweenPage() {
           ))}
         </ul>
       </section>
+
     </div>
   );
 }
