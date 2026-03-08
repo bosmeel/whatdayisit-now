@@ -39,6 +39,7 @@ const generatedPairs: Pair[] = [];
 /* same-month combinations */
 
 months.forEach((month) => {
+
   const first = `${month.name}-1`;
   const middle = `${month.name}-15`;
   const last = `${month.name}-${month.days}`;
@@ -57,12 +58,14 @@ months.forEach((month) => {
     slug: `${first}-and-${last}`,
     label: `${formatMonth(month.name)} 1 and ${formatMonth(month.name)} ${month.days}`,
   });
+
 });
 
 /* cross-month combinations */
 
 months.forEach((a) => {
   months.forEach((b) => {
+
     if (a.name === b.name) return;
 
     generatedPairs.push({
@@ -74,8 +77,27 @@ months.forEach((a) => {
       slug: `${a.name}-15-and-${b.name}-15`,
       label: `${formatMonth(a.name)} 15 and ${formatMonth(b.name)} 15`,
     });
+
   });
 });
+
+/* month-range combinations */
+
+for (let i = 0; i < months.length; i++) {
+
+  for (let j = i + 1; j < months.length; j++) {
+
+    const a = months[i];
+    const b = months[j];
+
+    generatedPairs.push({
+      slug: `${a.name}-1-and-${b.name}-${b.days}`,
+      label: `${formatMonth(a.name)} 1 and ${formatMonth(b.name)} ${b.days}`,
+    });
+
+  }
+
+}
 
 export const DATE_PAIRS: Pair[] = [
   ...fixedPairs,
