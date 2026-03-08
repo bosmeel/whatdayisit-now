@@ -60,4 +60,36 @@ export const EVENTS: Record<string, EventItem> = {
 
   "tax-day": { name: "Tax Day", month: 4, day: 15 },
 
+  /* NEW SEO EVENTS */
+
+  "fathers-day": { name: "Father's Day", month: 6, day: 16 },
+
+  "mothers-day": { name: "Mother's Day", month: 5, day: 12 },
+
+  "christmas-eve": { name: "Christmas Eve", month: 12, day: 24 },
+
+  "new-years-day": { name: "New Year's Day", month: 1, day: 1 },
+
+  "groundhog-day": { name: "Groundhog Day", month: 2, day: 2 },
+
+  "flag-day": { name: "Flag Day", month: 6, day: 14 },
+
+  "juneteenth": { name: "Juneteenth", month: 6, day: 19 },
+
+  "columbus-day": { name: "Columbus Day", month: 10, day: 14 },
+
+  "indigenous-peoples-day": { name: "Indigenous Peoples' Day", month: 10, day: 14 },
+
+  "presidents-day": { name: "Presidents' Day", month: 2, day: 19 },
+
+  "martin-luther-king-day": { name: "Martin Luther King Jr. Day", month: 1, day: 15 },
+
+  "veterans-eve": { name: "Veterans Day Eve", month: 11, day: 10 },
+
+  "christmas-shopping-season": { name: "Christmas Shopping Season", month: 12, day: 1 },
+
+  "summer-break": { name: "Summer Break", month: 6, day: 10 },
+
+  "winter-break": { name: "Winter Break", month: 12, day: 20 },
+
 };

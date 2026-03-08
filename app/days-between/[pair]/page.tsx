@@ -4,6 +4,7 @@ import { DATE_PAIRS } from "@/lib/data/datePairs";
 import { DATE_PAIRS_SEO } from "@/lib/data/datePairsSeo";
 import Link from "next/link";
 import Script from "next/script";
+export const dynamic = "force-dynamic";
 
 type Props = {
   params: Promise<{ pair: string }>;
@@ -52,12 +53,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       canonical: `https://whatdayisit.now/days-between/${data.slug}`,
     },
   };
-}
-
-export function generateStaticParams() {
-  return [...DATE_PAIRS, ...DATE_PAIRS_SEO].map((pair) => ({
-    pair: pair.slug,
-  }));
 }
 
 export default async function DaysBetweenPairPage({ params }: Props) {
