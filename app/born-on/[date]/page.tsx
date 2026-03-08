@@ -55,7 +55,7 @@ function daysUntilNextBirthday(monthIndex: number, day: number) {
 }
 
 function getZodiac(month: number, day: number) {
-  const zodiac = [
+  const zodiac: [string, number, number][] = [
     ["Capricorn", 1, 19],
     ["Aquarius", 2, 18],
     ["Pisces", 3, 20],
