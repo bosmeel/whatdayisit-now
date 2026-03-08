@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { DATE_PAIRS } from "@/lib/data/datePairs";
 import { DATE_PAIRS_SEO } from "@/lib/data/datePairsSeo";
+import { EVENTS } from "@/lib/events";
 import Link from "next/link";
 import Script from "next/script";
+
 export const dynamic = "force-dynamic";
 
 type Props = {
@@ -34,8 +36,30 @@ function getLabel(data: BasePair | SeoPair) {
 }
 
 function calculateDays(start: Date, end: Date) {
-  const diff = end.getTime() - start.getTime();
+  const diff = Math.abs(end.getTime() - start.getTime());
   return Math.round(diff / 86400000);
+}
+
+function resolveEventPair(slug: string) {
+  const parts = slug.split("-and-");
+  if (parts.length !== 2) return null;
+
+  const a = EVENTS[parts[0]];
+  const b = EVENTS[parts[1]];
+
+  if (!a || !b) return null;
+
+  const year = new Date().getFullYear();
+
+  const start = new Date(year, a.month - 1, a.day);
+  const end = new Date(year, b.month - 1, b.day);
+
+  return {
+    start,
+    end,
+    startLabel: `${a.name}, ${year}`,
+    endLabel: `${b.name}, ${year}`,
+  };
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -50,13 +74,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `Days Between ${label}`,
     description: `Find how many days are between ${label}.`,
     alternates: {
-      canonical: `https://whatdayisit.now/days-between/${data.slug}`,
+      canonical: `https://whatdayisit.now/days-between/${pair}`,
     },
   };
 }
 
 export default async function DaysBetweenPairPage({ params }: Props) {
   const { pair } = await params;
+
   const data = findPair(pair);
 
   if (!data) {
@@ -85,6 +110,14 @@ export default async function DaysBetweenPairPage({ params }: Props) {
     result = calculateDays(startDate, endDate);
     startLabel = data.start.label;
     endLabel = data.end.label;
+  } else {
+    const eventPair = resolveEventPair(pair);
+
+    if (eventPair) {
+      result = calculateDays(eventPair.start, eventPair.end);
+      startLabel = eventPair.startLabel;
+      endLabel = eventPair.endLabel;
+    }
   }
 
   const webAppSchema = {
@@ -93,10 +126,10 @@ export default async function DaysBetweenPairPage({ params }: Props) {
     name: `Days Between ${label}`,
     applicationCategory: "CalculatorApplication",
     operatingSystem: "Any",
-    url: `https://whatdayisit.now/days-between/${data.slug}`,
+    url: `https://whatdayisit.now/days-between/${pair}`,
   };
 
-  const related = DATE_PAIRS.filter((p) => p.slug !== data.slug).slice(0, 8);
+  const related = DATE_PAIRS.filter((p) => p.slug !== pair).slice(0, 8);
 
   return (
     <main style={{ maxWidth: 900, margin: "40px auto", padding: 20 }}>
