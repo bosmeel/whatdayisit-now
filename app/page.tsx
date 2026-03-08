@@ -46,6 +46,15 @@ const featuredLinks = [
   { href: "/days-until-my-birthday", label: "Birthday Tools" },
 ];
 
+const birthdayLinks = [
+  { href: "/born-on/may-1", label: "May 1 birthday" },
+  { href: "/born-on/may-5", label: "May 5 birthday" },
+  { href: "/born-on/may-10", label: "May 10 birthday" },
+  { href: "/born-on/may-15", label: "May 15 birthday" },
+  { href: "/born-on/may-20", label: "May 20 birthday" },
+  { href: "/born-on/may-25", label: "May 25 birthday" },
+];
+
 export default function Home() {
   return (
     <>
@@ -104,6 +113,27 @@ export default function Home() {
           >
             Days between July 4 and Christmas
           </Link>
+        </div>
+      </section>
+
+      <section className="container">
+        <h2>Browse Birthdays by Date</h2>
+
+        <p>
+          Discover famous people born on any day of the year, plus zodiac
+          information and notable historical events.
+        </p>
+
+        <div className="tool-grid">
+          <Link href="/born-on" className="tool-card">
+            Browse all birthdays
+          </Link>
+
+          {birthdayLinks.map((item) => (
+            <Link key={item.href} href={item.href} className="tool-card">
+              {item.label}
+            </Link>
+          ))}
         </div>
       </section>
 
