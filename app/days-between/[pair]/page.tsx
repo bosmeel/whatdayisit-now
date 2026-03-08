@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { DATE_PAIRS } from "@/lib/data/datePairs";
+import { DATE_PAIRS_SEO } from "@/lib/data/datePairsSeo";
 import Link from "next/link";
 import Script from "next/script";
 
@@ -9,7 +10,10 @@ type Props = {
 };
 
 function findPair(slug: string) {
-  return DATE_PAIRS.find((p) => p.slug === slug);
+  return (
+    DATE_PAIRS.find((p) => p.slug === slug) ||
+    DATE_PAIRS_SEO.find((p) => p.slug === slug)
+  );
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -38,7 +42,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export function generateStaticParams() {
-  return DATE_PAIRS.map((pair) => ({
+  return [
+    ...DATE_PAIRS,
+    ...DATE_PAIRS_SEO,
+  ].map((pair) => ({
     pair: pair.slug,
   }));
 }

@@ -1,63 +1,55 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import DateInput from "@/components/DateInput";
 
-function calculateBusinessDays(start: Date, end: Date) {
-  let count = 0;
-
-  const current = new Date(start);
-
-  while (current <= end) {
-    const day = current.getDay();
-
-    if (day !== 0 && day !== 6) {
-      count++;
-    }
-
-    current.setDate(current.getDate() + 1);
-  }
-
-  return count;
+function calculateDaysBetween(start: Date, end: Date) {
+  const diff = end.getTime() - start.getTime();
+  return Math.round(diff / 86400000);
 }
 
-export default function BusinessDaysUntilPage() {
+export default function DaysBetweenPage() {
 
+  const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [result, setResult] = useState<number | null>(null);
 
-  useEffect(() => {
+  function handleCalculate() {
 
-    if (!endDate) {
+    if (!startDate || !endDate) {
       setResult(null);
       return;
     }
 
-    const today = new Date();
+    const start = new Date(startDate);
     const end = new Date(endDate);
 
-    if (Number.isNaN(end.getTime())) {
+    if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) {
       setResult(null);
       return;
     }
 
-    const days = calculateBusinessDays(today, end);
+    const days = calculateDaysBetween(start, end);
 
     setResult(days);
-
-  }, [endDate]);
+  }
 
   return (
     <div>
 
-      <h1>Business Days Until Date</h1>
+      <h1>Days Between Two Dates</h1>
 
       <p>
-        Calculate how many working days remain from today until a selected date.
-        Weekends are automatically excluded.
+        Calculate the number of days between two calendar dates.
       </p>
 
       <div className="calculator">
+
+        <DateInput
+          label="Start date"
+          value={startDate}
+          onChange={setStartDate}
+        />
 
         <DateInput
           label="End date"
@@ -65,10 +57,17 @@ export default function BusinessDaysUntilPage() {
           onChange={setEndDate}
         />
 
+        <button
+          onClick={handleCalculate}
+          className="calculate-button"
+        >
+          Calculate
+        </button>
+
         {result !== null && (
           <div className="result-box">
             <div className="result-number">{result}</div>
-            <div className="result-label">business days</div>
+            <div className="result-label">days</div>
           </div>
         )}
 
