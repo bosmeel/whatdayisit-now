@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
+export const dynamic = "force-dynamic";
 
 type PageProps = {
   params: Promise<{ date: string }>;
@@ -86,19 +87,6 @@ function buildAllDates() {
     }
   });
   return arr;
-}
-
-export function generateStaticParams() {
-  return buildAllDates().map((date) => ({ date }));
-}
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { date } = await params;
-
-  return {
-    title: `Born on ${formatSlug(date)} – Birthday Facts`,
-    description: `Discover zodiac sign, famous birthdays and historical events for ${formatSlug(date)}.`,
-  };
 }
 
 export default async function Page({ params }: PageProps) {
