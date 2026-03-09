@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+export const dynamic = "force-dynamic";
 
 type Props = {
   params: Promise<{ year: string }>;
