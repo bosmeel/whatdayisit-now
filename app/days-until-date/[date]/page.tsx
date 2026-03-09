@@ -20,20 +20,6 @@ type Props = {
   params: Promise<{ date: string }>;
 };
 
-export function generateStaticParams() {
-  const params: { date: string }[] = [];
-
-  months.forEach((m) => {
-    for (let d = 1; d <= m.days; d++) {
-      params.push({
-        date: `${m.name}-${d}`,
-      });
-    }
-  });
-
-  return params;
-}
-
 export async function generateMetadata({ params }: Props) {
 
   const { date } = await params;
