@@ -1,4 +1,7 @@
-import { notFound } from "next/navigation";
+import { MetadataRoute } from "next";
+import { EVENTS } from "@/lib/events";
+import { DATE_PAIRS } from "@/lib/data/datePairs";
+import { DATE_PAIRS_SEO } from "@/lib/data/datePairsSeo";
 
 const months = [
   { name: "january", days: 31 },
@@ -15,77 +18,83 @@ const months = [
   { name: "december", days: 31 },
 ];
 
-type Props = {
-  params: { date: string };
-};
+export default function sitemap(): MetadataRoute.Sitemap {
 
-export function generateStaticParams() {
-  const params: { date: string }[] = [];
+  const baseUrl = "https://whatdayisit.now";
+  const now = new Date();
+  const currentYear = now.getFullYear();
+
+  const staticRoutes = [
+    "",
+    "/days-until",
+    "/days-between",
+    "/born-on",
+    "/what-happened-on",
+    `/how-many-days-left-in/${currentYear}`,
+    `/how-many-weeks-left-in/${currentYear}`,
+  ];
+
+  const staticPages = staticRoutes.map((route) => ({
+    url: `${baseUrl}${route}`,
+    lastModified: now,
+    changeFrequency: "daily" as const,
+    priority: route === "" ? 1 : 0.8,
+  }));
+
+  const eventPages = Object.keys(EVENTS).map((slug) => ({
+    url: `${baseUrl}/days-until/${slug}`,
+    lastModified: now,
+    changeFrequency: "daily" as const,
+    priority: 0.7,
+  }));
+
+  const daysBetweenPages = [
+    ...DATE_PAIRS,
+    ...DATE_PAIRS_SEO,
+  ].map((pair) => ({
+    url: `${baseUrl}/days-between/${pair.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
+  const bornOnPages: MetadataRoute.Sitemap = [];
+  const happenedPages: MetadataRoute.Sitemap = [];
+  const daysUntilDatePages: MetadataRoute.Sitemap = [];
 
   months.forEach((m) => {
     for (let d = 1; d <= m.days; d++) {
-      params.push({
-        date: `${m.name}-${d}`,
+
+      bornOnPages.push({
+        url: `${baseUrl}/born-on/${m.name}-${d}`,
+        lastModified: now,
+        changeFrequency: "yearly",
+        priority: 0.6,
       });
+
+      happenedPages.push({
+        url: `${baseUrl}/what-happened-on/${m.name}-${d}`,
+        lastModified: now,
+        changeFrequency: "yearly",
+        priority: 0.6,
+      });
+
+      daysUntilDatePages.push({
+        url: `${baseUrl}/days-until-date/${m.name}-${d}`,
+        lastModified: now,
+        changeFrequency: "yearly",
+        priority: 0.6,
+      });
+
     }
   });
 
-  return params;
-}
-
-export async function generateMetadata({ params }: Props) {
-
-  if (!params?.date) return {};
-
-  const [month, day] = params.date.split("-");
-
-  const monthName =
-    month.charAt(0).toUpperCase() + month.slice(1);
-
-  return {
-    title: `Days Until ${monthName} ${day}`,
-    description: `See how many days remain until ${monthName} ${day}.`,
-  };
-}
-
-export default function Page({ params }: Props) {
-
-  if (!params?.date) return notFound();
-
-  const [monthSlug, dayStr] = params.date.split("-");
-
-  const monthIndex = months.findIndex(
-    (m) => m.name === monthSlug
-  );
-
-  if (monthIndex === -1) return notFound();
-
-  const day = parseInt(dayStr);
-
-  if (Number.isNaN(day)) return notFound();
-
-  const now = new Date();
-  const year = now.getFullYear();
-
-  let target = new Date(year, monthIndex, day);
-
-  if (target < now) {
-    target = new Date(year + 1, monthIndex, day);
-  }
-
-  const diff = target.getTime() - now.getTime();
-  const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
-
-  const monthName =
-    monthSlug.charAt(0).toUpperCase() + monthSlug.slice(1);
-
-  return (
-    <main className="container">
-      <h1>Days Until {monthName} {day}</h1>
-
-      <p>
-        There are <strong>{days}</strong> days until {monthName} {day}.
-      </p>
-    </main>
-  );
+  return [
+    ...staticPages,
+    ...eventPages,
+    ...daysBetweenPages,
+    ...bornOnPages,
+    ...happenedPages,
+    ...daysUntilDatePages,
+  ];
 }
