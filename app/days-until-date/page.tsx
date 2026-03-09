@@ -1,0 +1,75 @@
+import { notFound } from "next/navigation";
+import { months } from "@/lib/months";
+
+type Props = {
+  params: { date: string };
+};
+
+export function generateStaticParams() {
+
+  const params: { date: string }[] = [];
+
+  months.forEach((m) => {
+    for (let d = 1; d <= m.days; d++) {
+      params.push({
+        date: `${m.name}-${d}`,
+      });
+    }
+  });
+
+  return params;
+}
+
+export async function generateMetadata({ params }: Props) {
+
+  const [month, day] = params.date.split("-");
+
+  const monthName =
+    month.charAt(0).toUpperCase() + month.slice(1);
+
+  return {
+    title: `Days Until ${monthName} ${day}`,
+    description: `See how many days remain until ${monthName} ${day}.`,
+  };
+}
+
+export default function Page({ params }: Props) {
+
+  const [monthSlug, dayStr] = params.date.split("-");
+
+  const monthIndex = months.findIndex(
+    (m) => m.name === monthSlug
+  );
+
+  if (monthIndex === -1) return notFound();
+
+  const day = parseInt(dayStr);
+
+  const now = new Date();
+  const year = now.getFullYear();
+
+  let target = new Date(year, monthIndex, day);
+
+  if (target < now) {
+    target = new Date(year + 1, monthIndex, day);
+  }
+
+  const diff = target.getTime() - now.getTime();
+
+  const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+
+  const monthName =
+    monthSlug.charAt(0).toUpperCase() + monthSlug.slice(1);
+
+  return (
+    <main className="container">
+
+      <h1>Days Until {monthName} {day}</h1>
+
+      <p>
+        There are <strong>{days}</strong> days until {monthName} {day}.
+      </p>
+
+    </main>
+  );
+}
