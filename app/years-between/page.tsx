@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import DateInput from "@/components/DateInput";
+import SeoLinks from "@/components/SeoLinks";
 
 export default function YearsBetweenPage() {
 
@@ -66,7 +67,7 @@ export default function YearsBetweenPage() {
         )}
 
       </div>
-
+<SeoLinks />
     </div>
   );
 }

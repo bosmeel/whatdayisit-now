@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import DateInput from "@/components/DateInput";
+import SeoLinks from "@/components/SeoLinks";
 
 export default function WeeksBetweenPage() {
 
@@ -54,7 +55,7 @@ export default function WeeksBetweenPage() {
         <DateInput label="End date" value={endDate} onChange={setEndDate} />
 
       </div>
-
+<SeoLinks />
     </div>
   );
 }

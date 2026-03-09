@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import DateInput from "@/components/DateInput";
+import SeoLinks from "@/components/SeoLinks";
 
 function calculateBusinessDays(start: Date, end: Date) {
 
@@ -78,7 +79,7 @@ export default function BusinessDaysBetweenPage() {
         )}
 
       </div>
-
+<SeoLinks />
     </div>
   );
 }

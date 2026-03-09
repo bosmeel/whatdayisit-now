@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import DateInput from "@/components/DateInput";
 import { EVENTS } from "@/lib/events";
+import SeoLinks from "@/components/SeoLinks";
 
 export default function DaysUntilPage() {
   const [date, setDate] = useState("");
@@ -108,6 +109,7 @@ export default function DaysUntilPage() {
           ))}
         </div>
       </section>
+      <SeoLinks />
     </main>
   );
 }

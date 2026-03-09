@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import DateInput from "@/components/DateInput";
 import SeoLinks from "@/components/SeoLinks";
 
-export default function DaysSincePage() {
+export default function BusinessDaysUntilPage() {
 
   const [date, setDate] = useState("");
   const [result, setResult] = useState<number | null>(null);
@@ -16,49 +16,55 @@ export default function DaysSincePage() {
       return;
     }
 
-    const start = new Date(date);
+    const start = new Date();
+    const end = new Date(date);
 
-    if (Number.isNaN(start.getTime())) {
+    if (Number.isNaN(end.getTime())) {
       setResult(null);
       return;
     }
 
-    const today = new Date();
+    let count = 0;
+    const current = new Date(start);
 
-    const diff = today.getTime() - start.getTime();
+    while (current <= end) {
+      const day = current.getDay();
 
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      if (day !== 0 && day !== 6) {
+        count++;
+      }
 
-    setResult(days);
+      current.setDate(current.getDate() + 1);
+    }
+
+    setResult(count);
 
   }, [date]);
 
   return (
     <div>
 
-      <h1>Days Since Date</h1>
-
-      <p>
-        Calculate how many days have passed since a specific date.
-      </p>
+      <h1>Business Days Until Date</h1>
 
       {result !== null && (
         <div className="result-box">
           <div className="result-number">{result}</div>
-          <div className="result-label">days</div>
+          <div className="result-label">business days</div>
         </div>
       )}
 
       <div className="calculator">
 
         <DateInput
-          label="Start date"
+          label="Target date"
           value={date}
           onChange={setDate}
         />
 
       </div>
-<SeoLinks />
+
+      <SeoLinks />
+
     </div>
   );
 }
