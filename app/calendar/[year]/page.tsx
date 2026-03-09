@@ -41,7 +41,7 @@ export default async function CalendarYearPage({ params }: Props) {
 
             <Link
               key={month}
-              href={`/calendar/${month}-${parsedYear}`}
+              href={`/calendar/${parsedYear}/${month}`}
               className="rounded-xl border p-4 hover:bg-gray-50 dark:hover:bg-white/5"
             >
               <strong>{monthLabel}</strong>
