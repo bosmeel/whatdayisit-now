@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import DateInput from "@/components/DateInput";
 import SeoLinks from "@/components/SeoLinks";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 export default function DaysSincePage() {
 
@@ -36,6 +37,14 @@ export default function DaysSincePage() {
   return (
     <div>
 
+      <Breadcrumbs
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Date Calculators", href: "/" },
+          { name: "Days Since Date" }
+        ]}
+      />
+
       <h1>Days Since Date</h1>
 
       <p>
@@ -58,7 +67,9 @@ export default function DaysSincePage() {
         />
 
       </div>
-<SeoLinks />
+
+      <SeoLinks />
+
     </div>
   );
 }

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import DateInput from "@/components/DateInput";
 import SeoLinks from "@/components/SeoLinks";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 function calculateBusinessDays(start: Date, end: Date) {
 
@@ -51,6 +52,14 @@ export default function BusinessDaysBetweenPage() {
   return (
     <div>
 
+      <Breadcrumbs
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Date Calculators", href: "/" },
+          { name: "Business Days Between Dates" }
+        ]}
+      />
+
       <h1>Business Days Between Dates</h1>
 
       <p>
@@ -79,7 +88,9 @@ export default function BusinessDaysBetweenPage() {
         )}
 
       </div>
-<SeoLinks />
+
+      <SeoLinks />
+
     </div>
   );
 }

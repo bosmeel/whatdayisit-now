@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import DateInput from "@/components/DateInput";
 import SeoLinks from "@/components/SeoLinks";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 export default function WeeksBetweenPage() {
 
@@ -36,6 +37,14 @@ export default function WeeksBetweenPage() {
   return (
     <div>
 
+      <Breadcrumbs
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Date Calculators", href: "/" },
+          { name: "Weeks Between Dates" }
+        ]}
+      />
+
       <h1>Weeks Between Dates</h1>
 
       <p>
@@ -51,11 +60,22 @@ export default function WeeksBetweenPage() {
 
       <div className="calculator">
 
-        <DateInput label="Start date" value={startDate} onChange={setStartDate} />
-        <DateInput label="End date" value={endDate} onChange={setEndDate} />
+        <DateInput
+          label="Start date"
+          value={startDate}
+          onChange={setStartDate}
+        />
+
+        <DateInput
+          label="End date"
+          value={endDate}
+          onChange={setEndDate}
+        />
 
       </div>
-<SeoLinks />
+
+      <SeoLinks />
+
     </div>
   );
 }

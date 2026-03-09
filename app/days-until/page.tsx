@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import DateInput from "@/components/DateInput";
 import { EVENTS } from "@/lib/events";
 import SeoLinks from "@/components/SeoLinks";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 export default function DaysUntilPage() {
   const [date, setDate] = useState("");
@@ -38,6 +39,15 @@ export default function DaysUntilPage() {
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-10">
+
+      <Breadcrumbs
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Date Calculators", href: "/" },
+          { name: "Days Until Date" }
+        ]}
+      />
+
       <h1 className="mb-4 text-3xl font-bold">Days Until Date</h1>
 
       <p className="mb-8 text-lg">
@@ -109,7 +119,9 @@ export default function DaysUntilPage() {
           ))}
         </div>
       </section>
+
       <SeoLinks />
+
     </main>
   );
 }

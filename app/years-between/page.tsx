@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import DateInput from "@/components/DateInput";
 import SeoLinks from "@/components/SeoLinks";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 export default function YearsBetweenPage() {
 
@@ -40,6 +41,14 @@ export default function YearsBetweenPage() {
   return (
     <div>
 
+      <Breadcrumbs
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Date Calculators", href: "/" },
+          { name: "Years Between Dates" }
+        ]}
+      />
+
       <h1>Years Between Dates</h1>
 
       <p>
@@ -67,7 +76,9 @@ export default function YearsBetweenPage() {
         )}
 
       </div>
-<SeoLinks />
+
+      <SeoLinks />
+
     </div>
   );
 }

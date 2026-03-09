@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import DateInput from "@/components/DateInput";
 import { DATE_PAIRS } from "@/lib/data/datePairs";
+import SeoLinks from "@/components/SeoLinks";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 function calculateDaysBetween(start: Date, end: Date) {
   const diff = end.getTime() - start.getTime();
@@ -39,6 +41,14 @@ export default function DaysBetweenPage() {
 
   return (
     <div>
+
+      <Breadcrumbs
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Date Calculators", href: "/" },
+          { name: "Days Between Dates" }
+        ]}
+      />
 
       <h1>Days Between Two Dates</h1>
 
@@ -82,6 +92,8 @@ export default function DaysBetweenPage() {
           ))}
         </ul>
       </section>
+
+      <SeoLinks />
 
     </div>
   );
