@@ -77,6 +77,34 @@ export default function Home() {
         </div>
       </section>
 
+      {/* NEW SEO SECTION */}
+
+      <section className="container">
+        <h2>Popular Countdowns</h2>
+
+        <p>
+          See how many days remain until popular holidays and upcoming events.
+        </p>
+
+        <div className="tool-grid">
+          <Link href="/days-until/christmas" className="tool-card">
+            Days Until Christmas
+          </Link>
+
+          <Link href="/days-until/new-year" className="tool-card">
+            Days Until New Year
+          </Link>
+
+          <Link href="/days-until/halloween" className="tool-card">
+            Days Until Halloween
+          </Link>
+
+          <Link href="/days-until/valentines-day" className="tool-card">
+            Days Until Valentine’s Day
+          </Link>
+        </div>
+      </section>
+
       <section className="container">
         <h2>Popular Date Comparisons</h2>
 
@@ -116,8 +144,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* NEW HUB SECTION */}
-
       <section className="container">
         <h2>Browse Dates</h2>
 
@@ -126,7 +152,6 @@ export default function Home() {
         </p>
 
         <div className="tool-grid">
-
           <Link href="/born-on" className="tool-card">
             Birthdays by Date
           </Link>
@@ -134,7 +159,6 @@ export default function Home() {
           <Link href="/what-happened-on" className="tool-card">
             Historical Events by Date
           </Link>
-
         </div>
       </section>
 
@@ -159,17 +183,26 @@ export default function Home() {
         </div>
       </section>
 
+      {/* NEW SEO SECTION */}
+
       <section className="container">
-        <h2>Calendar by Year</h2>
+        <h2>Calendar Tools</h2>
 
         <p>
-          Browse calendars by year including months, birthdays, holidays and
-          notable historical events.
+          Browse calendars and week numbers to plan your year and track dates.
         </p>
 
         <div className="tool-grid">
-          <Link href="/calendar" className="tool-card">
-            View Year Calendars
+          <Link href="/calendar/2026" className="tool-card">
+            2026 Calendar
+          </Link>
+
+          <Link href="/week-number/2026" className="tool-card">
+            Week Numbers for 2026
+          </Link>
+
+          <Link href="/what-week-is-it" className="tool-card">
+            What Week Is It?
           </Link>
         </div>
       </section>
