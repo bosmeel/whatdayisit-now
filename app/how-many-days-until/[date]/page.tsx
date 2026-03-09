@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+export const dynamic = "force-dynamic";
 
 type PageProps = {
   params: Promise<{
@@ -45,20 +46,6 @@ function daysUntil(monthIndex: number, day: number) {
 
   const diff = target.getTime() - today.getTime();
   return Math.ceil(diff / (1000 * 60 * 60 * 24));
-}
-
-export function generateStaticParams() {
-  const routes: { date: string }[] = [];
-
-  months.forEach((month) => {
-    for (let d = 1; d <= month.days; d++) {
-      routes.push({
-        date: `${month.name}-${d}`,
-      });
-    }
-  });
-
-  return routes;
 }
 
 export async function generateMetadata(

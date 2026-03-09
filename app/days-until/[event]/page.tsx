@@ -2,16 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { EVENTS } from "@/lib/events";
 import { notFound } from "next/navigation";
+export const dynamic = "force-dynamic";
 
 type Props = {
   params: Promise<{ event: string }>;
 };
-
-export function generateStaticParams() {
-  return Object.keys(EVENTS).map((event) => ({
-    event,
-  }));
-}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { event } = await params;

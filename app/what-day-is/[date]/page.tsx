@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { generateDatePages } from "@/lib/data/datePages";
+export const dynamic = "force-dynamic";
 
 type Props = {
   params: Promise<{
@@ -38,16 +39,6 @@ function parseSlug(slug:string){
 
 function dayName(date:Date){
   return date.toLocaleDateString("en-US",{weekday:"long"});
-}
-
-export async function generateStaticParams(){
-
-  const pages=generateDatePages(2020,2030);
-
-  return pages.map(p=>({
-    date:p.slug
-  }));
-
 }
 
 export async function generateMetadata({params}:Props){

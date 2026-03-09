@@ -1,28 +1,9 @@
 import { notFound } from "next/navigation";
+export const dynamic = "force-dynamic";
 
 type Props = {
   params: Promise<{ year: string; week: string }>;
 };
-
-export function generateStaticParams() {
-
-  const params = [];
-
-  for (let year = 2020; year <= 2035; year++) {
-
-    for (let week = 1; week <= 53; week++) {
-
-      params.push({
-        year: year.toString(),
-        week: week.toString(),
-      });
-
-    }
-
-  }
-
-  return params;
-}
 
 export default async function Page({ params }: Props) {
 

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { famousBirthdays } from "@/lib/famous-birthdays";
+export const dynamic = "force-dynamic";
 
 type PageProps = {
   params: Promise<{
@@ -27,20 +28,6 @@ function formatSlug(slug: string) {
   const [month, day] = slug.split("-");
   const monthName = month.charAt(0).toUpperCase() + month.slice(1);
   return `${monthName} ${day}`;
-}
-
-export function generateStaticParams() {
-  const routes: { date: string }[] = [];
-
-  months.forEach((month) => {
-    for (let d = 1; d <= month.days; d++) {
-      routes.push({
-        date: `${month.name}-${d}`,
-      });
-    }
-  });
-
-  return routes;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
