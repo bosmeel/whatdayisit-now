@@ -62,6 +62,40 @@ function resolveEventPair(slug: string) {
   };
 }
 
+function resolveMonthDayPair(slug: string) {
+  const parts = slug.split("-and-");
+  if (parts.length !== 2) return null;
+
+  const months = [
+    "january","february","march","april","may","june",
+    "july","august","september","october","november","december"
+  ];
+
+  const parse = (text: string) => {
+    const [month, day] = text.split("-");
+    const monthIndex = months.indexOf(month);
+
+    if (monthIndex === -1) return null;
+
+    const d = parseInt(day, 10);
+    if (Number.isNaN(d)) return null;
+
+    return new Date(new Date().getFullYear(), monthIndex, d);
+  };
+
+  const start = parse(parts[0]);
+  const end = parse(parts[1]);
+
+  if (!start || !end) return null;
+
+  return {
+    start,
+    end,
+    startLabel: parts[0].replace("-", " "),
+    endLabel: parts[1].replace("-", " "),
+  };
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { pair } = await params;
   const data = findPair(pair);
@@ -94,6 +128,8 @@ export default async function DaysBetweenPairPage({ params }: Props) {
   let startLabel: string | null = null;
   let endLabel: string | null = null;
 
+  /* 1 SEO pairs */
+
   if ("start" in data && "end" in data) {
     const startDate = new Date(
       data.start.year,
@@ -110,14 +146,32 @@ export default async function DaysBetweenPairPage({ params }: Props) {
     result = calculateDays(startDate, endDate);
     startLabel = data.start.label;
     endLabel = data.end.label;
+
   } else {
+
+    /* 2 event pairs */
+
     const eventPair = resolveEventPair(pair);
 
     if (eventPair) {
       result = calculateDays(eventPair.start, eventPair.end);
       startLabel = eventPair.startLabel;
       endLabel = eventPair.endLabel;
+
+    } else {
+
+      /* 3 month-day pairs */
+
+      const monthPair = resolveMonthDayPair(pair);
+
+      if (monthPair) {
+        result = calculateDays(monthPair.start, monthPair.end);
+        startLabel = monthPair.startLabel;
+        endLabel = monthPair.endLabel;
+      }
+
     }
+
   }
 
   const webAppSchema = {
