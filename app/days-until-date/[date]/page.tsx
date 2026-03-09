@@ -16,11 +16,10 @@ const months = [
 ];
 
 type Props = {
-  params: { date: string };
+  params: Promise<{ date: string }>;
 };
 
 export function generateStaticParams() {
-
   const params: { date: string }[] = [];
 
   months.forEach((m) => {
@@ -36,7 +35,11 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props) {
 
-  const [month, day] = params.date.split("-");
+  const { date } = await params;
+
+  if (!date) return {};
+
+  const [month, day] = date.split("-");
 
   const monthName =
     month.charAt(0).toUpperCase() + month.slice(1);
@@ -47,9 +50,13 @@ export async function generateMetadata({ params }: Props) {
   };
 }
 
-export default function Page({ params }: Props) {
+export default async function Page({ params }: Props) {
 
-  const [monthSlug, dayStr] = params.date.split("-");
+  const { date } = await params;
+
+  if (!date) return notFound();
+
+  const [monthSlug, dayStr] = date.split("-");
 
   const monthIndex = months.findIndex(
     (m) => m.name === monthSlug
@@ -58,6 +65,8 @@ export default function Page({ params }: Props) {
   if (monthIndex === -1) return notFound();
 
   const day = parseInt(dayStr);
+
+  if (Number.isNaN(day)) return notFound();
 
   const now = new Date();
   const year = now.getFullYear();
@@ -69,7 +78,6 @@ export default function Page({ params }: Props) {
   }
 
   const diff = target.getTime() - now.getTime();
-
   const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
 
   const monthName =
@@ -77,13 +85,11 @@ export default function Page({ params }: Props) {
 
   return (
     <main className="container">
-
       <h1>Days Until {monthName} {day}</h1>
 
       <p>
         There are <strong>{days}</strong> days until {monthName} {day}.
       </p>
-
     </main>
   );
 }
