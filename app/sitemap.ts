@@ -47,6 +47,29 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "daily" as const,
     priority: 0.7,
   }));
+const weekNumberPages: MetadataRoute.Sitemap = [];
+
+for (let year = 2020; year <= 2035; year++) {
+
+  weekNumberPages.push({
+    url: `${baseUrl}/week-number/${year}`,
+    lastModified: now,
+    changeFrequency: "yearly",
+    priority: 0.6,
+  });
+
+  for (let week = 1; week <= 53; week++) {
+
+    weekNumberPages.push({
+      url: `${baseUrl}/week-number/${year}/${week}`,
+      lastModified: now,
+      changeFrequency: "yearly",
+      priority: 0.6,
+    });
+
+  }
+
+}
 
   const daysBetweenPages = [
     ...DATE_PAIRS,
@@ -96,5 +119,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...bornOnPages,
     ...happenedPages,
     ...daysUntilDatePages,
+    ...weekNumberPages,
   ];
 }
