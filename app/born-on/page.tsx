@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   title: "Browse Birthdays by Date",
   description:
     "Explore birthdays for every day of the year. Discover famous people, zodiac signs and historical events for each date.",
+  alternates: {
+    canonical: "https://whatdayisit.now/born-on",
+  },
 };
 
 const months = [
