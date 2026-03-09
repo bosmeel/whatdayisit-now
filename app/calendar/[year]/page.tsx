@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 type Props = {
@@ -5,6 +6,7 @@ type Props = {
 };
 
 export default async function CalendarYearPage({ params }: Props) {
+
   const { year } = await params;
   const parsedYear = Number(year);
 
@@ -12,30 +14,46 @@ export default async function CalendarYearPage({ params }: Props) {
     notFound();
   }
 
-  return (
-    <div>
-      <h1>Calendar {parsedYear}</h1>
+  const months = [
+    "january","february","march","april","may","june",
+    "july","august","september","october","november","december"
+  ];
 
-      <p>
-        This calendar for {parsedYear} shows all months of the year and can be
-        used to track birthdays, events and important dates.
+  return (
+    <main className="mx-auto max-w-4xl px-4 py-10">
+
+      <h1 className="text-3xl font-bold mb-4">
+        {parsedYear} Calendar
+      </h1>
+
+      <p className="mb-8">
+        Browse all months of the {parsedYear} calendar.
       </p>
 
-      <div className="today-grid">
-        {Array.from({ length: 12 }).map((_, index) => {
-          const monthName = new Date(parsedYear, index, 1).toLocaleDateString(
-            "en-US",
-            { month: "long" }
-          );
+      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+
+        {months.map((month) => {
+
+          const monthLabel =
+            month.charAt(0).toUpperCase() + month.slice(1);
 
           return (
-            <div key={monthName} className="today-card">
-              <strong>{monthName}</strong>
+
+            <Link
+              key={month}
+              href={`/calendar/${month}-${parsedYear}`}
+              className="rounded-xl border p-4 hover:bg-gray-50 dark:hover:bg-white/5"
+            >
+              <strong>{monthLabel}</strong>
               <div>{parsedYear}</div>
-            </div>
+            </Link>
+
           );
+
         })}
+
       </div>
-    </div>
+
+    </main>
   );
 }
