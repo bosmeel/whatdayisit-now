@@ -116,6 +116,28 @@ export default function Home() {
         </div>
       </section>
 
+      {/* NEW HUB SECTION */}
+
+      <section className="container">
+        <h2>Browse Dates</h2>
+
+        <p>
+          Explore birthdays and historical events for every day of the year.
+        </p>
+
+        <div className="tool-grid">
+
+          <Link href="/born-on" className="tool-card">
+            Birthdays by Date
+          </Link>
+
+          <Link href="/what-happened-on" className="tool-card">
+            Historical Events by Date
+          </Link>
+
+        </div>
+      </section>
+
       <section className="container">
         <h2>Browse Birthdays by Date</h2>
 

@@ -1,5 +1,7 @@
 "use client";
 
+import ToolsNav from "@/components/ToolsNav";
+
 import {
   getDayOfYear,
   getTotalDaysInYear,
@@ -30,46 +32,50 @@ export default function TodayDashboard() {
   const weekend = getDaysUntilWeekend(now);
 
   return (
-    <section className="container">
-      <h1>What Day Is It Today?</h1>
+    <>
+      <section className="container">
+        <h1>What Day Is It Today?</h1>
 
-      <p>
-        Today is <strong>{dayName}</strong>, {fullDate}.
-      </p>
+        <p>
+          Today is <strong>{dayName}</strong>, {fullDate}.
+        </p>
 
-      <div className="today-grid">
-        <div className="today-card">
-          <strong>Week number</strong>
-          <div>Week {weekNumber}</div>
-        </div>
+        <div className="today-grid">
+          <div className="today-card">
+            <strong>Week number</strong>
+            <div>Week {weekNumber}</div>
+          </div>
 
-        <div className="today-card">
-          <strong>Day of the year</strong>
-          <div>
-            {dayOfYear} / {totalDays}
+          <div className="today-card">
+            <strong>Day of the year</strong>
+            <div>
+              {dayOfYear} / {totalDays}
+            </div>
+          </div>
+
+          <div className="today-card">
+            <strong>Days left in year</strong>
+            <div>{daysLeft}</div>
+          </div>
+
+          <div className="today-card">
+            <strong>Year progress</strong>
+            <div>{yearProgress}%</div>
+          </div>
+
+          <div className="today-card">
+            <strong>Days until weekend</strong>
+            <div>{weekend}</div>
+          </div>
+
+          <div className="today-card">
+            <strong>Quarter</strong>
+            <div>{quarter}</div>
           </div>
         </div>
+      </section>
 
-        <div className="today-card">
-          <strong>Days left in year</strong>
-          <div>{daysLeft}</div>
-        </div>
-
-        <div className="today-card">
-          <strong>Year progress</strong>
-          <div>{yearProgress}%</div>
-        </div>
-
-        <div className="today-card">
-          <strong>Days until weekend</strong>
-          <div>{weekend}</div>
-        </div>
-
-        <div className="today-card">
-          <strong>Quarter</strong>
-          <div>{quarter}</div>
-        </div>
-      </div>
-    </section>
+      <ToolsNav />
+    </>
   );
 }

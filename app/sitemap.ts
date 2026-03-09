@@ -1,5 +1,7 @@
 import { MetadataRoute } from "next";
 import { EVENTS } from "@/lib/events";
+import { DATE_PAIRS } from "@/lib/data/datePairs";
+import { DATE_PAIRS_SEO } from "@/lib/data/datePairsSeo";
 
 const months = [
   { name: "january", days: 31 },
@@ -46,6 +48,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
+  const daysBetweenPages = [
+    ...DATE_PAIRS,
+    ...DATE_PAIRS_SEO,
+  ].map((pair) => ({
+    url: `${baseUrl}/days-between/${pair.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
   const bornOnPages: MetadataRoute.Sitemap = [];
   const happenedPages: MetadataRoute.Sitemap = [];
 
@@ -74,6 +86,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...staticPages,
     ...eventPages,
+    ...daysBetweenPages,
     ...bornOnPages,
     ...happenedPages,
   ];

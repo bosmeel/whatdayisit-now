@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import "./globals.css";
+import ToolsNav from "@/components/ToolsNav";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://whatdayisit.now"),
@@ -85,6 +86,8 @@ export default function RootLayout({
 
         <main className="container main-content">
           {children}
+
+          <ToolsNav />
         </main>
 
         <footer className="site-footer">
