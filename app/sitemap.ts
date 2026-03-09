@@ -37,14 +37,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = staticRoutes.map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: now,
-    changefreq: "daily" as const,
+    changeFrequency: "daily" as const,
     priority: route === "" ? 1 : 0.8,
   }));
 
   const eventPages = Object.keys(EVENTS).map((slug) => ({
     url: `${baseUrl}/days-until/${slug}`,
     lastModified: now,
-    changefreq: "daily" as const,
+    changeFrequency: "daily" as const,
     priority: 0.7,
   }));
 
@@ -54,7 +54,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ].map((pair) => ({
     url: `${baseUrl}/days-between/${pair.slug}`,
     lastModified: now,
-    changefreq: "monthly" as const,
+    changeFrequency: "monthly" as const,
     priority: 0.6,
   }));
 
@@ -69,21 +69,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
       bornOnPages.push({
         url: `${baseUrl}/born-on/${m.name}-${d}`,
         lastModified: now,
-        changefreq: "yearly",
+        changeFrequency: "yearly",
         priority: 0.6,
       });
 
       happenedPages.push({
         url: `${baseUrl}/what-happened-on/${m.name}-${d}`,
         lastModified: now,
-        changefreq: "yearly",
+        changeFrequency: "yearly",
         priority: 0.6,
       });
 
       daysUntilDatePages.push({
         url: `${baseUrl}/days-until-date/${m.name}-${d}`,
         lastModified: now,
-        changefreq: "yearly",
+        changeFrequency: "yearly",
         priority: 0.6,
       });
 
