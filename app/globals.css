@@ -98,11 +98,15 @@ img{
   display:flex;
   gap:14px;
   font-size:14px;
+  flex-wrap:nowrap;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
 }
 
 .main-nav a{
   text-decoration:none;
   color:var(--muted);
+  flex:0 0 auto;
 }
 
 .main-nav a:hover{
@@ -116,18 +120,12 @@ img{
 @media (max-width:640px){
 
   .main-nav{
-    overflow-x:auto;
-    white-space:nowrap;
     padding-bottom:6px;
     scrollbar-width:none;
   }
 
   .main-nav::-webkit-scrollbar{
     display:none;
-  }
-
-  .main-nav a{
-    flex:0 0 auto;
   }
 
 }
@@ -140,8 +138,6 @@ img{
   padding-top:32px;
   padding-bottom:60px;
 }
-
-/* consistent spacing */
 
 .main-content > * + *{
   margin-top:22px;
@@ -361,6 +357,7 @@ h2{
   font-weight:700;
   margin-top:28px;
 }
+
 /* ===============================
    Responsive
 ================================ */
@@ -380,7 +377,7 @@ h2{
   }
 
   .main-nav{
-    gap:8px 12px;
+    gap:12px;
     font-size:13px;
   }
 
@@ -405,7 +402,7 @@ h2{
 }
 
 /* ===============================
-   Hub lists spacing (mobile fix)
+   Hub lists spacing
 ================================ */
 
 .container ul{
@@ -433,4 +430,47 @@ h2{
   width:1px;
   height:1px;
   overflow:hidden;
+}
+
+/* ===============================
+   Scroll fade edges (mobile nav)
+================================ */
+
+@media (max-width:640px){
+
+  .site-header{
+    position:relative;
+  }
+.main-nav{
+  scroll-behavior:smooth;
+}
+  .site-header::before,
+  .site-header::after{
+    content:"";
+    position:absolute;
+    top:0;
+    bottom:0;
+    width:24px;
+    pointer-events:none;
+    z-index:2;
+  }
+
+  .site-header::before{
+    left:0;
+    background:linear-gradient(
+      to right,
+      var(--background),
+      transparent
+    );
+  }
+
+  .site-header::after{
+    right:0;
+    background:linear-gradient(
+      to left,
+      var(--background),
+      transparent
+    );
+  }
+
 }
