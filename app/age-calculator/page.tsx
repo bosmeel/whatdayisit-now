@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import DateInput from "@/components/DateInput";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SeoLinks from "@/components/SeoLinks";
-
+import Link from "next/link";
 export default function AgeCalculatorPage() {
 
   const [birthDate, setBirthDate] = useState("");
@@ -91,7 +91,19 @@ export default function AgeCalculatorPage() {
       </div>
 
       <SeoLinks />
+<section style={{ marginTop: 40 }}>
 
+  <h2>Related Date Calculators</h2>
+
+  <ul style={{ lineHeight: 1.9 }}>
+    <li><Link href="/days-between">Days Between Dates</Link></li>
+    <li><Link href="/days-until">Days Until Date</Link></li>
+    <li><Link href="/days-since">Days Since Date</Link></li>
+    <li><Link href="/years-between">Years Between Dates</Link></li>
+    <li><Link href="/business-days-between">Business Days Between Dates</Link></li>
+  </ul>
+
+</section>
     </div>
   );
 }

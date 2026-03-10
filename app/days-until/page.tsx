@@ -123,7 +123,21 @@ export default function DaysUntilPage() {
           ))}
         </div>
       </section>
+<section className="mt-12">
 
+  <h2 className="mb-3 text-xl font-semibold">
+    Related Date Calculators
+  </h2>
+
+  <ul className="space-y-2">
+    <li><Link href="/days-between">Days Between Dates</Link></li>
+    <li><Link href="/days-since">Days Since Date</Link></li>
+    <li><Link href="/weeks-between">Weeks Between Dates</Link></li>
+    <li><Link href="/months-between">Months Between Dates</Link></li>
+    <li><Link href="/years-between">Years Between Dates</Link></li>
+  </ul>
+
+</section>
       <SeoLinks />
 
     </main>

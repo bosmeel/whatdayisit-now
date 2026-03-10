@@ -96,7 +96,18 @@ export default function DaysBetweenPage() {
           ))}
         </ul>
       </section>
+<section style={{ marginTop: 40 }}>
 
+  <h2>Related Date Calculators</h2>
+
+  <ul style={{ lineHeight: 1.9 }}>
+    <li><Link href="/weeks-between">Weeks Between Dates</Link></li>
+    <li><Link href="/months-between">Months Between Dates</Link></li>
+    <li><Link href="/years-between">Years Between Dates</Link></li>
+    <li><Link href="/business-days-between">Business Days Between Dates</Link></li>
+  </ul>
+
+</section>
       <SeoLinks />
 
     </div>

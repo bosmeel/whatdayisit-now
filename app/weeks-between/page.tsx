@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import DateInput from "@/components/DateInput";
 import SeoLinks from "@/components/SeoLinks";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import Link from "next/link";
 
 export default function WeeksBetweenPage() {
 
@@ -77,7 +78,19 @@ export default function WeeksBetweenPage() {
         />
 
       </div>
+<section style={{ marginTop: 40 }}>
 
+  <h2>Related Date Calculators</h2>
+
+  <ul style={{ lineHeight: 1.9 }}>
+    <li><Link href="/days-between">Days Between Dates</Link></li>
+    <li><Link href="/days-until">Days Until Date</Link></li>
+    <li><Link href="/days-since">Days Since Date</Link></li>
+    <li><Link href="/months-between">Months Between Dates</Link></li>
+    <li><Link href="/years-between">Years Between Dates</Link></li>
+  </ul>
+
+</section>
       <SeoLinks />
 
     </div>
