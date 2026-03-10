@@ -59,7 +59,52 @@ export default function Home() {
   return (
     <>
       <TodayDashboard />
+<section className="container">
 
+  <h2>Date Calculators</h2>
+
+  <p>
+    Free online date calculators to compare dates, count days,
+    calculate age, and plan important events.
+  </p>
+
+  <div className="tool-grid">
+
+    <Link href="/days-between" className="tool-card">
+      Days Between Dates
+    </Link>
+
+    <Link href="/days-until" className="tool-card">
+      Days Until Date
+    </Link>
+
+    <Link href="/days-since" className="tool-card">
+      Days Since Date
+    </Link>
+
+    <Link href="/weeks-between" className="tool-card">
+      Weeks Between Dates
+    </Link>
+
+    <Link href="/months-between" className="tool-card">
+      Months Between Dates
+    </Link>
+
+    <Link href="/years-between" className="tool-card">
+      Years Between Dates
+    </Link>
+
+    <Link href="/business-days-between" className="tool-card">
+      Business Days Between Dates
+    </Link>
+
+    <Link href="/age-calculator" className="tool-card">
+      Age Calculator
+    </Link>
+
+  </div>
+
+</section>
       <section className="container">
         <h2>Popular Date Calculators</h2>
 
