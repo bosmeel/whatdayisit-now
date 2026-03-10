@@ -59,7 +59,12 @@ export default function AgeCalculatorPage() {
       />
 
       <h1>Age Calculator</h1>
-
+<p>
+  This age calculator shows the exact age in years, months, and days
+  based on a birth date. It can be used to calculate personal age,
+  compare age differences, or determine age for official forms and
+  registrations.
+</p>
       <p>
         Calculate someone's age based on their birth date.
       </p>

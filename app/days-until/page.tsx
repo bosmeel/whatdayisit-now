@@ -54,7 +54,11 @@ export default function DaysUntilPage() {
         Calculate how many days remain until a specific date, or browse popular
         countdowns below.
       </p>
-
+<p className="mb-8">
+  Use this countdown calculator to see how many days remain until a future
+  date. It is commonly used for tracking holidays, birthdays, school events,
+  travel plans, and other important deadlines.
+</p>
       <section className="mb-12 rounded-2xl border p-6">
         <h2 className="mb-4 text-2xl font-semibold">Custom date countdown</h2>
 

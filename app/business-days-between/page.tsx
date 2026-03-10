@@ -61,7 +61,11 @@ export default function BusinessDaysBetweenPage() {
       />
 
       <h1>Business Days Between Dates</h1>
-
+<p>
+  This calculator counts the number of business days between two dates,
+  excluding weekends. It is useful for planning work schedules, project
+  timelines, delivery estimates, and other tasks measured in working days.
+</p>
       <p>
         Calculate the number of working days between two dates
         (excluding weekends).

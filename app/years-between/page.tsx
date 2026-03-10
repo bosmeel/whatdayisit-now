@@ -54,7 +54,11 @@ export default function YearsBetweenPage() {
       <p>
         Calculate the number of full years between two dates.
       </p>
-
+<p>
+  This calculator determines the number of complete months between two
+  calendar dates. It can be helpful for tracking contract durations,
+  financial periods, subscription timelines, and long-term planning.
+</p>
       <div className="calculator">
 
         <DateInput

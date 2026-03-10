@@ -50,6 +50,11 @@ export default function DaysSincePage() {
       <p>
         Calculate how many days have passed since a specific date.
       </p>
+      <p>
+  This calculator shows how many days have passed since a given date.
+  It can be used to track milestones, anniversaries, project timelines,
+  or the number of days since an important event.
+</p>
 
       {result !== null && (
         <div className="result-box">

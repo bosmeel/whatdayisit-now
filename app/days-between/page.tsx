@@ -55,7 +55,11 @@ export default function DaysBetweenPage() {
       <p>
         Calculate the number of days between two calendar dates.
       </p>
-
+<p>
+  This calculator helps you find the exact number of days between two dates.
+  It can be useful for project planning, travel, deadlines, and comparing
+  important events on the calendar.
+</p>
       <div className="calculator">
 
         <DateInput

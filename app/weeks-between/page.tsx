@@ -50,7 +50,11 @@ export default function WeeksBetweenPage() {
       <p>
         Calculate the number of weeks between two dates.
       </p>
-
+<p>
+  This calculator helps you determine the number of full weeks between two
+  calendar dates. It is useful for planning schedules, tracking project
+  durations, and understanding time spans measured in weeks.
+</p>
       {result !== null && (
         <div className="result-box">
           <div className="result-number">{result}</div>
