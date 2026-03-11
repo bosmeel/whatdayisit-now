@@ -11,16 +11,18 @@ export default function TodayHero() {
 
   return (
     <section className="container today-hero">
+
       <h1>What Day Is It Today?</h1>
 
-      <p>
-        Today is <strong>{dayName}</strong>, {fullDate}.
-      </p>
+      <div style={{marginTop:"10px",fontSize:"28px",fontWeight:700}}>
+        {dayName}, {fullDate}
+      </div>
 
-      <p>
+      <p style={{marginTop:"10px"}}>
         Instantly see today's date, day of the week, week number, and how far
         we are through the year.
       </p>
+
     </section>
   );
 }

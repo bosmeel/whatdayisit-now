@@ -11,7 +11,6 @@ import {
 } from "../lib/date";
 
 export default function TodayDashboard() {
-
   const now = new Date();
 
   const weekNumber = getISOWeekNumber(now);
@@ -24,9 +23,10 @@ export default function TodayDashboard() {
 
   return (
     <section className="container">
+      <h2>Today’s Key Stats</h2>
+      <p>Quick facts about today, this week, and the current year.</p>
 
       <div className="today-grid">
-
         <div className="today-card">
           <strong>Week number</strong>
           <div>Week {weekNumber}</div>
@@ -34,7 +34,9 @@ export default function TodayDashboard() {
 
         <div className="today-card">
           <strong>Day of year</strong>
-          <div>{dayOfYear} / {totalDays}</div>
+          <div>
+            {dayOfYear} / {totalDays}
+          </div>
         </div>
 
         <div className="today-card">
@@ -56,9 +58,7 @@ export default function TodayDashboard() {
           <strong>Quarter</strong>
           <div>Q{quarter}</div>
         </div>
-
       </div>
-
     </section>
   );
 }
