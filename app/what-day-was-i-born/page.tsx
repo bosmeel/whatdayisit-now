@@ -30,6 +30,7 @@ function isValidDate(value: string) {
 }
 
 export default async function Page({ searchParams }: PageProps) {
+
   const params = (await searchParams) ?? {};
   const dobParam = params.dob ?? "";
 
@@ -43,14 +44,21 @@ export default async function Page({ searchParams }: PageProps) {
   let error = "";
 
   if (dobParam) {
+
     if (!isValidDate(dobParam)) {
+
       error = "Enter a valid date.";
+
     } else {
+
       const dob = new Date(`${dobParam}T00:00:00`);
 
       if (Number.isNaN(dob.getTime())) {
+
         error = "Enter a valid date.";
+
       } else {
+
         const day = dob.toLocaleDateString("en-US", {
           weekday: "long",
         });
@@ -76,6 +84,7 @@ export default async function Page({ searchParams }: PageProps) {
   };
 
   return (
+
     <main className="mx-auto max-w-4xl px-4 py-10">
 
       <Script
@@ -113,12 +122,15 @@ export default async function Page({ searchParams }: PageProps) {
       </form>
 
       {error && (
+
         <div className="border border-red-300 bg-red-50 p-4 mb-6">
           {error}
         </div>
+
       )}
 
       {result && (
+
         <div className="border rounded p-6 mb-6">
 
           <h2 className="text-xl font-semibold mb-2">
@@ -134,6 +146,7 @@ export default async function Page({ searchParams }: PageProps) {
           </p>
 
         </div>
+
       )}
 
       <section className="space-y-4 mb-8">
@@ -171,13 +184,13 @@ export default async function Page({ searchParams }: PageProps) {
           </li>
 
           <li>
-            <Link href="/days-until-my-birthday">
-              Days Until My Birthday
+            <Link href="/birthday-weekday">
+              Birthday Weekday Calculator
             </Link>
           </li>
 
           <li>
-            <Link href="/days-between-dates">
+            <Link href="/days-between">
               Days Between Dates
             </Link>
           </li>
@@ -187,5 +200,6 @@ export default async function Page({ searchParams }: PageProps) {
       </section>
 
     </main>
+
   );
 }
