@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import InternalDateLinks from "@/components/InternalDateLinks";
 
 type Props = {
   params: Promise<{ pair: string }>;
@@ -77,6 +78,8 @@ export default async function Page({params}:Props){
         There are <strong>{days}</strong> days between January 1 {parsed.start}
         and January 1 {parsed.end}.
       </p>
+
+      <InternalDateLinks />
 
     </main>
 

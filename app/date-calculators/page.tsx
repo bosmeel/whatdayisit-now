@@ -60,6 +60,12 @@ const tools = [
     description: "Calculate someone's exact age in years, months, and days.",
     url: "/age-calculator",
   },
+  {
+    title: "Date Duration Calculator",
+    description:
+      "Calculate the exact duration between two dates in years, months, weeks, and days.",
+    url: "/date-duration",
+  },
 ]
 
 export default function Page() {

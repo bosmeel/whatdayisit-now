@@ -6,6 +6,7 @@ import { EVENTS } from "@/lib/events";
 import Link from "next/link";
 import Script from "next/script";
 import { generateMonthDayPairs } from "@/lib/data/datePairs.generated";
+import InternalDateLinks from "@/components/InternalDateLinks";
 
 export const dynamic = "force-dynamic";
 
@@ -133,9 +134,8 @@ export default async function DaysBetweenPairPage({ params }: Props) {
   let startLabel: string | null = null;
   let endLabel: string | null = null;
 
-  /* 1 SEO pairs */
-
   if ("start" in data && "end" in data) {
+
     const startDate = new Date(
       data.start.year,
       data.start.month - 1,
@@ -154,25 +154,24 @@ export default async function DaysBetweenPairPage({ params }: Props) {
 
   } else {
 
-    /* 2 event pairs */
-
     const eventPair = resolveEventPair(pair);
 
     if (eventPair) {
+
       result = calculateDays(eventPair.start, eventPair.end);
       startLabel = eventPair.startLabel;
       endLabel = eventPair.endLabel;
 
     } else {
 
-      /* 3 month-day pairs */
-
       const monthPair = resolveMonthDayPair(pair);
 
       if (monthPair) {
+
         result = calculateDays(monthPair.start, monthPair.end);
         startLabel = monthPair.startLabel;
         endLabel = monthPair.endLabel;
+
       }
 
     }
@@ -192,6 +191,7 @@ export default async function DaysBetweenPairPage({ params }: Props) {
 
   return (
     <main style={{ maxWidth: 900, margin: "40px auto", padding: 20 }}>
+
       <Script
         id="webapp-schema"
         type="application/ld+json"
@@ -234,6 +234,9 @@ export default async function DaysBetweenPairPage({ params }: Props) {
           </li>
         ))}
       </ul>
+
+      <InternalDateLinks />
+
     </main>
   );
 }

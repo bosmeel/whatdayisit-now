@@ -2,6 +2,7 @@ export const dynamic = "force-dynamic";
 
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import InternalDateLinks from "@/components/InternalDateLinks";
 
 const months = [
   { name: "january", days: 31 },
@@ -98,6 +99,8 @@ export default async function Page({ params }: Props) {
       <p style={{ marginTop: 20 }}>
         There are <strong>{days}</strong> days until {monthName} {parsed.day}.
       </p>
+
+      <InternalDateLinks />
 
     </main>
   );
