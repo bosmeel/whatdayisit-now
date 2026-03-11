@@ -22,6 +22,7 @@ const tools: NavItem[] = [
 
 const browse: NavItem[] = [
   { href: "/born-on", label: "Birthdays by date" },
+  { href: "/birthday-tools", label: "Birthday calculators" },
   { href: "/what-happened-on", label: "Historical events by date" },
 ];
 
