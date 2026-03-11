@@ -114,9 +114,8 @@ export default function Home() {
           </Link>
 
           <Link href="/date-tools" className="tool-card">
-Date Tools Hub
-</Link>
-
+            Date Tools Hub
+          </Link>
         </div>
       </section>
 
@@ -202,6 +201,10 @@ Date Tools Hub
           <Link href="/what-happened-on" className="tool-card">
             Historical Events by Date
           </Link>
+
+          <Link href="/birthday-tools" className="tool-card">
+            Birthday Calculators
+          </Link>
         </div>
       </section>
 
@@ -247,6 +250,7 @@ Date Tools Hub
           </Link>
         </div>
       </section>
+
     </>
   );
 }
