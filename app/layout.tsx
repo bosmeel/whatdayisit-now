@@ -76,14 +76,15 @@ export default function RootLayout({
             </div>
 
             <nav className="main-nav" aria-label="Main navigation">
-              <Link href="/days-between">Days Between</Link>
-              <Link href="/days-since">Days Since</Link>
-              <Link href="/days-until">Days Until</Link>
-              <Link href="/weeks-between">Weeks</Link>
-              <Link href="/months-between">Months</Link>
-              <Link href="/years-between">Years</Link>
-              <Link href="/age-calculator">Age</Link>
-            </nav>
+  <Link href="/days-between">Days Between</Link>
+  <Link href="/days-since">Days Since</Link>
+  <Link href="/days-until">Days Until</Link>
+  <Link href="/date-duration">Duration</Link>
+  <Link href="/weeks-between">Weeks</Link>
+  <Link href="/months-between">Months</Link>
+  <Link href="/years-between">Years</Link>
+  <Link href="/age-calculator">Age</Link>
+</nav>
 
             <QuickDateJump />
 

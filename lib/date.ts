@@ -47,3 +47,46 @@ export function getDaysUntilWeekend(date: Date): number {
   if (day === saturday) return 0;
   return (saturday - day + 7) % 7;
 }
+
+/* ------------------------------------------------ */
+/* NEW: Date duration calculator */
+/* ------------------------------------------------ */
+
+export function getDateDuration(start: Date, end: Date) {
+
+  if (end < start) {
+    const temp = start;
+    start = end;
+    end = temp;
+  }
+
+  const startCopy = new Date(start);
+  const endCopy = new Date(end);
+
+  let years = endCopy.getFullYear() - startCopy.getFullYear();
+  let months = endCopy.getMonth() - startCopy.getMonth();
+  let days = endCopy.getDate() - startCopy.getDate();
+
+  if (days < 0) {
+    months--;
+    const prevMonth = new Date(endCopy.getFullYear(), endCopy.getMonth(), 0).getDate();
+    days += prevMonth;
+  }
+
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+
+  const diffMs = endCopy.getTime() - startCopy.getTime();
+  const totalDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+  const totalWeeks = Math.floor(totalDays / 7);
+
+  return {
+    years,
+    months,
+    days,
+    totalDays,
+    totalWeeks
+  };
+}
