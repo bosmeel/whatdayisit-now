@@ -3,6 +3,8 @@
 import { useState } from "react";
 import DateInput from "@/components/DateInput";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import Link from "next/link";
+import Script from "next/script";
 
 const weekdays = [
   "Sunday",
@@ -62,14 +64,29 @@ export default function BirthdayWeekdayPage() {
     setDistribution(counts);
   }
 
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Birthday Weekday Calculator",
+    applicationCategory: "CalculatorApplication",
+    operatingSystem: "Web",
+    url: "https://whatdayisit.now/birthday-weekday-calculator",
+  };
+
   return (
 
     <div>
 
+      <Script
+        id="birthday-weekday-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
+
       <Breadcrumbs
         items={[
           { name: "Home", href: "/" },
-          { name: "Birthday Tools", href: "/" },
+          { name: "Birthday Tools", href: "/birthday-tools" },
           { name: "Birthday Weekday Calculator" }
         ]}
       />
@@ -128,6 +145,34 @@ export default function BirthdayWeekdayPage() {
         </section>
 
       )}
+
+      <section style={{ marginTop: 40 }}>
+
+        <h2>Related birthday tools</h2>
+
+        <ul>
+
+          <li>
+            <Link href="/what-day-was-i-born">
+              What day was I born?
+            </Link>
+          </li>
+
+          <li>
+            <Link href="/age-calculator">
+              Age calculator
+            </Link>
+          </li>
+
+          <li>
+            <Link href="/born-on">
+              Famous birthdays by date
+            </Link>
+          </li>
+
+        </ul>
+
+      </section>
 
     </div>
 

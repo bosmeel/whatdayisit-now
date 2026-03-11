@@ -89,6 +89,22 @@ function buildAllDates() {
   return arr;
 }
 
+/* SEO metadata */
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+
+  const { date } = await params;
+  const formatted = formatSlug(date);
+
+  return {
+    title: `Famous People Born on ${formatted}`,
+    description: `Discover famous people born on ${formatted}, historical events, zodiac sign, and interesting birthday facts.`,
+    alternates: {
+      canonical: `https://whatdayisit.now/born-on/${date}`,
+    },
+  };
+}
+
 export default async function Page({ params }: PageProps) {
 
   const { date } = await params;
@@ -136,6 +152,29 @@ export default async function Page({ params }: PageProps) {
     url: `https://whatdayisit.now/born-on/${date}`,
   };
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: `What zodiac sign is ${formatted}?`,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `${formatted} falls under the ${zodiac} zodiac sign.`,
+        },
+      },
+      {
+        "@type": "Question",
+        name: `What day of the year is ${formatted}?`,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `${formatted} is the ${dayOfYear}th day of the year.`,
+        },
+      },
+    ],
+  };
+
   return (
     <main style={{ maxWidth: 900, margin: "40px auto", padding: 20 }}>
 
@@ -145,7 +184,18 @@ export default async function Page({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
 
+      <Script
+        id="faq-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+
       <h1>Born on {formatted}</h1>
+<p style={{ marginTop: 10 }}>
+  <Link href={`/born-in/${monthSlug}`}>
+    Browse all famous birthdays in {monthSlug.charAt(0).toUpperCase() + monthSlug.slice(1)} →
+  </Link>
+</p>
 
       <p>
         If you were born on <strong>{formatted}</strong>, your birthday falls on a{" "}
@@ -158,22 +208,7 @@ export default async function Page({ params }: PageProps) {
         There are currently <strong>{daysUntil}</strong> days until the next {formatted}.
       </p>
 
-      <section style={{ marginTop: 30 }}>
-        <h2>{formatted} birthday facts</h2>
-
-        <p>
-          People born on <strong>{formatted}</strong> belong to the{" "}
-          <strong>{zodiac}</strong> zodiac sign. Many well known figures share a{" "}
-          <strong>{formatted} birthday</strong>, and the date appears in many
-          historical timelines.
-        </p>
-
-        <p>
-          If you are researching <strong>{formatted} birthdays</strong>, this page
-          lists notable people born on this date and important historical events
-          that happened on {formatted}.
-        </p>
-      </section>
+      {/* Famous birthdays */}
 
       {famous.length > 0 && (
         <section style={{ marginTop: 30 }}>
@@ -186,73 +221,70 @@ export default async function Page({ params }: PageProps) {
         </section>
       )}
 
+      {/* Events */}
+
       <section style={{ marginTop: 30 }}>
-  <h2>Historical events on {formatted}</h2>
+        <h2>Historical events on {formatted}</h2>
 
-  {events.length > 0 ? (
-    <ul>
-      {events.map((e: string) => (
-        <li key={e}>{e}</li>
-      ))}
-    </ul>
-  ) : (
-    <p>
-      Historical records and notable events that happened on {formatted}
-      are available on the full timeline page.
-    </p>
-  )}
+        {events.length > 0 ? (
+          <ul>
+            {events.map((e: string) => (
+              <li key={e}>{e}</li>
+            ))}
+          </ul>
+        ) : (
+          <p>
+            Historical records and notable events that happened on {formatted}.
+          </p>
+        )}
 
-  <p style={{ marginTop: 10 }}>
-    <Link href={`/what-happened-on/${date}`}>
-      View everything that happened on {formatted} →
-    </Link>
-  </p>
-</section>
+        <p style={{ marginTop: 10 }}>
+          <Link href={`/what-happened-on/${date}`}>
+            View everything that happened on {formatted} →
+          </Link>
+        </p>
+      </section>
 
-      <section style={{ marginTop: 40, borderTop: "1px solid #ddd", paddingTop: 20 }}>
+      {/* Birthday tools cluster */}
+
+      <section style={{ marginTop: 40 }}>
+        <h2>Birthday tools</h2>
+
+        <ul>
+          <li>
+            <Link href="/what-day-was-i-born">
+              What day of the week was I born?
+            </Link>
+          </li>
+
+          <li>
+            <Link href="/age-calculator">
+              Age calculator
+            </Link>
+          </li>
+
+          <li>
+            <Link href="/birthday-weekday-calculator">
+              Birthday weekday calculator
+            </Link>
+          </li>
+        </ul>
+
+      </section>
+
+      {/* Related birthdays */}
+
+      <section style={{ marginTop: 40 }}>
         <h2>Related birthdays</h2>
 
         <ul style={{ display: "flex", flexWrap: "wrap", gap: "10px", padding: 0, listStyle: "none" }}>
           {relatedDates.map((d) => (
             <li key={d}>
-              <Link
-                href={`/born-on/${d}`}
-                style={{
-                  border: "1px solid #ccc",
-                  borderRadius: "6px",
-                  padding: "4px 10px",
-                  fontSize: "14px",
-                  display: "inline-block",
-                }}
-              >
+              <Link href={`/born-on/${d}`}>
                 {formatSlug(d)}
               </Link>
             </li>
           ))}
-        </ul>
-      </section>
-
-      <section style={{ marginTop: 40 }}>
-        <h2>More birthdays around {formatted}</h2>
-
-        <ul>
-          <li>
-            <Link href={`/born-on/${prevDate}`}>
-              People born on {formatSlug(prevDate)}
-            </Link>
-          </li>
-
-          <li>
-            <Link href={`/born-on/${date}`}>
-              Famous birthdays on {formatted}
-            </Link>
-          </li>
-
-          <li>
-            <Link href={`/born-on/${nextDate}`}>
-              People born on {formatSlug(nextDate)}
-            </Link>
-          </li>
         </ul>
       </section>
 
