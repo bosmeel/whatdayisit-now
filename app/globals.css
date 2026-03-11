@@ -101,6 +101,7 @@ img{
   flex-wrap:nowrap;
   overflow-x:auto;
   -webkit-overflow-scrolling:touch;
+  scroll-behavior:smooth;
 }
 
 .main-nav a{
@@ -180,9 +181,29 @@ img{
 .today-card{
   background:var(--card);
   border:1px solid var(--border);
-  border-radius:10px;
+  border-radius:12px;
   padding:16px;
   font-size:14px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.05);
+}
+
+/* ===============================
+   Hero section
+================================ */
+
+.today-hero{
+  margin-top:10px;
+}
+
+.today-hero h1{
+  font-size:32px;
+  font-weight:800;
+}
+
+.today-hero p{
+  margin-top:6px;
+  color:var(--muted);
+  font-size:15px;
 }
 
 /* ===============================
@@ -200,17 +221,34 @@ img{
   display:block;
   padding:18px;
   border:1px solid var(--border);
-  border-radius:10px;
+  border-radius:12px;
   background:var(--card);
   text-decoration:none;
   color:var(--foreground);
   font-weight:500;
-  transition:all .15s ease;
+
+  box-shadow:0 2px 6px rgba(0,0,0,0.05);
+
+  transition:transform .15s ease,
+             box-shadow .15s ease,
+             border-color .15s ease;
 }
 
 .tool-card:hover{
   border-color:var(--accent);
-  transform:translateY(-2px);
+  transform:translateY(-3px);
+  box-shadow:0 6px 14px rgba(0,0,0,0.08);
+}
+
+.tool-card strong{
+  font-size:18px;
+  display:block;
+}
+
+.tool-card div{
+  margin-top:6px;
+  font-size:14px;
+  color:var(--muted);
 }
 
 /* ===============================
@@ -415,7 +453,7 @@ h2{
   margin-bottom:8px;
 }
 
-.container a{
+.container ul a{
   display:inline-block;
 }
 
@@ -441,9 +479,7 @@ h2{
   .site-header{
     position:relative;
   }
-.main-nav{
-  scroll-behavior:smooth;
-}
+
   .site-header::before,
   .site-header::after{
     content:"";
@@ -457,20 +493,37 @@ h2{
 
   .site-header::before{
     left:0;
-    background:linear-gradient(
-      to right,
-      var(--background),
-      transparent
-    );
+    background:linear-gradient(to right,var(--background),transparent);
   }
 
   .site-header::after{
     right:0;
-    background:linear-gradient(
-      to left,
-      var(--background),
-      transparent
-    );
+    background:linear-gradient(to left,var(--background),transparent);
   }
 
+}
+
+/* ===============================
+   Sticky time bar
+================================ */
+
+.time-bar{
+  background:var(--card);
+  border-bottom:1px solid var(--border);
+  font-size:13px;
+}
+
+.time-bar-inner{
+  max-width:1100px;
+  margin:0 auto;
+  padding:6px 20px;
+
+  display:flex;
+  gap:18px;
+  color:var(--muted);
+  flex-wrap:wrap;
+}
+
+.time-bar span{
+  white-space:nowrap;
 }

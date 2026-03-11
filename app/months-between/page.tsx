@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import DateInput from "@/components/DateInput";
 import SeoLinks from "@/components/SeoLinks";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import Link from "next/link";
+import RelatedTools from "@/components/RelatedTools";
 
 export default function MonthsBetweenPage() {
 
@@ -52,11 +52,13 @@ export default function MonthsBetweenPage() {
       <p>
         Calculate the number of full months between two dates.
       </p>
-<p>
-  This calculator determines the number of complete months between two
-  calendar dates. It can be helpful for tracking contract durations,
-  financial periods, subscription timelines, and long-term planning.
-</p>
+
+      <p>
+        This calculator determines the number of complete months between two
+        calendar dates. It can be helpful for tracking contract durations,
+        financial periods, subscription timelines, and long-term planning.
+      </p>
+
       <div className="calculator">
 
         <DateInput
@@ -73,24 +75,15 @@ export default function MonthsBetweenPage() {
 
         {result !== null && (
           <div className="result-box">
-            {result} months
+            <div className="result-number">{result}</div>
+            <div className="result-label">months</div>
           </div>
         )}
 
       </div>
-<section style={{ marginTop: 40 }}>
 
-  <h2>Related Date Calculators</h2>
+      <RelatedTools />
 
-  <ul style={{ lineHeight: 1.9 }}>
-    <li><Link href="/days-between">Days Between Dates</Link></li>
-    <li><Link href="/weeks-between">Weeks Between Dates</Link></li>
-    <li><Link href="/years-between">Years Between Dates</Link></li>
-    <li><Link href="/business-days-between">Business Days Between Dates</Link></li>
-    <li><Link href="/age-calculator">Age Calculator</Link></li>
-  </ul>
-
-</section>
       <SeoLinks />
 
     </div>

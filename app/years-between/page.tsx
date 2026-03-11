@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import DateInput from "@/components/DateInput";
 import SeoLinks from "@/components/SeoLinks";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import Link from "next/link";
+import RelatedTools from "@/components/RelatedTools";
 
 export default function YearsBetweenPage() {
 
@@ -23,7 +23,6 @@ export default function YearsBetweenPage() {
     const end = new Date(endDate);
 
     let years = end.getFullYear() - start.getFullYear();
-
     const monthDiff = end.getMonth() - start.getMonth();
 
     if (
@@ -55,11 +54,13 @@ export default function YearsBetweenPage() {
       <p>
         Calculate the number of full years between two dates.
       </p>
-<p>
-  This calculator determines the number of complete months between two
-  calendar dates. It can be helpful for tracking contract durations,
-  financial periods, subscription timelines, and long-term planning.
-</p>
+
+      <p>
+        This calculator determines the number of complete years between two
+        calendar dates. It is useful for calculating age differences,
+        employment durations, long-term contracts, and historical timelines.
+      </p>
+
       <div className="calculator">
 
         <DateInput
@@ -76,24 +77,15 @@ export default function YearsBetweenPage() {
 
         {result !== null && (
           <div className="result-box">
-            {result} years
+            <div className="result-number">{result}</div>
+            <div className="result-label">years</div>
           </div>
         )}
 
       </div>
-<section style={{ marginTop: 40 }}>
 
-  <h2>Related Date Calculators</h2>
+      <RelatedTools />
 
-  <ul style={{ lineHeight: 1.9 }}>
-    <li><Link href="/days-between">Days Between Dates</Link></li>
-    <li><Link href="/weeks-between">Weeks Between Dates</Link></li>
-    <li><Link href="/months-between">Months Between Dates</Link></li>
-    <li><Link href="/business-days-between">Business Days Between Dates</Link></li>
-    <li><Link href="/age-calculator">Age Calculator</Link></li>
-  </ul>
-
-</section>
       <SeoLinks />
 
     </div>

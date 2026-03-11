@@ -1,18 +1,19 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import Breadcrumbs from "@/components/Breadcrumbs"
 import TodayTools from "@/components/TodayTools"
 
 export const metadata: Metadata = {
   title: "Date Calculators",
   description:
-    "Collection of online date calculators including days between dates, days until a date, day of year, and more.",
+    "Collection of online date calculators including days between dates, days until a date, age calculator, and more.",
   alternates: {
     canonical: "/date-calculators",
   },
   openGraph: {
     title: "Date Calculators",
     description:
-      "Explore multiple tools to calculate date differences, days remaining, and other calendar calculations.",
+      "Explore tools to calculate date differences, age, business days, and other calendar calculations.",
     url: "/date-calculators",
     type: "website",
   },
@@ -35,67 +36,71 @@ const tools = [
     url: "/days-since",
   },
   {
-    title: "Day of Year",
-    description: "Determine which day of the year a specific date falls on.",
-    url: "/day-of-year",
+    title: "Weeks Between Dates",
+    description: "Calculate the number of weeks between two dates.",
+    url: "/weeks-between",
   },
   {
-    title: "Days Left in Year",
-    description: "See how many days remain until the end of the year.",
-    url: "/days-left-in-year",
+    title: "Months Between Dates",
+    description: "Calculate the number of months between two dates.",
+    url: "/months-between",
   },
   {
-    title: "How Many Days in a Year",
-    description: "Check whether a year has 365 or 366 days.",
-    url: "/how-many-days-in-a-year",
+    title: "Years Between Dates",
+    description: "Calculate the number of years between two dates.",
+    url: "/years-between",
+  },
+  {
+    title: "Business Days Between Dates",
+    description: "Count the number of working days between two dates.",
+    url: "/business-days-between",
+  },
+  {
+    title: "Age Calculator",
+    description: "Calculate someone's exact age in years, months, and days.",
+    url: "/age-calculator",
   },
 ]
 
 export default function Page() {
+
   return (
-    <main style={{ maxWidth: 900, margin: "0 auto", padding: "24px 16px" }}>
+    <div>
 
-      <h1 style={{ fontSize: 36, fontWeight: 800 }}>
-        Date Calculators
-      </h1>
+      <Breadcrumbs
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Date Calculators" }
+        ]}
+      />
 
-      <p style={{ marginTop: 10, lineHeight: 1.6 }}>
-        Explore a collection of online date calculators designed to help you
+      <h1>Date Calculators</h1>
+
+      <p>
+        Explore our collection of online date calculators designed to help you
         quickly calculate differences between dates, determine calendar values,
-        and answer common date-related questions.
+        and answer common time-related questions.
       </p>
 
       <TodayTools />
 
-      <section style={{ marginTop: 30 }}>
+      <section style={{ marginTop: 40 }}>
 
-        <div
-          style={{
-            display: "grid",
-            gap: 20,
-            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-          }}
-        >
+        <div className="tool-grid">
 
           {tools.map((tool) => (
 
             <Link
               key={tool.url}
               href={tool.url}
-              style={{
-                display: "block",
-                padding: 18,
-                border: "1px solid #e5e5e5",
-                borderRadius: 10,
-                textDecoration: "none",
-                color: "inherit",
-              }}
+              className="tool-card"
             >
-              <h3 style={{ margin: 0 }}>{tool.title}</h3>
 
-              <p style={{ marginTop: 6 }}>
+              <strong>{tool.title}</strong>
+
+              <div>
                 {tool.description}
-              </p>
+              </div>
 
             </Link>
 
@@ -105,19 +110,19 @@ export default function Page() {
 
       </section>
 
-      <section style={{ marginTop: 40 }}>
+      <section style={{ marginTop: 50 }}>
 
         <h2>Why use date calculators?</h2>
 
         <p>
-          Date calculators make it easy to answer questions about time,
-          schedules, deadlines, and planning. Whether you want to know how many
-          days remain until an event or how many days are between two dates,
-          these tools provide instant answers.
+          Date calculators make it easy to answer questions about schedules,
+          deadlines, and time differences. Whether you want to know how many
+          days remain until an event, calculate someone’s age, or compare two
+          calendar dates, these tools provide instant results.
         </p>
 
       </section>
 
-    </main>
+    </div>
   )
 }

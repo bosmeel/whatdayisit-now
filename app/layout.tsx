@@ -1,7 +1,8 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import "./globals.css";
-import ToolsNav from "@/components/ToolsNav";
+import StickyTimeBar from "@/components/StickyTimeBar";
+import QuickDateJump from "@/components/QuickDateJump";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://whatdayisit.now"),
@@ -55,7 +56,10 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body>
 
+        <StickyTimeBar />
+
         <header className="site-header">
+
           <div className="container header-inner">
 
             <div className="logo">
@@ -81,13 +85,14 @@ export default function RootLayout({
               <Link href="/age-calculator">Age</Link>
             </nav>
 
+            <QuickDateJump />
+
           </div>
+
         </header>
 
         <main className="container main-content">
           {children}
-
-          <ToolsNav />
         </main>
 
         <footer className="site-footer">

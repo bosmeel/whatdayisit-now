@@ -1,21 +1,20 @@
 import type { Metadata } from "next";
 import TodayDashboard from "../components/TodayDashboard";
 import Link from "next/link";
+import TodayCountdowns from "../components/TodayCountdowns";
+import TodayHero from "../components/TodayHero";
 
 export const metadata: Metadata = {
-  title: "What Day Is It Today? | Live Date, Week Number & Year Progress",
+  title: "What Day Is It Today? | WhatDayIsIt.now",
   description:
     "Instantly see today's exact date, day of the week, ISO week number, day of the year, and how many days are left in the year.",
-
   alternates: {
     canonical: "https://whatdayisit.now",
   },
-
   robots: {
     index: true,
     follow: true,
   },
-
   openGraph: {
     title: "What Day Is It Today?",
     description:
@@ -24,7 +23,6 @@ export const metadata: Metadata = {
     siteName: "WhatDayIsIt.now",
     type: "website",
   },
-
   twitter: {
     card: "summary_large_image",
     title: "What Day Is It Today?",
@@ -32,19 +30,6 @@ export const metadata: Metadata = {
       "Today's date, week number, day of year and year progress instantly.",
   },
 };
-
-const featuredLinks = [
-  { href: "/days-between", label: "Days Between Dates" },
-  { href: "/days-until", label: "Days Until Date" },
-  { href: "/days-since", label: "Days Since Date" },
-  { href: "/weeks-between", label: "Weeks Between Dates" },
-  { href: "/months-between", label: "Months Between Dates" },
-  { href: "/years-between", label: "Years Between Dates" },
-  { href: "/business-days-between", label: "Business Days Between Dates" },
-  { href: "/business-days-until", label: "Business Days Until Date" },
-  { href: "/age-calculator", label: "Age Calculator" },
-  { href: "/days-until-my-birthday", label: "Birthday Tools" },
-];
 
 const birthdayLinks = [
   { href: "/born-on/may-1", label: "May 1 birthday" },
@@ -56,73 +41,81 @@ const birthdayLinks = [
 ];
 
 export default function Home() {
+  const year = new Date().getFullYear();
+
   return (
     <>
+      <TodayHero />
       <TodayDashboard />
-<section className="container">
+      <TodayCountdowns />
 
-  <h2>Date Calculators</h2>
+      {/* TODAY TOOLS */}
 
-  <p>
-    Free online date calculators to compare dates, count days,
-    calculate age, and plan important events.
-  </p>
+      <section className="container">
+        <h2>Today’s Date Tools</h2>
 
-  <div className="tool-grid">
+        <p>
+          Tools related to today's date including week numbers and how many
+          days or weeks remain in the current year.
+        </p>
 
-    <Link href="/days-between" className="tool-card">
-      Days Between Dates
-    </Link>
+        <div className="tool-grid">
+          <Link href="/what-week-is-it" className="tool-card">
+            What Week Is It?
+          </Link>
 
-    <Link href="/days-until" className="tool-card">
-      Days Until Date
-    </Link>
+          <Link href={`/how-many-days-left-in/${year}`} className="tool-card">
+            Days Left in {year}
+          </Link>
 
-    <Link href="/days-since" className="tool-card">
-      Days Since Date
-    </Link>
+          <Link href={`/how-many-weeks-left-in/${year}`} className="tool-card">
+            Weeks Left in {year}
+          </Link>
 
-    <Link href="/weeks-between" className="tool-card">
-      Weeks Between Dates
-    </Link>
+          <Link href="/date-calculators" className="tool-card">
+            All Date Calculators
+          </Link>
+        </div>
+      </section>
 
-    <Link href="/months-between" className="tool-card">
-      Months Between Dates
-    </Link>
+      {/* POPULAR DATE CALCULATORS */}
 
-    <Link href="/years-between" className="tool-card">
-      Years Between Dates
-    </Link>
-
-    <Link href="/business-days-between" className="tool-card">
-      Business Days Between Dates
-    </Link>
-
-    <Link href="/age-calculator" className="tool-card">
-      Age Calculator
-    </Link>
-
-  </div>
-
-</section>
       <section className="container">
         <h2>Popular Date Calculators</h2>
 
         <p>
-          Use these free online calculators to compare dates, count days, track
-          time between events, and plan important deadlines.
+          The most commonly used tools for calculating date differences,
+          counting days, and measuring time spans.
         </p>
 
         <div className="tool-grid">
-          {featuredLinks.map((item) => (
-            <Link key={item.href} href={item.href} className="tool-card">
-              {item.label}
-            </Link>
-          ))}
+          <Link href="/days-between" className="tool-card">
+            Days Between Dates
+          </Link>
+
+          <Link href="/days-until" className="tool-card">
+            Days Until Date
+          </Link>
+
+          <Link href="/days-since" className="tool-card">
+            Days Since Date
+          </Link>
+
+          <Link href="/weeks-between" className="tool-card">
+            Weeks Between Dates
+          </Link>
+
+          <Link href="/months-between" className="tool-card">
+            Months Between Dates
+          </Link>
+
+          <Link href="/age-calculator" className="tool-card">
+            Age Calculator
+          </Link>
         </div>
       </section>
 
-      {/* NEW SEO SECTION */}
+      {/* POPULAR COUNTDOWNS */}
 
       <section className="container">
         <h2>Popular Countdowns</h2>
@@ -150,44 +143,44 @@ export default function Home() {
         </div>
       </section>
 
+      {/* DATE CALCULATORS */}
+
       <section className="container">
-        <h2>Popular Date Comparisons</h2>
+        <h2>Date Calculators</h2>
 
         <p>
-          Quickly calculate the number of days between common dates and
-          well-known events.
+          Use these calculators to compare dates, count weeks or months, and
+          measure time spans between events.
         </p>
 
         <div className="tool-grid">
-          <Link
-            className="tool-card"
-            href="/days-between?start=2024-01-01&end=2025-01-01"
-          >
-            Days between Jan 1 2024 and Jan 1 2025
+          <Link href="/days-between" className="tool-card">
+            Days Between Dates
           </Link>
 
-          <Link
-            className="tool-card"
-            href="/days-between?start=2024-12-25&end=2025-01-01"
-          >
-            Days between Christmas and New Year
+          <Link href="/weeks-between" className="tool-card">
+            Weeks Between Dates
           </Link>
 
-          <Link
-            className="tool-card"
-            href="/days-between?start=2024-01-01&end=2024-12-31"
-          >
-            Days between Jan 1 and Dec 31
+          <Link href="/months-between" className="tool-card">
+            Months Between Dates
           </Link>
 
-          <Link
-            className="tool-card"
-            href="/days-between?start=2024-07-04&end=2024-12-25"
-          >
-            Days between July 4 and Christmas
+          <Link href="/years-between" className="tool-card">
+            Years Between Dates
+          </Link>
+
+          <Link href="/business-days-between" className="tool-card">
+            Business Days Between Dates
+          </Link>
+
+          <Link href="/date-calculators" className="tool-card">
+            Browse All Date Calculators
           </Link>
         </div>
       </section>
+
+      {/* BROWSE DATES */}
 
       <section className="container">
         <h2>Browse Dates</h2>
@@ -207,13 +200,10 @@ export default function Home() {
         </div>
       </section>
 
+      {/* BIRTHDAY EXAMPLES */}
+
       <section className="container">
         <h2>Browse Birthdays by Date</h2>
-
-        <p>
-          Discover famous people born on any day of the year, plus zodiac
-          information and notable historical events.
-        </p>
 
         <div className="tool-grid">
           <Link href="/born-on" className="tool-card">
@@ -228,13 +218,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* NEW SEO SECTION */}
+      {/* CALENDAR */}
 
       <section className="container">
         <h2>Calendar Tools</h2>
 
         <p>
-          Browse calendars and week numbers to plan your year and track dates.
+          Browse calendars and week numbers to plan your year and track
+          important dates.
         </p>
 
         <div className="tool-grid">

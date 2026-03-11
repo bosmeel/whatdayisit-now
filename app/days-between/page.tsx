@@ -55,11 +55,13 @@ export default function DaysBetweenPage() {
       <p>
         Calculate the number of days between two calendar dates.
       </p>
-<p>
-  This calculator helps you find the exact number of days between two dates.
-  It can be useful for project planning, travel, deadlines, and comparing
-  important events on the calendar.
-</p>
+
+      <p>
+        This calculator helps you find the exact number of days between two
+        dates. It can be useful for project planning, travel, deadlines, and
+        comparing important events on the calendar.
+      </p>
+
       <div className="calculator">
 
         <DateInput
@@ -84,6 +86,7 @@ export default function DaysBetweenPage() {
       </div>
 
       <section style={{ marginTop: 50 }}>
+
         <h2>Popular date comparisons</h2>
 
         <ul style={{ lineHeight: 1.9 }}>
@@ -95,19 +98,45 @@ export default function DaysBetweenPage() {
             </li>
           ))}
         </ul>
+
       </section>
-<section style={{ marginTop: 40 }}>
 
-  <h2>Related Date Calculators</h2>
+      {/* RELATED TOOLS */}
 
-  <ul style={{ lineHeight: 1.9 }}>
-    <li><Link href="/weeks-between">Weeks Between Dates</Link></li>
-    <li><Link href="/months-between">Months Between Dates</Link></li>
-    <li><Link href="/years-between">Years Between Dates</Link></li>
-    <li><Link href="/business-days-between">Business Days Between Dates</Link></li>
-  </ul>
+      <section style={{ marginTop: 50 }}>
 
-</section>
+        <h2>Related Date Tools</h2>
+
+        <div className="tool-grid">
+
+          <Link href="/weeks-between" className="tool-card">
+            Weeks Between Dates
+          </Link>
+
+          <Link href="/months-between" className="tool-card">
+            Months Between Dates
+          </Link>
+
+          <Link href="/years-between" className="tool-card">
+            Years Between Dates
+          </Link>
+
+          <Link href="/business-days-between" className="tool-card">
+            Business Days Between Dates
+          </Link>
+
+          <Link href="/days-until" className="tool-card">
+            Days Until Date
+          </Link>
+
+          <Link href="/days-since" className="tool-card">
+            Days Since Date
+          </Link>
+
+        </div>
+
+      </section>
+
       <SeoLinks />
 
     </div>

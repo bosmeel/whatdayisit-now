@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import DateInput from "@/components/DateInput";
 import SeoLinks from "@/components/SeoLinks";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import Link from "next/link";
+import RelatedTools from "@/components/RelatedTools";
 
 export default function DaysSincePage() {
 
@@ -26,9 +26,7 @@ export default function DaysSincePage() {
     }
 
     const today = new Date();
-
     const diff = today.getTime() - start.getTime();
-
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
 
     setResult(days);
@@ -51,18 +49,12 @@ export default function DaysSincePage() {
       <p>
         Calculate how many days have passed since a specific date.
       </p>
-      <p>
-  This calculator shows how many days have passed since a given date.
-  It can be used to track milestones, anniversaries, project timelines,
-  or the number of days since an important event.
-</p>
 
-      {result !== null && (
-        <div className="result-box">
-          <div className="result-number">{result}</div>
-          <div className="result-label">days</div>
-        </div>
-      )}
+      <p>
+        This calculator shows how many days have passed since a given date.
+        It can be used to track milestones, anniversaries, project timelines,
+        or the number of days since an important event.
+      </p>
 
       <div className="calculator">
 
@@ -72,20 +64,17 @@ export default function DaysSincePage() {
           onChange={setDate}
         />
 
+        {result !== null && (
+          <div className="result-box">
+            <div className="result-number">{result}</div>
+            <div className="result-label">days</div>
+          </div>
+        )}
+
       </div>
-<section style={{ marginTop: 40 }}>
 
-  <h2>Related Date Calculators</h2>
+      <RelatedTools />
 
-  <ul style={{ lineHeight: 1.9 }}>
-    <li><Link href="/days-between">Days Between Dates</Link></li>
-    <li><Link href="/days-until">Days Until Date</Link></li>
-    <li><Link href="/weeks-between">Weeks Between Dates</Link></li>
-    <li><Link href="/months-between">Months Between Dates</Link></li>
-    <li><Link href="/years-between">Years Between Dates</Link></li>
-  </ul>
-
-</section>
       <SeoLinks />
 
     </div>

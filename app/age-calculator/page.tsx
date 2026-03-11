@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import DateInput from "@/components/DateInput";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SeoLinks from "@/components/SeoLinks";
-import Link from "next/link";
+import RelatedTools from "@/components/RelatedTools";
+
 export default function AgeCalculatorPage() {
 
   const [birthDate, setBirthDate] = useState("");
@@ -59,14 +60,15 @@ export default function AgeCalculatorPage() {
       />
 
       <h1>Age Calculator</h1>
-<p>
-  This age calculator shows the exact age in years, months, and days
-  based on a birth date. It can be used to calculate personal age,
-  compare age differences, or determine age for official forms and
-  registrations.
-</p>
+
       <p>
-        Calculate someone's age based on their birth date.
+        Calculate someone's exact age based on their birth date.
+      </p>
+
+      <p>
+        This age calculator shows the precise age in years, months, and days.
+        It can be used for personal records, official forms, age comparisons,
+        or determining the exact time since a birth date.
       </p>
 
       <div className="calculator">
@@ -90,20 +92,10 @@ export default function AgeCalculatorPage() {
 
       </div>
 
+      <RelatedTools />
+
       <SeoLinks />
-<section style={{ marginTop: 40 }}>
 
-  <h2>Related Date Calculators</h2>
-
-  <ul style={{ lineHeight: 1.9 }}>
-    <li><Link href="/days-between">Days Between Dates</Link></li>
-    <li><Link href="/days-until">Days Until Date</Link></li>
-    <li><Link href="/days-since">Days Since Date</Link></li>
-    <li><Link href="/years-between">Years Between Dates</Link></li>
-    <li><Link href="/business-days-between">Business Days Between Dates</Link></li>
-  </ul>
-
-</section>
     </div>
   );
 }

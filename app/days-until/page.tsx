@@ -6,12 +6,15 @@ import DateInput from "@/components/DateInput";
 import { EVENTS } from "@/lib/events";
 import SeoLinks from "@/components/SeoLinks";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import RelatedTools from "@/components/RelatedTools";
 
 export default function DaysUntilPage() {
+
   const [date, setDate] = useState("");
   const [result, setResult] = useState<number | null>(null);
 
   useEffect(() => {
+
     if (!date) {
       setResult(null);
       return;
@@ -29,6 +32,7 @@ export default function DaysUntilPage() {
     const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
 
     setResult(days);
+
   }, [date]);
 
   const sortedEvents = useMemo(() => {
@@ -38,7 +42,7 @@ export default function DaysUntilPage() {
   }, []);
 
   return (
-    <main className="mx-auto max-w-5xl px-4 py-10">
+    <div>
 
       <Breadcrumbs
         items={[
@@ -48,36 +52,42 @@ export default function DaysUntilPage() {
         ]}
       />
 
-      <h1 className="mb-4 text-3xl font-bold">Days Until Date</h1>
+      <h1>Days Until Date</h1>
 
-      <p className="mb-8 text-lg">
-        Calculate how many days remain until a specific date, or browse popular
-        countdowns below.
+      <p>
+        Calculate how many days remain until a specific date, or browse
+        popular countdowns below.
       </p>
-<p className="mb-8">
-  Use this countdown calculator to see how many days remain until a future
-  date. It is commonly used for tracking holidays, birthdays, school events,
-  travel plans, and other important deadlines.
-</p>
-      <section className="mb-12 rounded-2xl border p-6">
-        <h2 className="mb-4 text-2xl font-semibold">Custom date countdown</h2>
 
-        <div className="max-w-md">
-          <DateInput label="Target date" value={date} onChange={setDate} />
-        </div>
+      <p>
+        Use this countdown calculator to see how many days remain until a
+        future date. It is commonly used for tracking holidays, birthdays,
+        school events, travel plans, and other important deadlines.
+      </p>
+
+      <div className="calculator">
+
+        <DateInput
+          label="Target date"
+          value={date}
+          onChange={setDate}
+        />
 
         {result !== null && (
-          <div className="mt-6 rounded-2xl border p-6 text-center">
-            <div className="text-4xl font-bold">{result}</div>
-            <div className="mt-1 text-sm uppercase tracking-wide">days</div>
+          <div className="result-box">
+            <div className="result-number">{result}</div>
+            <div className="result-label">days</div>
           </div>
         )}
-      </section>
 
-      <section className="mb-12">
-        <h2 className="mb-4 text-2xl font-semibold">Popular countdowns</h2>
+      </div>
 
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <section style={{ marginTop: 50 }}>
+
+        <h2>Popular countdowns</h2>
+
+        <div className="tool-grid">
+
           {[
             "christmas",
             "new-year",
@@ -91,55 +101,59 @@ export default function DaysUntilPage() {
           ]
             .filter((slug) => EVENTS[slug])
             .map((slug) => (
+
               <Link
                 key={slug}
                 href={`/days-until/${slug}`}
-                className="rounded-xl border p-4 transition hover:bg-gray-50 dark:hover:bg-white/5"
+                className="tool-card"
               >
-                <div className="font-medium">{EVENTS[slug].name}</div>
-                <div className="mt-1 text-sm opacity-75">
+
+                <strong>{EVENTS[slug].name}</strong>
+
+                <div>
                   {EVENTS[slug].month}/{EVENTS[slug].day}
                 </div>
+
               </Link>
-            ))}
+
+          ))}
+
         </div>
+
       </section>
 
-      <section>
-        <h2 className="mb-4 text-2xl font-semibold">All event countdowns</h2>
+      <section style={{ marginTop: 50 }}>
 
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <h2>All Event Countdowns</h2>
+
+        <div className="tool-grid">
+
           {sortedEvents.map(([slug, event]) => (
+
             <Link
               key={slug}
               href={`/days-until/${slug}`}
-              className="rounded-xl border p-4 transition hover:bg-gray-50 dark:hover:bg-white/5"
+              className="tool-card"
             >
-              <div className="font-medium">{event.name}</div>
-              <div className="mt-1 text-sm opacity-75">
+
+              <strong>{event.name}</strong>
+
+              <div>
                 {event.month}/{event.day}
               </div>
+
             </Link>
+
           ))}
+
         </div>
+
       </section>
-<section className="mt-12">
 
-  <h2 className="mb-3 text-xl font-semibold">
-    Related Date Calculators
-  </h2>
+      <RelatedTools />
 
-  <ul className="space-y-2">
-    <li><Link href="/days-between">Days Between Dates</Link></li>
-    <li><Link href="/days-since">Days Since Date</Link></li>
-    <li><Link href="/weeks-between">Weeks Between Dates</Link></li>
-    <li><Link href="/months-between">Months Between Dates</Link></li>
-    <li><Link href="/years-between">Years Between Dates</Link></li>
-  </ul>
-
-</section>
       <SeoLinks />
 
-    </main>
+    </div>
   );
 }

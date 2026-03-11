@@ -4,12 +4,11 @@ import { useState, useEffect } from "react";
 import DateInput from "@/components/DateInput";
 import SeoLinks from "@/components/SeoLinks";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import Link from "next/link";
+import RelatedTools from "@/components/RelatedTools";
 
 function calculateBusinessDays(start: Date, end: Date) {
 
   let count = 0;
-
   const current = new Date(start);
 
   while (current <= end) {
@@ -62,14 +61,16 @@ export default function BusinessDaysBetweenPage() {
       />
 
       <h1>Business Days Between Dates</h1>
-<p>
-  This calculator counts the number of business days between two dates,
-  excluding weekends. It is useful for planning work schedules, project
-  timelines, delivery estimates, and other tasks measured in working days.
-</p>
+
       <p>
-        Calculate the number of working days between two dates
-        (excluding weekends).
+        Calculate the number of working days between two dates (excluding weekends).
+      </p>
+
+      <p>
+        This calculator counts the number of business days between two dates,
+        excluding Saturdays and Sundays. It is useful for planning work schedules,
+        estimating delivery times, tracking project timelines, and measuring
+        deadlines based on working days.
       </p>
 
       <div className="calculator">
@@ -88,24 +89,15 @@ export default function BusinessDaysBetweenPage() {
 
         {result !== null && (
           <div className="result-box">
-            {result} business days
+            <div className="result-number">{result}</div>
+            <div className="result-label">business days</div>
           </div>
         )}
 
       </div>
-<section style={{ marginTop: 40 }}>
 
-  <h2>Related Date Calculators</h2>
+      <RelatedTools />
 
-  <ul style={{ lineHeight: 1.9 }}>
-    <li><Link href="/days-between">Days Between Dates</Link></li>
-    <li><Link href="/weeks-between">Weeks Between Dates</Link></li>
-    <li><Link href="/months-between">Months Between Dates</Link></li>
-    <li><Link href="/years-between">Years Between Dates</Link></li>
-    <li><Link href="/age-calculator">Age Calculator</Link></li>
-  </ul>
-
-</section>
       <SeoLinks />
 
     </div>

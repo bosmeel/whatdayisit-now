@@ -26,12 +26,19 @@ const browse: NavItem[] = [
 ];
 
 export default function ToolsNav() {
+
+  // tijdelijk uitgeschakeld voor homepage interface fix
+  if (typeof window !== "undefined" && window.location.pathname === "/") {
+    return null;
+  }
+
   return (
     <nav className="mt-12 border-t border-neutral-200 pt-6">
 
       <p className="text-xs uppercase tracking-wide text-neutral-500 mb-3">
         Date calculators
       </p>
+
       <ul className="flex flex-wrap gap-x-4 gap-y-2 text-sm mb-6">
         {calculators.map((item) => (
           <li key={item.href}>
@@ -48,6 +55,7 @@ export default function ToolsNav() {
       <p className="text-xs uppercase tracking-wide text-neutral-500 mb-3">
         Browse dates
       </p>
+
       <ul className="flex flex-wrap gap-x-4 gap-y-2 text-sm mb-6">
         {browse.map((item) => (
           <li key={item.href}>
@@ -64,6 +72,7 @@ export default function ToolsNav() {
       <p className="text-xs uppercase tracking-wide text-neutral-500 mb-3">
         Today tools
       </p>
+
       <ul className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
         {tools.map((item) => (
           <li key={item.href}>
