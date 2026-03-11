@@ -61,6 +61,11 @@ const tools = [
     url: "/age-calculator",
   },
   {
+  title: "Birthday Weekday Calculator",
+  description: "Find out what weekday your next birthday will fall on.",
+  url: "/birthday-weekday",
+},
+  {
     title: "Date Duration Calculator",
     description:
       "Calculate the exact duration between two dates in years, months, weeks, and days.",
