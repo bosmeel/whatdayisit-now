@@ -46,12 +46,19 @@ const tools = [
   },
 ];
 
+const weekdayPages = [
+  { title: "Born on Monday", url: "/born-on-monday" },
+  { title: "Born on Tuesday", url: "/born-on-tuesday" },
+  { title: "Born on Wednesday", url: "/born-on-wednesday" },
+  { title: "Born on Thursday", url: "/born-on-thursday" },
+  { title: "Born on Friday", url: "/born-on-friday" },
+  { title: "Born on Saturday", url: "/born-on-saturday" },
+  { title: "Born on Sunday", url: "/born-on-sunday" },
+];
+
 export default function Page() {
-
   return (
-
     <main className="container">
-
       <Breadcrumbs
         items={[
           { name: "Home", href: "/" },
@@ -68,33 +75,45 @@ export default function Page() {
       </p>
 
       <section style={{ marginTop: 40 }}>
-
         <div className="tool-grid">
-
           {tools.map((tool) => (
-
             <Link
               key={tool.url}
               href={tool.url}
               className="tool-card"
             >
-
               <strong>{tool.title}</strong>
 
               <div>
                 {tool.description}
               </div>
-
             </Link>
-
           ))}
-
         </div>
-
       </section>
 
       <section style={{ marginTop: 50 }}>
+        <h2>Born on a Specific Weekday</h2>
 
+        <p>
+          Browse birthday pages by weekday to explore patterns and related birthday tools.
+        </p>
+
+        <div className="tool-grid">
+          {weekdayPages.map((item) => (
+            <Link
+              key={item.url}
+              href={item.url}
+              className="tool-card"
+            >
+              <strong>{item.title}</strong>
+              <div>Explore birthdays linked to this weekday</div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section style={{ marginTop: 50 }}>
         <h2>Birthday Facts and Calculations</h2>
 
         <p>
@@ -109,10 +128,7 @@ export default function Page() {
           share their birth date or to discover interesting patterns in
           birthdays across the calendar.
         </p>
-
       </section>
-
     </main>
-
   );
 }
