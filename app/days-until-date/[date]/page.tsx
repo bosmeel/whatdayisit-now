@@ -1,5 +1,7 @@
 export const dynamic = "force-dynamic";
+
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 
 const months = [
   { name: "january", days: 31 },
@@ -20,20 +22,44 @@ type Props = {
   params: Promise<{ date: string }>;
 };
 
-export async function generateMetadata({ params }: Props) {
+function parseDate(slug?: string) {
+
+  if (!slug) return null;
+
+  const parts = slug.split("-");
+  if (parts.length !== 2) return null;
+
+  const [monthSlug, dayStr] = parts;
+
+  const monthIndex = months.findIndex((m) => m.name === monthSlug);
+  if (monthIndex === -1) return null;
+
+  const day = parseInt(dayStr, 10);
+
+  if (Number.isNaN(day)) return null;
+  if (day < 1 || day > months[monthIndex].days) return null;
+
+  return { monthIndex, day, monthSlug };
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const { date } = await params;
 
-  if (!date) return {};
-
-  const [month, day] = date.split("-");
+  const parsed = parseDate(date);
+  if (!parsed) return {};
 
   const monthName =
-    month.charAt(0).toUpperCase() + month.slice(1);
+    parsed.monthSlug.charAt(0).toUpperCase() + parsed.monthSlug.slice(1);
+
+  const label = `${monthName} ${parsed.day}`;
 
   return {
-    title: `Days Until ${monthName} ${day}`,
-    description: `See how many days remain until ${monthName} ${day}.`,
+    title: `Days Until ${label}`,
+    description: `See how many days remain until ${label}.`,
+    alternates: {
+      canonical: `https://whatdayisit.now/days-until-date/${date}`,
+    },
   };
 }
 
@@ -41,42 +67,38 @@ export default async function Page({ params }: Props) {
 
   const { date } = await params;
 
-  if (!date) return notFound();
-
-  const [monthSlug, dayStr] = date.split("-");
-
-  const monthIndex = months.findIndex(
-    (m) => m.name === monthSlug
-  );
-
-  if (monthIndex === -1) return notFound();
-
-  const day = parseInt(dayStr);
-
-  if (Number.isNaN(day)) return notFound();
+  const parsed = parseDate(date);
+  if (!parsed) return notFound();
 
   const now = new Date();
   const year = now.getFullYear();
 
-  let target = new Date(year, monthIndex, day);
+  let target = new Date(year, parsed.monthIndex, parsed.day);
 
   if (target < now) {
-    target = new Date(year + 1, monthIndex, day);
+    target = new Date(year + 1, parsed.monthIndex, parsed.day);
   }
 
   const diff = target.getTime() - now.getTime();
-  const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+  const days = Math.ceil(diff / 86400000);
 
   const monthName =
-    monthSlug.charAt(0).toUpperCase() + monthSlug.slice(1);
+    parsed.monthSlug.charAt(0).toUpperCase() + parsed.monthSlug.slice(1);
 
   return (
     <main className="container">
-      <h1>Days Until {monthName} {day}</h1>
 
-      <p>
-        There are <strong>{days}</strong> days until {monthName} {day}.
+      <h1>Days Until {monthName} {parsed.day}</h1>
+
+      <div className="result-box">
+        <div className="result-number">{days}</div>
+        <div className="result-label">days</div>
+      </div>
+
+      <p style={{ marginTop: 20 }}>
+        There are <strong>{days}</strong> days until {monthName} {parsed.day}.
       </p>
+
     </main>
   );
 }

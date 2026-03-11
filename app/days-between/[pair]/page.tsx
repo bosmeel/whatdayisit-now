@@ -5,6 +5,7 @@ import { DATE_PAIRS_SEO } from "@/lib/data/datePairsSeo";
 import { EVENTS } from "@/lib/events";
 import Link from "next/link";
 import Script from "next/script";
+import { generateMonthDayPairs } from "@/lib/data/datePairs.generated";
 
 export const dynamic = "force-dynamic";
 
@@ -25,9 +26,13 @@ type SeoPair = {
 };
 
 function findPair(slug: string): BasePair | SeoPair | undefined {
+
+  const generated = generateMonthDayPairs();
+
   return (
     DATE_PAIRS_SEO.find((p) => p.slug === slug) ||
-    DATE_PAIRS.find((p) => p.slug === slug)
+    DATE_PAIRS.find((p) => p.slug === slug) ||
+    generated.find((p) => p.slug === slug)
   );
 }
 

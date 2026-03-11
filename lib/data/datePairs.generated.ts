@@ -1,5 +1,3 @@
-// lib/data/datePairs.generated.ts
-
 export type MonthDay = { month: number; day: number };
 
 export type GeneratedPair = {
@@ -7,6 +5,7 @@ export type GeneratedPair = {
   start: MonthDay;
   end: MonthDay;
   label: string;
+  title: string;
   priority?: number;
 };
 
@@ -27,7 +26,12 @@ function label(md: MonthDay) {
   return `${monthName(md.month)} ${md.day}`;
 }
 
-// expanded seeds
+function title(start: MonthDay, end: MonthDay) {
+  return `Days Between ${label(start)} and ${label(end)}`;
+}
+
+/* seeds */
+
 const STARTS: MonthDay[] = [
   { month:1, day:1 }, { month:1, day:15 },
   { month:2, day:1 }, { month:2, day:14 },
@@ -86,6 +90,7 @@ export function generateMonthDayPairs(): GeneratedPair[] {
         start: s,
         end: e,
         label: `${label(s)} and ${label(e)}`,
+        title: title(s, e),
         priority: s.month === 1 && s.day === 1 && e.month === 12 && e.day === 31 ? 10 : 5
       });
     }

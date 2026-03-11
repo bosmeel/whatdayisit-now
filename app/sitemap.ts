@@ -3,25 +3,24 @@ import { MetadataRoute } from "next";
 export default function sitemap(): MetadataRoute.Sitemap {
 
   const baseUrl = "https://whatdayisit.now";
-  const now = new Date().toISOString();
+  const now = new Date();
 
   return [
     {
-      url: `${baseUrl}/sitemap-core.xml`,
+      url: `${baseUrl}/sitemap-core`,
       lastModified: now,
     },
     {
-      url: `${baseUrl}/sitemap-events.xml`,
+      url: `${baseUrl}/sitemap-events`,
       lastModified: now,
     },
     {
-      url: `${baseUrl}/sitemap-dates.xml`,
+      url: `${baseUrl}/sitemap-dates`,
       lastModified: now,
     },
     {
-      url: `${baseUrl}/sitemap-weeks.xml`,
+      url: `${baseUrl}/sitemap-weeks`,
       lastModified: now,
     },
   ];
-
 }
