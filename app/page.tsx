@@ -113,9 +113,9 @@ export default function Home() {
             Age Calculator
           </Link>
 
-          <Link href="/date-tools" className="tool-card">
-            Date Tools Hub
-          </Link>
+          <Link href="/date-calculators" className="tool-card">
+  Date Calculators Hub
+</Link>
         </div>
       </section>
 
