@@ -19,13 +19,31 @@ const months = [
   { name: "december", days: 31 },
 ];
 
+function generateYearPairs() {
+
+  const pairs: string[] = [];
+
+  for (let start = 1900; start <= 2030; start++) {
+
+    for (let end = start + 1; end <= start + 20; end++) {
+
+      pairs.push(`${start}-and-${end}`);
+
+    }
+
+  }
+
+  return pairs;
+}
+
 export async function GET() {
 
   const baseUrl = "https://whatdayisit.now";
   const now = new Date().toISOString();
-  const currentYear = new Date().getFullYear();
 
-  const urls: string[] = [];
+  const urls = new Set<string>();
+
+  const currentYear = new Date().getFullYear();
 
   const staticRoutes = [
     "",
@@ -38,32 +56,38 @@ export async function GET() {
   ];
 
   staticRoutes.forEach((route) => {
-    urls.push(`${baseUrl}${route}`);
+    urls.add(`${baseUrl}${route}`);
   });
 
   Object.keys(EVENTS).forEach((slug) => {
-    urls.push(`${baseUrl}/days-until/${slug}`);
+    urls.add(`${baseUrl}/days-until/${slug}`);
   });
 
   const generatedPairs = generateMonthDayPairs();
 
   [...DATE_PAIRS, ...DATE_PAIRS_SEO, ...generatedPairs].forEach((pair) => {
-    urls.push(`${baseUrl}/days-between/${pair.slug}`);
+    urls.add(`${baseUrl}/days-between/${pair.slug}`);
+  });
+
+  const yearPairs = generateYearPairs();
+
+  yearPairs.forEach((pair) => {
+    urls.add(`${baseUrl}/days-between-years/${pair}`);
   });
 
   months.forEach((m) => {
     for (let d = 1; d <= m.days; d++) {
 
-      urls.push(`${baseUrl}/born-on/${m.name}-${d}`);
-      urls.push(`${baseUrl}/what-happened-on/${m.name}-${d}`);
-      urls.push(`${baseUrl}/days-until-date/${m.name}-${d}`);
+      urls.add(`${baseUrl}/born-on/${m.name}-${d}`);
+      urls.add(`${baseUrl}/what-happened-on/${m.name}-${d}`);
+      urls.add(`${baseUrl}/days-until-date/${m.name}-${d}`);
 
     }
   });
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls
+${[...urls]
   .map(
     (url) => `
   <url>

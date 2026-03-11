@@ -8,13 +8,26 @@ import SeoLinks from "@/components/SeoLinks";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import RelatedTools from "@/components/RelatedTools";
 
-export default function DaysUntilPage() {
+const monthNames = [
+  "january",
+  "february",
+  "march",
+  "april",
+  "may",
+  "june",
+  "july",
+  "august",
+  "september",
+  "october",
+  "november",
+  "december",
+];
 
+export default function DaysUntilPage() {
   const [date, setDate] = useState("");
   const [result, setResult] = useState<number | null>(null);
 
   useEffect(() => {
-
     if (!date) {
       setResult(null);
       return;
@@ -32,7 +45,6 @@ export default function DaysUntilPage() {
     const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
 
     setResult(days);
-
   }, [date]);
 
   const sortedEvents = useMemo(() => {
@@ -41,14 +53,35 @@ export default function DaysUntilPage() {
     );
   }, []);
 
+  const datePages = useMemo(() => {
+    const pages: { slug: string; label: string }[] = [];
+
+    monthNames.forEach((month, monthIndex) => {
+      const daysInMonth =
+        month === "february"
+          ? 29
+          : [3, 5, 8, 10].includes(monthIndex)
+            ? 30
+            : 31;
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        pages.push({
+          slug: `${month}-${day}`,
+          label: `${month.charAt(0).toUpperCase() + month.slice(1)} ${day}`,
+        });
+      }
+    });
+
+    return pages;
+  }, []);
+
   return (
     <div>
-
       <Breadcrumbs
         items={[
           { name: "Home", href: "/" },
           { name: "Date Calculators", href: "/" },
-          { name: "Days Until Date" }
+          { name: "Days Until Date" },
         ]}
       />
 
@@ -66,7 +99,6 @@ export default function DaysUntilPage() {
       </p>
 
       <div className="calculator">
-
         <DateInput
           label="Target date"
           value={date}
@@ -79,15 +111,12 @@ export default function DaysUntilPage() {
             <div className="result-label">days</div>
           </div>
         )}
-
       </div>
 
       <section style={{ marginTop: 50 }}>
-
         <h2>Popular countdowns</h2>
 
         <div className="tool-grid">
-
           {[
             "christmas",
             "new-year",
@@ -101,59 +130,71 @@ export default function DaysUntilPage() {
           ]
             .filter((slug) => EVENTS[slug])
             .map((slug) => (
-
               <Link
                 key={slug}
                 href={`/days-until/${slug}`}
                 className="tool-card"
               >
-
                 <strong>{EVENTS[slug].name}</strong>
 
                 <div>
                   {EVENTS[slug].month}/{EVENTS[slug].day}
                 </div>
-
               </Link>
-
-          ))}
-
+            ))}
         </div>
-
       </section>
 
       <section style={{ marginTop: 50 }}>
+        <h2>Days Until Any Date</h2>
 
+        <p>
+          Browse countdown pages for every calendar date of the year.
+        </p>
+
+        <div className="tool-grid">
+          {datePages.slice(0, 24).map((item) => (
+            <Link
+              key={item.slug}
+              href={`/days-until-date/${item.slug}`}
+              className="tool-card"
+            >
+              <strong>{item.label}</strong>
+              <div>See how many days remain</div>
+            </Link>
+          ))}
+        </div>
+
+        <p style={{ marginTop: 20 }}>
+          <Link href="/days-until-date/january-1">
+            Start browsing all date countdowns
+          </Link>
+        </p>
+      </section>
+
+      <section style={{ marginTop: 50 }}>
         <h2>All Event Countdowns</h2>
 
         <div className="tool-grid">
-
           {sortedEvents.map(([slug, event]) => (
-
             <Link
               key={slug}
               href={`/days-until/${slug}`}
               className="tool-card"
             >
-
               <strong>{event.name}</strong>
 
               <div>
                 {event.month}/{event.day}
               </div>
-
             </Link>
-
           ))}
-
         </div>
-
       </section>
 
       <RelatedTools />
 
       <SeoLinks />
-
     </div>
   );
 }
