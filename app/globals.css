@@ -107,7 +107,7 @@ a:hover{
 .main-nav{
   display:flex;
   flex-wrap:wrap;
-  gap:28px;
+  gap:24px;
 }
 
 .nav-group{
@@ -166,7 +166,7 @@ a:hover{
 }
 
 .main-content > * + *{
-  margin-top:22px;
+  margin-top:24px;
 }
 
 .main-content p{
@@ -290,7 +290,7 @@ h1{
 .tool-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:16px;
+  gap:18px;
   margin-top:20px;
 }
 
@@ -299,12 +299,12 @@ h1{
   flex-direction:column;
   justify-content:center;
 
-  min-height:92px;
+  min-height:100px;
 
-  padding:18px 20px;
+  padding:20px 22px;
 
   border:1px solid var(--border);
-  border-radius:12px;
+  border-radius:14px;
 
   background:var(--card);
 
@@ -336,7 +336,7 @@ h1{
 }
 
 .tool-card strong{
-  font-size:16px;
+  font-size:17px;
   font-weight:700;
   letter-spacing:.01em;
 }
