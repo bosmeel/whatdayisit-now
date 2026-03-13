@@ -1,8 +1,6 @@
 import TodayHero from "@/components/TodayHero";
 import TodayDashboard from "@/components/TodayDashboard";
 import Link from "next/link";
-import RelatedTools from "@/components/RelatedTools";
-
 
 export default function HomePage() {
   return (
@@ -16,11 +14,11 @@ export default function HomePage() {
 
       <TodayDashboard />
 
-      {/* PRIMARY CALCULATORS */}
+      {/* MAIN CALCULATORS */}
 
       <section style={{ marginTop: 50 }}>
 
-        <h2>Popular Date Calculators</h2>
+        <h2>Main Date Calculators</h2>
 
         <div className="tool-grid">
 
@@ -58,7 +56,7 @@ export default function HomePage() {
 
       </section>
 
-      {/* MORE DATE CALCULATORS */}
+      {/* MORE CALCULATORS */}
 
       <section style={{ marginTop: 50 }}>
 
@@ -78,70 +76,10 @@ export default function HomePage() {
             <strong>Years Between Dates</strong>
           </Link>
 
-          <Link href="/business-days-until" className="tool-card">
-            <strong>Business Days Until</strong>
-          </Link>
-
         </div>
 
       </section>
 
-      {/* TODAY TOOLS */}
-
-      <section style={{ marginTop: 50 }}>
-
-        <h2>Today Tools</h2>
-
-        <div className="tool-grid">
-
-          <Link href="/week-number" className="tool-card">
-            <strong>Week Number</strong>
-          </Link>
-
-          <Link href="/day-of-year" className="tool-card">
-            <strong>Day of Year</strong>
-          </Link>
-
-          <Link href="/year-progress" className="tool-card">
-            <strong>Year Progress</strong>
-          </Link>
-
-          <Link href="/days-until-weekend" className="tool-card">
-            <strong>Days Until Weekend</strong>
-          </Link>
-
-        </div>
-
-      </section>
-
-      {/* PERSONAL TOOLS */}
-
-      <section style={{ marginTop: 50 }}>
-
-        <h2>Birthday & Personal Tools</h2>
-
-        <div className="tool-grid">
-
-          <Link href="/what-day-was-i-born" className="tool-card">
-            <strong>What Day Was I Born</strong>
-          </Link>
-
-          <Link href="/born-on" className="tool-card">
-            <strong>Born On</strong>
-          </Link>
-
-        </div>
-
-      </section>
-
-      {/* RELATED TOOLS */}
-
-      <RelatedTools />
-
-      {/* SEO LINKS */}
-
-      
-     
     </div>
   );
 }
