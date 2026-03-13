@@ -7,6 +7,7 @@ import Link from "next/link";
 import Script from "next/script";
 import { generateMonthDayPairs } from "@/lib/data/datePairs.generated";
 import InternalDateLinks from "@/components/InternalDateLinks";
+import RelatedSeoPages from "@/components/RelatedSeoPages";
 
 export const dynamic = "force-dynamic";
 
@@ -236,6 +237,13 @@ export default async function DaysBetweenPairPage({ params }: Props) {
       </ul>
 
       <InternalDateLinks />
+
+      <RelatedSeoPages
+        items={DATE_PAIRS}
+        basePath="/days-between"
+        current={pair}
+        title="More date comparisons"
+      />
 
     </main>
   );

@@ -5,6 +5,7 @@ import DateInput from "@/components/DateInput";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SeoLinks from "@/components/SeoLinks";
 import RelatedTools from "@/components/RelatedTools";
+import SiteLinks from "@/components/SiteLinks";
 
 export default function AgeCalculatorPage() {
 
@@ -95,7 +96,7 @@ export default function AgeCalculatorPage() {
       <RelatedTools />
 
       <SeoLinks />
-
+<SiteLinks />
     </div>
   );
 }

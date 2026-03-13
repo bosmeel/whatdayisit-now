@@ -7,6 +7,7 @@ import { EVENTS } from "@/lib/events";
 import SeoLinks from "@/components/SeoLinks";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import RelatedTools from "@/components/RelatedTools";
+import SiteLinks from "@/components/SiteLinks";
 
 const monthNames = [
   "january",
@@ -195,6 +196,7 @@ export default function DaysUntilPage() {
       <RelatedTools />
 
       <SeoLinks />
+      <SiteLinks />
     </div>
   );
 }

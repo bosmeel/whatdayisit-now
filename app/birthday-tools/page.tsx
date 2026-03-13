@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import SiteLinks from "@/components/SiteLinks";
 
 export const metadata: Metadata = {
   title: "Birthday Calculators & Tools",
@@ -36,7 +37,7 @@ const tools = [
     title: "Birthday Weekday Calculator",
     description:
       "See what weekday your next birthday will fall on and view your birthday weekday distribution.",
-    url: "/birthday-weekday",
+    url: "/birthday-weekday-calculator",
   },
   {
     title: "Birthdays by Date",
@@ -56,9 +57,29 @@ const weekdayPages = [
   { title: "Born on Sunday", url: "/born-on-sunday" },
 ];
 
+const months = [
+  "january",
+  "february",
+  "march",
+  "april",
+  "may",
+  "june",
+  "july",
+  "august",
+  "september",
+  "october",
+  "november",
+  "december",
+];
+
+function formatMonth(m: string) {
+  return m.charAt(0).toUpperCase() + m.slice(1);
+}
+
 export default function Page() {
   return (
     <main className="container">
+
       <Breadcrumbs
         items={[
           { name: "Home", href: "/" },
@@ -74,46 +95,108 @@ export default function Page() {
         your next birthday falls, and explore birthdays throughout the year.
       </p>
 
+      {/* Core birthday tools */}
+
       <section style={{ marginTop: 40 }}>
+
         <div className="tool-grid">
+
           {tools.map((tool) => (
+
             <Link
               key={tool.url}
               href={tool.url}
               className="tool-card"
             >
+
               <strong>{tool.title}</strong>
 
               <div>
                 {tool.description}
               </div>
+
             </Link>
+
           ))}
+
         </div>
+
       </section>
 
+      {/* Weekday cluster */}
+
       <section style={{ marginTop: 50 }}>
+
         <h2>Born on a Specific Weekday</h2>
 
         <p>
-          Browse birthday pages by weekday to explore patterns and related birthday tools.
+          Browse birthday pages by weekday to explore patterns and related
+          birthday tools.
         </p>
 
         <div className="tool-grid">
+
           {weekdayPages.map((item) => (
+
             <Link
               key={item.url}
               href={item.url}
               className="tool-card"
             >
+
               <strong>{item.title}</strong>
-              <div>Explore birthdays linked to this weekday</div>
+
+              <div>
+                Explore birthdays linked to this weekday
+              </div>
+
             </Link>
+
           ))}
+
         </div>
+
       </section>
 
+      {/* Month cluster */}
+
       <section style={{ marginTop: 50 }}>
+
+        <h2>Birthdays by Month</h2>
+
+        <p>
+          Browse birthdays by month to explore people born in the same month
+          and discover related birthday facts.
+        </p>
+
+        <div className="tool-grid">
+
+          {months.map((m) => (
+
+            <Link
+              key={m}
+              href={`/born-in/${m}`}
+              className="tool-card"
+            >
+
+              <strong>{formatMonth(m)} Birthdays</strong>
+
+              <div>
+                People born in {formatMonth(m)}
+              </div>
+
+            </Link>
+
+          ))}
+
+        </div>
+
+      </section>
+
+      {/* Info section */}
+
+      <section style={{ marginTop: 50 }}>
+
         <h2>Birthday Facts and Calculations</h2>
 
         <p>
@@ -128,7 +211,10 @@ export default function Page() {
           share their birth date or to discover interesting patterns in
           birthdays across the calendar.
         </p>
+
       </section>
+<SiteLinks />
     </main>
+    
   );
 }

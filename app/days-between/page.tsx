@@ -6,6 +6,8 @@ import DateInput from "@/components/DateInput";
 import { DATE_PAIRS } from "@/lib/data/datePairs";
 import SeoLinks from "@/components/SeoLinks";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import SiteLinks from "@/components/SiteLinks";
+import RelatedCalculators from "@/components/RelatedCalculators";
 
 function calculateDaysBetween(start: Date, end: Date) {
   const diff = end.getTime() - start.getTime();
@@ -137,7 +139,17 @@ export default function DaysBetweenPage() {
 
       </section>
 
+      {/* SEO cluster links */}
+
       <SeoLinks />
+
+      {/* RELATED CALCULATORS */}
+
+      <RelatedCalculators current="days-between" />
+
+      {/* SITE HUB LINKS */}
+
+      <SiteLinks />
 
     </div>
   );
