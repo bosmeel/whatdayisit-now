@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import DateInput from "@/components/DateInput";
-import SeoLinks from "@/components/SeoLinks";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import RelatedTools from "@/components/RelatedTools";
 
@@ -82,7 +81,6 @@ export default function WeeksBetweenPage() {
 
       <RelatedTools />
 
-      <SeoLinks />
 
     </div>
   );

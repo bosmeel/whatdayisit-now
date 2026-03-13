@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import DateInput from "@/components/DateInput";
-import SeoLinks from "@/components/SeoLinks";
 
 export default function BusinessDaysUntilPage() {
 
@@ -63,8 +62,7 @@ export default function BusinessDaysUntilPage() {
 
       </div>
 
-      <SeoLinks />
-
+     
     </div>
   );
 }

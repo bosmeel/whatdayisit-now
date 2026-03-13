@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import SiteLinks from "@/components/SiteLinks";
+
 
 export const metadata: Metadata = {
   title: "Calendar by Year",
@@ -133,7 +133,7 @@ export default function CalendarIndexPage() {
           </Link>
 
         </div>
-<SiteLinks />
+
       </section>
 
     </main>

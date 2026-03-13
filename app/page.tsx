@@ -2,8 +2,7 @@ import TodayHero from "@/components/TodayHero";
 import TodayDashboard from "@/components/TodayDashboard";
 import Link from "next/link";
 import RelatedTools from "@/components/RelatedTools";
-import SeoLinks from "@/components/SeoLinks";
-import SiteLinks from "@/components/SiteLinks";
+
 
 export default function HomePage() {
   return (
@@ -141,10 +140,8 @@ export default function HomePage() {
 
       {/* SEO LINKS */}
 
-      <SeoLinks />
-
-      <SiteLinks />
-
+      
+     
     </div>
   );
 }

@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import DateInput from "@/components/DateInput";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import SeoLinks from "@/components/SeoLinks";
 import RelatedTools from "@/components/RelatedTools";
 import { getDateDuration } from "@/lib/date";
 
@@ -98,8 +97,6 @@ export default function DateDurationPage() {
       </div>
 
       <RelatedTools />
-
-      <SeoLinks />
 
     </div>
   );

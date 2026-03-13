@@ -57,7 +57,16 @@ export default function Page() {
 
       {months.map((month) => (
         <section key={month} style={{ marginTop: 40 }}>
+
           <h2>{formatMonth(month)} birthdays</h2>
+
+          {/* NEW: link naar maand hub */}
+
+          <p style={{ marginBottom: 10 }}>
+            <Link href={`/born-in/${month}`}>
+              View all famous people born in {formatMonth(month)} →
+            </Link>
+          </p>
 
           <ul
             style={{
@@ -87,8 +96,10 @@ export default function Page() {
               )
             )}
           </ul>
+
         </section>
       ))}
+
     </main>
   );
 }

@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import DateInput from "@/components/DateInput";
-import SeoLinks from "@/components/SeoLinks";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import RelatedTools from "@/components/RelatedTools";
 
@@ -75,9 +74,6 @@ export default function DaysSincePage() {
 
       <RelatedTools />
 
-      {/* SEO links tijdelijk uitgeschakeld voor AdSense review */}
-{/* <SeoLinks /> */}
-{/* <SiteLinks /> */}
 
     </div>
   );

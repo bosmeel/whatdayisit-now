@@ -4,9 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import DateInput from "@/components/DateInput";
 import { DATE_PAIRS } from "@/lib/data/datePairs";
-// import SeoLinks from "@/components/SeoLinks";  // tijdelijk uitgeschakeld
 import Breadcrumbs from "@/components/Breadcrumbs";
-// import SiteLinks from "@/components/SiteLinks"; // tijdelijk uitgeschakeld
 import RelatedCalculators from "@/components/RelatedCalculators";
 
 /* More stable calculation (avoids timezone errors) */
@@ -205,11 +203,6 @@ export default function DaysBetweenPage() {
 
       <RelatedCalculators current="days-between" />
 
-      {/* SEO clusters tijdelijk uitgeschakeld voor AdSense review */}
-
-      {/* <SeoLinks /> */}
-      {/* <SiteLinks /> */}
-
-    </div>
+       </div>
   );
 }

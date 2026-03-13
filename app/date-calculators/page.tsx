@@ -2,7 +2,6 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import Breadcrumbs from "@/components/Breadcrumbs"
 import TodayTools from "@/components/TodayTools"
-import SiteLinks from "@/components/SiteLinks";
 
 export const metadata: Metadata = {
   title: "Date Calculators",
@@ -134,7 +133,7 @@ export default function Page() {
         </p>
 
       </section>
-<SiteLinks />
+
     </div>
   )
 }

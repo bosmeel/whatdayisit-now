@@ -3,9 +3,7 @@
 import { useState, useEffect } from "react";
 import DateInput from "@/components/DateInput";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import SeoLinks from "@/components/SeoLinks";
 import RelatedTools from "@/components/RelatedTools";
-import SiteLinks from "@/components/SiteLinks";
 
 export default function AgeCalculatorPage() {
 
@@ -94,9 +92,7 @@ export default function AgeCalculatorPage() {
       </div>
 
       <RelatedTools />
-{/* SEO links tijdelijk uitgeschakeld voor AdSense review */}
-{/* <SeoLinks /> */}
-{/* <SiteLinks /> */}
+
     </div>
   );
 }
