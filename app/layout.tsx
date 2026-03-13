@@ -1,7 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import "./globals.css";
-import StickyTimeBar from "@/components/StickyTimeBar";
 import QuickDateJump from "@/components/QuickDateJump";
 
 export const metadata: Metadata = {
@@ -53,31 +52,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
 
-  const primaryTools = [
+  const navLinks = [
     { href: "/days-between", label: "Days Between" },
     { href: "/days-until", label: "Days Until" },
-    { href: "/days-since", label: "Days Since" },
     { href: "/age-calculator", label: "Age Calculator" },
-  ];
-
-  const dateTools = [
+    { href: "/business-days-between", label: "Business Days" },
+    { href: "/what-day-was-i-born", label: "Birthday" },
     { href: "/weeks-between", label: "Weeks" },
     { href: "/months-between", label: "Months" },
-    { href: "/years-between", label: "Years" },
-    { href: "/date-duration", label: "Duration" },
-  ];
-
-  const todayTools = [
-    { href: "/week-number", label: "Week Number" },
-    { href: "/day-of-year", label: "Day of Year" },
-    { href: "/year-progress", label: "Year Progress" },
   ];
 
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-
-        <StickyTimeBar />
 
         <header className="site-header">
 
@@ -97,55 +84,15 @@ export default function RootLayout({
             </div>
 
             <nav className="main-nav" aria-label="Main navigation">
-
-              <div className="nav-group">
-
-                <span className="nav-title">Calculators</span>
-
-                {primaryTools.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className="nav-link"
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-
-              </div>
-
-              <div className="nav-group">
-
-                <span className="nav-title">Date Tools</span>
-
-                {dateTools.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className="nav-link"
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-
-              </div>
-
-              <div className="nav-group">
-
-                <span className="nav-title">Today</span>
-
-                {todayTools.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className="nav-link"
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-
-              </div>
-
+              {navLinks.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="nav-link"
+                >
+                  {item.label}
+                </Link>
+              ))}
             </nav>
 
             <QuickDateJump />
