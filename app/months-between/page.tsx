@@ -2,9 +2,13 @@
 
 import { useState, useEffect } from "react";
 import DateInput from "@/components/DateInput";
-import SeoLinks from "@/components/SeoLinks";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import RelatedTools from "@/components/RelatedTools";
+
+function parseDateUTC(dateStr: string) {
+  const [y, m, d] = dateStr.split("-").map(Number);
+  return new Date(Date.UTC(y, m - 1, d));
+}
 
 export default function MonthsBetweenPage() {
 
@@ -19,20 +23,23 @@ export default function MonthsBetweenPage() {
       return;
     }
 
-    const start = new Date(startDate);
-    const end = new Date(endDate);
+    const start = parseDateUTC(startDate);
+    const end = parseDateUTC(endDate);
+
+    if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) {
+      setResult(null);
+      return;
+    }
 
     let months =
-      (end.getFullYear() - start.getFullYear()) * 12 +
-      (end.getMonth() - start.getMonth());
+      (end.getUTCFullYear() - start.getUTCFullYear()) * 12 +
+      (end.getUTCMonth() - start.getUTCMonth());
 
-    if (end.getDate() < start.getDate()) {
+    if (end.getUTCDate() < start.getUTCDate()) {
       months--;
     }
 
-    if (!Number.isNaN(months)) {
-      setResult(Math.abs(months));
-    }
+    setResult(Math.abs(months));
 
   }, [startDate, endDate]);
 
@@ -83,8 +90,6 @@ export default function MonthsBetweenPage() {
       </div>
 
       <RelatedTools />
-
-      <SeoLinks />
 
     </div>
   );

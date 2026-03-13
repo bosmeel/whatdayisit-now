@@ -21,13 +21,21 @@ export default function StickyTimeBar() {
 
       <div className="time-bar-inner">
 
-        <span>Today</span>
+        <span>
+          <strong>Today</strong>
+        </span>
 
-        <span>Week {week}</span>
+        <span>
+          Week {week}
+        </span>
 
-        <span>Day {dayOfYear}</span>
+        <span>
+          Day {dayOfYear}
+        </span>
 
-        <span>{daysLeft} days left in {now.getFullYear()}</span>
+        <span>
+          {daysLeft} days left in {now.getFullYear()}
+        </span>
 
       </div>
 

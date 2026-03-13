@@ -1,256 +1,150 @@
-import type { Metadata } from "next";
-import TodayDashboard from "../components/TodayDashboard";
+import TodayHero from "@/components/TodayHero";
+import TodayDashboard from "@/components/TodayDashboard";
 import Link from "next/link";
-import TodayCountdowns from "../components/TodayCountdowns";
-import TodayHero from "../components/TodayHero";
+import RelatedTools from "@/components/RelatedTools";
+import SeoLinks from "@/components/SeoLinks";
+import SiteLinks from "@/components/SiteLinks";
 
-export const metadata: Metadata = {
-  title: "What Day Is It Today? | WhatDayIsIt.now",
-  description:
-    "Instantly see today's exact date, day of the week, ISO week number, day of the year, and how many days are left in the year.",
-  alternates: {
-    canonical: "https://whatdayisit.now",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-  openGraph: {
-    title: "What Day Is It Today?",
-    description:
-      "Live dashboard showing today's date, week number, day of the year and year progress.",
-    url: "https://whatdayisit.now",
-    siteName: "WhatDayIsIt.now",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "What Day Is It Today?",
-    description:
-      "Today's date, week number, day of year and year progress instantly.",
-  },
-};
-
-const birthdayLinks = [
-  { href: "/born-on/may-1", label: "May 1 birthday" },
-  { href: "/born-on/may-5", label: "May 5 birthday" },
-  { href: "/born-on/may-10", label: "May 10 birthday" },
-  { href: "/born-on/may-15", label: "May 15 birthday" },
-  { href: "/born-on/may-20", label: "May 20 birthday" },
-  { href: "/born-on/may-25", label: "May 25 birthday" },
-];
-
-export default function Home() {
-  const year = new Date().getFullYear();
-
+export default function HomePage() {
   return (
-    <>
+    <div>
+
+      {/* HERO */}
+
       <TodayHero />
+
+      {/* TODAY DASHBOARD */}
+
       <TodayDashboard />
-      <TodayCountdowns />
 
-      {/* TODAY TOOLS */}
+      {/* PRIMARY CALCULATORS */}
 
-      <section className="container">
-        <h2>Today’s Date Tools</h2>
+      <section style={{ marginTop: 50 }}>
 
-        <p>
-          Tools related to today's date including week numbers and how many
-          days or weeks remain in the current year.
-        </p>
-
-        <div className="tool-grid">
-          <Link href="/what-week-is-it" className="tool-card">
-            What Week Is It?
-          </Link>
-
-          <Link href={`/how-many-days-left-in/${year}`} className="tool-card">
-            Days Left in {year}
-          </Link>
-
-          <Link href={`/how-many-weeks-left-in/${year}`} className="tool-card">
-            Weeks Left in {year}
-          </Link>
-
-          <Link href="/date-calculators" className="tool-card">
-            All Date Calculators
-          </Link>
-        </div>
-      </section>
-
-      {/* POPULAR DATE CALCULATORS */}
-
-      <section className="container">
         <h2>Popular Date Calculators</h2>
 
-        <p>
-          The most commonly used tools for calculating date differences,
-          counting days, and measuring time spans.
-        </p>
-
         <div className="tool-grid">
+
           <Link href="/days-between" className="tool-card">
-            Days Between Dates
+            <strong>Days Between Dates</strong>
+            <div>Calculate the number of days between two dates</div>
           </Link>
 
           <Link href="/days-until" className="tool-card">
-            Days Until Date
+            <strong>Days Until Date</strong>
+            <div>Countdown to a future date</div>
           </Link>
 
           <Link href="/days-since" className="tool-card">
-            Days Since Date
-          </Link>
-
-          <Link href="/weeks-between" className="tool-card">
-            Weeks Between Dates
-          </Link>
-
-          <Link href="/months-between" className="tool-card">
-            Months Between Dates
+            <strong>Days Since Date</strong>
+            <div>See how many days have passed</div>
           </Link>
 
           <Link href="/age-calculator" className="tool-card">
-            Age Calculator
-          </Link>
-
-          <Link href="/date-calculators" className="tool-card">
-  Date Calculators Hub
-</Link>
-        </div>
-      </section>
-
-      {/* POPULAR COUNTDOWNS */}
-
-      <section className="container">
-        <h2>Popular Countdowns</h2>
-
-        <p>
-          See how many days remain until popular holidays and upcoming events.
-        </p>
-
-        <div className="tool-grid">
-          <Link href="/days-until/christmas" className="tool-card">
-            Days Until Christmas
-          </Link>
-
-          <Link href="/days-until/new-year" className="tool-card">
-            Days Until New Year
-          </Link>
-
-          <Link href="/days-until/halloween" className="tool-card">
-            Days Until Halloween
-          </Link>
-
-          <Link href="/days-until/valentines-day" className="tool-card">
-            Days Until Valentine’s Day
-          </Link>
-        </div>
-      </section>
-
-      {/* DATE CALCULATORS */}
-
-      <section className="container">
-        <h2>Date Calculators</h2>
-
-        <p>
-          Use these calculators to compare dates, count weeks or months, and
-          measure time spans between events.
-        </p>
-
-        <div className="tool-grid">
-          <Link href="/days-between" className="tool-card">
-            Days Between Dates
-          </Link>
-
-          <Link href="/weeks-between" className="tool-card">
-            Weeks Between Dates
-          </Link>
-
-          <Link href="/months-between" className="tool-card">
-            Months Between Dates
-          </Link>
-
-          <Link href="/years-between" className="tool-card">
-            Years Between Dates
+            <strong>Age Calculator</strong>
+            <div>Calculate age from a birth date</div>
           </Link>
 
           <Link href="/business-days-between" className="tool-card">
-            Business Days Between Dates
+            <strong>Business Days Between</strong>
+            <div>Count weekdays between two dates</div>
           </Link>
 
-          <Link href="/date-calculators" className="tool-card">
-            Browse All Date Calculators
+          <Link href="/date-duration" className="tool-card">
+            <strong>Date Duration</strong>
+            <div>Difference in years, months and days</div>
           </Link>
+
         </div>
+
       </section>
 
-      {/* BROWSE DATES */}
+      {/* MORE DATE CALCULATORS */}
 
-      <section className="container">
-        <h2>Browse Dates</h2>
+      <section style={{ marginTop: 50 }}>
 
-        <p>
-          Explore birthdays and historical events for every day of the year.
-        </p>
+        <h2>More Date Calculators</h2>
 
         <div className="tool-grid">
+
+          <Link href="/weeks-between" className="tool-card">
+            <strong>Weeks Between Dates</strong>
+          </Link>
+
+          <Link href="/months-between" className="tool-card">
+            <strong>Months Between Dates</strong>
+          </Link>
+
+          <Link href="/years-between" className="tool-card">
+            <strong>Years Between Dates</strong>
+          </Link>
+
+          <Link href="/business-days-until" className="tool-card">
+            <strong>Business Days Until</strong>
+          </Link>
+
+        </div>
+
+      </section>
+
+      {/* TODAY TOOLS */}
+
+      <section style={{ marginTop: 50 }}>
+
+        <h2>Today Tools</h2>
+
+        <div className="tool-grid">
+
+          <Link href="/week-number" className="tool-card">
+            <strong>Week Number</strong>
+          </Link>
+
+          <Link href="/day-of-year" className="tool-card">
+            <strong>Day of Year</strong>
+          </Link>
+
+          <Link href="/year-progress" className="tool-card">
+            <strong>Year Progress</strong>
+          </Link>
+
+          <Link href="/days-until-weekend" className="tool-card">
+            <strong>Days Until Weekend</strong>
+          </Link>
+
+        </div>
+
+      </section>
+
+      {/* PERSONAL TOOLS */}
+
+      <section style={{ marginTop: 50 }}>
+
+        <h2>Birthday & Personal Tools</h2>
+
+        <div className="tool-grid">
+
+          <Link href="/what-day-was-i-born" className="tool-card">
+            <strong>What Day Was I Born</strong>
+          </Link>
+
           <Link href="/born-on" className="tool-card">
-            Birthdays by Date
+            <strong>Born On</strong>
           </Link>
 
-          <Link href="/what-happened-on" className="tool-card">
-            Historical Events by Date
-          </Link>
-
-          <Link href="/birthday-tools" className="tool-card">
-            Birthday Calculators
-          </Link>
         </div>
+
       </section>
 
-      {/* BIRTHDAY EXAMPLES */}
+      {/* RELATED TOOLS */}
 
-      <section className="container">
-        <h2>Browse Birthdays by Date</h2>
+      <RelatedTools />
 
-        <div className="tool-grid">
-          <Link href="/born-on" className="tool-card">
-            Browse all birthdays
-          </Link>
+      {/* SEO LINKS */}
 
-          {birthdayLinks.map((item) => (
-            <Link key={item.href} href={item.href} className="tool-card">
-              {item.label}
-            </Link>
-          ))}
-        </div>
-      </section>
+      <SeoLinks />
 
-      {/* CALENDAR */}
+      <SiteLinks />
 
-      <section className="container">
-        <h2>Calendar Tools</h2>
-
-        <p>
-          Browse calendars and week numbers to plan your year and track
-          important dates.
-        </p>
-
-        <div className="tool-grid">
-          <Link href="/calendar/2026" className="tool-card">
-            2026 Calendar
-          </Link>
-
-          <Link href="/week-number/2026" className="tool-card">
-            Week Numbers for 2026
-          </Link>
-
-          <Link href="/what-week-is-it" className="tool-card">
-            What Week Is It?
-          </Link>
-        </div>
-      </section>
-
-    </>
+    </div>
   );
 }

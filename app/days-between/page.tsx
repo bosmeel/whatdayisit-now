@@ -4,13 +4,28 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import DateInput from "@/components/DateInput";
 import { DATE_PAIRS } from "@/lib/data/datePairs";
-import SeoLinks from "@/components/SeoLinks";
+// import SeoLinks from "@/components/SeoLinks";  // tijdelijk uitgeschakeld
 import Breadcrumbs from "@/components/Breadcrumbs";
-import SiteLinks from "@/components/SiteLinks";
+// import SiteLinks from "@/components/SiteLinks"; // tijdelijk uitgeschakeld
 import RelatedCalculators from "@/components/RelatedCalculators";
 
+/* More stable calculation (avoids timezone errors) */
 function calculateDaysBetween(start: Date, end: Date) {
-  const diff = end.getTime() - start.getTime();
+
+  const startUTC = Date.UTC(
+    start.getFullYear(),
+    start.getMonth(),
+    start.getDate()
+  );
+
+  const endUTC = Date.UTC(
+    end.getFullYear(),
+    end.getMonth(),
+    end.getDate()
+  );
+
+  const diff = endUTC - startUTC;
+
   return Math.round(diff / 86400000);
 }
 
@@ -55,13 +70,14 @@ export default function DaysBetweenPage() {
       <h1>Days Between Two Dates</h1>
 
       <p>
-        Calculate the number of days between two calendar dates.
+        Calculate the exact number of calendar days between two dates.
       </p>
 
       <p>
-        This calculator helps you find the exact number of days between two
-        dates. It can be useful for project planning, travel, deadlines, and
-        comparing important events on the calendar.
+        This date calculator helps determine the number of days separating
+        two calendar dates. It is commonly used for project planning,
+        travel preparation, deadline tracking, and comparing important
+        events on the calendar.
       </p>
 
       <div className="calculator">
@@ -86,6 +102,52 @@ export default function DaysBetweenPage() {
         )}
 
       </div>
+
+      {/* HOW IT WORKS */}
+
+      <section style={{ marginTop: 40 }}>
+
+        <h2>How the Days Between Calculator Works</h2>
+
+        <p>
+          The days between dates calculator determines the total number of
+          calendar days separating two dates. Simply enter a start date and
+          an end date to instantly calculate the difference.
+        </p>
+
+        <p>
+          The calculation automatically accounts for leap years and works
+          for both past and future dates. This makes it useful for
+          scheduling projects, calculating durations, or tracking time
+          between milestones.
+        </p>
+
+      </section>
+
+      {/* FAQ */}
+
+      <section style={{ marginTop: 32 }}>
+
+        <h2>Frequently Asked Questions</h2>
+
+        <h3>Does the calculator include weekends?</h3>
+
+        <p>
+          Yes. The result includes all calendar days, including weekends
+          and holidays. If you need to count only working days, use the
+          business days calculator.
+        </p>
+
+        <h3>Can I calculate days between past dates?</h3>
+
+        <p>
+          Yes. The calculator works with any valid dates in the past or
+          future.
+        </p>
+
+      </section>
+
+      {/* POPULAR DATE PAIRS */}
 
       <section style={{ marginTop: 50 }}>
 
@@ -139,17 +201,14 @@ export default function DaysBetweenPage() {
 
       </section>
 
-      {/* SEO cluster links */}
-
-      <SeoLinks />
-
       {/* RELATED CALCULATORS */}
 
       <RelatedCalculators current="days-between" />
 
-      {/* SITE HUB LINKS */}
+      {/* SEO clusters tijdelijk uitgeschakeld voor AdSense review */}
 
-      <SiteLinks />
+      {/* <SeoLinks /> */}
+      {/* <SiteLinks /> */}
 
     </div>
   );

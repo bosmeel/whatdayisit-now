@@ -25,27 +25,38 @@ const monthNames = [
 ];
 
 export default function DaysUntilPage() {
+
   const [date, setDate] = useState("");
-  const [result, setResult] = useState<number | null>(null);
+
+  /* read date from URL once */
 
   useEffect(() => {
-    if (!date) {
-      setResult(null);
-      return;
+
+    const params = new URLSearchParams(window.location.search);
+    const urlDate = params.get("date");
+
+    if (urlDate) {
+      setDate(urlDate);
     }
+
+  }, []);
+
+  /* calculate result */
+
+  const result = useMemo(() => {
+
+    if (!date) return null;
 
     const target = new Date(date);
 
-    if (Number.isNaN(target.getTime())) {
-      setResult(null);
-      return;
-    }
+    if (Number.isNaN(target.getTime())) return null;
 
     const today = new Date();
-    const diff = target.getTime() - today.getTime();
-    const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
 
-    setResult(days);
+    const diff = target.getTime() - today.getTime();
+
+    return Math.ceil(diff / (1000 * 60 * 60 * 24));
+
   }, [date]);
 
   const sortedEvents = useMemo(() => {
@@ -55,9 +66,11 @@ export default function DaysUntilPage() {
   }, []);
 
   const datePages = useMemo(() => {
+
     const pages: { slug: string; label: string }[] = [];
 
     monthNames.forEach((month, monthIndex) => {
+
       const daysInMonth =
         month === "february"
           ? 29
@@ -66,18 +79,23 @@ export default function DaysUntilPage() {
             : 31;
 
       for (let day = 1; day <= daysInMonth; day++) {
+
         pages.push({
           slug: `${month}-${day}`,
           label: `${month.charAt(0).toUpperCase() + month.slice(1)} ${day}`,
         });
+
       }
+
     });
 
     return pages;
+
   }, []);
 
   return (
     <div>
+
       <Breadcrumbs
         items={[
           { name: "Home", href: "/" },
@@ -100,6 +118,7 @@ export default function DaysUntilPage() {
       </p>
 
       <div className="calculator">
+
         <DateInput
           label="Target date"
           value={date}
@@ -112,12 +131,15 @@ export default function DaysUntilPage() {
             <div className="result-label">days</div>
           </div>
         )}
+
       </div>
 
       <section style={{ marginTop: 50 }}>
+
         <h2>Popular countdowns</h2>
 
         <div className="tool-grid">
+
           {[
             "christmas",
             "new-year",
@@ -137,16 +159,18 @@ export default function DaysUntilPage() {
                 className="tool-card"
               >
                 <strong>{EVENTS[slug].name}</strong>
-
                 <div>
                   {EVENTS[slug].month}/{EVENTS[slug].day}
                 </div>
               </Link>
             ))}
+
         </div>
+
       </section>
 
       <section style={{ marginTop: 50 }}>
+
         <h2>Days Until Any Date</h2>
 
         <p>
@@ -154,6 +178,7 @@ export default function DaysUntilPage() {
         </p>
 
         <div className="tool-grid">
+
           {datePages.slice(0, 24).map((item) => (
             <Link
               key={item.slug}
@@ -164,6 +189,7 @@ export default function DaysUntilPage() {
               <div>See how many days remain</div>
             </Link>
           ))}
+
         </div>
 
         <p style={{ marginTop: 20 }}>
@@ -171,12 +197,15 @@ export default function DaysUntilPage() {
             Start browsing all date countdowns
           </Link>
         </p>
+
       </section>
 
       <section style={{ marginTop: 50 }}>
+
         <h2>All Event Countdowns</h2>
 
         <div className="tool-grid">
+
           {sortedEvents.map(([slug, event]) => (
             <Link
               key={slug}
@@ -184,19 +213,22 @@ export default function DaysUntilPage() {
               className="tool-card"
             >
               <strong>{event.name}</strong>
-
               <div>
                 {event.month}/{event.day}
               </div>
             </Link>
           ))}
+
         </div>
+
       </section>
 
       <RelatedTools />
 
       <SeoLinks />
+
       <SiteLinks />
+
     </div>
   );
 }

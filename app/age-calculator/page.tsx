@@ -94,9 +94,9 @@ export default function AgeCalculatorPage() {
       </div>
 
       <RelatedTools />
-
-      <SeoLinks />
-<SiteLinks />
+{/* SEO links tijdelijk uitgeschakeld voor AdSense review */}
+{/* <SeoLinks /> */}
+{/* <SiteLinks /> */}
     </div>
   );
 }

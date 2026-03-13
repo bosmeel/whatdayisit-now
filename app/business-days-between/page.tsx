@@ -98,7 +98,9 @@ export default function BusinessDaysBetweenPage() {
 
       <RelatedTools />
 
-      <SeoLinks />
+      {/* SEO links tijdelijk uitgeschakeld voor AdSense review */}
+{/* <SeoLinks /> */}
+{/* <SiteLinks /> */}
 
     </div>
   );

@@ -56,13 +56,22 @@ img{
   padding:0 20px;
 }
 
+a{
+  color:var(--foreground);
+  text-decoration:none;
+  transition:color .15s ease;
+}
+
+a:hover{
+  color:var(--accent);
+}
+
 /* ===============================
    Header
 ================================ */
 
 .site-header{
   border-bottom:1px solid var(--border);
-  padding:12px 0;
   background:var(--background);
   position:sticky;
   top:0;
@@ -73,6 +82,7 @@ img{
   display:flex;
   flex-direction:column;
   gap:12px;
+  padding:10px 0;
 }
 
 .logo-link{
@@ -95,37 +105,54 @@ img{
 ================================ */
 
 .main-nav{
-  width:100%;
-}
-
-.main-nav ul{
   display:flex;
   flex-wrap:wrap;
-  gap:14px;
-  list-style:none;
-  padding:0;
-  margin:0;
-  font-size:14px;
+  gap:28px;
 }
 
-.main-nav a{
-  text-decoration:none;
+.nav-group{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.nav-title{
+  font-size:12px;
+  font-weight:700;
   color:var(--muted);
+  letter-spacing:.05em;
+  text-transform:uppercase;
 }
 
-.main-nav a:hover{
+.nav-link{
+  font-size:14px;
+  padding:2px 0;
+  border-bottom:2px solid transparent;
+  transition:all .15s ease;
+}
+
+.nav-link:hover{
   color:var(--accent);
+  border-bottom:2px solid var(--accent);
 }
 
 /* ===============================
-   Mobile navigation
+   Desktop header layout
 ================================ */
 
-@media (max-width:640px){
+@media (min-width:900px){
 
-.main-nav{
-  padding-bottom:4px;
-}
+  .header-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:30px;
+  }
+
+  .main-nav{
+    flex:1;
+    justify-content:center;
+  }
 
 }
 
@@ -168,6 +195,22 @@ img{
 /* ===============================
    Dashboard grids
 ================================ */
+
+.dashboard-header{
+  margin-top:28px;
+  margin-bottom:10px;
+}
+
+.dashboard-header h2{
+  font-size:22px;
+  font-weight:700;
+}
+
+.dashboard-header p{
+  margin-top:6px;
+  color:var(--muted);
+  font-size:14px;
+}
 
 .today-grid{
   display:grid;
@@ -215,18 +258,29 @@ img{
 ================================ */
 
 .today-hero{
-  margin-top:10px;
-}
-
-.today-hero h1{
-  font-size:32px;
-  font-weight:800;
-}
-
-.today-hero p{
   margin-top:6px;
+  margin-bottom:10px;
+}
+
+h1{
+  font-size:36px;
+  font-weight:800;
+  letter-spacing:-0.02em;
+}
+
+.today-date{
+  margin-top:10px;
+  font-size:28px;
+  font-weight:700;
+  color:var(--foreground);
+}
+
+.today-subtitle{
+  margin-top:10px;
   color:var(--muted);
   font-size:15px;
+  max-width:520px;
+  line-height:1.55;
 }
 
 /* ===============================
@@ -245,9 +299,9 @@ img{
   flex-direction:column;
   justify-content:center;
 
-  min-height:84px;
+  min-height:92px;
 
-  padding:18px 18px;
+  padding:18px 20px;
 
   border:1px solid var(--border);
   border-radius:12px;
@@ -257,56 +311,51 @@ img{
   text-decoration:none;
   color:var(--foreground);
 
-  box-shadow:0 3px 8px rgba(0,0,0,0.05);
+  box-shadow:0 2px 6px rgba(0,0,0,0.04);
 
-  transition:transform .15s ease,
-             box-shadow .15s ease,
-             border-color .15s ease;
+  position:relative;
+  overflow:hidden;
+
+  transition:
+    transform .18s ease,
+    box-shadow .18s ease,
+    border-color .18s ease,
+    background .18s ease;
+}
+
+.tool-card::after{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:3px;
+  background:var(--accent);
+  opacity:0;
+  transition:opacity .18s ease;
 }
 
 .tool-card strong{
   font-size:16px;
   font-weight:700;
+  letter-spacing:.01em;
 }
 
 .tool-card div{
   font-size:13px;
   color:var(--muted);
   margin-top:4px;
+  line-height:1.4;
 }
 
 .tool-card:hover{
   border-color:var(--accent);
-  transform:translateY(-3px);
-  box-shadow:0 10px 20px rgba(0,0,0,0.08);
+  transform:translateY(-4px);
+  box-shadow:0 14px 28px rgba(0,0,0,0.08);
 }
 
-/* ===============================
-   Popular calculators grid
-================================ */
-
-.popular-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:16px;
-  margin-top:18px;
-}
-
-.popular-card{
-  display:block;
-  padding:16px 18px;
-  border-radius:10px;
-  border:1px solid var(--border);
-  background:var(--card);
-  text-decoration:none;
-  color:var(--foreground);
-  font-weight:500;
-  transition:all .15s ease;
-}
-
-.popular-card:hover{
-  border-color:var(--accent);
-  transform:translateY(-2px);
+.tool-card:hover::after{
+  opacity:1;
 }
 
 /* ===============================
@@ -352,6 +401,10 @@ img{
   border:1px solid var(--border);
   background:var(--card);
   cursor:pointer;
+}
+
+.date-picker-button:hover{
+  border-color:var(--accent);
 }
 
 /* ===============================
@@ -412,41 +465,13 @@ button:hover{
 }
 
 /* ===============================
-   Headings
-================================ */
-
-h1{
-  font-size:36px;
-  font-weight:800;
-}
-
-h2{
-  font-size:22px;
-  font-weight:700;
-  margin-top:28px;
-}
-
-/* ===============================
    Responsive
 ================================ */
-
-@media (min-width:900px){
-  .header-inner{
-    flex-direction:row;
-    align-items:center;
-    justify-content:space-between;
-  }
-}
 
 @media (max-width:640px){
 
   .container{
     padding:0 16px;
-  }
-
-  .main-nav{
-    gap:12px;
-    font-size:13px;
   }
 
   .calculator{
@@ -467,68 +492,8 @@ h2{
     font-size:40px;
   }
 
-}
-
-/* ===============================
-   Hub lists spacing
-================================ */
-
-.container ul{
-  margin-top:12px;
-  margin-bottom:32px;
-  padding-left:20px;
-}
-
-.container li{
-  margin-bottom:8px;
-}
-
-.container ul a{
-  display:inline-block;
-}
-
-/* ===============================
-   SEO hidden text
-================================ */
-
-.seo-hidden{
-  position:absolute;
-  left:-9999px;
-  top:auto;
-  width:1px;
-  height:1px;
-  overflow:hidden;
-}
-
-/* ===============================
-   Scroll fade edges (mobile nav)
-================================ */
-
-@media (max-width:640px){
-
-  .site-header{
-    position:relative;
-  }
-
-  .site-header::before,
-  .site-header::after{
-    content:"";
-    position:absolute;
-    top:0;
-    bottom:0;
-    width:24px;
-    pointer-events:none;
-    z-index:2;
-  }
-
-  .site-header::before{
-    left:0;
-    background:linear-gradient(to right,var(--background),transparent);
-  }
-
-  .site-header::after{
-    right:0;
-    background:linear-gradient(to left,var(--background),transparent);
+  .main-nav{
+    justify-content:flex-start;
   }
 
 }
@@ -552,6 +517,11 @@ h2{
   gap:18px;
   color:var(--muted);
   flex-wrap:wrap;
+}
+
+.time-bar strong{
+  color:var(--foreground);
+  font-weight:600;
 }
 
 .time-bar span{

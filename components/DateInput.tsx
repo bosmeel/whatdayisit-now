@@ -10,11 +10,13 @@ type Props = {
 
 function isoToDisplay(iso: string) {
   if (!iso || !/^\d{4}-\d{2}-\d{2}$/.test(iso)) return "";
+
   const [y, m, d] = iso.split("-");
   return `${d}-${m}-${y}`;
 }
 
 function displayToIso(display: string) {
+
   const digits = display.replace(/\D/g, "");
 
   if (digits.length !== 8) return "";
@@ -27,10 +29,14 @@ function displayToIso(display: string) {
 }
 
 function formatDisplay(value: string) {
+
   const digits = value.replace(/\D/g, "").slice(0, 8);
 
   if (digits.length <= 2) return digits;
-  if (digits.length <= 4) return `${digits.slice(0,2)}-${digits.slice(2)}`;
+
+  if (digits.length <= 4) {
+    return `${digits.slice(0,2)}-${digits.slice(2)}`;
+  }
 
   return `${digits.slice(0,2)}-${digits.slice(2,4)}-${digits.slice(4)}`;
 }
@@ -40,6 +46,8 @@ export default function DateInput({ label, value = "", onChange }: Props) {
   const [displayValue, setDisplayValue] = useState("");
   const nativeRef = useRef<HTMLInputElement>(null);
 
+  /* sync external value (QuickJump / URL params) */
+
   useEffect(() => {
     setDisplayValue(isoToDisplay(value));
   }, [value]);
@@ -47,11 +55,14 @@ export default function DateInput({ label, value = "", onChange }: Props) {
   function handleTextChange(e: React.ChangeEvent<HTMLInputElement>) {
 
     const formatted = formatDisplay(e.target.value);
+
     setDisplayValue(formatted);
 
     const iso = displayToIso(formatted);
 
-    if (onChange) onChange(iso);
+    if (iso && onChange) {
+      onChange(iso);
+    }
   }
 
   function handleNativeChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -64,6 +75,7 @@ export default function DateInput({ label, value = "", onChange }: Props) {
   function openCalendar() {
 
     const input = nativeRef.current;
+
     if (!input) return;
 
     input.focus();
@@ -74,6 +86,7 @@ export default function DateInput({ label, value = "", onChange }: Props) {
   }
 
   return (
+
     <div className="date-field">
 
       <label className="date-label">
@@ -115,5 +128,6 @@ export default function DateInput({ label, value = "", onChange }: Props) {
       </div>
 
     </div>
+
   );
 }

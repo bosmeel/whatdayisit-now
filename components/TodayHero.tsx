@@ -1,4 +1,5 @@
 export default function TodayHero() {
+
   const now = new Date();
 
   const dayName = now.toLocaleDateString("en-US", { weekday: "long" });
@@ -10,19 +11,24 @@ export default function TodayHero() {
   });
 
   return (
-    <section className="container today-hero">
 
-      <h1>What Day Is It Today?</h1>
+    <section className="today-hero">
 
-      <div style={{marginTop:"10px",fontSize:"28px",fontWeight:700}}>
+      <h1>
+        What Day Is It Today?
+      </h1>
+
+      <div className="today-date">
         {dayName}, {fullDate}
       </div>
 
-      <p style={{marginTop:"10px"}}>
+      <p className="today-subtitle">
         Instantly see today's date, day of the week, week number, and how far
         we are through the year.
       </p>
 
     </section>
+
   );
+
 }

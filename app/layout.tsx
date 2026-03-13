@@ -52,6 +52,27 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+
+  const primaryTools = [
+    { href: "/days-between", label: "Days Between" },
+    { href: "/days-until", label: "Days Until" },
+    { href: "/days-since", label: "Days Since" },
+    { href: "/age-calculator", label: "Age Calculator" },
+  ];
+
+  const dateTools = [
+    { href: "/weeks-between", label: "Weeks" },
+    { href: "/months-between", label: "Months" },
+    { href: "/years-between", label: "Years" },
+    { href: "/date-duration", label: "Duration" },
+  ];
+
+  const todayTools = [
+    { href: "/week-number", label: "Week Number" },
+    { href: "/day-of-year", label: "Day of Year" },
+    { href: "/year-progress", label: "Year Progress" },
+  ];
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
@@ -76,15 +97,56 @@ export default function RootLayout({
             </div>
 
             <nav className="main-nav" aria-label="Main navigation">
-  <Link href="/days-between">Days Between</Link>
-  <Link href="/days-since">Days Since</Link>
-  <Link href="/days-until">Days Until</Link>
-  <Link href="/date-duration">Duration</Link>
-  <Link href="/weeks-between">Weeks</Link>
-  <Link href="/months-between">Months</Link>
-  <Link href="/years-between">Years</Link>
-  <Link href="/age-calculator">Age</Link>
-</nav>
+
+              <div className="nav-group">
+
+                <span className="nav-title">Calculators</span>
+
+                {primaryTools.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="nav-link"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+
+              </div>
+
+              <div className="nav-group">
+
+                <span className="nav-title">Date Tools</span>
+
+                {dateTools.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="nav-link"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+
+              </div>
+
+              <div className="nav-group">
+
+                <span className="nav-title">Today</span>
+
+                {todayTools.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="nav-link"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+
+              </div>
+
+            </nav>
 
             <QuickDateJump />
 
