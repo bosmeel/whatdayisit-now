@@ -59,7 +59,7 @@ export default function RootLayout({
     { href: "/age-calculator", label: "Age Calculator" },
     { href: "/business-days-between", label: "Business Days" },
     { href: "/business-days-until", label: "Business Days Until" },
-    { href: "/birthday-weekday", label: "Birthday Calculator" },
+    { href: "/birthday-weekday", label: "Birthday Weekday" },
     { href: "/weeks-between", label: "Weeks" },
     { href: "/months-between", label: "Months" },
   ];
