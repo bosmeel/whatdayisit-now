@@ -2,7 +2,6 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import "./globals.css";
 import QuickDateJump from "@/components/QuickDateJump";
-import StickyWrapper from "@/components/StickyWrapper";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://whatdayisit.now"),
@@ -99,8 +98,7 @@ export default function RootLayout({
         </header>
 
       
-          <StickyWrapper />
-      
+        
 
         <main className="container main-content">
           {children}
