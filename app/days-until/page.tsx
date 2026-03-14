@@ -8,6 +8,8 @@ import SeoLinks from "@/components/SeoLinks";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import RelatedTools from "@/components/RelatedTools";
 import SiteLinks from "@/components/SiteLinks";
+import StickyTimeBar from "@/components/StickyTimeBar";
+import { parseDateUTC } from "@/lib/date";
 
 const monthNames = [
   "january",
@@ -47,15 +49,20 @@ export default function DaysUntilPage() {
 
     if (!date) return null;
 
-    const target = new Date(date);
+    const target = parseDateUTC(date);
 
     if (Number.isNaN(target.getTime())) return null;
 
-    const today = new Date();
+    const now = new Date();
+    const today = new Date(Date.UTC(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate()
+    ));
 
     const diff = target.getTime() - today.getTime();
 
-    return Math.ceil(diff / (1000 * 60 * 60 * 24));
+    return Math.ceil(diff / 86400000);
 
   }, [date]);
 
@@ -95,6 +102,8 @@ export default function DaysUntilPage() {
 
   return (
     <div>
+
+      <StickyTimeBar />
 
       <Breadcrumbs
         items={[

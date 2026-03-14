@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import DateInput from "@/components/DateInput";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import RelatedTools from "@/components/RelatedTools";
+import StickyTimeBar from "@/components/StickyTimeBar";
 
 export default function AgeCalculatorPage() {
 
@@ -49,7 +50,7 @@ export default function AgeCalculatorPage() {
 
   return (
     <div>
-
+<StickyTimeBar />
       <Breadcrumbs
         items={[
           { name: "Home", href: "/" },

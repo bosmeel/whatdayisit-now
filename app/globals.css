@@ -439,6 +439,18 @@ h1{
 }
 
 /* ===============================
+   Homepage sections
+================================ */
+
+.homepage-section{
+  margin-top:52px;
+}
+
+.homepage-section h2{
+  margin-bottom:8px;
+}
+
+/* ===============================
    Buttons
 ================================ */
 
@@ -453,6 +465,7 @@ button{
 button:hover{
   border-color:var(--accent);
 }
+
 
 /* ===============================
    Responsive

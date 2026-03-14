@@ -90,3 +90,7 @@ export function getDateDuration(start: Date, end: Date) {
     totalWeeks
   };
 }
+export function parseDateUTC(dateStr: string): Date {
+  const [y, m, d] = dateStr.split("-").map(Number);
+  return new Date(Date.UTC(y, m - 1, d));
+}

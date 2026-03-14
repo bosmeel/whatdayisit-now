@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import DateInput from "@/components/DateInput";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import RelatedTools from "@/components/RelatedTools";
+import StickyTimeBar from "@/components/StickyTimeBar";
+import { parseDateUTC } from "@/lib/date";
 
 export default function WeeksBetweenPage() {
 
@@ -18,8 +20,8 @@ export default function WeeksBetweenPage() {
       return;
     }
 
-    const start = new Date(startDate);
-    const end = new Date(endDate);
+    const start = parseDateUTC(startDate);
+    const end = parseDateUTC(endDate);
 
     if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) {
       setResult(null);
@@ -27,7 +29,7 @@ export default function WeeksBetweenPage() {
     }
 
     const diff = end.getTime() - start.getTime();
-    const weeks = Math.floor(diff / (1000 * 60 * 60 * 24 * 7));
+    const weeks = Math.floor(diff / (86400000 * 7));
 
     setResult(Math.abs(weeks));
 
@@ -35,6 +37,8 @@ export default function WeeksBetweenPage() {
 
   return (
     <div>
+
+      <StickyTimeBar />
 
       <Breadcrumbs
         items={[
@@ -80,7 +84,6 @@ export default function WeeksBetweenPage() {
       </div>
 
       <RelatedTools />
-
 
     </div>
   );

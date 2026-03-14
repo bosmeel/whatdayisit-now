@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import DateInput from "@/components/DateInput";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import RelatedTools from "@/components/RelatedTools";
-import { getDateDuration } from "@/lib/date";
+import { getDateDuration, parseDateUTC } from "@/lib/date";
+import StickyTimeBar from "@/components/StickyTimeBar";
 
 export default function DateDurationPage() {
 
@@ -28,8 +29,8 @@ export default function DateDurationPage() {
       return;
     }
 
-    const start = new Date(startDate);
-    const end = new Date(endDate);
+    const start = parseDateUTC(startDate);
+    const end = parseDateUTC(endDate);
 
     if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) return;
 
@@ -45,6 +46,8 @@ export default function DateDurationPage() {
 
   return (
     <div>
+
+      <StickyTimeBar />
 
       <Breadcrumbs
         items={[

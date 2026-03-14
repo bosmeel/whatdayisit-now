@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import DateInput from "@/components/DateInput";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import RelatedTools from "@/components/RelatedTools";
+import StickyTimeBar from "@/components/StickyTimeBar";
+import { parseDateUTC } from "@/lib/date";
 
 function calculateBusinessDays(start: Date, end: Date) {
 
@@ -12,13 +14,13 @@ function calculateBusinessDays(start: Date, end: Date) {
 
   while (current <= end) {
 
-    const day = current.getDay();
+    const day = current.getUTCDay();
 
     if (day !== 0 && day !== 6) {
       count++;
     }
 
-    current.setDate(current.getDate() + 1);
+    current.setUTCDate(current.getUTCDate() + 1);
   }
 
   return count;
@@ -37,19 +39,24 @@ export default function BusinessDaysBetweenPage() {
       return;
     }
 
-    const start = new Date(startDate);
-    const end = new Date(endDate);
+    const start = parseDateUTC(startDate);
+    const end = parseDateUTC(endDate);
+
+    if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) {
+      setResult(null);
+      return;
+    }
 
     const days = calculateBusinessDays(start, end);
 
-    if (!Number.isNaN(days)) {
-      setResult(Math.abs(days));
-    }
+    setResult(Math.abs(days));
 
   }, [startDate, endDate]);
 
   return (
     <div>
+
+      <StickyTimeBar />
 
       <Breadcrumbs
         items={[
@@ -97,7 +104,6 @@ export default function BusinessDaysBetweenPage() {
 
       <RelatedTools />
 
-     
     </div>
   );
 }

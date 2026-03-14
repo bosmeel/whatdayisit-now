@@ -4,11 +4,8 @@ import { useState, useEffect } from "react";
 import DateInput from "@/components/DateInput";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import RelatedTools from "@/components/RelatedTools";
-
-function parseDateUTC(dateStr: string) {
-  const [y, m, d] = dateStr.split("-").map(Number);
-  return new Date(Date.UTC(y, m - 1, d));
-}
+import StickyTimeBar from "@/components/StickyTimeBar";
+import { parseDateUTC } from "@/lib/date";
 
 export default function MonthsBetweenPage() {
 
@@ -45,6 +42,8 @@ export default function MonthsBetweenPage() {
 
   return (
     <div>
+
+      <StickyTimeBar />
 
       <Breadcrumbs
         items={[

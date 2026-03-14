@@ -6,20 +6,22 @@ import DateInput from "@/components/DateInput";
 import { DATE_PAIRS } from "@/lib/data/datePairs";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import RelatedCalculators from "@/components/RelatedCalculators";
+import StickyTimeBar from "@/components/StickyTimeBar";
+import { parseDateUTC } from "@/lib/date";
 
 /* More stable calculation (avoids timezone errors) */
 function calculateDaysBetween(start: Date, end: Date) {
 
   const startUTC = Date.UTC(
-    start.getFullYear(),
-    start.getMonth(),
-    start.getDate()
+    start.getUTCFullYear(),
+    start.getUTCMonth(),
+    start.getUTCDate()
   );
 
   const endUTC = Date.UTC(
-    end.getFullYear(),
-    end.getMonth(),
-    end.getDate()
+    end.getUTCFullYear(),
+    end.getUTCMonth(),
+    end.getUTCDate()
   );
 
   const diff = endUTC - startUTC;
@@ -40,8 +42,8 @@ export default function DaysBetweenPage() {
       return;
     }
 
-    const start = new Date(startDate);
-    const end = new Date(endDate);
+    const start = parseDateUTC(startDate);
+    const end = parseDateUTC(endDate);
 
     if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) {
       setResult(null);
@@ -56,6 +58,8 @@ export default function DaysBetweenPage() {
 
   return (
     <div>
+
+      <StickyTimeBar />
 
       <Breadcrumbs
         items={[
@@ -203,6 +207,6 @@ export default function DaysBetweenPage() {
 
       <RelatedCalculators current="days-between" />
 
-       </div>
+    </div>
   );
 }

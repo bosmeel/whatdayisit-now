@@ -55,9 +55,11 @@ export default function RootLayout({
   const navLinks = [
     { href: "/days-between", label: "Days Between" },
     { href: "/days-until", label: "Days Until" },
+    { href: "/days-since", label: "Days Since" },
     { href: "/age-calculator", label: "Age Calculator" },
     { href: "/business-days-between", label: "Business Days" },
-    { href: "/what-day-was-i-born", label: "Birthday" },
+    { href: "/business-days-until", label: "Business Days Until" },
+    { href: "/birthday-weekday-calculator", label: "Birthday Calculator" },
     { href: "/weeks-between", label: "Weeks" },
     { href: "/months-between", label: "Months" },
   ];

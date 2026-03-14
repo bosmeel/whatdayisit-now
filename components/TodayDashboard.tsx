@@ -65,7 +65,7 @@ export default function TodayDashboard() {
 
         <div className="today-card">
           <strong>Quarter</strong>
-          <div>Q{quarter}</div>
+          <div>{quarter}</div>
         </div>
 
       </div>

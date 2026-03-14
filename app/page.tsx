@@ -16,7 +16,7 @@ export default function HomePage() {
 
       {/* MAIN CALCULATORS */}
 
-      <section style={{ marginTop: 50 }}>
+      <section className="homepage-section">
 
         <h2>Main Date Calculators</h2>
 
@@ -47,6 +47,11 @@ export default function HomePage() {
             <div>Count weekdays between two dates</div>
           </Link>
 
+          <Link href="/business-days-until" className="tool-card">
+  <strong>Business Days Until</strong>
+  <div>Working days remaining until a date</div>
+</Link>
+
           <Link href="/date-duration" className="tool-card">
             <strong>Date Duration</strong>
             <div>Difference in years, months and days</div>
@@ -56,9 +61,31 @@ export default function HomePage() {
 
       </section>
 
-      {/* MORE CALCULATORS */}
+      {/* BIRTHDAY TOOLS */}
 
-      <section style={{ marginTop: 50 }}>
+      <section className="homepage-section">
+
+        <h2>Birthday Calculators</h2>
+
+        <div className="tool-grid">
+
+          <Link href="/birthday-weekday-calculator" className="tool-card">
+            <strong>Birthday Weekday Calculator</strong>
+            <div>See which weekday your birthday falls on</div>
+          </Link>
+
+          <Link href="/what-day-was-i-born" className="tool-card">
+            <strong>What Day Was I Born</strong>
+            <div>Discover the weekday you were born</div>
+          </Link>
+
+        </div>
+
+      </section>
+
+      {/* MORE DATE CALCULATORS */}
+
+      <section className="homepage-section">
 
         <h2>More Date Calculators</h2>
 

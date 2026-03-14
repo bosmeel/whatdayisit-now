@@ -4,11 +4,8 @@ import { useState, useEffect } from "react";
 import DateInput from "@/components/DateInput";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import RelatedTools from "@/components/RelatedTools";
-
-function parseDateUTC(dateStr: string) {
-  const [y, m, d] = dateStr.split("-").map(Number);
-  return new Date(Date.UTC(y, m - 1, d));
-}
+import StickyTimeBar from "@/components/StickyTimeBar";
+import { parseDateUTC } from "@/lib/date";
 
 export default function YearsBetweenPage() {
 
@@ -48,6 +45,8 @@ export default function YearsBetweenPage() {
   return (
     <div>
 
+      <StickyTimeBar />
+
       <Breadcrumbs
         items={[
           { name: "Home", href: "/" },
@@ -83,10 +82,19 @@ export default function YearsBetweenPage() {
         />
 
         {result !== null && (
+
           <div className="result-box">
-            <div className="result-number">{result}</div>
-            <div className="result-label">years</div>
+
+            <div className="result-number">
+              {result}
+            </div>
+
+            <div className="result-label">
+              years
+            </div>
+
           </div>
+
         )}
 
       </div>

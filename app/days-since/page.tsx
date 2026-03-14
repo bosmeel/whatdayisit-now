@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import DateInput from "@/components/DateInput";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import RelatedTools from "@/components/RelatedTools";
+import StickyTimeBar from "@/components/StickyTimeBar";
+import { parseDateUTC } from "@/lib/date";
 
 export default function DaysSincePage() {
 
@@ -17,16 +19,22 @@ export default function DaysSincePage() {
       return;
     }
 
-    const start = new Date(date);
+    const start = parseDateUTC(date);
 
     if (Number.isNaN(start.getTime())) {
       setResult(null);
       return;
     }
 
-    const today = new Date();
+    const now = new Date();
+    const today = new Date(Date.UTC(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate()
+    ));
+
     const diff = today.getTime() - start.getTime();
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const days = Math.floor(diff / 86400000);
 
     setResult(days);
 
@@ -34,6 +42,8 @@ export default function DaysSincePage() {
 
   return (
     <div>
+
+      <StickyTimeBar />
 
       <Breadcrumbs
         items={[
@@ -73,7 +83,6 @@ export default function DaysSincePage() {
       </div>
 
       <RelatedTools />
-
 
     </div>
   );

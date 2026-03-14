@@ -2,6 +2,29 @@
 
 import { useState, useEffect } from "react";
 import DateInput from "@/components/DateInput";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import RelatedTools from "@/components/RelatedTools";
+import StickyTimeBar from "@/components/StickyTimeBar";
+import { parseDateUTC } from "@/lib/date";
+
+function calculateBusinessDays(start: Date, end: Date) {
+
+  let count = 0;
+  const current = new Date(start);
+
+  while (current <= end) {
+
+    const day = current.getUTCDay();
+
+    if (day !== 0 && day !== 6) {
+      count++;
+    }
+
+    current.setUTCDate(current.getUTCDate() + 1);
+  }
+
+  return count;
+}
 
 export default function BusinessDaysUntilPage() {
 
@@ -15,42 +38,51 @@ export default function BusinessDaysUntilPage() {
       return;
     }
 
-    const start = new Date();
-    const end = new Date(date);
+    const now = new Date();
+    const today = new Date(Date.UTC(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate()
+    ));
+
+    const end = parseDateUTC(date);
 
     if (Number.isNaN(end.getTime())) {
       setResult(null);
       return;
     }
 
-    let count = 0;
-    const current = new Date(start);
+    const days = calculateBusinessDays(today, end);
 
-    while (current <= end) {
-      const day = current.getDay();
-
-      if (day !== 0 && day !== 6) {
-        count++;
-      }
-
-      current.setDate(current.getDate() + 1);
-    }
-
-    setResult(count);
+    setResult(days);
 
   }, [date]);
 
   return (
     <div>
 
+      <StickyTimeBar />
+
+      <Breadcrumbs
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Date Calculators", href: "/" },
+          { name: "Business Days Until Date" }
+        ]}
+      />
+
       <h1>Business Days Until Date</h1>
 
-      {result !== null && (
-        <div className="result-box">
-          <div className="result-number">{result}</div>
-          <div className="result-label">business days</div>
-        </div>
-      )}
+      <p>
+        Calculate how many working days remain until a specific date.
+      </p>
+
+      <p>
+        This calculator counts the number of business days between today and a
+        future date, excluding Saturdays and Sundays. It can help estimate
+        delivery times, work deadlines, project schedules, and planning
+        timelines based on working days.
+      </p>
 
       <div className="calculator">
 
@@ -60,9 +92,17 @@ export default function BusinessDaysUntilPage() {
           onChange={setDate}
         />
 
+        {result !== null && (
+          <div className="result-box">
+            <div className="result-number">{result}</div>
+            <div className="result-label">business days</div>
+          </div>
+        )}
+
       </div>
 
-     
+      <RelatedTools />
+
     </div>
   );
 }
