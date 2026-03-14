@@ -3,8 +3,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import QuickDateJump from "@/components/QuickDateJump";
 import StickyWrapper from "@/components/StickyWrapper";
-import { usePathname } from "next/navigation";
-
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://whatdayisit.now"),
@@ -72,7 +70,6 @@ export default function RootLayout({
       <body>
 
         <header className="site-header">
-
           <div className="container header-inner">
 
             <div className="logo">
@@ -90,11 +87,7 @@ export default function RootLayout({
 
             <nav className="main-nav" aria-label="Main navigation">
               {navLinks.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="nav-link"
-                >
+                <Link key={item.href} href={item.href} className="nav-link">
                   {item.label}
                 </Link>
               ))}
@@ -103,8 +96,9 @@ export default function RootLayout({
             <QuickDateJump />
 
           </div>
-
         </header>
+
+        <StickyWrapper />
 
         <main className="container main-content">
           {children}
@@ -118,13 +112,6 @@ export default function RootLayout({
             <Link href="/terms">Terms</Link>
           </div>
         </footer>
-<body>
-
-  <StickyWrapper />
-
-  {children}
-
-</body>
 
       </body>
     </html>
