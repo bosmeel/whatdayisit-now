@@ -98,7 +98,9 @@ export default function RootLayout({
           </div>
         </header>
 
-        <StickyWrapper />
+        <div className="container">
+          <StickyWrapper />
+        </div>
 
         <main className="container main-content">
           {children}
