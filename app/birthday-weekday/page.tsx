@@ -67,7 +67,7 @@ export default function BirthdayWeekdayPage() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Birthday Weekday Calculator – What Day Will My Birthday Be?",
+    name: "Birthday Weekday Calculator",
     applicationCategory: "CalculatorApplication",
     operatingSystem: "Web",
     url: "https://whatdayisit.now/birthday-weekday",

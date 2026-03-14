@@ -2,7 +2,6 @@ import Script from "next/script";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import StickyTimeBar from "@/components/StickyTimeBar";
 
 export const metadata: Metadata = {
   title: "What Day Was I Born?",
@@ -79,8 +78,7 @@ export default async function WhatDayWasIBornPage({ searchParams }: PageProps) {
 
   return (
     <div>
-      <StickyTimeBar />
-
+     
       <Script
         id="born-day-schema"
         type="application/ld+json"
@@ -157,7 +155,7 @@ export default async function WhatDayWasIBornPage({ searchParams }: PageProps) {
 
         <ul style={{ lineHeight: 1.8 }}>
           <li>
-            <Link href="/birthday-weekday-calculator">
+            <Link href="/birthday-weekday">
               Birthday Weekday Calculator
             </Link>
           </li>

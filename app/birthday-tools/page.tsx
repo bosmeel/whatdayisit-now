@@ -36,7 +36,7 @@ const tools = [
     title: "Birthday Weekday Calculator",
     description:
       "See what weekday your next birthday will fall on and view your birthday weekday distribution.",
-    url: "/birthday-weekday-calculator",
+    url: "/birthday-weekday",
   },
   {
     title: "Birthdays by Date",

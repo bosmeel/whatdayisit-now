@@ -24,12 +24,7 @@ const nextConfig: NextConfig = {
       },
 
  
-      {
-  source: "/birthday-calculator",
-  destination: "/birthday-weekday",
-  permanent: true,
-},
-
+      
     ];
   },
 };

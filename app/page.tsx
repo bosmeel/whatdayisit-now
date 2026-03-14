@@ -37,7 +37,7 @@ export default function HomePage() {
             <div>Calculate age from a birth date</div>
           </Link>
 
-          <Link href="/birthday-weekday-calculator" className="tool-card">
+          <Link href="/birthday-weekday" className="tool-card">
             <strong>Birthday Weekday Calculator</strong>
             <div>See which weekday your birthday falls on</div>
           </Link>

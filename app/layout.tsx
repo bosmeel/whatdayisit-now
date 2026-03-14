@@ -97,9 +97,6 @@ export default function RootLayout({
           </div>
         </header>
 
-      
-        
-
         <main className="container main-content">
           {children}
         </main>
