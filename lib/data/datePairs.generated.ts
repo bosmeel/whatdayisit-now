@@ -59,7 +59,7 @@ const ENDS: MonthDay[] = [
   { month:5, day:31 },
   { month:4, day:30 },
   { month:3, day:31 },
-  { month:2, day:28 }
+  { month:2, day:29 }
 ];
 
 function uniqBySlug(pairs: GeneratedPair[]) {
@@ -96,5 +96,9 @@ export function generateMonthDayPairs(): GeneratedPair[] {
     }
   }
 
-  return uniqBySlug(pairs);
+  return uniqBySlug(pairs).sort((a,b)=>{
+  const pa = a.priority ?? 0;
+  const pb = b.priority ?? 0;
+  return pb - pa;
+});
 }
