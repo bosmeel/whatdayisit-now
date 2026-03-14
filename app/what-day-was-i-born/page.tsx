@@ -1,5 +1,4 @@
 
-import { useState, useEffect } from "react";
 import Script from "next/script";
 import type { Metadata } from "next";
 import Link from "next/link";
