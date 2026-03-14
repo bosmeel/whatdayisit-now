@@ -5,6 +5,7 @@ import DateInput from "@/components/DateInput";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import RelatedTools from "@/components/RelatedTools";
 import StickyTimeBar from "@/components/StickyTimeBar";
+import SmartToolLinks from "@/components/SmartToolLinks";
 import { parseDateUTC } from "@/lib/date";
 
 export default function MonthsBetweenPage() {
@@ -61,8 +62,8 @@ export default function MonthsBetweenPage() {
 
       <p>
         This calculator determines the number of complete months between two
-        calendar dates. It can be helpful for tracking contract durations,
-        financial periods, subscription timelines, and long-term planning.
+        calendar dates. It can be useful for tracking contracts, subscriptions,
+        financial periods, and long-term planning.
       </p>
 
       <div className="calculator">
@@ -87,6 +88,12 @@ export default function MonthsBetweenPage() {
         )}
 
       </div>
+
+      {/* SMART CALCULATOR LINKS */}
+
+      <SmartToolLinks />
+
+      {/* RELATED TOOLS */}
 
       <RelatedTools />
 

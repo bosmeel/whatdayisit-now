@@ -5,6 +5,7 @@ import DateInput from "@/components/DateInput";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import RelatedTools from "@/components/RelatedTools";
 import StickyTimeBar from "@/components/StickyTimeBar";
+import SmartToolLinks from "@/components/SmartToolLinks";
 
 export default function AgeCalculatorPage() {
 
@@ -50,7 +51,9 @@ export default function AgeCalculatorPage() {
 
   return (
     <div>
-<StickyTimeBar />
+
+      <StickyTimeBar />
+
       <Breadcrumbs
         items={[
           { name: "Home", href: "/" },
@@ -91,6 +94,12 @@ export default function AgeCalculatorPage() {
         )}
 
       </div>
+
+      {/* SMART CALCULATOR LINKS */}
+
+      <SmartToolLinks />
+
+      {/* RELATED TOOLS */}
 
       <RelatedTools />
 

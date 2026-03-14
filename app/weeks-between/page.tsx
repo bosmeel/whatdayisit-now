@@ -5,6 +5,7 @@ import DateInput from "@/components/DateInput";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import RelatedTools from "@/components/RelatedTools";
 import StickyTimeBar from "@/components/StickyTimeBar";
+import SmartToolLinks from "@/components/SmartToolLinks";
 import { parseDateUTC } from "@/lib/date";
 
 export default function WeeksBetweenPage() {
@@ -82,6 +83,12 @@ export default function WeeksBetweenPage() {
         )}
 
       </div>
+
+      {/* SMART CALCULATOR LINKS */}
+
+      <SmartToolLinks />
+
+      {/* RELATED TOOLS */}
 
       <RelatedTools />
 

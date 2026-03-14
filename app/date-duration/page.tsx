@@ -6,6 +6,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import RelatedTools from "@/components/RelatedTools";
 import { getDateDuration, parseDateUTC } from "@/lib/date";
 import StickyTimeBar from "@/components/StickyTimeBar";
+import SmartToolLinks from "@/components/SmartToolLinks";
 
 export default function DateDurationPage() {
 
@@ -98,6 +99,12 @@ export default function DateDurationPage() {
         )}
 
       </div>
+
+      {/* SMART CALCULATOR LINKS */}
+
+      <SmartToolLinks />
+
+      {/* RELATED TOOLS */}
 
       <RelatedTools />
 

@@ -5,6 +5,7 @@ import DateInput from "@/components/DateInput";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import RelatedTools from "@/components/RelatedTools";
 import StickyTimeBar from "@/components/StickyTimeBar";
+import SmartToolLinks from "@/components/SmartToolLinks";
 import { parseDateUTC } from "@/lib/date";
 
 function calculateBusinessDays(start: Date, end: Date) {
@@ -101,6 +102,12 @@ export default function BusinessDaysBetweenPage() {
         )}
 
       </div>
+
+      {/* SMART CALCULATOR LINKS */}
+
+      <SmartToolLinks />
+
+      {/* RELATED TOOLS */}
 
       <RelatedTools />
 
