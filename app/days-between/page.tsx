@@ -6,7 +6,6 @@ import DateInput from "@/components/DateInput";
 import { DATE_PAIRS } from "@/lib/data/datePairs";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import RelatedCalculators from "@/components/RelatedCalculators";
-import StickyTimeBar from "@/components/StickyTimeBar";
 import { parseDateUTC } from "@/lib/date";
 
 /* More stable calculation (avoids timezone errors) */
@@ -59,8 +58,7 @@ export default function DaysBetweenPage() {
   return (
     <div>
 
-      <StickyTimeBar />
-
+      
       <Breadcrumbs
         items={[
           { name: "Home", href: "/" },
