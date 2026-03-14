@@ -15,7 +15,6 @@ function parsePair(slug: string) {
   const end = parseInt(parts[1]);
 
   if (Number.isNaN(start) || Number.isNaN(end)) return null;
-
   if (start >= end) return null;
 
   return { start, end };
@@ -31,6 +30,19 @@ function calculateDays(startYear:number,endYear:number){
   return Math.round(diff / 86400000);
 }
 
+/* STATIC GENERATION */
+
+export function generateStaticParams(){
+
+  const pairs = [];
+
+  for(let y=1990;y<=2035;y++){
+    pairs.push({pair:`${y}-and-${y+1}`});
+  }
+
+  return pairs;
+}
+
 export async function generateMetadata({params}:Props):Promise<Metadata>{
 
   const {pair} = await params;
@@ -40,7 +52,7 @@ export async function generateMetadata({params}:Props):Promise<Metadata>{
 
   return {
     title:`Days Between ${parsed.start} and ${parsed.end}`,
-    description:`Find how many days are between ${parsed.start} and ${parsed.end}.`,
+    description:`There are ${calculateDays(parsed.start,parsed.end)} days between January 1 ${parsed.start} and January 1 ${parsed.end}.`,
     alternates:{
       canonical:`https://whatdayisit.now/days-between-years/${pair}`
     }
@@ -77,6 +89,11 @@ export default async function Page({params}:Props){
       <p style={{marginTop:20}}>
         There are <strong>{days}</strong> days between January 1 {parsed.start}
         and January 1 {parsed.end}.
+      </p>
+
+      <p>
+        This calculation includes leap years and counts the exact number of
+        calendar days between the beginning of both years.
       </p>
 
       <InternalDateLinks />
