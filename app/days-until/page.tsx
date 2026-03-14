@@ -8,9 +8,6 @@ import SeoLinks from "@/components/SeoLinks";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import RelatedTools from "@/components/RelatedTools";
 import SiteLinks from "@/components/SiteLinks";
-import StickyTimeBar from "@/components/StickyTimeBar";
-import SmartToolLinks from "@/components/SmartToolLinks";
-import { parseDateUTC } from "@/lib/date";
 
 const monthNames = [
   "january",
@@ -50,20 +47,15 @@ export default function DaysUntilPage() {
 
     if (!date) return null;
 
-    const target = parseDateUTC(date);
+    const target = new Date(date);
 
     if (Number.isNaN(target.getTime())) return null;
 
-    const now = new Date();
-    const today = new Date(Date.UTC(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate()
-    ));
+    const today = new Date();
 
     const diff = target.getTime() - today.getTime();
 
-    return Math.ceil(diff / 86400000);
+    return Math.ceil(diff / (1000 * 60 * 60 * 24));
 
   }, [date]);
 
@@ -83,8 +75,8 @@ export default function DaysUntilPage() {
         month === "february"
           ? 29
           : [3, 5, 8, 10].includes(monthIndex)
-            ? 30
-            : 31;
+          ? 30
+          : 31;
 
       for (let day = 1; day <= daysInMonth; day++) {
 
@@ -103,8 +95,6 @@ export default function DaysUntilPage() {
 
   return (
     <div>
-
-      <StickyTimeBar />
 
       <Breadcrumbs
         items={[
@@ -142,32 +132,7 @@ export default function DaysUntilPage() {
           </div>
         )}
 
-<section style={{ marginTop: 40 }}>
-
-  <h2>Frequently Asked Questions</h2>
-
-  <h3>How accurate is this calculator?</h3>
-
-  <p>
-    The calculator uses standard calendar calculations and accounts for leap
-    years where applicable. Results are based on UTC date calculations to
-    avoid timezone errors.
-  </p>
-
-  <h3>Can I use past and future dates?</h3>
-
-  <p>
-    Yes. The calculator works for both past and future dates and can be used
-    for planning, scheduling, and analyzing historical timelines.
-  </p>
-
-</section>
-
       </div>
-
-      {/* SMART CALCULATOR LINKS */}
-
-      <SmartToolLinks />
 
       <section style={{ marginTop: 50 }}>
 
