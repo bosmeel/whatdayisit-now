@@ -1,10 +1,8 @@
-
 import Script from "next/script";
 import type { Metadata } from "next";
 import Link from "next/link";
-import DateInput from "@/components/DateInput";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import RelatedTools from "@/components/RelatedTools";
+import StickyTimeBar from "@/components/StickyTimeBar";
 
 export const metadata: Metadata = {
   title: "What Day Was I Born?",
@@ -23,32 +21,52 @@ export const metadata: Metadata = {
   },
 };
 
-export default function WhatDayWasIBornPage() {
+type PageProps = {
+  searchParams?: Promise<{
+    dob?: string;
+  }>;
+};
 
-  const [date, setDate] = useState("");
-  const [result, setResult] = useState<string | null>(null);
+function isValidDate(value: string) {
+  return /^\d{4}-\d{2}-\d{2}$/.test(value);
+}
 
-  useEffect(() => {
+export default async function WhatDayWasIBornPage({ searchParams }: PageProps) {
+  const params = (await searchParams) ?? {};
+  const dobParam = params.dob ?? "";
 
-    if (!date) {
-      setResult(null);
-      return;
+  let result:
+    | {
+        day: string;
+        formattedDate: string;
+      }
+    | null = null;
+
+  let error = "";
+
+  if (dobParam) {
+    if (!isValidDate(dobParam)) {
+      error = "Enter a valid date.";
+    } else {
+      const dob = new Date(`${dobParam}T00:00:00`);
+
+      if (Number.isNaN(dob.getTime())) {
+        error = "Enter a valid date.";
+      } else {
+        const day = dob.toLocaleDateString("en-US", {
+          weekday: "long",
+        });
+
+        const formattedDate = dob.toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+
+        result = { day, formattedDate };
+      }
     }
-
-    const d = new Date(date);
-
-    if (Number.isNaN(d.getTime())) {
-      setResult(null);
-      return;
-    }
-
-    const day = d.toLocaleDateString("en-US", {
-      weekday: "long",
-    });
-
-    setResult(day);
-
-  }, [date]);
+  }
 
   const schema = {
     "@context": "https://schema.org",
@@ -61,6 +79,7 @@ export default function WhatDayWasIBornPage() {
 
   return (
     <div>
+      <StickyTimeBar />
 
       <Script
         id="born-day-schema"
@@ -74,7 +93,7 @@ export default function WhatDayWasIBornPage() {
         items={[
           { name: "Home", href: "/" },
           { name: "Birthday Tools", href: "/" },
-          { name: "What Day Was I Born" }
+          { name: "What Day Was I Born" },
         ]}
       />
 
@@ -84,34 +103,40 @@ export default function WhatDayWasIBornPage() {
         Enter your birth date to find out which day of the week you were born.
       </p>
 
-      <div className="calculator">
+      <form method="GET" className="calculator">
+        <label className="date-label" htmlFor="dob">
+          Birth date
+        </label>
 
-        <DateInput
-          label="Birth date"
-          value={date}
-          onChange={setDate}
-        />
+        <div className="date-input-row">
+          <input
+            id="dob"
+            type="date"
+            name="dob"
+            defaultValue={dobParam}
+            className="date-input"
+          />
 
-        {result && (
+          <button type="submit">
+            Calculate
+          </button>
+        </div>
+      </form>
 
-          <div className="result-box">
+      {error && (
+        <div className="result-box">
+          <div className="result-label">{error}</div>
+        </div>
+      )}
 
-            <div className="result-number">
-              {result}
-            </div>
-
-            <div className="result-label">
-              weekday
-            </div>
-
-          </div>
-
-        )}
-
-      </div>
+      {result && (
+        <div className="result-box">
+          <div className="result-number">{result.day}</div>
+          <div className="result-label">{result.formattedDate}</div>
+        </div>
+      )}
 
       <section style={{ marginTop: 40 }}>
-
         <h2>About the Birth Day Calculator</h2>
 
         <p>
@@ -125,39 +150,29 @@ export default function WhatDayWasIBornPage() {
           Many people search for their birth weekday out of curiosity, for
           astrology, or to explore interesting patterns in the calendar.
         </p>
-
       </section>
 
-      <RelatedTools />
-
       <section style={{ marginTop: 40 }}>
-
         <h2>Related Tools</h2>
 
         <ul style={{ lineHeight: 1.8 }}>
-
           <li>
             <Link href="/birthday-weekday-calculator">
               Birthday Weekday Calculator
             </Link>
           </li>
-
           <li>
             <Link href="/age-calculator">
               Age Calculator
             </Link>
           </li>
-
           <li>
             <Link href="/days-between">
               Days Between Dates
             </Link>
           </li>
-
         </ul>
-
       </section>
-
     </div>
   );
 }
