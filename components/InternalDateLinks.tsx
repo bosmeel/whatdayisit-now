@@ -5,84 +5,72 @@ const months = [
   "july","august","september","october","november","december"
 ];
 
-function generateDateLinks(){
+function capitalize(s:string){
+  return s.charAt(0).toUpperCase()+s.slice(1);
+}
 
-  const links:{slug:string,label:string}[] = [];
+export default function InternalDateLinks() {
+
+  const links = [];
 
   for(let m=0;m<months.length;m++){
 
     for(let d=1;d<=3;d++){
 
-      const name = months[m];
-
       links.push({
-        slug:`${name}-${d}`,
-        label:`${name.charAt(0).toUpperCase()+name.slice(1)} ${d}`
+        slug:`${months[m]}-${d}`,
+        label:`${capitalize(months[m])} ${d}`
       });
 
     }
 
   }
 
-  return links;
-}
-
-function generateYearLinks(){
-
-  const currentYear = new Date().getFullYear();
-  const links:{slug:string,label:string}[] = [];
-
-  for(let y=currentYear-3;y<=currentYear+3;y++){
-
-    links.push({
-      slug:`${y}-and-${y+1}`,
-      label:`${y} and ${y+1}`
-    });
-
-  }
-
-  return links;
-}
-
-export default function InternalDateLinks(){
-
-  const dateLinks = generateDateLinks();
-  const yearLinks = generateYearLinks();
-
   return(
 
     <section style={{marginTop:60}}>
 
-      <h2>Browse Date Countdowns</h2>
+      <h2>Explore More Date Tools</h2>
 
       <div className="tool-grid">
 
-        {dateLinks.map((l)=>(
+        {links.map((l)=>(
+
           <Link
-            key={l.slug}
+            key={`until-${l.slug}`}
             href={`/days-until-date/${l.slug}`}
             className="tool-card"
           >
             <strong>{l.label}</strong>
-            <div>See countdown</div>
+            <div>Days until this date</div>
           </Link>
+
         ))}
 
-      </div>
+        {links.map((l)=>(
 
-      <h2 style={{marginTop:40}}>Year Comparisons</h2>
-
-      <div className="tool-grid">
-
-        {yearLinks.map((l)=>(
           <Link
-            key={l.slug}
-            href={`/days-between-years/${l.slug}`}
+            key={`born-${l.slug}`}
+            href={`/born-on/${l.slug}`}
             className="tool-card"
           >
-            <strong>{l.label}</strong>
-            <div>Days between these years</div>
+            <strong>Born on {l.label}</strong>
+            <div>See weekday of birth</div>
           </Link>
+
+        ))}
+
+        {links.map((l)=>(
+
+          <Link
+            key={`history-${l.slug}`}
+            href={`/what-happened-on/${l.slug}`}
+            className="tool-card"
+          >
+            <strong>History on {l.label}</strong>
+            <div>Important events on this day</div>
+          </Link>
+
         ))}
 
       </div>
