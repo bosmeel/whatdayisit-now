@@ -366,6 +366,7 @@ h1{
 .date-input-row{
   display:flex;
   gap:10px;
+  align-items:center;
   flex-wrap:wrap;
 }
 
@@ -408,34 +409,31 @@ h1{
   gap:14px;
 }
 
-.date-input-row{
-  display:flex;
-  gap:10px;
-  align-items:center;
-}
-
-.date-label{
-  font-size:14px;
-  font-weight:600;
-}
-
-.date-input{
-  border:1px solid #ddd;
-  padding:8px 10px;
-  border-radius:6px;
-  font-size:14px;
-}
-
 .calculator button{
-  border:1px solid #ddd;
-  background:white;
-  padding:8px 14px;
+  border:1px solid var(--border);
+  background:var(--card);
+  padding:10px 14px;
   border-radius:6px;
   cursor:pointer;
 }
 
 .calculator button:hover{
-  background:#f5f5f5;
+  border-color:var(--accent);
+}
+
+/* Mobile calculator layout */
+
+@media (max-width:600px){
+
+  .date-input-row{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .calculator button{
+    width:100%;
+  }
+
 }
 
 /* ===============================
