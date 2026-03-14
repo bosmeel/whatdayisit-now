@@ -3,6 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   async redirects() {
     return [
+
       {
         source: "/days-between-dates",
         destination: "/days-between",
@@ -21,6 +22,14 @@ const nextConfig: NextConfig = {
         destination: "/days-until/:year/:month/:day",
         permanent: true,
       },
+
+      // FIX broken link
+      {
+        source: "/birthday-calculator",
+        destination: "/age-calculator",
+        permanent: true,
+      },
+
     ];
   },
 };
