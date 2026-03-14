@@ -23,12 +23,12 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
 
-      // FIX broken link
+ 
       {
-        source: "/birthday-calculator",
-        destination: "/age-calculator",
-        permanent: true,
-      },
+  source: "/birthday-calculator",
+  destination: "/birthday-weekday",
+  permanent: true,
+},
 
     ];
   },

@@ -67,10 +67,10 @@ export default function BirthdayWeekdayPage() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Birthday Weekday Calculator",
+    name: "Birthday Weekday Calculator – What Day Will My Birthday Be?",
     applicationCategory: "CalculatorApplication",
     operatingSystem: "Web",
-    url: "https://whatdayisit.now/birthday-weekday-calculator",
+    url: "https://whatdayisit.now/birthday-weekday",
   };
 
   return (
@@ -86,7 +86,6 @@ export default function BirthdayWeekdayPage() {
       <Breadcrumbs
         items={[
           { name: "Home", href: "/" },
-          { name: "Birthday Tools", href: "/birthday-tools" },
           { name: "Birthday Weekday Calculator" }
         ]}
       />
