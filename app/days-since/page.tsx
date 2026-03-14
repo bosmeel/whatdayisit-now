@@ -99,4 +99,18 @@ export default function DaysSincePage() {
         <h3>Can I use past and future dates?</h3>
 
         <p>
-          Yes. The calculator works for both past and
+          Yes. The calculator works for both past and future dates and can be
+          used for planning, scheduling, and analyzing historical timelines.
+        </p>
+
+      </section>
+
+      <SmartToolLinks />
+
+      <RelatedTools />
+
+    </div>
+
+  );
+
+}
