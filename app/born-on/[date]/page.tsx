@@ -264,7 +264,7 @@ export default async function Page({ params }: PageProps) {
           </li>
 
           <li>
-            <Link href="/birthday-weekday-calculator">
+            <Link href="/birthday-weekday">
               Birthday weekday calculator
             </Link>
           </li>
