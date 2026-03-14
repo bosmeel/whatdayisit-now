@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { EVENTS } from "@/lib/events";
 import { DATE_PAIRS } from "@/lib/data/datePairs";
 import { DATE_PAIRS_SEO } from "@/lib/data/datePairsSeo";
 import { generateMonthDayPairs } from "@/lib/data/datePairs.generated";
@@ -19,18 +18,16 @@ const months = [
   { name: "december", days: 31 },
 ];
 
+/* Year comparison pages */
+
 function generateYearPairs() {
 
   const pairs: string[] = [];
 
-  for (let start = 1900; start <= 2030; start++) {
+  const currentYear = new Date().getFullYear();
 
-    for (let end = start + 1; end <= start + 20; end++) {
-
-      pairs.push(`${start}-and-${end}`);
-
-    }
-
+  for (let start = currentYear - 20; start <= currentYear + 10; start++) {
+    pairs.push(`${start}-and-${start + 1}`);
   }
 
   return pairs;
@@ -44,6 +41,8 @@ export async function GET() {
   const urls = new Set<string>();
 
   const currentYear = new Date().getFullYear();
+
+  /* Core date tools */
 
   const staticRoutes = [
     "",
@@ -59,9 +58,7 @@ export async function GET() {
     urls.add(`${baseUrl}${route}`);
   });
 
-  Object.keys(EVENTS).forEach((slug) => {
-    urls.add(`${baseUrl}/days-until/${slug}`);
-  });
+  /* Days between pairs */
 
   const generatedPairs = generateMonthDayPairs();
 
@@ -69,13 +66,18 @@ export async function GET() {
     urls.add(`${baseUrl}/days-between/${pair.slug}`);
   });
 
+  /* Year comparison pages */
+
   const yearPairs = generateYearPairs();
 
   yearPairs.forEach((pair) => {
     urls.add(`${baseUrl}/days-between-years/${pair}`);
   });
 
+  /* Month-day pages */
+
   months.forEach((m) => {
+
     for (let d = 1; d <= m.days; d++) {
 
       urls.add(`${baseUrl}/born-on/${m.name}-${d}`);
@@ -83,6 +85,7 @@ export async function GET() {
       urls.add(`${baseUrl}/days-until-date/${m.name}-${d}`);
 
     }
+
   });
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
