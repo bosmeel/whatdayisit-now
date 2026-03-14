@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import DateInput from "@/components/DateInput";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import RelatedTools from "@/components/RelatedTools";
-import StickyTimeBar from "@/components/StickyTimeBar";
 import SmartToolLinks from "@/components/SmartToolLinks";
 import { parseDateUTC } from "@/lib/date";
 
@@ -28,6 +27,7 @@ export default function DaysSincePage() {
     }
 
     const now = new Date();
+
     const today = new Date(Date.UTC(
       now.getFullYear(),
       now.getMonth(),
@@ -42,9 +42,8 @@ export default function DaysSincePage() {
   }, [date]);
 
   return (
-    <div>
 
-      <StickyTimeBar />
+    <div>
 
       <Breadcrumbs
         items={[
@@ -75,43 +74,29 @@ export default function DaysSincePage() {
         />
 
         {result !== null && (
+
           <div className="result-box">
             <div className="result-number">{result}</div>
             <div className="result-label">days</div>
           </div>
+
         )}
-
-<section style={{ marginTop: 40 }}>
-
-  <h2>Frequently Asked Questions</h2>
-
-  <h3>How accurate is this calculator?</h3>
-
-  <p>
-    The calculator uses standard calendar calculations and accounts for leap
-    years where applicable. Results are based on UTC date calculations to
-    avoid timezone errors.
-  </p>
-
-  <h3>Can I use past and future dates?</h3>
-
-  <p>
-    Yes. The calculator works for both past and future dates and can be used
-    for planning, scheduling, and analyzing historical timelines.
-  </p>
-
-</section>
 
       </div>
 
-      {/* SMART CALCULATOR LINKS */}
+      <section style={{ marginTop: 40 }}>
 
-      <SmartToolLinks />
+        <h2>Frequently Asked Questions</h2>
 
-      {/* RELATED TOOLS */}
+        <h3>How accurate is this calculator?</h3>
 
-      <RelatedTools />
+        <p>
+          The calculator uses standard calendar calculations and accounts for
+          leap years where applicable. Results are based on UTC date
+          calculations to avoid timezone errors.
+        </p>
 
-    </div>
-  );
-}
+        <h3>Can I use past and future dates?</h3>
+
+        <p>
+          Yes. The calculator works for both past and
