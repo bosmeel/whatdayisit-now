@@ -10,30 +10,23 @@ import RelatedTools from "@/components/RelatedTools";
 import SiteLinks from "@/components/SiteLinks";
 
 const monthNames = [
-  "january",
-  "february",
-  "march",
-  "april",
-  "may",
-  "june",
-  "july",
-  "august",
-  "september",
-  "october",
-  "november",
-  "december",
+  "january","february","march","april","may","june",
+  "july","august","september","october","november","december",
 ];
 
 export default function DaysUntilPage() {
 
   const [date, setDate] = useState("");
 
-  /* read date from URL once */
+  /* read date from URL */
 
   useEffect(() => {
 
     const params = new URLSearchParams(window.location.search);
-    const urlDate = params.get("date");
+
+    const urlDate =
+      params.get("target") ||   // QuickDateJump
+      params.get("date");      // fallback
 
     if (urlDate) {
       setDate(urlDate);
@@ -55,7 +48,7 @@ export default function DaysUntilPage() {
 
     const diff = target.getTime() - today.getTime();
 
-    return Math.ceil(diff / (1000 * 60 * 60 * 24));
+    return Math.ceil(diff / 86400000);
 
   }, [date]);
 
@@ -111,12 +104,6 @@ export default function DaysUntilPage() {
         popular countdowns below.
       </p>
 
-      <p>
-        Use this countdown calculator to see how many days remain until a
-        future date. It is commonly used for tracking holidays, birthdays,
-        school events, travel plans, and other important deadlines.
-      </p>
-
       <div className="calculator">
 
         <DateInput
@@ -141,15 +128,9 @@ export default function DaysUntilPage() {
         <div className="tool-grid">
 
           {[
-            "christmas",
-            "new-year",
-            "halloween",
-            "thanksgiving",
-            "valentines-day",
-            "first-day-of-summer",
-            "back-to-school",
-            "super-bowl",
-            "christmas-eve",
+            "christmas","new-year","halloween","thanksgiving",
+            "valentines-day","first-day-of-summer",
+            "back-to-school","super-bowl","christmas-eve",
           ]
             .filter((slug) => EVENTS[slug])
             .map((slug) => (
@@ -159,9 +140,7 @@ export default function DaysUntilPage() {
                 className="tool-card"
               >
                 <strong>{EVENTS[slug].name}</strong>
-                <div>
-                  {EVENTS[slug].month}/{EVENTS[slug].day}
-                </div>
+                <div>{EVENTS[slug].month}/{EVENTS[slug].day}</div>
               </Link>
             ))}
 
@@ -172,10 +151,6 @@ export default function DaysUntilPage() {
       <section style={{ marginTop: 50 }}>
 
         <h2>Days Until Any Date</h2>
-
-        <p>
-          Browse countdown pages for every calendar date of the year.
-        </p>
 
         <div className="tool-grid">
 
@@ -213,9 +188,7 @@ export default function DaysUntilPage() {
               className="tool-card"
             >
               <strong>{event.name}</strong>
-              <div>
-                {event.month}/{event.day}
-              </div>
+              <div>{event.month}/{event.day}</div>
             </Link>
           ))}
 
@@ -224,9 +197,7 @@ export default function DaysUntilPage() {
       </section>
 
       <RelatedTools />
-
       <SeoLinks />
-
       <SiteLinks />
 
     </div>

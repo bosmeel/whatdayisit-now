@@ -23,9 +23,30 @@ export default function TodayDashboard() {
 
     updateNow();
 
-    const interval = setInterval(updateNow, 60000);
+    function scheduleNextUpdate() {
 
-    return () => clearInterval(interval);
+      const current = new Date();
+
+      const nextMinute = new Date(
+        current.getFullYear(),
+        current.getMonth(),
+        current.getDate(),
+        current.getHours(),
+        current.getMinutes() + 1,
+        0,
+        0
+      );
+
+      const delay = nextMinute.getTime() - current.getTime();
+
+      setTimeout(() => {
+        updateNow();
+        scheduleNextUpdate();
+      }, delay);
+
+    }
+
+    scheduleNextUpdate();
 
   }, []);
 
@@ -36,8 +57,10 @@ export default function TodayDashboard() {
   const totalDays = getTotalDaysInYear(now.getFullYear());
   const daysLeft = getDaysLeftInYear(now);
   const quarter = getQuarter(now);
-  const yearProgress = getYearProgressPercent(now);
   const weekend = getDaysUntilWeekend(now);
+
+  const yearProgressRaw = getYearProgressPercent(now);
+  const yearProgress = Math.round(Number(yearProgressRaw));
 
   return (
 
@@ -57,7 +80,7 @@ export default function TodayDashboard() {
 
         <div className="today-card">
           <strong>Week number</strong>
-          <div>Week {weekNumber}</div>
+          <div>{weekNumber}</div>
         </div>
 
         <div className="today-card">
@@ -72,7 +95,16 @@ export default function TodayDashboard() {
 
         <div className="today-card">
           <strong>Year progress</strong>
+
           <div>{yearProgress}%</div>
+
+          <div className="year-progress-bar">
+            <div
+              className="year-progress-fill"
+              style={{ width: `${yearProgress}%` }}
+            />
+          </div>
+
         </div>
 
         <div className="today-card">

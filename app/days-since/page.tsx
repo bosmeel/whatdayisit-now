@@ -12,6 +12,19 @@ export default function DaysSincePage() {
   const [date, setDate] = useState("");
   const [result, setResult] = useState<number | null>(null);
 
+  /* read date from URL */
+
+  useEffect(() => {
+
+    const params = new URLSearchParams(window.location.search);
+    const urlDate = params.get("start");
+
+    if (urlDate) {
+      setDate(urlDate);
+    }
+
+  }, []);
+
   useEffect(() => {
 
     if (!date) {
@@ -59,12 +72,6 @@ export default function DaysSincePage() {
         Calculate how many days have passed since a specific date.
       </p>
 
-      <p>
-        This calculator shows how many days have passed since a given date.
-        It can be used to track milestones, anniversaries, project timelines,
-        or the number of days since an important event.
-      </p>
-
       <div className="calculator">
 
         <DateInput
@@ -84,29 +91,7 @@ export default function DaysSincePage() {
 
       </div>
 
-      <section style={{ marginTop: 40 }}>
-
-        <h2>Frequently Asked Questions</h2>
-
-        <h3>How accurate is this calculator?</h3>
-
-        <p>
-          The calculator uses standard calendar calculations and accounts for
-          leap years where applicable. Results are based on UTC date
-          calculations to avoid timezone errors.
-        </p>
-
-        <h3>Can I use past and future dates?</h3>
-
-        <p>
-          Yes. The calculator works for both past and future dates and can be
-          used for planning, scheduling, and analyzing historical timelines.
-        </p>
-
-      </section>
-
       <SmartToolLinks />
-
       <RelatedTools />
 
     </div>
