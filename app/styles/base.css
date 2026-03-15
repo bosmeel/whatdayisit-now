@@ -43,3 +43,37 @@ a{
 a:hover{
   color:var(--accent);
 }
+
+/* ===============================
+   Footer
+================================ */
+
+.site-footer{
+  border-top:1px solid var(--border);
+  margin-top:60px;
+  padding:20px 0;
+  font-size:14px;
+  color:var(--muted);
+}
+
+.footer-inner{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:18px;
+}
+
+.footer-inner a{
+  color:var(--muted);
+}
+
+.footer-inner a:hover{
+  color:var(--accent);
+}
+
+.footer-inner a:not(:last-child)::after{
+  content:"·";
+  margin-left:10px;
+  color:var(--border);
+}

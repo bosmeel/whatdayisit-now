@@ -8,16 +8,16 @@ export default function Header() {
   const [menuOpen,setMenuOpen] = useState(false);
 
   const navLinks = [
-    { href: "/days-between", label: "Days Between" },
-    { href: "/days-until", label: "Days Until" },
-    { href: "/days-since", label: "Days Since" },
-    { href: "/age-calculator", label: "Age Calculator" },
-    { href: "/business-days-between", label: "Business Days" },
-    { href: "/business-days-until", label: "Business Days Until" },
-    { href: "/birthday-weekday", label: "Birthday Weekday" },
-    { href: "/weeks-between", label: "Weeks" },
-    { href: "/months-between", label: "Months" },
-  ];
+  { href: "/days-between", label: "Days Between" },
+  { href: "/days-until", label: "Days Until" },
+  { href: "/days-since", label: "Days Since" },
+  { href: "/age-calculator", label: "Age Calculator" },
+  { href: "/business-days-between", label: "Business Days Since" },
+  { href: "/business-days-until", label: "Business Days Until" },
+  { href: "/birthday-weekday", label: "Birthday Weekday" },
+  { href: "/weeks-between", label: "Weeks" },
+  { href: "/months-between", label: "Months" },
+];
 
   return (
 
