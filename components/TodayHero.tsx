@@ -43,16 +43,21 @@ export default function TodayHero() {
 
     <section className="today-hero">
 
-      <h1>What Day Is It Today?</h1>
-
-      <div className="today-date">
-        {weekday}, {fullDate}
+      <div className="today-weekday">
+        {weekday}
       </div>
 
-      <p className="today-subtitle">
-        Today is day <strong>{dayOfYear}</strong> of {totalDays}.
-        The year is <strong>{yearProgress}%</strong> complete.
-      </p>
+      <div className="today-date">
+        {fullDate}
+      </div>
+
+      <div className="hero-question">
+        What day is it today?
+      </div>
+
+      <div className="today-subtitle">
+        Day {dayOfYear} of {totalDays} • {yearProgress}% of the year passed
+      </div>
 
     </section>
 
