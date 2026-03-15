@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import {
   getDayOfYear,
   getTotalDaysInYear,
@@ -12,7 +13,23 @@ import {
 
 export default function TodayDashboard() {
 
-  const now = new Date();
+  const [now, setNow] = useState<Date | null>(null);
+
+  useEffect(() => {
+
+    function updateNow() {
+      setNow(new Date());
+    }
+
+    updateNow();
+
+    const interval = setInterval(updateNow, 60000);
+
+    return () => clearInterval(interval);
+
+  }, []);
+
+  if (!now) return null;
 
   const weekNumber = getISOWeekNumber(now);
   const dayOfYear = getDayOfYear(now);
