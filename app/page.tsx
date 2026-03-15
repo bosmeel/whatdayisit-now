@@ -6,11 +6,7 @@ export default function HomePage() {
   return (
     <div>
 
-      {/* HERO */}
-
       <TodayHero />
-
-      {/* TODAY DASHBOARD */}
 
       <TodayDashboard />
 
@@ -32,29 +28,29 @@ export default function HomePage() {
             <div>Countdown to a future date</div>
           </Link>
 
-           <Link href="/birthday-weekday" className="tool-card">
-            <strong>Birthday Weekday Calculator</strong>
-            <div>See which weekday your birthday falls on</div>
+          <Link href="/age-calculator" className="tool-card">
+            <strong>Age Calculator</strong>
+            <div>Calculate age from a birth date</div>
           </Link>
-
-        </div>
-
-      </section>
-
-      {/* MAIN DATE CALCULATORS */}
-
-      <section className="homepage-section">
-
-        <h2>All Date Calculators and Tools</h2>
-
-        <div className="tool-grid">
 
           <Link href="/days-since" className="tool-card">
             <strong>Days Since Date</strong>
             <div>See how many days have passed</div>
           </Link>
 
-           <Link href="/weeks-between" className="tool-card">
+        </div>
+
+      </section>
+
+      {/* ALL DATE CALCULATORS */}
+
+      <section className="homepage-section">
+
+        <h2>All Date Calculators</h2>
+
+        <div className="tool-grid">
+
+          <Link href="/weeks-between" className="tool-card">
             <strong>Weeks Between Dates</strong>
             <div>Calculate the number of weeks between two dates</div>
           </Link>
@@ -92,18 +88,23 @@ export default function HomePage() {
 
       <section className="homepage-section">
 
-        <h2><h2>Birthday Calculators and Tools</h2></h2>
+        <h2>Birthday Calculators</h2>
 
         <div className="tool-grid">
+
+          <Link href="/age-calculator" className="tool-card">
+            <strong>Age Calculator</strong>
+            <div>Calculate age from a birth date</div>
+          </Link>
 
           <Link href="/what-day-was-i-born" className="tool-card">
             <strong>What Day Was I Born</strong>
             <div>Discover the weekday you were born</div>
           </Link>
 
-<Link href="/age-calculator" className="tool-card">
-            <strong>Age Calculator</strong>
-            <div>Calculate age from a birth date</div>
+          <Link href="/birthday-weekday" className="tool-card">
+            <strong>Birthday Weekday</strong>
+            <div>See which weekday your next birthday falls on</div>
           </Link>
 
         </div>

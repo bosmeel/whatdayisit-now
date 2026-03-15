@@ -1,7 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getDayOfYear, getTotalDaysInYear } from "@/lib/date";
+import {
+  getDayOfYear,
+  getTotalDaysInYear,
+  getYearProgressPercent,
+} from "@/lib/date";
 
 export default function TodayHero() {
 
@@ -9,13 +13,13 @@ export default function TodayHero() {
 
   useEffect(()=>{
 
-    function update(){
+    function updateNow(){
       setNow(new Date());
     }
 
-    update();
+    updateNow();
 
-    const interval = setInterval(update,60000);
+    const interval = setInterval(updateNow,60000);
 
     return ()=>clearInterval(interval);
 
@@ -23,7 +27,7 @@ export default function TodayHero() {
 
   if(!now) return null;
 
-  const dayName = now.toLocaleDateString("en-US",{weekday:"long"});
+  const weekday = now.toLocaleDateString("en-US",{ weekday:"long" });
 
   const fullDate = now.toLocaleDateString("en-US",{
     year:"numeric",
@@ -33,27 +37,21 @@ export default function TodayHero() {
 
   const dayOfYear = getDayOfYear(now);
   const totalDays = getTotalDaysInYear(now.getFullYear());
+  const yearProgress = getYearProgressPercent(now);
 
   return (
 
     <section className="today-hero">
 
-      <h1>
-        What Day Is It Today?
-      </h1>
+      <h1>What Day Is It Today?</h1>
 
       <div className="today-date">
-
-        {dayName}, {fullDate}
-
+        {weekday}, {fullDate}
       </div>
 
       <p className="today-subtitle">
-
         Today is day <strong>{dayOfYear}</strong> of {totalDays}.
-        Instantly see today's date, week number,
-        and how much of the year has passed.
-
+        The year is <strong>{yearProgress}%</strong> complete.
       </p>
 
     </section>

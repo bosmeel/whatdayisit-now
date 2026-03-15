@@ -131,6 +131,57 @@ a:hover{
   padding:8px 0;
 }
 
+/* mobile menu button */
+
+.mobile-menu-button{
+  display:none;
+  font-size:22px;
+  border:none;
+  background:none;
+  cursor:pointer;
+}
+
+/* hide desktop nav on mobile */
+
+@media (max-width:720px){
+
+  .desktop-nav{
+    display:none;
+  }
+
+  .mobile-menu-button{
+    display:block;
+  }
+
+}
+
+/* ===============================
+   Mobile dashboard layout
+================================ */
+
+@media (max-width:640px){
+
+  .today-grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+  }
+
+  .today-card{
+    padding:14px 12px;
+    min-height:auto;
+  }
+
+  .today-card strong{
+    font-size:11px;
+  }
+
+  .today-card > div:first-of-type{
+    font-size:22px;
+  }
+
+}
+
+
 /* ===============================
    Mobile drawer navigation
 ================================ */
@@ -252,6 +303,78 @@ a:hover{
 
 }
 
+.mobile-menu-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.35);
+  backdrop-filter:blur(4px);
+  z-index:100;
+}
+
+.mobile-menu{
+  position:absolute;
+  right:0;
+  top:0;
+  height:100%;
+  width:260px;
+  background:var(--background);
+  border-left:1px solid var(--border);
+  padding:24px;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+.mobile-menu-close{
+  align-self:flex-end;
+  font-size:22px;
+  border:none;
+  background:none;
+  cursor:pointer;
+}
+
+.mobile-nav{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.mobile-nav-link{
+  font-size:16px;
+  font-weight:600;
+}
+
+/* ===============================
+   Compact mobile header
+================================ */
+
+@media (max-width:720px){
+
+  .site-header{
+    padding:4px 0;
+  }
+
+  .header-inner{
+    padding:6px 0;
+    gap:6px;
+  }
+
+  .logo-link{
+    font-size:15px;
+  }
+
+  .logo-icon{
+    width:16px;
+    height:16px;
+  }
+
+  .mobile-menu-button{
+    font-size:20px;
+    padding:4px 6px;
+  }
+
+}
+
 /* ===============================
    Main content
 ================================ */
@@ -321,12 +444,26 @@ a:hover{
   border:1px solid var(--border);
   border-radius:14px;
   padding:20px 18px;
+
   display:flex;
   flex-direction:column;
   gap:6px;
+
   min-height:86px;
+
   box-shadow:0 4px 12px rgba(0,0,0,0.06);
-  transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease;
+
+  text-decoration:none;
+  color:var(--foreground);
+
+  position:relative;
+  overflow:hidden;
+
+  transition:
+    transform .18s ease,
+    box-shadow .18s ease,
+    border-color .18s ease,
+    background .18s ease;
 }
 
 .today-card strong{
@@ -345,9 +482,13 @@ a:hover{
 }
 
 .today-card:hover{
-  transform:translateY(-4px);
-  box-shadow:0 10px 22px rgba(0,0,0,0.08);
+  transform:translateY(-3px);
   border-color:var(--accent);
+  box-shadow:0 14px 28px rgba(0,0,0,0.08);
+}
+
+.today-card:active{
+  transform:scale(.98);
 }
 
 .today-hero{

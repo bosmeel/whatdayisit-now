@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import {
   getDayOfYear,
   getTotalDaysInYear,
@@ -17,45 +18,29 @@ export default function TodayDashboard() {
 
   useEffect(() => {
 
-    function updateNow(){
+    function updateNow() {
       setNow(new Date());
     }
 
     updateNow();
 
-    const interval = setInterval(updateNow,60000);
+    const interval = setInterval(updateNow, 60000);
 
     return () => clearInterval(interval);
 
-  },[]);
+  }, []);
 
-  if(!now) return null;
+  if (!now) return null;
+
+  const year = now.getFullYear();
 
   const weekNumber = getISOWeekNumber(now);
   const dayOfYear = getDayOfYear(now);
-  const totalDays = getTotalDaysInYear(now.getFullYear());
+  const totalDays = getTotalDaysInYear(year);
   const daysLeft = getDaysLeftInYear(now);
   const quarter = getQuarter(now);
   const yearProgress = getYearProgressPercent(now);
   const weekend = getDaysUntilWeekend(now);
-
-  /* new data */
-
-  const dayName = now.toLocaleDateString("en-US",{weekday:"long"});
-
-  const daysInMonth = new Date(
-    now.getFullYear(),
-    now.getMonth()+1,
-    0
-  ).getDate();
-
-  const dayOfMonth = now.getDate();
-
-  const daysLeftMonth = daysInMonth - dayOfMonth;
-
-  const monthProgress = Math.round(
-    (dayOfMonth / daysInMonth) * 100
-  );
 
   return (
 
@@ -73,27 +58,23 @@ export default function TodayDashboard() {
 
       <div className="today-grid">
 
-        <div className="today-card">
-          <strong>Day of week</strong>
-          <div>{dayName}</div>
-        </div>
-
-        <div className="today-card">
+        <Link href="/weeks-between" className="today-card">
           <strong>Week number</strong>
           <div>{weekNumber}</div>
-        </div>
+        </Link>
 
-        <div className="today-card">
+        <Link href={`/day-of-year`} className="today-card">
           <strong>Day of year</strong>
           <div>{dayOfYear} / {totalDays}</div>
-        </div>
+        </Link>
 
-        <div className="today-card">
+        <Link href={`/how-many-days-left-in/${year}`} className="today-card">
           <strong>Days left in year</strong>
           <div>{daysLeft}</div>
-        </div>
+        </Link>
 
-        <div className="today-card">
+        <Link href={`/year-progress`} className="today-card">
+
           <strong>Year progress</strong>
 
           <div>{yearProgress}%</div>
@@ -101,40 +82,21 @@ export default function TodayDashboard() {
           <div className="year-progress-bar">
             <div
               className="year-progress-fill"
-              style={{width:`${yearProgress}%`}}
+              style={{ width: `${yearProgress}%` }}
             />
           </div>
 
-        </div>
+        </Link>
 
-        <div className="today-card">
-          <strong>Quarter</strong>
-          <div>{quarter}</div>
-        </div>
-
-        <div className="today-card">
+        <Link href="/days-until" className="today-card">
           <strong>Days until weekend</strong>
           <div>{weekend}</div>
-        </div>
+        </Link>
 
-        <div className="today-card">
-          <strong>Days left in month</strong>
-          <div>{daysLeftMonth}</div>
-        </div>
-
-        <div className="today-card">
-          <strong>Month progress</strong>
-
-          <div>{monthProgress}%</div>
-
-          <div className="year-progress-bar">
-            <div
-              className="year-progress-fill"
-              style={{width:`${monthProgress}%`}}
-            />
-          </div>
-
-        </div>
+        <Link href="/quarters-of-the-year" className="today-card">
+          <strong>Quarter</strong>
+          <div>{quarter}</div>
+        </Link>
 
       </div>
 

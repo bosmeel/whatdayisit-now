@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import MobileNav from "@/components/MobileNav";
 import "./globals.css";
+import Header from "@/components/Header";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://whatdayisit.now"),
@@ -51,55 +51,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-
-  const navLinks = [
-    { href: "/days-between", label: "Days Between" },
-    { href: "/days-until", label: "Days Until" },
-    { href: "/days-since", label: "Days Since" },
-    { href: "/age-calculator", label: "Age Calculator" },
-    { href: "/business-days-between", label: "Business Days" },
-    { href: "/business-days-until", label: "Business Days Until" },
-    { href: "/birthday-weekday", label: "Birthday Weekday" },
-    { href: "/weeks-between", label: "Weeks" },
-    { href: "/months-between", label: "Months" },
-  ];
-
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
 
-        <header className="site-header">
-          <div className="container header-inner">
-
-            <div className="logo">
-              <Link href="/" className="logo-link">
-                <img
-                  src="/icon.svg"
-                  alt="WhatDayIsIt icon"
-                  className="logo-icon"
-                  width="18"
-                  height="18"
-                />
-                <span>WhatDayIsIt.now</span>
-              </Link>
-            </div>
-
-            {/* Desktop navigation */}
-
-            <nav className="main-nav" aria-label="Main navigation">
-              {navLinks.map((item) => (
-                <Link key={item.href} href={item.href} className="nav-link">
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
-
-            {/* Mobile navigation */}
-
-            <MobileNav links={navLinks} />
-
-          </div>
-        </header>
+        <Header />
 
         <main className="container main-content">
           {children}
