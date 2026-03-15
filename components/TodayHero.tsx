@@ -1,14 +1,38 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { getDayOfYear, getTotalDaysInYear } from "@/lib/date";
+
 export default function TodayHero() {
 
-  const now = new Date();
+  const [now,setNow] = useState<Date | null>(null);
 
-  const dayName = now.toLocaleDateString("en-US", { weekday: "long" });
+  useEffect(()=>{
 
-  const fullDate = now.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
+    function update(){
+      setNow(new Date());
+    }
+
+    update();
+
+    const interval = setInterval(update,60000);
+
+    return ()=>clearInterval(interval);
+
+  },[]);
+
+  if(!now) return null;
+
+  const dayName = now.toLocaleDateString("en-US",{weekday:"long"});
+
+  const fullDate = now.toLocaleDateString("en-US",{
+    year:"numeric",
+    month:"long",
+    day:"numeric"
   });
+
+  const dayOfYear = getDayOfYear(now);
+  const totalDays = getTotalDaysInYear(now.getFullYear());
 
   return (
 
@@ -19,12 +43,17 @@ export default function TodayHero() {
       </h1>
 
       <div className="today-date">
+
         {dayName}, {fullDate}
+
       </div>
 
       <p className="today-subtitle">
-        Instantly see today's date, day of the week, week number, and how far
-        we are through the year.
+
+        Today is day <strong>{dayOfYear}</strong> of {totalDays}.
+        Instantly see today's date, week number,
+        and how much of the year has passed.
+
       </p>
 
     </section>

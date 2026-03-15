@@ -32,12 +32,7 @@ export default function HomePage() {
             <div>Countdown to a future date</div>
           </Link>
 
-          <Link href="/age-calculator" className="tool-card">
-            <strong>Age Calculator</strong>
-            <div>Calculate age from a birth date</div>
-          </Link>
-
-          <Link href="/birthday-weekday" className="tool-card">
+           <Link href="/birthday-weekday" className="tool-card">
             <strong>Birthday Weekday Calculator</strong>
             <div>See which weekday your birthday falls on</div>
           </Link>
@@ -50,13 +45,18 @@ export default function HomePage() {
 
       <section className="homepage-section">
 
-        <h2>All Date Calculators</h2>
+        <h2>All Date Calculators and Tools</h2>
 
         <div className="tool-grid">
 
           <Link href="/days-since" className="tool-card">
             <strong>Days Since Date</strong>
             <div>See how many days have passed</div>
+          </Link>
+
+          <Link href="/age-calculator" className="tool-card">
+            <strong>Age Calculator</strong>
+            <div>Calculate age from a birth date</div>
           </Link>
 
           <Link href="/weeks-between" className="tool-card">
@@ -97,7 +97,7 @@ export default function HomePage() {
 
       <section className="homepage-section">
 
-        <h2>Birthday Calculators</h2>
+        <h2><h2>Birthday Calculators and Tools</h2></h2>
 
         <div className="tool-grid">
 

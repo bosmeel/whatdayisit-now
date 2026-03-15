@@ -17,50 +17,45 @@ export default function TodayDashboard() {
 
   useEffect(() => {
 
-    function updateNow() {
+    function updateNow(){
       setNow(new Date());
     }
 
     updateNow();
 
-    function scheduleNextUpdate() {
+    const interval = setInterval(updateNow,60000);
 
-      const current = new Date();
+    return () => clearInterval(interval);
 
-      const nextMinute = new Date(
-        current.getFullYear(),
-        current.getMonth(),
-        current.getDate(),
-        current.getHours(),
-        current.getMinutes() + 1,
-        0,
-        0
-      );
+  },[]);
 
-      const delay = nextMinute.getTime() - current.getTime();
-
-      setTimeout(() => {
-        updateNow();
-        scheduleNextUpdate();
-      }, delay);
-
-    }
-
-    scheduleNextUpdate();
-
-  }, []);
-
-  if (!now) return null;
+  if(!now) return null;
 
   const weekNumber = getISOWeekNumber(now);
   const dayOfYear = getDayOfYear(now);
   const totalDays = getTotalDaysInYear(now.getFullYear());
   const daysLeft = getDaysLeftInYear(now);
   const quarter = getQuarter(now);
+  const yearProgress = getYearProgressPercent(now);
   const weekend = getDaysUntilWeekend(now);
 
-  const yearProgressRaw = getYearProgressPercent(now);
-  const yearProgress = Math.round(Number(yearProgressRaw));
+  /* new data */
+
+  const dayName = now.toLocaleDateString("en-US",{weekday:"long"});
+
+  const daysInMonth = new Date(
+    now.getFullYear(),
+    now.getMonth()+1,
+    0
+  ).getDate();
+
+  const dayOfMonth = now.getDate();
+
+  const daysLeftMonth = daysInMonth - dayOfMonth;
+
+  const monthProgress = Math.round(
+    (dayOfMonth / daysInMonth) * 100
+  );
 
   return (
 
@@ -77,6 +72,11 @@ export default function TodayDashboard() {
       </div>
 
       <div className="today-grid">
+
+        <div className="today-card">
+          <strong>Day of week</strong>
+          <div>{dayName}</div>
+        </div>
 
         <div className="today-card">
           <strong>Week number</strong>
@@ -101,10 +101,15 @@ export default function TodayDashboard() {
           <div className="year-progress-bar">
             <div
               className="year-progress-fill"
-              style={{ width: `${yearProgress}%` }}
+              style={{width:`${yearProgress}%`}}
             />
           </div>
 
+        </div>
+
+        <div className="today-card">
+          <strong>Quarter</strong>
+          <div>{quarter}</div>
         </div>
 
         <div className="today-card">
@@ -113,8 +118,22 @@ export default function TodayDashboard() {
         </div>
 
         <div className="today-card">
-          <strong>Quarter</strong>
-          <div>{quarter}</div>
+          <strong>Days left in month</strong>
+          <div>{daysLeftMonth}</div>
+        </div>
+
+        <div className="today-card">
+          <strong>Month progress</strong>
+
+          <div>{monthProgress}%</div>
+
+          <div className="year-progress-bar">
+            <div
+              className="year-progress-fill"
+              style={{width:`${monthProgress}%`}}
+            />
+          </div>
+
         </div>
 
       </div>
