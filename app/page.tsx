@@ -54,12 +54,7 @@ export default function HomePage() {
             <div>See how many days have passed</div>
           </Link>
 
-          <Link href="/age-calculator" className="tool-card">
-            <strong>Age Calculator</strong>
-            <div>Calculate age from a birth date</div>
-          </Link>
-
-          <Link href="/weeks-between" className="tool-card">
+           <Link href="/weeks-between" className="tool-card">
             <strong>Weeks Between Dates</strong>
             <div>Calculate the number of weeks between two dates</div>
           </Link>
@@ -104,6 +99,11 @@ export default function HomePage() {
           <Link href="/what-day-was-i-born" className="tool-card">
             <strong>What Day Was I Born</strong>
             <div>Discover the weekday you were born</div>
+          </Link>
+
+<Link href="/age-calculator" className="tool-card">
+            <strong>Age Calculator</strong>
+            <div>Calculate age from a birth date</div>
           </Link>
 
         </div>
