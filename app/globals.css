@@ -132,23 +132,18 @@ a:hover{
 @media (max-width:720px){
 
   .main-nav{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-    margin-top:6px;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    margin-top:4px;
   }
 
   .nav-link{
     display:block;
-    text-align:center;
-    padding:8px 6px;
-    border:1px solid var(--border);
-    border-radius:6px;
-    font-size:13px;
-  }
-
-  .nav-link:hover{
-    border-color:var(--accent);
+    padding:4px 0;
+    border:none;
+    border-radius:0;
+    font-size:14px;
   }
 
 }
