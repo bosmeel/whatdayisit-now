@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import MobileNav from "@/components/MobileNav";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -83,6 +84,8 @@ export default function RootLayout({
               </Link>
             </div>
 
+            {/* Desktop navigation */}
+
             <nav className="main-nav" aria-label="Main navigation">
               {navLinks.map((item) => (
                 <Link key={item.href} href={item.href} className="nav-link">
@@ -91,7 +94,10 @@ export default function RootLayout({
               ))}
             </nav>
 
-          
+            {/* Mobile navigation */}
+
+            <MobileNav links={navLinks} />
+
           </div>
         </header>
 

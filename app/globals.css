@@ -76,23 +76,22 @@ a:hover{
   position:sticky;
   top:0;
   z-index:50;
-
   box-shadow:0 2px 6px rgba(0,0,0,0.04);
   backdrop-filter:saturate(180%) blur(6px);
 }
 
 .header-inner{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  padding:10px 0;
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  align-items:center;
+  gap:20px;
+  padding:12px 0;
 }
 
 .logo-link{
   display:inline-flex;
   align-items:center;
   gap:8px;
-  text-decoration:none;
   color:var(--foreground);
   font-weight:700;
   font-size:16px;
@@ -109,17 +108,17 @@ a:hover{
 
 .main-nav{
   display:flex;
-  flex-wrap:wrap;
-  gap:10px 18px;
+  gap:18px;
   align-items:center;
+  justify-content:center;
 }
 
 .nav-link{
   font-size:14px;
   padding:4px 0;
   border-bottom:2px solid transparent;
-  transition:all .15s ease;
   white-space:nowrap;
+  transition:all .15s ease;
 }
 
 .nav-link:hover{
@@ -127,41 +126,53 @@ a:hover{
   border-bottom:2px solid var(--accent);
 }
 
-/* Mobile navigation */
-
-@media (max-width:720px){
-
-  .main-nav{
-    display:flex;
-    flex-direction:column;
-    gap:6px;
-    margin-top:4px;
-  }
-
-  .nav-link{
-    display:block;
-    padding:4px 0;
-    border:none;
-    border-radius:0;
-    font-size:14px;
-  }
-
-}
 /* ===============================
-   Desktop header layout
+   Mobile menu
 ================================ */
 
-@media (min-width:900px){
+.menu-toggle{
+  display:none;
+  background:none;
+  border:none;
+  font-size:24px;
+  cursor:pointer;
+}
+
+.mobile-nav{
+  display:none;
+}
+
+.mobile-menu{
+  display:none;
+  flex-direction:column;
+  gap:10px;
+  margin-top:12px;
+}
+
+.mobile-menu.open{
+  display:flex;
+}
+
+/* ===============================
+   Mobile layout
+================================ */
+
+@media (max-width:900px){
 
   .header-inner{
-    display:grid;
-    grid-template-columns:auto 1fr auto;
-    align-items:center;
-    gap:24px;
+    grid-template-columns:auto auto;
   }
 
   .main-nav{
-    justify-content:center;
+    display:none;
+  }
+
+  .mobile-nav{
+    display:block;
+  }
+
+  .menu-toggle{
+    display:block;
   }
 
 }
@@ -223,8 +234,6 @@ a:hover{
   font-size:14px;
 }
 
-/* Grid */
-
 .today-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
@@ -232,29 +241,18 @@ a:hover{
   margin-top:22px;
 }
 
-/* Cards */
-
 .today-card{
   background:var(--card);
   border:1px solid var(--border);
   border-radius:14px;
   padding:20px 18px;
-
   display:flex;
   flex-direction:column;
   gap:6px;
-
   min-height:86px;
-
   box-shadow:0 4px 12px rgba(0,0,0,0.06);
-
-  transition:
-    transform .16s ease,
-    box-shadow .16s ease,
-    border-color .16s ease;
+  transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease;
 }
-
-/* label */
 
 .today-card strong{
   font-size:12px;
@@ -264,16 +262,12 @@ a:hover{
   font-weight:600;
 }
 
-/* number */
-
 .today-card > div:first-of-type{
   font-size:26px;
   font-weight:800;
   color:var(--foreground);
   line-height:1.2;
 }
-
-/* hover */
 
 .today-card:hover{
   transform:translateY(-4px);
@@ -288,44 +282,12 @@ a:hover{
   border-radius:4px;
   background:var(--border);
   overflow:hidden;
-  display:block;
 }
 
 .year-progress-fill{
   height:100%;
-  width:0%;
   background:var(--accent);
   transition:width .4s ease;
-}
-
-/* ===============================
-   Hero section
-================================ */
-
-.today-hero{
-  margin-top:6px;
-  margin-bottom:10px;
-}
-
-h1{
-  font-size:36px;
-  font-weight:800;
-  letter-spacing:-0.02em;
-}
-
-.today-date{
-  margin-top:10px;
-  font-size:28px;
-  font-weight:700;
-  color:var(--foreground);
-}
-
-.today-subtitle{
-  margin-top:10px;
-  color:var(--muted);
-  font-size:15px;
-  max-width:520px;
-  line-height:1.55;
 }
 
 /* ===============================
@@ -343,114 +305,31 @@ h1{
   display:flex;
   flex-direction:column;
   justify-content:center;
-
   min-height:100px;
-
   padding:20px 22px;
-
   border:1px solid var(--border);
   border-radius:14px;
-
   background:var(--card);
-
-  text-decoration:none;
   color:var(--foreground);
-
   box-shadow:0 2px 6px rgba(0,0,0,0.04);
-
-  position:relative;
-  overflow:hidden;
-
-  transition:
-    transform .18s ease,
-    box-shadow .18s ease,
-    border-color .18s ease,
-    background .18s ease;
-}
-
-.tool-card::after{
-  content:"";
-  position:absolute;
-  left:0;
-  top:0;
-  bottom:0;
-  width:3px;
-  background:var(--accent);
-  opacity:0;
-  transition:opacity .18s ease;
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
 }
 
 .tool-card strong{
   font-size:17px;
   font-weight:700;
-  letter-spacing:.01em;
 }
 
 .tool-card div{
   font-size:13px;
   color:var(--muted);
   margin-top:4px;
-  line-height:1.4;
 }
 
 .tool-card:hover{
   border-color:var(--accent);
   transform:translateY(-4px);
   box-shadow:0 14px 28px rgba(0,0,0,0.08);
-}
-
-.tool-card:hover::after{
-  opacity:1;
-}
-
-/* ===============================
-   Date input
-================================ */
-
-.date-field{
-  margin-bottom:14px;
-}
-
-.date-label{
-  display:block;
-  font-weight:600;
-  margin-bottom:6px;
-  font-size:14px;
-}
-
-.date-input-row{
-  display:flex;
-  gap:10px;
-  align-items:center;
-  flex-wrap:wrap;
-}
-
-.date-input{
-  width:100%;
-  max-width:260px;
-  padding:10px 12px;
-  border:1px solid var(--border);
-  border-radius:6px;
-  font-size:16px;
-  background:var(--background);
-  color:var(--foreground);
-}
-
-.date-input:focus{
-  outline:none;
-  border-color:var(--accent);
-}
-
-.date-picker-button{
-  padding:10px 14px;
-  border-radius:6px;
-  border:1px solid var(--border);
-  background:var(--card);
-  cursor:pointer;
-}
-
-.date-picker-button:hover{
-  border-color:var(--accent);
 }
 
 /* ===============================
@@ -476,21 +355,6 @@ h1{
   border-color:var(--accent);
 }
 
-/* Mobile calculator layout */
-
-@media (max-width:600px){
-
-  .date-input-row{
-    flex-direction:column;
-    align-items:stretch;
-  }
-
-  .calculator button{
-    width:100%;
-  }
-
-}
-
 /* ===============================
    Result card
 ================================ */
@@ -501,12 +365,9 @@ h1{
   border:1px solid var(--border);
   border-radius:12px;
   background:var(--card);
-
   display:flex;
   flex-direction:column;
   align-items:center;
-  justify-content:center;
-
   text-align:center;
 }
 
@@ -514,112 +375,10 @@ h1{
   font-size:48px;
   font-weight:800;
   color:var(--foreground);
-  line-height:1.1;
 }
 
 .result-label{
   font-size:14px;
   color:var(--muted);
   margin-top:6px;
-}
-
-/* ===============================
-   Homepage sections
-================================ */
-
-.homepage-section{
-  margin-top:52px;
-}
-
-.homepage-section h2{
-  margin-bottom:8px;
-}
-
-/* ===============================
-   Buttons
-================================ */
-
-button{
-  padding:8px 14px;
-  border-radius:6px;
-  border:1px solid var(--border);
-  background:var(--card);
-  cursor:pointer;
-}
-
-button:hover{
-  border-color:var(--accent);
-}
-
-/* ===============================
-   Quick Date Jump
-================================ */
-
-.quick-date{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  max-width:420px;
-  width:100%;
-}
-
-.quick-date-label{
-  font-size:14px;
-  font-weight:600;
-}
-
-.quick-date-input{
-  padding:10px;
-  border:1px solid var(--border);
-  border-radius:6px;
-  font-size:16px;
-  background:var(--background);
-  color:var(--foreground);
-}
-
-.quick-date-buttons{
-  display:flex;
-  gap:10px;
-}
-
-.quick-date-buttons button{
-  flex:1;
-}
-
-/* ===============================
-   Responsive
-================================ */
-
-@media (max-width:640px){
-
-  .container{
-    padding:0 16px;
-  }
-
-  .calculator{
-    max-width:100%;
-  }
-
-  .date-input-row{
-    flex-direction:column;
-  }
-
-  .date-input,
-  .date-picker-button{
-    width:100%;
-    max-width:100%;
-  }
-
-  .result-number{
-    font-size:40px;
-  }
-
-  .main-nav{
-    justify-content:flex-start;
-  }
-
-  .quick-date-buttons{
-    flex-direction:column;
-  }
-
 }
