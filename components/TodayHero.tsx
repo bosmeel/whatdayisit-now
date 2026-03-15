@@ -7,7 +7,7 @@ import {
   getYearProgressPercent,
 } from "@/lib/date";
 
-export default function TodayHero() {
+export default function TodayHero(){
 
   const [now,setNow] = useState<Date | null>(null);
 
@@ -27,9 +27,9 @@ export default function TodayHero() {
 
   if(!now) return null;
 
-  const weekday = now.toLocaleDateString("en-US",{ weekday:"long" });
+  const weekday = now.toLocaleDateString("en-US",{weekday:"long"});
 
-  const fullDate = now.toLocaleDateString("en-US",{
+  const date = now.toLocaleDateString("en-US",{
     year:"numeric",
     month:"long",
     day:"numeric"
@@ -37,26 +37,22 @@ export default function TodayHero() {
 
   const dayOfYear = getDayOfYear(now);
   const totalDays = getTotalDaysInYear(now.getFullYear());
-  const yearProgress = getYearProgressPercent(now);
+  const progress = getYearProgressPercent(now);
 
-  return (
+  return(
 
     <section className="today-hero">
 
-      <div className="today-weekday">
-        {weekday}
+      <div className="today-answer">
+        <span className="today-weekday">{weekday}</span>, {date}
       </div>
 
-      <div className="today-date">
-        {fullDate}
-      </div>
-
-      <div className="hero-question">
+      <div className="today-context">
         What day is it today?
       </div>
 
-      <div className="today-subtitle">
-        Day {dayOfYear} of {totalDays} • {yearProgress}% of the year passed
+      <div className="today-meta">
+        Day {dayOfYear} of {totalDays} • {progress}% of the year passed
       </div>
 
     </section>
