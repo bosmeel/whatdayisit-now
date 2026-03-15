@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import DateInput from "@/components/DateInput";
+import { useMemo, useState } from "react";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import RelatedTools from "@/components/RelatedTools";
 import SmartToolLinks from "@/components/SmartToolLinks";
@@ -11,103 +10,145 @@ export default function WeeksBetweenPage() {
 
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [result, setResult] = useState<number | null>(null);
 
-  useEffect(() => {
+  const result = useMemo(() => {
 
-    if (!startDate || !endDate) {
-      setResult(null);
-      return;
-    }
+    if (!startDate || !endDate) return null;
 
     const start = parseDateUTC(startDate);
     const end = parseDateUTC(endDate);
 
     if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) {
-      setResult(null);
-      return;
+      return null;
     }
 
-    const diff = end.getTime() - start.getTime();
-    const weeks = Math.floor(diff / (86400000 * 7));
+    const diffMs = Math.abs(end.getTime() - start.getTime());
+    const days = Math.floor(diffMs / 86400000);
+    const weeks = Math.floor(days / 7);
+    const remainingDays = days % 7;
 
-    setResult(Math.abs(weeks));
+    return {
+      weeks,
+      days,
+      remainingDays,
+    };
 
   }, [startDate, endDate]);
 
   return (
+
     <div>
 
-           <Breadcrumbs
+      <Breadcrumbs
         items={[
           { name: "Home", href: "/" },
           { name: "Date Calculators", href: "/" },
-          { name: "Weeks Between Dates" }
+          { name: "Weeks Between Dates" },
         ]}
       />
 
       <h1>Weeks Between Dates</h1>
 
       <p>
-        Calculate the number of weeks between two dates.
+        Calculate how many full weeks lie between two dates.
       </p>
 
       <p>
-        This calculator helps you determine the number of full weeks between
-        two calendar dates. It is useful for planning schedules, tracking
-        project durations, and understanding time spans measured in weeks.
+        Enter a start date and an end date to see the number of weeks between
+        them. This is useful for schedules, project planning, deadlines,
+        vacations, and timeline calculations.
       </p>
 
       <div className="calculator">
 
-        <DateInput
-          label="Start date"
-          value={startDate}
-          onChange={setStartDate}
-        />
+        <div className="date-field">
+          <label htmlFor="weeks-start-date" className="date-label">
+            Start date
+          </label>
 
-        <DateInput
-          label="End date"
-          value={endDate}
-          onChange={setEndDate}
-        />
+          <input
+            id="weeks-start-date"
+            type="date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+            className="date-input"
+          />
+        </div>
 
-        {result !== null && (
+        <div className="date-field">
+          <label htmlFor="weeks-end-date" className="date-label">
+            End date
+          </label>
+
+          <input
+            id="weeks-end-date"
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+            className="date-input"
+          />
+        </div>
+
+        {startDate && endDate && result !== null && (
+
           <div className="result-box">
-            <div className="result-number">{result}</div>
-            <div className="result-label">weeks</div>
+
+            <div className="result-label">
+              Weeks between dates
+            </div>
+
+            <div className="result-number">
+              {result.weeks}
+            </div>
+
+            <div className="result-sub">
+              full weeks
+            </div>
+
+            <div className="result-note">
+              {result.days} total days
+              {result.remainingDays > 0 ? ` • ${result.remainingDays} extra day${result.remainingDays === 1 ? "" : "s"}` : ""}
+            </div>
+
           </div>
+
         )}
 
       </div>
-<section style={{ marginTop: 40 }}>
 
-  <h2>Frequently Asked Questions</h2>
+      <section style={{ marginTop: 40 }}>
 
-  <h3>How accurate is this calculator?</h3>
+        <h2>Frequently Asked Questions</h2>
 
-  <p>
-    The calculator uses standard calendar calculations and accounts for leap
-    years where applicable. Results are based on UTC date calculations to
-    avoid timezone errors.
-  </p>
+        <h3>How is the result calculated?</h3>
 
-  <h3>Can I use past and future dates?</h3>
+        <p>
+          The calculator measures the total number of days between the two
+          dates and converts that difference into full weeks.
+        </p>
 
-  <p>
-    Yes. The calculator works for both past and future dates and can be used
-    for planning, scheduling, and analyzing historical timelines.
-  </p>
+        <h3>Does it count partial weeks?</h3>
 
-</section>
-      {/* SMART CALCULATOR LINKS */}
+        <p>
+          The main result shows full weeks only. Extra leftover days are shown
+          below the main result when applicable.
+        </p>
+
+        <h3>Can I compare past and future dates?</h3>
+
+        <p>
+          Yes. The calculator works with any valid two dates and shows the
+          absolute difference between them.
+        </p>
+
+      </section>
 
       <SmartToolLinks />
-
-      {/* RELATED TOOLS */}
 
       <RelatedTools />
 
     </div>
+
   );
+
 }
