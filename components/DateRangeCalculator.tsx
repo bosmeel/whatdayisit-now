@@ -42,49 +42,66 @@ export default function DateRangeCalculator({
 
     <div className="calculator">
 
-   <input
-  type="date"
-  value={startDate}
-  onChange={(e)=>setStartDate(e.target.value)}
-/>
-
-<div className="date-quick">
-
-<button onClick={()=>{
-  const d=new Date();
-  setStartDate(d.toISOString().slice(0,10));
-}}>
-Today
-</button>
-
-<button onClick={()=>{
-  const d=new Date();
-  d.setDate(d.getDate()+7);
-  setEndDate(d.toISOString().slice(0,10));
-}}>
-+7 days
-</button>
-
-<button onClick={()=>{
-  const d=new Date();
-  d.setDate(d.getDate()+30);
-  setEndDate(d.toISOString().slice(0,10));
-}}>
-+30 days
-</button>
-
-</div>
+      {/* START DATE */}
 
       <div className="date-field">
-  <label className="date-label">{labelEnd}</label>
+        <label className="date-label">{labelStart}</label>
 
-  <input
-    type="date"
-    value={endDate}
-    onChange={(e)=>setEndDate(e.target.value)}
-    className="date-input"
-  />
-</div>
+        <input
+          type="text"
+          inputMode="numeric"
+          placeholder="YYYY-MM-DD"
+          value={startDate}
+          onChange={(e)=>setStartDate(e.target.value)}
+          className="date-input"
+        />
+      </div>
+
+      {/* QUICK BUTTONS */}
+
+      <div className="date-quick">
+
+        <button onClick={()=>{
+          const d=new Date();
+          setStartDate(d.toISOString().slice(0,10));
+        }}>
+          Today
+        </button>
+
+        <button onClick={()=>{
+          const d=new Date();
+          d.setDate(d.getDate()+7);
+          setEndDate(d.toISOString().slice(0,10));
+        }}>
+          +7 days
+        </button>
+
+        <button onClick={()=>{
+          const d=new Date();
+          d.setDate(d.getDate()+30);
+          setEndDate(d.toISOString().slice(0,10));
+        }}>
+          +30 days
+        </button>
+
+      </div>
+
+      {/* END DATE */}
+
+      <div className="date-field">
+        <label className="date-label">{labelEnd}</label>
+
+        <input
+          type="text"
+          inputMode="numeric"
+          placeholder="YYYY-MM-DD"
+          value={endDate}
+          onChange={(e)=>setEndDate(e.target.value)}
+          className="date-input"
+        />
+      </div>
+
+      {/* RESULT */}
 
       {result !== null && (
 

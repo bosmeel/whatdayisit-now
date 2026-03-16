@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import {
   getDayOfYear,
   getTotalDaysInYear,
@@ -58,22 +57,22 @@ export default function TodayDashboard() {
 
       <div className="today-grid">
 
-        <Link href="/weeks-between" className="today-card">
+        <div className="today-card">
           <strong>Week number</strong>
           <div>{weekNumber}</div>
-        </Link>
+        </div>
 
-        <Link href={`/day-of-year`} className="today-card">
+        <div className="today-card">
           <strong>Day of year</strong>
           <div>{dayOfYear} / {totalDays}</div>
-        </Link>
+        </div>
 
-        <Link href={`/how-many-days-left-in/${year}`} className="today-card">
+        <div className="today-card">
           <strong>Days left in year</strong>
           <div>{daysLeft}</div>
-        </Link>
+        </div>
 
-        <Link href={`/year-progress`} className="today-card">
+        <div className="today-card">
 
           <strong>Year progress</strong>
 
@@ -86,17 +85,17 @@ export default function TodayDashboard() {
             />
           </div>
 
-        </Link>
-
-        <Link href="/days-until/saturday" className="today-card">
-          <strong>Days until weekend</strong>
-          <div>{weekend}</div>
-        </Link>
+        </div>
 
         <div className="today-card">
-  <strong>Quarter</strong>
-  <div>{quarter}</div>
-</div>
+          <strong>Days until weekend</strong>
+          <div>{weekend}</div>
+        </div>
+
+        <div className="today-card">
+          <strong>Quarter</strong>
+          <div>{quarter}</div>
+        </div>
 
       </div>
 
