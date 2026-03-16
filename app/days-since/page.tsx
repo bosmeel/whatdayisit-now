@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useMemo } from "react";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import RelatedTools from "@/components/RelatedTools";
 import SmartToolLinks from "@/components/SmartToolLinks";
@@ -9,47 +9,26 @@ import { parseDateUTC } from "@/lib/date";
 export default function DaysSincePage() {
 
   const [date, setDate] = useState("");
-  const [result, setResult] = useState<number | null>(null);
 
-  /* read date from URL */
+  const result = useMemo(() => {
 
-  useEffect(() => {
-
-    const params = new URLSearchParams(window.location.search);
-    const urlDate = params.get("start");
-
-    if (urlDate) {
-      setDate(urlDate);
-    }
-
-  }, []);
-
-  useEffect(() => {
-
-    if (!date) {
-      setResult(null);
-      return;
-    }
+    if (!date) return null;
 
     const start = parseDateUTC(date);
 
-    if (Number.isNaN(start.getTime())) {
-      setResult(null);
-      return;
-    }
+    if (Number.isNaN(start.getTime())) return null;
 
     const now = new Date();
 
-    const today = new Date(Date.UTC(
+    const today = Date.UTC(
       now.getFullYear(),
       now.getMonth(),
       now.getDate()
-    ));
+    );
 
-    const diff = today.getTime() - start.getTime();
-    const days = Math.floor(diff / 86400000);
+    const diff = today - start.getTime();
 
-    setResult(days);
+    return Math.floor(diff / 86400000);
 
   }, [date]);
 
@@ -73,22 +52,31 @@ export default function DaysSincePage() {
 
       <div className="calculator">
 
-<div className="date-field">
-  <label className="date-label">Date</label>
+        <div className="date-field">
 
-  <input
-    type="date"
-    value={date}
-    onChange={(e)=>setDate(e.target.value)}
-    className="date-input"
-  />
-</div>
+          <label className="date-label">Start date</label>
+
+          <input
+            type="date"
+            value={date}
+            onChange={(e)=>setDate(e.target.value)}
+            className="date-input"
+          />
+
+        </div>
 
         {result !== null && (
 
           <div className="result-box">
-            <div className="result-number">{result}</div>
-            <div className="result-label">days</div>
+
+            <div className="result-number">
+              {result}
+            </div>
+
+            <div className="result-label">
+              days
+            </div>
+
           </div>
 
         )}

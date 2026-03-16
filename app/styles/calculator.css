@@ -113,3 +113,31 @@
     transform:none;
   }
 }
+
+/* mobile improvements */
+
+@media (max-width:640px){
+
+  .calculator{
+    gap:18px;
+  }
+
+  .date-input{
+    font-size:16px;
+    padding:14px 14px;
+  }
+
+  .date-quick{
+    gap:10px;
+  }
+
+  .date-quick button{
+    padding:8px 12px;
+    font-size:14px;
+  }
+
+  .result-number{
+    font-size:48px;
+  }
+
+}

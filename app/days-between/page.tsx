@@ -51,8 +51,6 @@ export default function DaysBetweenPage() {
 
       </CalculatorLayout>
 
-      {/* HOW IT WORKS */}
-
       <section style={{ marginTop: 40 }}>
 
         <h2>How the Days Between Calculator Works</h2>
@@ -71,8 +69,6 @@ export default function DaysBetweenPage() {
         </p>
 
       </section>
-
-      {/* FAQ */}
 
       <section style={{ marginTop: 32 }}>
 
@@ -95,8 +91,6 @@ export default function DaysBetweenPage() {
 
       </section>
 
-      {/* POPULAR DATE PAIRS */}
-
       <section style={{ marginTop: 50 }}>
 
         <h2>Popular date comparisons</h2>
@@ -118,8 +112,6 @@ export default function DaysBetweenPage() {
         </ul>
 
       </section>
-
-      {/* RELATED TOOLS */}
 
       <section style={{ marginTop: 50 }}>
 

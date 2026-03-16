@@ -1,209 +1,93 @@
 "use client";
 
-import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
-import { EVENTS } from "@/lib/events";
-import SeoLinks from "@/components/SeoLinks";
+import { useState, useMemo } from "react";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import RelatedTools from "@/components/RelatedTools";
-import SiteLinks from "@/components/SiteLinks";
-
-const monthNames = [
-  "january","february","march","april","may","june",
-  "july","august","september","october","november","december",
-];
+import SmartToolLinks from "@/components/SmartToolLinks";
+import { parseDateUTC } from "@/lib/date";
 
 export default function DaysUntilPage() {
 
   const [date, setDate] = useState("");
 
-  /* read date from URL */
-
-  useEffect(() => {
-
-    const params = new URLSearchParams(window.location.search);
-
-    const urlDate =
-      params.get("target") ||   // QuickDateJump
-      params.get("date");      // fallback
-
-    if (urlDate) {
-      setDate(urlDate);
-    }
-
-  }, []);
-
-  /* calculate result */
-
   const result = useMemo(() => {
 
     if (!date) return null;
 
-    const target = new Date(date);
+    const target = parseDateUTC(date);
 
     if (Number.isNaN(target.getTime())) return null;
 
-    const today = new Date();
+    const now = new Date();
 
-    const diff = target.getTime() - today.getTime();
+    const today = Date.UTC(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate()
+    );
+
+    const diff = target.getTime() - today;
 
     return Math.ceil(diff / 86400000);
 
   }, [date]);
 
-  const sortedEvents = useMemo(() => {
-    return Object.entries(EVENTS).sort((a, b) =>
-      a[1].name.localeCompare(b[1].name)
-    );
-  }, []);
-
-  const datePages = useMemo(() => {
-
-    const pages: { slug: string; label: string }[] = [];
-
-    monthNames.forEach((month, monthIndex) => {
-
-      const daysInMonth =
-        month === "february"
-          ? 29
-          : [3, 5, 8, 10].includes(monthIndex)
-          ? 30
-          : 31;
-
-      for (let day = 1; day <= daysInMonth; day++) {
-
-        pages.push({
-          slug: `${month}-${day}`,
-          label: `${month.charAt(0).toUpperCase() + month.slice(1)} ${day}`,
-        });
-
-      }
-
-    });
-
-    return pages;
-
-  }, []);
-
   return (
+
     <div>
 
       <Breadcrumbs
         items={[
           { name: "Home", href: "/" },
           { name: "Date Calculators", href: "/" },
-          { name: "Days Until Date" },
+          { name: "Days Until Date" }
         ]}
       />
 
       <h1>Days Until Date</h1>
 
       <p>
-        Calculate how many days remain until a specific date, or browse
-        popular countdowns below.
+        Calculate how many days remain until a specific date.
       </p>
 
       <div className="calculator">
 
         <div className="date-field">
-  <label className="date-label">Target date</label>
 
-  <input
-    type="date"
-    value={date}
-    onChange={(e)=>setDate(e.target.value)}
-    className="date-input"
-  />
-</div>
+          <label className="date-label">Target date</label>
+
+          <input
+            type="date"
+            value={date}
+            onChange={(e)=>setDate(e.target.value)}
+            className="date-input"
+          />
+
+        </div>
 
         {result !== null && (
+
           <div className="result-box">
-            <div className="result-number">{result}</div>
-            <div className="result-label">days</div>
+
+            <div className="result-number">
+              {result}
+            </div>
+
+            <div className="result-label">
+              days
+            </div>
+
           </div>
+
         )}
 
       </div>
 
-      <section style={{ marginTop: 50 }}>
-
-        <h2>Popular countdowns</h2>
-
-        <div className="tool-grid">
-
-          {[
-            "christmas","new-year","halloween","thanksgiving",
-            "valentines-day","first-day-of-summer",
-            "back-to-school","super-bowl","christmas-eve",
-          ]
-            .filter((slug) => EVENTS[slug])
-            .map((slug) => (
-              <Link
-                key={slug}
-                href={`/days-until/${slug}`}
-                className="tool-card"
-              >
-                <strong>{EVENTS[slug].name}</strong>
-                <div>{EVENTS[slug].month}/{EVENTS[slug].day}</div>
-              </Link>
-            ))}
-
-        </div>
-
-      </section>
-
-      <section style={{ marginTop: 50 }}>
-
-        <h2>Days Until Any Date</h2>
-
-        <div className="tool-grid">
-
-          {datePages.slice(0, 24).map((item) => (
-            <Link
-              key={item.slug}
-              href={`/days-until-date/${item.slug}`}
-              className="tool-card"
-            >
-              <strong>{item.label}</strong>
-              <div>See how many days remain</div>
-            </Link>
-          ))}
-
-        </div>
-
-        <p style={{ marginTop: 20 }}>
-          <Link href="/days-until-date/january-1">
-            Start browsing all date countdowns
-          </Link>
-        </p>
-
-      </section>
-
-      <section style={{ marginTop: 50 }}>
-
-        <h2>All Event Countdowns</h2>
-
-        <div className="tool-grid">
-
-          {sortedEvents.map(([slug, event]) => (
-            <Link
-              key={slug}
-              href={`/days-until/${slug}`}
-              className="tool-card"
-            >
-              <strong>{event.name}</strong>
-              <div>{event.month}/{event.day}</div>
-            </Link>
-          ))}
-
-        </div>
-
-      </section>
-
+      <SmartToolLinks />
       <RelatedTools />
-      <SeoLinks />
-      <SiteLinks />
 
     </div>
+
   );
+
 }
