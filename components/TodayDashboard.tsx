@@ -88,15 +88,15 @@ export default function TodayDashboard() {
 
         </Link>
 
-        <Link href="/days-until" className="today-card">
+        <Link href="/days-until/saturday" className="today-card">
           <strong>Days until weekend</strong>
           <div>{weekend}</div>
         </Link>
 
-        <Link href="/quarters-of-the-year" className="today-card">
-          <strong>Quarter</strong>
-          <div>{quarter}</div>
-        </Link>
+        <div className="today-card">
+  <strong>Quarter</strong>
+  <div>{quarter}</div>
+</div>
 
       </div>
 

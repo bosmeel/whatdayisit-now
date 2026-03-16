@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import DateInput from "@/components/DateInput";
 import { EVENTS } from "@/lib/events";
 import SeoLinks from "@/components/SeoLinks";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -106,11 +105,16 @@ export default function DaysUntilPage() {
 
       <div className="calculator">
 
-        <DateInput
-          label="Target date"
-          value={date}
-          onChange={setDate}
-        />
+        <div className="date-field">
+  <label className="date-label">Target date</label>
+
+  <input
+    type="date"
+    value={date}
+    onChange={(e)=>setDate(e.target.value)}
+    className="date-input"
+  />
+</div>
 
         {result !== null && (
           <div className="result-box">

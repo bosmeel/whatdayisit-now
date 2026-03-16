@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import DateInput from "@/components/DateInput";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import RelatedTools from "@/components/RelatedTools";
 import SmartToolLinks from "@/components/SmartToolLinks";
@@ -74,11 +73,16 @@ export default function AgeCalculatorPage() {
 
       <div className="calculator">
 
-        <DateInput
-          label="Birth date"
-          value={birthDate}
-          onChange={setBirthDate}
-        />
+        <div className="date-field">
+  <label className="date-label">Birth date</label>
+
+ <input
+  type="date"
+  value={birthDate}
+  onChange={(e)=>setBirthDate(e.target.value)}
+  className="date-input"
+/>
+</div>
 
         {years !== null && (
           <div className="result-box">

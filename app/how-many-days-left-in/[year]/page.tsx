@@ -94,7 +94,7 @@ export default async function DaysLeftPage(
                 <Link
                   key={year}
                   href={`/how-many-days-left-in/${year}`}
-                  className="underline"
+                  className="underline hover:text-blue-800"
                 >
                   {year}
                 </Link>

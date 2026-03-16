@@ -31,8 +31,8 @@
 }
 
 .result-box{
-  margin-top:22px;
-  padding:24px 22px;
+  margin-top:24px;
+  padding:26px 22px;
   border:1px solid var(--border);
   border-radius:12px;
   background:var(--card);
@@ -42,14 +42,31 @@
   text-align:center;
 }
 
+.result-box{
+  animation:fadeResult .25s ease;
+}
+
+@keyframes fadeResult{
+  from{
+    opacity:0;
+    transform:translateY(4px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
 .result-number{
-  font-size:48px;
+  font-size:52px;
   font-weight:800;
+  line-height:1.1;
 }
 
 .result-label{
-  font-size:14px;
+  font-size:15px;
   color:var(--muted);
+  margin-top:4px;
 }
 
 .result-sub{
@@ -62,4 +79,37 @@
   font-size:13px;
   color:var(--muted);
   margin-top:8px;
+}
+
+.date-field{
+  margin-bottom:16px;
+}
+
+.date-label{
+  display:block;
+  font-size:13px;
+  color:var(--muted);
+  margin-bottom:4px;
+}
+
+/* quick date buttons */
+
+.date-quick{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:6px;
+}
+
+.date-quick button{
+  padding:6px 10px;
+  font-size:13px;
+  border:1px solid var(--border);
+  background:var(--background);
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.date-quick button:hover{
+  border-color:var(--accent);
 }

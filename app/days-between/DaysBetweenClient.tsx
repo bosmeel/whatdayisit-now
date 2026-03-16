@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import DateInput from "@/components/DateInput";
+
 
 function formatDate(dateString: string) {
   const d = new Date(dateString);
@@ -83,18 +83,22 @@ export default function DaysBetweenClient() {
 
       <div className="calculator">
 
-        <DateInput
-          label="Start date"
-          value={startDate}
-          onChange={setStartDate}
-        />
+        <input
+  type="date"
+  value={startDate}
+  onChange={(e)=>setStartDate(e.target.value)}
+/>
 
-        <DateInput
-          label="End date"
-          value={endDate}
-          onChange={setEndDate}
-        />
+ <div className="date-field">
+  <label className="date-label">End date</label>
 
+  <input
+    type="date"
+    value={endDate}
+    onChange={(e)=>setEndDate(e.target.value)}
+    className="date-input"
+  />
+</div>
       </div>
 
     </div>

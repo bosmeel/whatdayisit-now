@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import DateInput from "@/components/DateInput";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import RelatedTools from "@/components/RelatedTools";
 import SmartToolLinks from "@/components/SmartToolLinks";
@@ -74,11 +73,16 @@ export default function DaysSincePage() {
 
       <div className="calculator">
 
-        <DateInput
-          label="Start date"
-          value={date}
-          onChange={setDate}
-        />
+<div className="date-field">
+  <label className="date-label">Date</label>
+
+  <input
+    type="date"
+    value={date}
+    onChange={(e)=>setDate(e.target.value)}
+    className="date-input"
+  />
+</div>
 
         {result !== null && (
 

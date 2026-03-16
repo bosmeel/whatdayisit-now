@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import DateInput from "@/components/DateInput";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Link from "next/link";
 import Script from "next/script";
@@ -29,10 +28,16 @@ export default function BirthdayWeekdayPage() {
 
     if (!dateStr) return;
 
-    const birth = new Date(dateStr);
+    const birth = new Date(dateStr + "T00:00:00");
     if (Number.isNaN(birth.getTime())) return;
 
-    const today = new Date();
+    const now = new Date();
+
+    const today = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate()
+    );
 
     let next = new Date(
       today.getFullYear(),
@@ -56,7 +61,6 @@ export default function BirthdayWeekdayPage() {
     for (let y = birth.getFullYear(); y < birth.getFullYear() + 80; y++) {
 
       const d = new Date(y, birth.getMonth(), birth.getDate());
-
       counts[d.getDay()]++;
 
     }
@@ -68,6 +72,7 @@ export default function BirthdayWeekdayPage() {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: "Birthday Weekday Calculator",
+    description: "Find the weekday of your next birthday and see how your birthdays are distributed across the week.",
     applicationCategory: "CalculatorApplication",
     operatingSystem: "Web",
     url: "https://whatdayisit.now/birthday-weekday",
@@ -93,35 +98,42 @@ export default function BirthdayWeekdayPage() {
       <h1>Birthday Weekday Calculator</h1>
 
       <p>
-        Find out which weekday your next birthday will fall on and see the
-        distribution of your birthdays across the week.
+        Use this birthday weekday calculator to find out what day of the week
+        your next birthday will fall on. Enter your birth date to instantly see
+        the weekday of your upcoming birthday and how your birthdays are
+        distributed across the week over your lifetime.
       </p>
 
       <div className="calculator">
 
-        <DateInput
-          label="Birth date"
-          value={birthDate}
-          onChange={calculate}
-        />
+        <div className="date-field">
+          <label className="date-label">Birth date</label>
 
-      </div>
-
-      {weekday && nextBirthday && (
-
-        <div className="result-box">
-
-          <div className="result-number">
-            {weekday}
-          </div>
-
-          <div className="result-label">
-            Next birthday: {nextBirthday}
-          </div>
-
+          <input
+            type="date"
+            value={birthDate}
+            onChange={(e)=>calculate(e.target.value)}
+            className="date-input"
+          />
         </div>
 
-      )}
+        {weekday && nextBirthday && (
+
+          <div className="result-box">
+
+            <div className="result-number">
+              {weekday}
+            </div>
+
+            <div className="result-sub">
+              Next birthday: {nextBirthday}
+            </div>
+
+          </div>
+
+        )}
+
+      </div>
 
       {distribution && (
 
@@ -129,7 +141,7 @@ export default function BirthdayWeekdayPage() {
 
           <h2>Birthday weekday distribution</h2>
 
-          <ul>
+          <ul style={{ lineHeight: 1.8 }}>
 
             {weekdays.map((day, i) => (
 
@@ -144,6 +156,26 @@ export default function BirthdayWeekdayPage() {
         </section>
 
       )}
+
+      {/* SEO SECTION */}
+
+      <section style={{ marginTop: 40 }}>
+
+        <h2>What day will my birthday be on?</h2>
+
+        <p>
+          Many people wonder what day of the week their birthday will fall on
+          each year. Because the calendar shifts every year, your birthday
+          moves through different weekdays over time.
+        </p>
+
+        <p>
+          This birthday weekday calculator quickly determines the weekday of
+          your next birthday and shows how your birthdays are distributed
+          across the days of the week throughout your life.
+        </p>
+
+      </section>
 
       <section style={{ marginTop: 40 }}>
 

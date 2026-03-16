@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import DateInput from "@/components/DateInput";
 
 export default function DaysUntilBirthdayPage() {
 
@@ -78,11 +77,16 @@ export default function DaysUntilBirthdayPage() {
 
       <div className="calculator">
 
-        <DateInput
-          label="Your birthday"
-          value={birthDate}
-          onChange={setBirthDate}
-        />
+        <div className="date-field">
+  <label className="date-label">Your birthday</label>
+
+  <input
+    type="date"
+    value={birthDate}
+    onChange={(e)=>setBirthDate(e.target.value)}
+    className="date-input"
+  />
+</div>
 
         {days !== null && (
           <div className="result-box">

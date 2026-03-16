@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import DateInput from "@/components/DateInput";
+import { useState, useMemo } from "react";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import CalculatorLayout from "@/components/CalculatorLayout";
 import RelatedTools from "@/components/RelatedTools";
 import SmartToolLinks from "@/components/SmartToolLinks";
 import { parseDateUTC } from "@/lib/date";
@@ -30,33 +30,26 @@ export default function BusinessDaysBetweenPage() {
 
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [result, setResult] = useState<number | null>(null);
 
-  useEffect(() => {
+  const result = useMemo(() => {
 
-    if (!startDate || !endDate) {
-      setResult(null);
-      return;
-    }
+    if (!startDate || !endDate) return null;
 
     const start = parseDateUTC(startDate);
     const end = parseDateUTC(endDate);
 
     if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) {
-      setResult(null);
-      return;
+      return null;
     }
 
-    const days = calculateBusinessDays(start, end);
-
-    setResult(Math.abs(days));
+    return Math.abs(calculateBusinessDays(start, end));
 
   }, [startDate, endDate]);
 
   return (
     <div>
 
-            <Breadcrumbs
+      <Breadcrumbs
         items={[
           { name: "Home", href: "/" },
           { name: "Date Calculators", href: "/" },
@@ -64,66 +57,74 @@ export default function BusinessDaysBetweenPage() {
         ]}
       />
 
-      <h1>Business Days Between Dates</h1>
+      <CalculatorLayout
+        title="Business Days Between Dates"
+        description="Calculate the number of working days between two dates, excluding weekends. Useful for project planning, delivery estimates, and work schedules."
+      >
 
-      <p>
-        Calculate the number of working days between two dates (excluding weekends).
-      </p>
+        <div className="date-field">
+          <label className="date-label">Start date</label>
+          <input
+            type="date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+            className="date-input"
+          />
+        </div>
 
-      <p>
-        This calculator counts the number of business days between two dates,
-        excluding Saturdays and Sundays. It is useful for planning work schedules,
-        estimating delivery times, tracking project timelines, and measuring
-        deadlines based on working days.
-      </p>
-
-      <div className="calculator">
-
-        <DateInput
-          label="Start date"
-          value={startDate}
-          onChange={setStartDate}
-        />
-
-        <DateInput
-          label="End date"
-          value={endDate}
-          onChange={setEndDate}
-        />
+        <div className="date-field">
+          <label className="date-label">End date</label>
+          <input
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+            className="date-input"
+          />
+        </div>
 
         {result !== null && (
+
           <div className="result-box">
-            <div className="result-number">{result}</div>
-            <div className="result-label">business days</div>
+
+            <div className="result-label">
+              Business days between dates
+            </div>
+
+            <div className="result-number">
+              {result}
+            </div>
+
+            <div className="result-sub">
+              business days
+            </div>
+
           </div>
+
         )}
 
-      </div>
-<section style={{ marginTop: 40 }}>
+      </CalculatorLayout>
 
-  <h2>Frequently Asked Questions</h2>
+      <section style={{ marginTop: 40 }}>
 
-  <h3>How accurate is this calculator?</h3>
+        <h2>Frequently Asked Questions</h2>
 
-  <p>
-    The calculator uses standard calendar calculations and accounts for leap
-    years where applicable. Results are based on UTC date calculations to
-    avoid timezone errors.
-  </p>
+        <h3>Does this calculator include weekends?</h3>
 
-  <h3>Can I use past and future dates?</h3>
+        <p>
+          No. The result excludes Saturdays and Sundays. Only standard working
+          days (Monday through Friday) are counted.
+        </p>
 
-  <p>
-    Yes. The calculator works for both past and future dates and can be used
-    for planning, scheduling, and analyzing historical timelines.
-  </p>
+        <h3>Can I use past and future dates?</h3>
 
-</section>
-      {/* SMART CALCULATOR LINKS */}
+        <p>
+          Yes. The calculator works with any valid dates in the past or future
+          and measures the total number of business days between them.
+        </p>
+
+      </section>
 
       <SmartToolLinks />
-
-      {/* RELATED TOOLS */}
 
       <RelatedTools />
 

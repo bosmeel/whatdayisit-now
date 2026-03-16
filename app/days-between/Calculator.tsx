@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import DateInput from "@/components/DateInput";
+
 
 export default function Calculator() {
 
@@ -34,17 +34,27 @@ export default function Calculator() {
       }}
     >
 
-      <DateInput
-        label="Start date"
-        value={start}
-        onChange={setStart}
-      />
+<div className="date-field">
+  <label className="date-label">Start date</label>
 
-      <DateInput
-        label="End date"
-        value={end}
-        onChange={setEnd}
-      />
+  <input
+    type="date"
+    value={start}
+    onChange={(e)=>setStart(e.target.value)}
+    className="date-input"
+  />
+</div>
+
+      <div className="date-field">
+  <label className="date-label">End date</label>
+
+  <input
+    type="date"
+    value={end}
+    onChange={(e)=>setEnd(e.target.value)}
+    className="date-input"
+  />
+</div>
 
       <button
         onClick={calculate}

@@ -35,3 +35,21 @@
   transform:translateY(-4px);
   box-shadow:0 14px 28px rgba(0,0,0,0.08);
 }
+
+/* Tools navigation spacing */
+
+.tools-nav{
+  margin-top:32px;
+}
+
+.tools-nav ul{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px 20px;
+  padding:0;
+  list-style:none;
+}
+
+.tools-nav li{
+  margin:0;
+}
