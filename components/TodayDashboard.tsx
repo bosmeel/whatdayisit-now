@@ -43,7 +43,7 @@ export default function TodayDashboard() {
 
   return (
 
-    <section>
+    <section className="today-dashboard">
 
       <div className="dashboard-header">
 
@@ -58,25 +58,27 @@ export default function TodayDashboard() {
       <div className="today-grid">
 
         <div className="today-card">
-          <strong>Week number</strong>
-          <div>{weekNumber}</div>
+          <div className="today-label">Week number</div>
+          <div className="today-value">{weekNumber}</div>
         </div>
 
         <div className="today-card">
-          <strong>Day of year</strong>
-          <div>{dayOfYear} / {totalDays}</div>
+          <div className="today-label">Day of year</div>
+          <div className="today-value">{dayOfYear} / {totalDays}</div>
         </div>
 
         <div className="today-card">
-          <strong>Days left in year</strong>
-          <div>{daysLeft}</div>
+          <div className="today-label">Days left in year</div>
+          <div className="today-value">{daysLeft}</div>
         </div>
 
         <div className="today-card">
 
-          <strong>Year progress</strong>
+          <div className="today-label">Year progress</div>
 
-          <div>{yearProgress}%</div>
+          <div className="today-value">
+            {yearProgress}%
+          </div>
 
           <div className="year-progress-bar">
             <div
@@ -88,13 +90,13 @@ export default function TodayDashboard() {
         </div>
 
         <div className="today-card">
-          <strong>Days until weekend</strong>
-          <div>{weekend}</div>
+          <div className="today-label">Days until weekend</div>
+          <div className="today-value">{weekend}</div>
         </div>
 
         <div className="today-card">
-          <strong>Quarter</strong>
-          <div>{quarter}</div>
+          <div className="today-label">Quarter</div>
+          <div className="today-value">{quarter}</div>
         </div>
 
       </div>
