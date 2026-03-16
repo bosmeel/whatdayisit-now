@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import DateInput from "@/components/DateInput";
+import { useMemo, useState } from "react";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import CalculatorLayout from "@/components/CalculatorLayout";
 import RelatedTools from "@/components/RelatedTools";
 import SmartToolLinks from "@/components/SmartToolLinks";
 import { parseDateUTC } from "@/lib/date";
@@ -29,14 +29,10 @@ function calculateBusinessDays(start: Date, end: Date) {
 export default function BusinessDaysUntilPage() {
 
   const [date, setDate] = useState("");
-  const [result, setResult] = useState<number | null>(null);
 
-  useEffect(() => {
+  const result = useMemo(() => {
 
-    if (!date) {
-      setResult(null);
-      return;
-    }
+    if (!date) return null;
 
     const now = new Date();
     const today = new Date(Date.UTC(
@@ -48,20 +44,16 @@ export default function BusinessDaysUntilPage() {
     const end = parseDateUTC(date);
 
     if (Number.isNaN(end.getTime())) {
-      setResult(null);
-      return;
+      return null;
     }
 
-    const days = calculateBusinessDays(today, end);
-
-    setResult(days);
+    return calculateBusinessDays(today, end);
 
   }, [date]);
 
   return (
     <div>
 
-     
       <Breadcrumbs
         items={[
           { name: "Home", href: "/" },
@@ -70,60 +62,64 @@ export default function BusinessDaysUntilPage() {
         ]}
       />
 
-      <h1>Business Days Until Date</h1>
+      <CalculatorLayout
+        title="Business Days Until Date"
+        description="Calculate how many working days remain until a specific date. Weekends (Saturday and Sunday) are automatically excluded."
+      >
 
-      <p>
-        Calculate how many working days remain until a specific date.
-      </p>
-
-      <p>
-        This calculator counts the number of business days between today and a
-        future date, excluding Saturdays and Sundays. It can help estimate
-        delivery times, work deadlines, project schedules, and planning
-        timelines based on working days.
-      </p>
-
-      <div className="calculator">
-
-        <DateInput
-          label="Target date"
-          value={date}
-          onChange={setDate}
-        />
+        <div className="date-field">
+          <label className="date-label">Target date</label>
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            className="date-input"
+          />
+        </div>
 
         {result !== null && (
+
           <div className="result-box">
-            <div className="result-number">{result}</div>
-            <div className="result-label">business days</div>
+
+            <div className="result-label">
+              Business days until date
+            </div>
+
+            <div className="result-number">
+              {result}
+            </div>
+
+            <div className="result-sub">
+              business days
+            </div>
+
           </div>
+
         )}
 
-      </div>
-<section style={{ marginTop: 40 }}>
+      </CalculatorLayout>
 
-  <h2>Frequently Asked Questions</h2>
+      <section style={{ marginTop: 40 }}>
 
-  <h3>How accurate is this calculator?</h3>
+        <h2>Frequently Asked Questions</h2>
 
-  <p>
-    The calculator uses standard calendar calculations and accounts for leap
-    years where applicable. Results are based on UTC date calculations to
-    avoid timezone errors.
-  </p>
+        <h3>Does this include weekends?</h3>
 
-  <h3>Can I use past and future dates?</h3>
+        <p>
+          No. The result excludes Saturdays and Sundays and only counts
+          standard working days (Monday through Friday).
+        </p>
 
-  <p>
-    Yes. The calculator works for both past and future dates and can be used
-    for planning, scheduling, and analyzing historical timelines.
-  </p>
+        <h3>Can I calculate past dates?</h3>
 
-</section>
-      {/* SMART CALCULATOR LINKS */}
+        <p>
+          Yes. If you enter a past date the calculator will still show the
+          number of business days between today and that date.
+        </p>
+
+      </section>
 
       <SmartToolLinks />
-
-      {/* RELATED TOOLS */}
 
       <RelatedTools />
 

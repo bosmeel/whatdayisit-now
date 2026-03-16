@@ -1,53 +1,35 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import DateInput from "@/components/DateInput";
+import { useMemo, useState } from "react";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import CalculatorLayout from "@/components/CalculatorLayout";
 import RelatedTools from "@/components/RelatedTools";
-import { getDateDuration, parseDateUTC } from "@/lib/date";
 import SmartToolLinks from "@/components/SmartToolLinks";
+import { getDateDuration, parseDateUTC } from "@/lib/date";
 
 export default function DateDurationPage() {
 
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
-  const [years, setYears] = useState<number | null>(null);
-  const [months, setMonths] = useState<number | null>(null);
-  const [days, setDays] = useState<number | null>(null);
-  const [totalDays, setTotalDays] = useState<number | null>(null);
-  const [totalWeeks, setTotalWeeks] = useState<number | null>(null);
+  const result = useMemo(() => {
 
-  useEffect(() => {
-
-    if (!startDate || !endDate) {
-      setYears(null);
-      setMonths(null);
-      setDays(null);
-      setTotalDays(null);
-      setTotalWeeks(null);
-      return;
-    }
+    if (!startDate || !endDate) return null;
 
     const start = parseDateUTC(startDate);
     const end = parseDateUTC(endDate);
 
-    if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) return;
+    if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) {
+      return null;
+    }
 
-    const result = getDateDuration(start, end);
-
-    setYears(result.years);
-    setMonths(result.months);
-    setDays(result.days);
-    setTotalDays(result.totalDays);
-    setTotalWeeks(result.totalWeeks);
+    return getDateDuration(start, end);
 
   }, [startDate, endDate]);
 
   return (
     <div>
 
-     
       <Breadcrumbs
         items={[
           { name: "Home", href: "/" },
@@ -56,72 +38,75 @@ export default function DateDurationPage() {
         ]}
       />
 
-      <h1>Date Duration Calculator</h1>
+      <CalculatorLayout
+        title="Date Duration Calculator"
+        description="Calculate the exact time between two dates. The duration is shown in years, months, weeks, and total days."
+      >
 
-      <p>
-        Calculate the exact time between two dates. This calculator shows the
-        duration in years, months, weeks, and total days.
-      </p>
+        <div className="date-field">
+          <label className="date-label">Start date</label>
+          <input
+            type="date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+            className="date-input"
+          />
+        </div>
 
-      <div className="calculator">
+        <div className="date-field">
+          <label className="date-label">End date</label>
+          <input
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+            className="date-input"
+          />
+        </div>
 
-        <DateInput
-          label="Start date"
-          value={startDate}
-          onChange={setStartDate}
-        />
+        {result && (
 
-        <DateInput
-          label="End date"
-          value={endDate}
-          onChange={setEndDate}
-        />
-
-        {years !== null && (
           <div className="result-box">
 
             <div className="result-number">
-              {years}y {months}m {days}d
+              {result.years}y {result.months}m {result.days}d
             </div>
 
             <div className="result-label">
               Duration
             </div>
 
-            <div style={{ marginTop: "10px", fontSize: "14px", color: "var(--muted)" }}>
-              {totalWeeks} weeks<br />
-              {totalDays} days
+            <div className="result-note">
+              {result.totalWeeks} weeks • {result.totalDays} days
             </div>
 
           </div>
+
         )}
 
-      </div>
-<section style={{ marginTop: 40 }}>
+      </CalculatorLayout>
 
-  <h2>Frequently Asked Questions</h2>
+      <section style={{ marginTop: 40 }}>
 
-  <h3>How accurate is this calculator?</h3>
+        <h2>Frequently Asked Questions</h2>
 
-  <p>
-    The calculator uses standard calendar calculations and accounts for leap
-    years where applicable. Results are based on UTC date calculations to
-    avoid timezone errors.
-  </p>
+        <h3>How accurate is this calculator?</h3>
 
-  <h3>Can I use past and future dates?</h3>
+        <p>
+          The calculator uses standard calendar calculations and accounts for
+          leap years where applicable. Results are based on UTC date
+          calculations to avoid timezone errors.
+        </p>
 
-  <p>
-    Yes. The calculator works for both past and future dates and can be used
-    for planning, scheduling, and analyzing historical timelines.
-  </p>
+        <h3>Can I use past and future dates?</h3>
 
-</section>
-      {/* SMART CALCULATOR LINKS */}
+        <p>
+          Yes. The calculator works for both past and future dates and can be
+          used for planning, scheduling, and analyzing historical timelines.
+        </p>
+
+      </section>
 
       <SmartToolLinks />
-
-      {/* RELATED TOOLS */}
 
       <RelatedTools />
 

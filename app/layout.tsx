@@ -2,6 +2,8 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
+import "./globals.css";
+import "./styles/calculator.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://whatdayisit.now"),

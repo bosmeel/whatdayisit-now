@@ -1,0 +1,65 @@
+.calculator{
+  max-width:520px;
+  margin-top:20px;
+  display:grid;
+  gap:14px;
+}
+
+.date-field{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.date-label{
+  font-weight:600;
+  font-size:14px;
+}
+
+.date-input{
+  padding:10px 12px;
+  border:1px solid var(--border);
+  border-radius:6px;
+  font-size:16px;
+  background:var(--background);
+  color:var(--foreground);
+}
+
+.date-input:focus{
+  outline:none;
+  border-color:var(--accent);
+}
+
+.result-box{
+  margin-top:22px;
+  padding:24px 22px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:var(--card);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+}
+
+.result-number{
+  font-size:48px;
+  font-weight:800;
+}
+
+.result-label{
+  font-size:14px;
+  color:var(--muted);
+}
+
+.result-sub{
+  font-size:14px;
+  color:var(--muted);
+  margin-top:4px;
+}
+
+.result-note{
+  font-size:13px;
+  color:var(--muted);
+  margin-top:8px;
+}

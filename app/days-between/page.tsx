@@ -1,64 +1,18 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
-import DateInput from "@/components/DateInput";
-import { DATE_PAIRS } from "@/lib/data/datePairs";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import CalculatorLayout from "@/components/CalculatorLayout";
+import DateRangeCalculator from "@/components/DateRangeCalculator";
 import RelatedCalculators from "@/components/RelatedCalculators";
-import { parseDateUTC } from "@/lib/date";
-
-/* More stable calculation (avoids timezone errors) */
-function calculateDaysBetween(start: Date, end: Date) {
-
-  const startUTC = Date.UTC(
-    start.getUTCFullYear(),
-    start.getUTCMonth(),
-    start.getUTCDate()
-  );
-
-  const endUTC = Date.UTC(
-    end.getUTCFullYear(),
-    end.getUTCMonth(),
-    end.getUTCDate()
-  );
-
-  const diff = endUTC - startUTC;
-
-  return Math.round(diff / 86400000);
-}
+import { DATE_PAIRS } from "@/lib/data/datePairs";
 
 export default function DaysBetweenPage() {
 
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [result, setResult] = useState<number | null>(null);
-
-  useEffect(() => {
-
-    if (!startDate || !endDate) {
-      setResult(null);
-      return;
-    }
-
-    const start = parseDateUTC(startDate);
-    const end = parseDateUTC(endDate);
-
-    if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) {
-      setResult(null);
-      return;
-    }
-
-    const days = calculateDaysBetween(start, end);
-
-    setResult(days);
-
-  }, [startDate, endDate]);
-
   return (
+
     <div>
 
-      
       <Breadcrumbs
         items={[
           { name: "Home", href: "/" },
@@ -67,41 +21,35 @@ export default function DaysBetweenPage() {
         ]}
       />
 
-      <h1>Days Between Two Dates</h1>
+      <CalculatorLayout
+        title="Days Between Two Dates"
+        description="Calculate the exact number of calendar days between two dates. Useful for planning, travel, deadlines, and comparing important events."
+      >
 
-      <p>
-        Calculate the exact number of calendar days between two dates.
-      </p>
+        <DateRangeCalculator
+          unit="days"
+          calculate={(start, end) => {
 
-      <p>
-        This date calculator helps determine the number of days separating
-        two calendar dates. It is commonly used for project planning,
-        travel preparation, deadline tracking, and comparing important
-        events on the calendar.
-      </p>
+            const startUTC = Date.UTC(
+              start.getUTCFullYear(),
+              start.getUTCMonth(),
+              start.getUTCDate()
+            );
 
-      <div className="calculator">
+            const endUTC = Date.UTC(
+              end.getUTCFullYear(),
+              end.getUTCMonth(),
+              end.getUTCDate()
+            );
 
-        <DateInput
-          label="Start date"
-          value={startDate}
-          onChange={setStartDate}
+            const diff = endUTC - startUTC;
+
+            return Math.round(diff / 86400000);
+
+          }}
         />
 
-        <DateInput
-          label="End date"
-          value={endDate}
-          onChange={setEndDate}
-        />
-
-        {result !== null && (
-          <div className="result-box">
-            <div className="result-number">{result}</div>
-            <div className="result-label">days</div>
-          </div>
-        )}
-
-      </div>
+      </CalculatorLayout>
 
       {/* HOW IT WORKS */}
 
@@ -154,13 +102,19 @@ export default function DaysBetweenPage() {
         <h2>Popular date comparisons</h2>
 
         <ul style={{ lineHeight: 1.9 }}>
+
           {DATE_PAIRS.slice(0, 20).map((pair) => (
+
             <li key={pair.slug}>
+
               <Link href={`/days-between/${pair.slug}`}>
                 Days between {pair.label}
               </Link>
+
             </li>
+
           ))}
+
         </ul>
 
       </section>
@@ -201,10 +155,10 @@ export default function DaysBetweenPage() {
 
       </section>
 
-      {/* RELATED CALCULATORS */}
-
       <RelatedCalculators current="days-between" />
 
     </div>
+
   );
+
 }
