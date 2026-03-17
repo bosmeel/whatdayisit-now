@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
 
 export const metadata = {
   title: "Contact – WhatDayIsIt.now",
@@ -10,6 +13,24 @@ export const metadata = {
 };
 
 export default function ContactPage() {
+
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+  async function submit(e: any) {
+    e.preventDefault();
+
+    await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, message }),
+    });
+
+    alert("Message sent");
+    setEmail("");
+    setMessage("");
+  }
+
   return (
     <main className="min-h-screen bg-white text-neutral-900 px-6 py-12">
       <div className="max-w-3xl mx-auto">
@@ -60,6 +81,35 @@ export default function ContactPage() {
             We aim to respond within a reasonable timeframe.
             Please note that this is an independently operated website.
           </p>
+
+          <h2 className="mt-10">Send a message</h2>
+
+          <form onSubmit={submit} className="mt-4 space-y-4 not-prose">
+
+            <input
+              type="email"
+              placeholder="Email (optional)"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full border border-neutral-300 rounded px-3 py-2"
+            />
+
+            <textarea
+              required
+              placeholder="Message"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              className="w-full border border-neutral-300 rounded px-3 py-2 h-32"
+            />
+
+            <button
+              type="submit"
+              className="bg-black text-white px-4 py-2 rounded hover:bg-neutral-800"
+            >
+              Send message
+            </button>
+
+          </form>
 
         </div>
       </div>
