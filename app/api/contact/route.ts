@@ -7,9 +7,19 @@ export async function POST(req: Request) {
   try {
     const { email, message, type, website } = await req.json();
 
+    // Honeypot spam filter
+    if (website) {
+      return NextResponse.json({ success: true });
+    }
+
+    // Basic validation
+    if (!message || message.length < 5) {
+      return NextResponse.json({ success: false });
+    }
+
     await resend.emails.send({
       from: "WhatDayIsIt <onboarding@resend.dev>",
-      to: "contact@whatdayisit.now",
+      to: "bosmeel@gmail.com",
       subject: `Website message (${type})`,
       replyTo: email || undefined,
       text: message,
