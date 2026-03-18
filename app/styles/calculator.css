@@ -141,3 +141,38 @@
   }
 
 }
+
+/* ===============================
+   CONTENT SECTIONS
+================================ */
+
+.content-section{
+  margin-top:36px;
+  padding:20px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+}
+
+/* tekst spacing */
+
+.content-section p{
+  margin-top:10px;
+}
+
+.content-section h3{
+  margin-top:16px;
+}
+
+/* lijst */
+
+.content-list{
+  margin-top:10px;
+  line-height:1.8;
+}
+
+.content-section:first-of-type{
+  background:transparent;
+  border:none;
+  padding:0;
+}

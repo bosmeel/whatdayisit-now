@@ -8,9 +8,7 @@ import RelatedCalculators from "@/components/RelatedCalculators";
 import { DATE_PAIRS } from "@/lib/data/datePairs";
 
 export default function DaysBetweenPage() {
-
   return (
-
     <div>
 
       <Breadcrumbs
@@ -25,11 +23,9 @@ export default function DaysBetweenPage() {
         title="Days Between Two Dates"
         description="Calculate the exact number of calendar days between two dates. Useful for planning, travel, deadlines, and comparing important events."
       >
-
         <DateRangeCalculator
           unit="days"
           calculate={(start, end) => {
-
             const startUTC = Date.UTC(
               start.getUTCFullYear(),
               start.getUTCMonth(),
@@ -45,13 +41,15 @@ export default function DaysBetweenPage() {
             const diff = endUTC - startUTC;
 
             return Math.round(diff / 86400000);
-
           }}
         />
-
       </CalculatorLayout>
 
-      <section style={{ marginTop: 40 }}>
+      {/* ===============================
+          CONTENT BLOCKS
+      =============================== */}
+
+      <section className="content-section">
 
         <h2>How the Days Between Calculator Works</h2>
 
@@ -70,7 +68,7 @@ export default function DaysBetweenPage() {
 
       </section>
 
-      <section style={{ marginTop: 32 }}>
+      <section className="content-section">
 
         <h2>Frequently Asked Questions</h2>
 
@@ -91,29 +89,25 @@ export default function DaysBetweenPage() {
 
       </section>
 
-      <section style={{ marginTop: 50 }}>
+      <section className="content-section">
 
         <h2>Popular date comparisons</h2>
 
-        <ul style={{ lineHeight: 1.9 }}>
+        <ul className="content-list">
 
           {DATE_PAIRS.slice(0, 20).map((pair) => (
-
             <li key={pair.slug}>
-
               <Link href={`/days-between/${pair.slug}`}>
                 Days between {pair.label}
               </Link>
-
             </li>
-
           ))}
 
         </ul>
 
       </section>
 
-      <section style={{ marginTop: 50 }}>
+      <section className="content-section">
 
         <h2>Related Date Tools</h2>
 
@@ -150,7 +144,5 @@ export default function DaysBetweenPage() {
       <RelatedCalculators current="days-between" />
 
     </div>
-
   );
-
 }
