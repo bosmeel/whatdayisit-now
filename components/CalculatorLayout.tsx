@@ -12,18 +12,22 @@ export default function CalculatorLayout({
   children,
 }: Props) {
   return (
-    <div>
+    <section className="calc-page">
 
-      <h1>{title}</h1>
+      {/* HEADER */}
+      <div className="calc-header">
+        <h1>{title}</h1>
 
-      {description && (
-        <p>{description}</p>
-      )}
+        {description && (
+          <p>{description}</p>
+        )}
+      </div>
 
-      <div className="calculator">
+      {/* HERO CALCULATOR */}
+      <div className="calc-hero">
         {children}
       </div>
 
-    </div>
+    </section>
   );
 }

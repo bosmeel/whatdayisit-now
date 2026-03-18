@@ -1,93 +1,134 @@
+/* ===============================
+   CALCULATOR CONTAINER
+================================ */
+
 .calculator{
   max-width:520px;
-  margin-top:20px;
+  margin:0 auto;
   display:grid;
-  gap:14px;
+  gap:18px;
 }
 
-/* date fields */
+/* ===============================
+   DATE FIELDS
+================================ */
 
 .date-field{
   display:flex;
   flex-direction:column;
   gap:6px;
-  margin-bottom:16px;
 }
 
 .date-label{
-  display:block;
-  font-size:13px;
+  font-size:12px;
   font-weight:600;
   color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.04em;
 }
 
-/* date input */
+/* ===============================
+   INPUT
+================================ */
 
 .date-input{
-  padding:12px 14px;
+  padding:14px 14px;
   border:1px solid var(--border);
-  border-radius:8px;
+  border-radius:10px;
   font-size:16px;
   background:var(--background);
   color:var(--foreground);
+
+  transition:border-color .15s ease, box-shadow .15s ease;
 }
 
 .date-input:focus{
   outline:none;
   border-color:var(--accent);
-  box-shadow:0 0 0 2px rgba(0,0,0,0.05);
+  box-shadow:0 0 0 3px rgba(99,102,241,0.15);
 }
 
-/* quick date buttons */
+/* ===============================
+   QUICK BUTTONS
+================================ */
 
 .date-quick{
   display:flex;
-  gap:8px;
+  gap:10px;
   flex-wrap:wrap;
-  margin-top:6px;
 }
 
 .date-quick button{
-  padding:6px 10px;
+  padding:7px 12px;
   font-size:13px;
   border:1px solid var(--border);
   background:var(--card);
-  border-radius:6px;
+  border-radius:8px;
   cursor:pointer;
+
   transition:all .15s ease;
 }
 
 .date-quick button:hover{
   border-color:var(--accent);
-  background:rgba(0,0,0,0.03);
+  background:rgba(99,102,241,0.06);
 }
 
-/* result box */
+/* ===============================
+   RESULT BOX (HERO)
+================================ */
 
 .result-box{
-  margin-top:28px;
-  padding:26px 22px;
-  border:1px solid var(--border);
-  border-radius:12px;
-  background:var(--card);
+  margin-top:12px;
+  padding:28px 24px;
+
+  border-radius:16px;
+
+  background:linear-gradient(
+    135deg,
+    rgba(99,102,241,0.08),
+    rgba(99,102,241,0.02)
+  );
+
+  border:1px solid rgba(99,102,241,0.18);
+
   display:flex;
   flex-direction:column;
   align-items:center;
   text-align:center;
+
   animation:fadeResult .25s ease;
+
+  transition:transform .2s ease, box-shadow .2s ease;
 }
 
+/* hover subtle (desktop only gevoel) */
+
+.result-box:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 30px rgba(0,0,0,0.06);
+}
+
+/* big number */
+
 .result-number{
-  font-size:56px;
+  font-size:64px;
   font-weight:800;
   letter-spacing:-0.02em;
+  color:var(--foreground);
+
+  transition:all .15s ease;
 }
+
+/* label */
 
 .result-label{
   font-size:14px;
   color:var(--muted);
-  margin-top:4px;
+  margin-top:6px;
 }
+
+/* extra text */
 
 .result-sub{
   font-size:14px;
@@ -101,12 +142,16 @@
   margin-top:8px;
 }
 
-/* animation */
+/* ===============================
+   ANIMATION
+================================ */
+
+/* initial load */
 
 @keyframes fadeResult{
   from{
     opacity:0;
-    transform:translateY(4px);
+    transform:translateY(6px);
   }
   to{
     opacity:1;
@@ -114,26 +159,31 @@
   }
 }
 
-/* mobile improvements */
+/* live update pulse */
+
+.result-animate{
+  animation:resultPulse .25s ease;
+}
+
+@keyframes resultPulse{
+  0%{
+    transform:scale(0.97);
+    opacity:0.85;
+  }
+  100%{
+    transform:scale(1);
+    opacity:1;
+  }
+}
+
+/* ===============================
+   MOBILE
+================================ */
 
 @media (max-width:640px){
 
   .calculator{
-    gap:18px;
-  }
-
-  .date-input{
-    font-size:16px;
-    padding:14px 14px;
-  }
-
-  .date-quick{
-    gap:10px;
-  }
-
-  .date-quick button{
-    padding:8px 12px;
-    font-size:14px;
+    gap:20px;
   }
 
   .result-number{
@@ -147,29 +197,32 @@
 ================================ */
 
 .content-section{
-  margin-top:36px;
-  padding:20px;
+  margin-top:40px;
+  padding:22px;
+
   background:var(--card);
   border:1px solid var(--border);
-  border-radius:14px;
+  border-radius:16px;
 }
 
-/* tekst spacing */
+/* spacing */
 
 .content-section p{
-  margin-top:10px;
+  margin-top:12px;
 }
 
 .content-section h3{
-  margin-top:16px;
+  margin-top:18px;
 }
 
-/* lijst */
+/* list */
 
 .content-list{
-  margin-top:10px;
-  line-height:1.8;
+  margin-top:12px;
+  line-height:1.9;
 }
+
+/* first section = intro (clean) */
 
 .content-section:first-of-type{
   background:transparent;

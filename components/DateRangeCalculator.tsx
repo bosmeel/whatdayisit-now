@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { parseDateUTC } from "@/lib/date";
 
 type Props = {
@@ -20,6 +20,8 @@ export default function DateRangeCalculator({
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
+  const [animate, setAnimate] = useState(false);
+
   const result = useMemo(() => {
 
     if (!startDate || !endDate) return null;
@@ -37,6 +39,15 @@ export default function DateRangeCalculator({
     return calculate(start, end);
 
   }, [startDate, endDate, calculate]);
+
+  // ✅ animation trigger (correcte plek, niet in useMemo)
+  useEffect(() => {
+    if (result !== null) {
+      setAnimate(true);
+      const t = setTimeout(() => setAnimate(false), 250);
+      return () => clearTimeout(t);
+    }
+  }, [result]);
 
   function handleReport() {
     const url = window.location.href;
@@ -114,7 +125,7 @@ export default function DateRangeCalculator({
 
       {result !== null && (
 
-        <div className="result-box">
+        <div className={`result-box ${animate ? "result-animate" : ""}`}>
 
           <div className="result-number">
             {result}
