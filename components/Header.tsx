@@ -12,7 +12,7 @@ export default function Header() {
   { href: "/days-until", label: "Days Until" },
   { href: "/days-since", label: "Days Since" },
   { href: "/age-calculator", label: "Age Calculator" },
-  { href: "/business-days-between", label: "Business Days Since" },
+  { href: "/business-days-between", label: "Business Days Between" },
   { href: "/business-days-until", label: "Business Days Until" },
   { href: "/birthday-weekday", label: "Birthday Weekday" },
   { href: "/weeks-between", label: "Weeks" },
