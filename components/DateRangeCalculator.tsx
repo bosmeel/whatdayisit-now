@@ -38,6 +38,18 @@ export default function DateRangeCalculator({
 
   }, [startDate, endDate, calculate]);
 
+  function handleReport() {
+    const url = window.location.href;
+
+    const message = encodeURIComponent(
+      `Incorrect result on:\n${url}\n\nStart date: ${startDate}\nEnd date: ${endDate}\nResult: ${result} ${unit}\n\nDescribe the issue:`
+    );
+
+    const link = `/contact?type=wrong-calculation&message=${message}`;
+
+    window.location.href = link;
+  }
+
   return (
 
     <div className="calculator">
@@ -111,6 +123,13 @@ export default function DateRangeCalculator({
           <div className="result-label">
             {unit}
           </div>
+
+          <button
+            onClick={handleReport}
+            className="text-sm text-red-600 underline mt-3 hover:text-red-800"
+          >
+            Report incorrect result
+          </button>
 
         </div>
 
