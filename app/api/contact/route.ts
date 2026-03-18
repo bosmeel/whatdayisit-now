@@ -11,7 +11,7 @@ export async function POST(req: Request) {
       from: "WhatDayIsIt <onboarding@resend.dev>",
       to: "contact@whatdayisit.now",
       subject: "New message from website",
-      reply_to: email || undefined,
+     replyTo: email || undefined,
       text: message,
     });
 
