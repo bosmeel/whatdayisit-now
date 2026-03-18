@@ -28,38 +28,39 @@ export default function ContactPage() {
         <div className="prose max-w-none text-neutral-700">
 
           <p>
-            If you have questions, suggestions, or notice any inaccuracies,
-            please feel free to get in touch.
+            If you notice incorrect calculations, have suggestions, or general questions,
+            please use the form below.
           </p>
 
-          <h2>General inquiries</h2>
+          <h2>Feedback and corrections</h2>
           <p>
-            For general questions about how date calculations work,
-            calendar systems, or feature suggestions, you can reach us at:
+            If you believe a calculation or explanation is incorrect, please include:
           </p>
 
+          <ul>
+            <li>The page URL</li>
+            <li>The dates or inputs you used</li>
+            <li>A short explanation of the issue</li>
+          </ul>
+
           <p>
-            <strong>Email:</strong> contact@whatdayisit.now
+            This helps us quickly verify and improve the accuracy of the tools.
           </p>
 
-          <h2>Corrections</h2>
+          <h2>Suggestions</h2>
           <p>
-            If you believe a calculation or explanation is incorrect,
-            please include the specific page URL and a short explanation.
-            We review all feedback carefully.
+            Ideas for new tools, improvements, or additional features are always welcome.
           </p>
 
-          <h2>Advertising</h2>
+          <h2>Advertising and partnerships</h2>
           <p>
-            For advertising or partnership inquiries,
-            please use the same email address above and include
-            “Advertising” in the subject line.
+            For collaboration or advertising inquiries, please use the form and include
+            relevant details in your message.
           </p>
 
           <h2>Response time</h2>
           <p>
-            We aim to respond within a reasonable timeframe.
-            Please note that this is an independently operated website.
+            Messages are reviewed regularly. Please note that this is an independently operated website.
           </p>
 
           <h2 className="mt-10">Send a message</h2>

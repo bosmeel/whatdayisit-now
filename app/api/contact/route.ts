@@ -5,17 +5,17 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: Request) {
   try {
-    const { email, message } = await req.json();
+    const { email, message, type, website } = await req.json();
 
-    const data = await resend.emails.send({
+    await resend.emails.send({
       from: "WhatDayIsIt <onboarding@resend.dev>",
       to: "contact@whatdayisit.now",
-      subject: "New message from website",
-     replyTo: email || undefined,
+      subject: `Website message (${type})`,
+      replyTo: email || undefined,
       text: message,
     });
 
-    return NextResponse.json({ success: true, data });
+    return NextResponse.json({ success: true });
 
   } catch (error) {
     console.error(error);
