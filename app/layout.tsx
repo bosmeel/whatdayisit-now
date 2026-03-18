@@ -1,9 +1,8 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import "./globals.css";
-import Header from "@/components/Header";
-import "./globals.css";
 import "./styles/calculator.css";
+import Header from "@/components/Header";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://whatdayisit.now"),
@@ -59,8 +58,11 @@ export default function RootLayout({
 
         <Header />
 
-        <main className="container main-content">
-          {children}
+        {/* MAIN CONTAINER FIX */}
+        <main className="main-content">
+          <div className="container">
+            {children}
+          </div>
         </main>
 
         <footer className="site-footer">

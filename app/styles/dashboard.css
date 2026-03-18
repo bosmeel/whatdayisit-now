@@ -45,6 +45,7 @@
   position:relative;
   overflow:hidden;
   align-items:flex-start; /* fix alignment */
+  cursor:default;
 
   transition:
     transform .18s ease,
@@ -94,9 +95,7 @@
 ================================ */
 
 .today-card:hover{
-  transform:translateY(-2px); /* subtieler */
-  border-color:var(--accent);
-  box-shadow:0 8px 18px rgba(0,0,0,0.08);
+  box-shadow:0 6px 14px rgba(0,0,0,0.07);
 }
 
 .today-card:hover::before{

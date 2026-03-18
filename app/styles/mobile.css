@@ -76,3 +76,27 @@
   font-size:16px;
   font-weight:600;
 }
+
+@media (max-width:640px){
+
+  .today-dashboard{
+    margin-top:16px;
+  }
+
+  .dashboard-header h2{
+  font-size:22px;   /* was 24 */
+  font-weight:700;  /* was 800 */
+}
+
+  .today-grid{
+    gap:12px;
+  }
+
+  .today-card{
+    padding:16px;
+  }
+
+}
+.today-value{
+  font-variant-numeric: tabular-nums;
+}
