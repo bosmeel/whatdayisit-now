@@ -1,19 +1,30 @@
 .site-header{
-  border-bottom:1px solid var(--border);
-  background:var(--background);
   position:sticky;
   top:0;
   z-index:50;
+
+  background:var(--background);
+  border-bottom:1px solid var(--border);
+
   backdrop-filter:saturate(180%) blur(6px);
+
+  padding:14px 0; /* FIX: consistente spacing */
 }
+
+/* ===============================
+   HEADER LAYOUT
+================================ */
 
 .header-inner{
   display:grid;
   grid-template-columns:auto 1fr auto;
   align-items:center;
   gap:20px;
-  padding:12px 0;
 }
+
+/* ===============================
+   LOGO
+================================ */
 
 .logo-link{
   display:flex;
@@ -26,6 +37,10 @@
   width:18px;
   height:18px;
 }
+
+/* ===============================
+   NAV
+================================ */
 
 .main-nav{
   display:flex;
@@ -43,17 +58,33 @@
   border-bottom:2px solid var(--accent);
 }
 
-/* mobile menu button */
+/* ===============================
+   MOBILE MENU BUTTON
+================================ */
 
 .mobile-menu-button{
   display:none;
-  font-size:24px;
+  font-size:22px;
   border:none;
   background:none;
   cursor:pointer;
 }
 
+/* ===============================
+   MOBILE FIX
+================================ */
+
 @media (max-width:720px){
+
+  .site-header{
+    padding:12px 0; /* iets compacter */
+  }
+
+  .header-inner{
+    display:flex; /* FIX: grid → flex voorkomt rare compressie */
+    justify-content:space-between;
+    align-items:center;
+  }
 
   .desktop-nav{
     display:none;
