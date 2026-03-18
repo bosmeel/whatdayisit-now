@@ -23,7 +23,7 @@
   margin-top:28px;
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-  gap:14px;
+  gap:18px; /* verbeterd */
 }
 
 /* ===============================
@@ -37,13 +37,14 @@
   padding:20px 18px;
   display:flex;
   flex-direction:column;
-  gap:6px;
+  gap:2px; /* strakker */
   min-height:86px;
   box-shadow:0 4px 12px rgba(0,0,0,0.06);
   text-decoration:none;
   color:var(--foreground);
   position:relative;
   overflow:hidden;
+  align-items:flex-start; /* fix alignment */
 
   transition:
     transform .18s ease,
@@ -51,42 +52,51 @@
     border-color .18s ease;
 }
 
+/* TOP accent i.p.v. linker balk */
+
 .today-card::before{
   content:"";
   position:absolute;
   left:0;
   top:0;
-  bottom:0;
-  width:3px;
+  height:3px;
+  width:100%;
   background:var(--accent);
-  opacity:.35;
+  opacity:.6;
 }
 
-/* label */
+/* ===============================
+   LABEL (subtiel)
+================================ */
 
-.today-card strong{
+.today-label{
   font-size:11px;
   text-transform:uppercase;
-  letter-spacing:.05em;
+  letter-spacing:.06em;
   color:var(--muted);
   font-weight:600;
+  margin-top:4px;
 }
 
-/* main value */
+/* ===============================
+   VALUE (dominant)
+================================ */
 
-.today-card > div:first-of-type{
+.today-value{
   font-size:28px;
   font-weight:800;
   color:var(--foreground);
   line-height:1.2;
 }
 
-/* hover */
+/* ===============================
+   HOVER (rustiger)
+================================ */
 
 .today-card:hover{
-  transform:translateY(-3px);
+  transform:translateY(-2px); /* subtieler */
   border-color:var(--accent);
-  box-shadow:0 12px 26px rgba(0,0,0,0.08);
+  box-shadow:0 8px 18px rgba(0,0,0,0.08);
 }
 
 .today-card:hover::before{
@@ -98,19 +108,21 @@
 }
 
 /* ===============================
-   PROGRESS BAR
+   PROGRESS BAR (verbeterd)
 ================================ */
 
 .year-progress-bar{
-  margin-top:6px;
-  height:5px;
-  border-radius:3px;
+  margin-top:8px;
+  height:6px;
+  border-radius:4px;
   background:var(--border);
+  overflow:hidden;
 }
 
 .year-progress-fill{
   height:100%;
   background:var(--accent);
+  border-radius:4px;
 }
 
 /* ===============================
@@ -121,30 +133,22 @@
   margin-bottom:22px;
 }
 
-/* main answer */
-
 .today-answer{
   font-size:36px;
   font-weight:700;
   letter-spacing:-0.02em;
 }
 
-/* weekday accent */
-
 .today-weekday{
   color:var(--accent);
   font-weight:800;
 }
-
-/* context */
 
 .today-context{
   margin-top:6px;
   font-size:15px;
   color:var(--muted);
 }
-
-/* meta info */
 
 .today-meta{
   margin-top:4px;
@@ -167,18 +171,4 @@
     font-size:28px;
   }
 
-}
-
-/* ==================================
-================================= */
-
-.today-label{
-  font-size:13px;
-  color:var(--muted);
-  margin-bottom:4px;
-}
-
-.today-value{
-  font-size:24px;
-  font-weight:700;
 }
