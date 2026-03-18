@@ -37,7 +37,7 @@ body{
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
 
-  overflow-x:hidden; /* FIX mobile */
+  overflow-x:hidden;
 }
 
 /* ===============================
@@ -52,7 +52,19 @@ body{
 
 .main-content{
   min-height:70vh;
-  padding-top:16px; /* spacing onder header */
+  padding-top:16px;
+}
+
+/* 🔥 SECTION SPACING FIX */
+
+section{
+  margin-top:32px;
+}
+
+@media (max-width:640px){
+  section{
+    margin-top:24px;
+  }
 }
 
 /* ===============================
@@ -73,6 +85,7 @@ h1{
 h2{
   font-size:22px;
   font-weight:700;
+  margin-bottom:12px; /* 🔥 belangrijk voor jouw probleem */
 }
 
 h3{
