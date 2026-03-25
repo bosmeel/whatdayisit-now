@@ -2,16 +2,16 @@
 
 import { useState, useMemo } from "react";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import CalculatorLayout from "@/components/CalculatorLayout";
+import CalculatorContent from "@/components/CalculatorContent";
 import RelatedTools from "@/components/RelatedTools";
 import SmartToolLinks from "@/components/SmartToolLinks";
 import { parseDateUTC } from "@/lib/date";
 
 export default function AgeCalculatorPage() {
-
   const [birthDate, setBirthDate] = useState("");
 
   const age = useMemo(() => {
-
     if (!birthDate) return null;
 
     const birth = parseDateUTC(birthDate);
@@ -25,109 +25,74 @@ export default function AgeCalculatorPage() {
     let days = now.getDate() - birth.getUTCDate();
 
     if (days < 0) {
-
       months--;
 
-      const prevMonth = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        0
-      );
+      const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
 
       days += prevMonth.getDate();
-
     }
 
     if (months < 0) {
-
       years--;
       months += 12;
-
     }
 
     return { years, months, days };
-
   }, [birthDate]);
 
   return (
-
     <div>
-
       <Breadcrumbs
         items={[
           { name: "Home", href: "/" },
           { name: "Date Calculators", href: "/" },
-          { name: "Age Calculator" }
+          { name: "Age Calculator" },
         ]}
       />
 
-      <h1>Age Calculator</h1>
+      <CalculatorLayout
+        title="Age Calculator"
+        description="Calculate exact age based on a birth date, including years, months, and days."
+      >
+        {/* 🔥 Intro */}
+        <p className="mt-3 text-neutral-600 leading-relaxed">
+          This age calculator helps you determine a person’s exact age based on
+          their birth date. It calculates age in years, months, and days, making
+          it useful for both personal and official purposes.
+        </p>
 
-      <p>
-        Calculate someone's exact age based on their birth date.
-      </p>
+        {/* Calculator */}
+        <div className="calculator">
+          <div className="date-field">
+            <label className="date-label">Birth date</label>
 
-      <div className="calculator">
-
-        <div className="date-field">
-
-          <label className="date-label">Birth date</label>
-
-          <input
-            type="date"
-            value={birthDate}
-            onChange={(e)=>setBirthDate(e.target.value)}
-            className="date-input"
-          />
-
-        </div>
-
-        {age && (
-
-          <div className="result-box">
-
-            <div className="result-number">
-              {age.years}
-            </div>
-
-            <div className="result-label">
-              years
-            </div>
-
-            <div className="result-sub">
-              {age.months} months {age.days} days
-            </div>
-
+            <input
+              type="date"
+              value={birthDate}
+              onChange={(e) => setBirthDate(e.target.value)}
+              className="date-input"
+            />
           </div>
 
-        )}
+          {age && (
+            <div className="result-box">
+              <div className="result-number">{age.years}</div>
 
-      </div>
+              <div className="result-label">years</div>
 
-      <section style={{ marginTop: 40 }}>
+              <div className="result-sub">
+                {age.months} months {age.days} days
+              </div>
+            </div>
+          )}
+        </div>
+      </CalculatorLayout>
 
-        <h2>Frequently Asked Questions</h2>
-
-        <h3>How accurate is this calculator?</h3>
-
-        <p>
-          The calculator uses standard calendar calculations and accounts for
-          leap years where applicable.
-        </p>
-
-        <h3>Can I use past and future dates?</h3>
-
-        <p>
-          Yes. The calculator works for both past and future dates.
-        </p>
-
-      </section>
+      {/* 🔥 Reusable SEO blocks */}
+      <CalculatorContent type="age" />
 
       <SmartToolLinks />
       <RelatedTools />
-
     </div>
-
   );
-
 }
