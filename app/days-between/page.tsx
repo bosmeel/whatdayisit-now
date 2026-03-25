@@ -150,7 +150,7 @@ export default function DaysBetweenPage() {
         <h2>Popular date comparisons</h2>
 
         <ul className="content-list">
-          {DATE_PAIRS.slice(0, 20).map((pair) => (
+          {DATE_PAIRS.slice(0, 80).map((pair) => (
             <li key={pair.slug}>
               <Link href={`/days-between/${pair.slug}`}>
                 Days between {pair.label}

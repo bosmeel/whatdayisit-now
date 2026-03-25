@@ -3,20 +3,74 @@ type Pair = {
   label: string;
   start: string;
   end: string;
-  priority?: number;
 };
 
 function formatMonth(name: string) {
   return name.charAt(0).toUpperCase() + name.slice(1);
 }
 
-const fixedPairs: Pair[] = [
+const months = [
+  { name: "january", num: 1, days: 31 },
+  { name: "february", num: 2, days: 29 },
+  { name: "march", num: 3, days: 31 },
+  { name: "april", num: 4, days: 30 },
+  { name: "may", num: 5, days: 31 },
+  { name: "june", num: 6, days: 30 },
+  { name: "july", num: 7, days: 31 },
+  { name: "august", num: 8, days: 31 },
+  { name: "september", num: 9, days: 30 },
+  { name: "october", num: 10, days: 31 },
+  { name: "november", num: 11, days: 30 },
+  { name: "december", num: 12, days: 31 },
+];
+
+function pad(n: number) {
+  return String(n).padStart(2, "0");
+}
+
+const pairs: Pair[] = [];
+
+/* 🔥 CORE: month start ↔ month end */
+
+months.forEach((a) => {
+  months.forEach((b) => {
+    if (a.num >= b.num) return;
+
+    pairs.push({
+      slug: `${a.name}-1-and-${b.name}-${b.days}`,
+      label: `${formatMonth(a.name)} 1 and ${formatMonth(b.name)} ${b.days}`,
+      start: `2024-${pad(a.num)}-01`,
+      end: `2024-${pad(b.num)}-${b.days}`,
+    });
+  });
+});
+
+/* 🔥 SAME MONTH (extra depth) */
+
+months.forEach((m) => {
+  pairs.push({
+    slug: `${m.name}-1-and-${m.name}-15`,
+    label: `${formatMonth(m.name)} 1 and ${formatMonth(m.name)} 15`,
+    start: `2024-${pad(m.num)}-01`,
+    end: `2024-${pad(m.num)}-15`,
+  });
+
+  pairs.push({
+    slug: `${m.name}-15-and-${m.name}-${m.days}`,
+    label: `${formatMonth(m.name)} 15 and ${formatMonth(m.name)} ${m.days}`,
+    start: `2024-${pad(m.num)}-15`,
+    end: `2024-${pad(m.num)}-${m.days}`,
+  });
+});
+
+/* 🔥 HIGH VALUE FIXED */
+
+pairs.push(
   {
     slug: "christmas-and-new-year",
     label: "Christmas and New Year",
     start: "2024-12-25",
     end: "2025-01-01",
-    priority: 10,
   },
   {
     slug: "halloween-and-christmas",
@@ -29,34 +83,7 @@ const fixedPairs: Pair[] = [
     label: "January 1 and December 31",
     start: "2024-01-01",
     end: "2024-12-31",
-    priority: 10,
   },
-];
+);
 
-const months = [
-  { name: "january", days: 31 },
-  { name: "february", days: 29 },
-  { name: "march", days: 31 },
-  { name: "april", days: 30 },
-  { name: "may", days: 31 },
-  { name: "june", days: 30 },
-  { name: "july", days: 31 },
-  { name: "august", days: 31 },
-  { name: "september", days: 30 },
-  { name: "october", days: 31 },
-  { name: "november", days: 30 },
-  { name: "december", days: 31 },
-];
-
-const generatedPairs: Pair[] = [];
-
-months.forEach((month) => {
-  generatedPairs.push({
-    slug: `${month.name}-1-and-${month.name}-${month.days}`,
-    label: `${formatMonth(month.name)} 1 and ${formatMonth(month.name)} ${month.days}`,
-    start: `2024-${String(months.indexOf(month) + 1).padStart(2, "0")}-01`,
-    end: `2024-${String(months.indexOf(month) + 1).padStart(2, "0")}-${month.days}`,
-  });
-});
-
-export const DATE_PAIRS: Pair[] = [...fixedPairs, ...generatedPairs];
+export const DATE_PAIRS = pairs;
