@@ -2,144 +2,177 @@
    CALCULATOR CONTAINER
 ================================ */
 
-.calculator{
-  max-width:520px;
-  margin:0 auto;
-  display:grid;
-  gap:18px;
+.calculator {
+  max-width: 560px;
+  margin: 20px auto 0;
+
+  display: grid;
+  gap: 18px;
+
+  padding: 22px;
+  border-radius: 16px;
+
+  background: #ffffff;
+  border: 1px solid var(--border);
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+
+  position: relative;
+}
+
+/* subtle accent line */
+
+.calculator::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--accent);
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
 }
 
 /* ===============================
    DATE FIELDS
 ================================ */
 
-.date-field{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
+.date-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
-.date-label{
-  font-size:12px;
-  font-weight:600;
-  color:var(--muted);
-  text-transform:uppercase;
-  letter-spacing:.04em;
+.date-field:first-of-type {
+  margin-top: 6px;
+}
+
+.date-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 /* ===============================
    INPUT
 ================================ */
 
-.date-input{
-  padding:14px 14px;
-  border:1px solid var(--border);
-  border-radius:10px;
-  font-size:16px;
-  background:var(--background);
-  color:var(--foreground);
+.date-input {
+  padding: 14px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 16px;
+  background: var(--background);
+  color: var(--foreground);
 
-  transition:border-color .15s ease, box-shadow .15s ease;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
-.date-input:focus{
-  outline:none;
-  border-color:var(--accent);
-  box-shadow:0 0 0 3px rgba(99,102,241,0.15);
+.date-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
 }
 
 /* ===============================
    QUICK BUTTONS
 ================================ */
 
-.date-quick{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
+.date-quick {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-.date-quick button{
-  padding:7px 12px;
-  font-size:13px;
-  border:1px solid var(--border);
-  background:var(--card);
-  border-radius:8px;
-  cursor:pointer;
+.date-quick button {
+  padding: 7px 12px;
+  font-size: 13px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  border-radius: 8px;
+  cursor: pointer;
 
-  transition:all .15s ease;
+  transition: all 0.15s ease;
 }
 
-.date-quick button:hover{
-  border-color:var(--accent);
-  background:rgba(99,102,241,0.06);
+.date-quick button:hover {
+  border-color: var(--accent);
+  background: rgba(99, 102, 241, 0.06);
 }
 
 /* ===============================
    RESULT BOX (HERO)
 ================================ */
 
-.result-box{
-  margin-top:12px;
-  padding:28px 24px;
+.result-box {
+  margin-top: 16px;
+  padding: 28px 24px;
 
-  border-radius:16px;
+  border-radius: 16px;
 
-  background:linear-gradient(
+  background: linear-gradient(
     135deg,
-    rgba(99,102,241,0.08),
-    rgba(99,102,241,0.02)
+    rgba(99, 102, 241, 0.08),
+    rgba(99, 102, 241, 0.02)
   );
 
-  border:1px solid rgba(99,102,241,0.18);
+  border: 1px solid rgba(99, 102, 241, 0.18);
 
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  text-align:center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 
-  animation:fadeResult .25s ease;
+  animation: fadeResult 0.25s ease;
 
-  transition:transform .2s ease, box-shadow .2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 /* hover subtle (desktop only gevoel) */
 
-.result-box:hover{
-  transform:translateY(-2px);
-  box-shadow:0 10px 30px rgba(0,0,0,0.06);
+.result-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
 }
 
 /* big number */
 
-.result-number{
-  font-size:64px;
-  font-weight:800;
-  letter-spacing:-0.02em;
-  color:var(--foreground);
+.result-number {
+  font-size: 64px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
 
-  transition:all .15s ease;
+  transition: all 0.15s ease;
 }
 
 /* label */
 
-.result-label{
-  font-size:14px;
-  color:var(--muted);
-  margin-top:6px;
+.result-label {
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: 6px;
 }
 
 /* extra text */
 
-.result-sub{
-  font-size:14px;
-  color:var(--muted);
-  margin-top:4px;
+.result-sub {
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: 4px;
 }
 
-.result-note{
-  font-size:13px;
-  color:var(--muted);
-  margin-top:8px;
+.result-note {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 8px;
 }
 
 /* ===============================
@@ -148,31 +181,31 @@
 
 /* initial load */
 
-@keyframes fadeResult{
-  from{
-    opacity:0;
-    transform:translateY(6px);
+@keyframes fadeResult {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
   }
-  to{
-    opacity:1;
-    transform:none;
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 
 /* live update pulse */
 
-.result-animate{
-  animation:resultPulse .25s ease;
+.result-animate {
+  animation: resultPulse 0.25s ease;
 }
 
-@keyframes resultPulse{
-  0%{
-    transform:scale(0.97);
-    opacity:0.85;
+@keyframes resultPulse {
+  0% {
+    transform: scale(0.97);
+    opacity: 0.85;
   }
-  100%{
-    transform:scale(1);
-    opacity:1;
+  100% {
+    transform: scale(1);
+    opacity: 1;
   }
 }
 
@@ -180,52 +213,50 @@
    MOBILE
 ================================ */
 
-@media (max-width:640px){
-
-  .calculator{
-    gap:20px;
+@media (max-width: 640px) {
+  .calculator {
+    gap: 20px;
   }
 
-  .result-number{
-    font-size:48px;
+  .result-number {
+    font-size: 48px;
   }
-
 }
 
 /* ===============================
    CONTENT SECTIONS
 ================================ */
 
-.content-section{
-  margin-top:40px;
-  padding:22px;
+.content-section {
+  margin-top: 40px;
+  padding: 22px;
 
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
 }
 
 /* spacing */
 
-.content-section p{
-  margin-top:12px;
+.content-section p {
+  margin-top: 12px;
 }
 
-.content-section h3{
-  margin-top:18px;
+.content-section h3 {
+  margin-top: 18px;
 }
 
 /* list */
 
-.content-list{
-  margin-top:12px;
-  line-height:1.9;
+.content-list {
+  margin-top: 12px;
+  line-height: 1.9;
 }
 
 /* first section = intro (clean) */
 
-.content-section:first-of-type{
-  background:transparent;
-  border:none;
-  padding:0;
+.content-section:first-of-type {
+  background: transparent;
+  border: none;
+  padding: 0;
 }
