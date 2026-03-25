@@ -16,8 +16,16 @@ function getPair(slug: string) {
    PAGE
 ================================ */
 
-export default function Page({ params }: { params: { pair: string } }) {
-  const pair = getPair(params.pair);
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ pair: string }>;
+}) {
+  const { pair: slug } = await params;
+
+  const pair = getPair(slug);
+
+  if (!pair) return notFound();
 
   if (!pair) return notFound();
 
@@ -76,7 +84,23 @@ export function generateStaticParams() {
    METADATA (FIX)
 ================================ */
 
-export function generateMetadata({ params }: { params: { pair: string } }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ pair: string }>;
+}) {
+  const { pair: slug } = await params;
+
+  const pair = getPair(slug);
+
+  if (!pair) return {};
+
+  return {
+    title: `Days Between ${pair.label}`,
+    description: `Find out how many days are between ${pair.label}.`,
+  };
+}
+{
   const pair = getPair(params.pair);
 
   if (!pair) return {};
