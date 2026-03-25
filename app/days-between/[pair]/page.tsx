@@ -27,8 +27,6 @@ export default async function Page({
 
   if (!pair) return notFound();
 
-  if (!pair) return notFound();
-
   const start = new Date(pair.start);
   const end = new Date(pair.end);
 
@@ -59,7 +57,6 @@ export default async function Page({
         <div className="calculator">
           <div className="result-box">
             <div className="result-number">{diff}</div>
-
             <div className="result-label">days difference</div>
           </div>
         </div>
@@ -71,28 +68,17 @@ export default async function Page({
 }
 
 /* ===============================
-   STATIC PARAMS (CRUCIAAL)
+   STATIC PARAMS
 ================================ */
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ pair: string }>;
-}) {
-  const { pair: slug } = await params;
-
-  const pair = getPair(slug);
-
-  if (!pair) return {};
-
-  return {
-    title: `Days Between ${pair.label}`,
-    description: `Find out how many days are between ${pair.label}.`,
-  };
+export function generateStaticParams() {
+  return DATE_PAIRS.map((p) => ({
+    pair: p.slug,
+  }));
 }
 
 /* ===============================
-   METADATA (FIX)
+   METADATA
 ================================ */
 
 export async function generateMetadata({
@@ -103,16 +89,6 @@ export async function generateMetadata({
   const { pair: slug } = await params;
 
   const pair = getPair(slug);
-
-  if (!pair) return {};
-
-  return {
-    title: `Days Between ${pair.label}`,
-    description: `Find out how many days are between ${pair.label}.`,
-  };
-}
-{
-  const pair = getPair(params.pair);
 
   if (!pair) return {};
 
