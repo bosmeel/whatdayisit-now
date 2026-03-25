@@ -1,250 +1,74 @@
-import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { DATE_PAIRS } from "@/lib/data/datePairs";
-import { DATE_PAIRS_SEO } from "@/lib/data/datePairsSeo";
-import { EVENTS } from "@/lib/events";
-import Link from "next/link";
-import Script from "next/script";
-import { generateMonthDayPairs } from "@/lib/data/datePairs.generated";
-import InternalDateLinks from "@/components/InternalDateLinks";
-import RelatedSeoPages from "@/components/RelatedSeoPages";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import CalculatorLayout from "@/components/CalculatorLayout";
+import CalculatorContent from "@/components/CalculatorContent";
 
-export const dynamic = "force-dynamic";
+function getPair(slug: string) {
+  return DATE_PAIRS.find((p) => p.slug === slug);
+}
 
-type Props = {
-  params: Promise<{ pair: string }>;
-};
+export default function Page({ params }: { params: { pair: string } }) {
+  const pair = getPair(params.pair);
 
-type BasePair = {
-  slug: string;
-  label: string;
-};
+  if (!pair) return notFound();
 
-type SeoPair = {
-  slug: string;
-  title: string;
-  start: { year: number; month: number; day: number; label: string };
-  end: { year: number; month: number; day: number; label: string };
-};
+  const start = new Date(pair.start);
+  const end = new Date(pair.end);
 
-function findPair(slug: string): BasePair | SeoPair | undefined {
-
-  const generated = generateMonthDayPairs();
+  const diff =
+    (Date.UTC(end.getFullYear(), end.getMonth(), end.getDate()) -
+      Date.UTC(start.getFullYear(), start.getMonth(), start.getDate())) /
+    86400000;
 
   return (
-    DATE_PAIRS_SEO.find((p) => p.slug === slug) ||
-    DATE_PAIRS.find((p) => p.slug === slug) ||
-    generated.find((p) => p.slug === slug)
-  );
-}
-
-function getLabel(data: BasePair | SeoPair) {
-  return "label" in data ? data.label : data.title;
-}
-
-function calculateDays(start: Date, end: Date) {
-  const diff = Math.abs(end.getTime() - start.getTime());
-  return Math.round(diff / 86400000);
-}
-
-function resolveEventPair(slug: string) {
-  const parts = slug.split("-and-");
-  if (parts.length !== 2) return null;
-
-  const a = EVENTS[parts[0]];
-  const b = EVENTS[parts[1]];
-
-  if (!a || !b) return null;
-
-  const year = new Date().getFullYear();
-
-  const start = new Date(year, a.month - 1, a.day);
-  const end = new Date(year, b.month - 1, b.day);
-
-  return {
-    start,
-    end,
-    startLabel: `${a.name}, ${year}`,
-    endLabel: `${b.name}, ${year}`,
-  };
-}
-
-function resolveMonthDayPair(slug: string) {
-  const parts = slug.split("-and-");
-  if (parts.length !== 2) return null;
-
-  const months = [
-    "january","february","march","april","may","june",
-    "july","august","september","october","november","december"
-  ];
-
-  const parse = (text: string) => {
-    const [month, day] = text.split("-");
-    const monthIndex = months.indexOf(month);
-
-    if (monthIndex === -1) return null;
-
-    const d = parseInt(day, 10);
-    if (Number.isNaN(d)) return null;
-
-    return new Date(new Date().getFullYear(), monthIndex, d);
-  };
-
-  const start = parse(parts[0]);
-  const end = parse(parts[1]);
-
-  if (!start || !end) return null;
-
-  return {
-    start,
-    end,
-    startLabel: parts[0].replace("-", " "),
-    endLabel: parts[1].replace("-", " "),
-  };
-}
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { pair } = await params;
-  const data = findPair(pair);
-
-  if (!data) return {};
-
-  const label = getLabel(data);
-
-  return {
-    title: `Days Between ${label}`,
-    description: `Find how many days are between ${label}.`,
-    alternates: {
-      canonical: `https://whatdayisit.now/days-between/${pair}`,
-    },
-  };
-}
-
-export default async function DaysBetweenPairPage({ params }: Props) {
-  const { pair } = await params;
-
-  const data = findPair(pair);
-
-  if (!data) {
-    notFound();
-  }
-
-  const label = getLabel(data);
-
-  let result: number | null = null;
-  let startLabel: string | null = null;
-  let endLabel: string | null = null;
-
-  if ("start" in data && "end" in data) {
-
-    const startDate = new Date(
-      data.start.year,
-      data.start.month - 1,
-      data.start.day
-    );
-
-    const endDate = new Date(
-      data.end.year,
-      data.end.month - 1,
-      data.end.day
-    );
-
-    result = calculateDays(startDate, endDate);
-    startLabel = data.start.label;
-    endLabel = data.end.label;
-
-  } else {
-
-    const eventPair = resolveEventPair(pair);
-
-    if (eventPair) {
-
-      result = calculateDays(eventPair.start, eventPair.end);
-      startLabel = eventPair.startLabel;
-      endLabel = eventPair.endLabel;
-
-    } else {
-
-      const monthPair = resolveMonthDayPair(pair);
-
-      if (monthPair) {
-
-        result = calculateDays(monthPair.start, monthPair.end);
-        startLabel = monthPair.startLabel;
-        endLabel = monthPair.endLabel;
-
-      }
-
-    }
-
-  }
-
-  const webAppSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    name: `Days Between ${label}`,
-    applicationCategory: "CalculatorApplication",
-    operatingSystem: "Any",
-    url: `https://whatdayisit.now/days-between/${pair}`,
-  };
-
-  const related = DATE_PAIRS.filter((p) => p.slug !== pair).slice(0, 8);
-
-  return (
-    <main style={{ maxWidth: 900, margin: "40px auto", padding: 20 }}>
-
-      <Script
-        id="webapp-schema"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+    <div>
+      <Breadcrumbs
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Days Between", href: "/days-between" },
+          { name: pair.label },
+        ]}
       />
 
-      <h1>Days Between {label}</h1>
-
-      {result !== null && (
-        <div style={{ marginTop: 20, fontSize: 28, fontWeight: 700 }}>
-          {result} days
-        </div>
-      )}
-
-      {startLabel && endLabel && (
-        <p style={{ marginTop: 10 }}>
-          Between <strong>{startLabel}</strong> and{" "}
-          <strong>{endLabel}</strong>.
+      <CalculatorLayout
+        title={`Days Between ${pair.label}`}
+        description={`Calculate how many days there are between ${pair.label}.`}
+      >
+        <p className="mt-3 text-neutral-600 leading-relaxed">
+          There are <strong>{diff}</strong> days between {pair.label}. This
+          includes all calendar days and automatically accounts for leap years.
         </p>
-      )}
 
-      <p style={{ marginTop: 30 }}>
-        Use our main calculator if you want to compare custom dates.
-      </p>
+        <div className="calculator">
+          <div className="result-box">
+            <div className="result-number">{diff}</div>
 
-      <p style={{ marginTop: 20 }}>
-        <Link href="/days-between" prefetch={false}>
-          ← Back to days between calculator
-        </Link>
-      </p>
+            <div className="result-label">days difference</div>
+          </div>
+        </div>
+      </CalculatorLayout>
 
-      <h2 style={{ marginTop: 50 }}>Popular date comparisons</h2>
-
-      <ul style={{ lineHeight: 1.9 }}>
-        {related.map((p) => (
-          <li key={p.slug}>
-            <Link href={`/days-between/${p.slug}`} prefetch={false}>
-              Days between {p.label}
-            </Link>
-          </li>
-        ))}
-      </ul>
-
-      <InternalDateLinks />
-
-      <RelatedSeoPages
-        items={DATE_PAIRS}
-        basePath="/days-between"
-        current={pair}
-        title="More date comparisons"
-      />
-
-    </main>
+      <CalculatorContent type="between" />
+    </div>
   );
+}
+
+/* SEO */
+
+export function generateStaticParams() {
+  return DATE_PAIRS.map((p) => ({
+    pair: p.slug,
+  }));
+}
+
+export function generateMetadata({ params }: { params: { pair: string } }) {
+  const pair = DATE_PAIRS.find((p) => p.slug === params.pair);
+
+  if (!pair) return {};
+
+  return {
+    title: `Days Between ${pair.label}`,
+    description: `Find out how many days are between ${pair.label}.`,
+  };
 }
