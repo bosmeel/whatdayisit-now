@@ -72,6 +72,28 @@ export default function DaysUntilPage() {
         </div>
       </CalculatorLayout>
 
+      <section className="content-section">
+        <h2>Popular countdowns</h2>
+
+        <ul className="content-list">
+          <li>
+            <a href="/days-until/christmas">Days until Christmas</a>
+          </li>
+          <li>
+            <a href="/days-until/new-year">Days until New Year</a>
+          </li>
+          <li>
+            <a href="/days-until/halloween">Days until Halloween</a>
+          </li>
+          <li>
+            <a href="/days-until/valentines-day">Days until Valentine's Day</a>
+          </li>
+          <li>
+            <a href="/days-until/black-friday">Days until Black Friday</a>
+          </li>
+        </ul>
+      </section>
+
       {/* 🔥 Reusable SEO blocks */}
       <CalculatorContent type="until" />
 
