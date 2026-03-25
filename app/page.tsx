@@ -1,23 +1,23 @@
 import TodayHero from "@/components/TodayHero";
 import TodayDashboard from "@/components/TodayDashboard";
 import Link from "next/link";
+import DailyBlock from "@/components/DailyBlock";
 
 export default function HomePage() {
   return (
     <div>
-
       <TodayHero />
+
+      <DailyBlock />
 
       <TodayDashboard />
 
       {/* POPULAR DATE CALCULATORS */}
 
       <section className="homepage-section">
-
         <h2>Popular Date Calculators</h2>
 
         <div className="tool-grid">
-
           <Link href="/days-between" className="tool-card">
             <strong>Days Between Dates</strong>
             <div>Calculate the number of days between two dates</div>
@@ -37,19 +37,15 @@ export default function HomePage() {
             <strong>Days Since Date</strong>
             <div>See how many days have passed</div>
           </Link>
-
         </div>
-
       </section>
 
       {/* ALL DATE CALCULATORS */}
 
       <section className="homepage-section">
-
         <h2>All Date Calculators</h2>
 
         <div className="tool-grid">
-
           <Link href="/weeks-between" className="tool-card">
             <strong>Weeks Between Dates</strong>
             <div>Calculate the number of weeks between two dates</div>
@@ -79,19 +75,15 @@ export default function HomePage() {
             <strong>Date Duration</strong>
             <div>Difference in years, months and days</div>
           </Link>
-
         </div>
-
       </section>
 
       {/* BIRTHDAY TOOLS */}
 
       <section className="homepage-section">
-
         <h2>Birthday Calculators</h2>
 
         <div className="tool-grid">
-
           <Link href="/age-calculator" className="tool-card">
             <strong>Age Calculator</strong>
             <div>Calculate age from a birth date</div>
@@ -106,11 +98,8 @@ export default function HomePage() {
             <strong>Birthday Weekday</strong>
             <div>See which weekday your next birthday falls on</div>
           </Link>
-
         </div>
-
       </section>
-
     </div>
   );
 }
