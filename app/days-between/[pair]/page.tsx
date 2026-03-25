@@ -4,9 +4,17 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import CalculatorLayout from "@/components/CalculatorLayout";
 import CalculatorContent from "@/components/CalculatorContent";
 
+/* ===============================
+   FIND PAIR
+================================ */
+
 function getPair(slug: string) {
   return DATE_PAIRS.find((p) => p.slug === slug);
 }
+
+/* ===============================
+   PAGE
+================================ */
 
 export default function Page({ params }: { params: { pair: string } }) {
   const pair = getPair(params.pair);
@@ -54,7 +62,9 @@ export default function Page({ params }: { params: { pair: string } }) {
   );
 }
 
-/* SEO */
+/* ===============================
+   STATIC PARAMS (CRUCIAAL)
+================================ */
 
 export function generateStaticParams() {
   return DATE_PAIRS.map((p) => ({
@@ -62,8 +72,12 @@ export function generateStaticParams() {
   }));
 }
 
+/* ===============================
+   METADATA (FIX)
+================================ */
+
 export function generateMetadata({ params }: { params: { pair: string } }) {
-  const pair = DATE_PAIRS.find((p) => p.slug === params.pair);
+  const pair = getPair(params.pair);
 
   if (!pair) return {};
 
