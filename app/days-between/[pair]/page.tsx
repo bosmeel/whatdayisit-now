@@ -74,10 +74,21 @@ export default async function Page({
    STATIC PARAMS (CRUCIAAL)
 ================================ */
 
-export function generateStaticParams() {
-  return DATE_PAIRS.map((p) => ({
-    pair: p.slug,
-  }));
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ pair: string }>;
+}) {
+  const { pair: slug } = await params;
+
+  const pair = getPair(slug);
+
+  if (!pair) return {};
+
+  return {
+    title: `Days Between ${pair.label}`,
+    description: `Find out how many days are between ${pair.label}.`,
+  };
 }
 
 /* ===============================
