@@ -1,19 +1,23 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState, useMemo } from "react";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import CalculatorLayout from "@/components/CalculatorLayout";
+import CalculatorContent from "@/components/CalculatorContent";
 import RelatedTools from "@/components/RelatedTools";
 import SmartToolLinks from "@/components/SmartToolLinks";
 import { parseDateUTC } from "@/lib/date";
 
-function calculateBusinessDays(start: Date, end: Date) {
+function calculateBusinessDaysUntil(target: Date) {
+  const now = new Date();
 
   let count = 0;
-  const current = new Date(start);
 
-  while (current <= end) {
+  const current = new Date(
+    Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()),
+  );
 
+  while (current < target) {
     const day = current.getUTCDay();
 
     if (day !== 0 && day !== 6) {
@@ -27,102 +31,79 @@ function calculateBusinessDays(start: Date, end: Date) {
 }
 
 export default function BusinessDaysUntilPage() {
-
   const [date, setDate] = useState("");
 
   const result = useMemo(() => {
-
     if (!date) return null;
 
-    const now = new Date();
-    const today = new Date(Date.UTC(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate()
-    ));
+    const target = parseDateUTC(date);
 
-    const end = parseDateUTC(date);
+    if (Number.isNaN(target.getTime())) return null;
 
-    if (Number.isNaN(end.getTime())) {
-      return null;
-    }
-
-    return calculateBusinessDays(today, end);
-
+    return calculateBusinessDaysUntil(target);
   }, [date]);
 
   return (
     <div>
-
       <Breadcrumbs
         items={[
           { name: "Home", href: "/" },
           { name: "Date Calculators", href: "/" },
-          { name: "Business Days Until Date" }
+          { name: "Business Days Until Date" },
         ]}
       />
 
       <CalculatorLayout
         title="Business Days Until Date"
-        description="Calculate how many working days remain until a specific date. Weekends (Saturday and Sunday) are automatically excluded."
+        description="Calculate how many working days remain until a specific date, excluding weekends."
       >
+        <p className="mt-3 text-neutral-600 leading-relaxed">
+          This calculator shows how many business days remain until a chosen
+          date. Weekends (Saturday and Sunday) are excluded, making it useful
+          for planning work schedules, delivery timelines, and project
+          deadlines.
+        </p>
 
-        <div className="date-field">
-          <label className="date-label">Target date</label>
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            className="date-input"
-          />
-        </div>
+        <div className="calculator">
+          <div className="date-field">
+            <label className="date-label">Target date</label>
 
-        {result !== null && (
-
-          <div className="result-box">
-
-            <div className="result-label">
-              Business days until date
-            </div>
-
-            <div className="result-number">
-              {result}
-            </div>
-
-            <div className="result-sub">
-              business days
-            </div>
-
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className="date-input"
+            />
           </div>
 
-        )}
+          {result !== null && (
+            <div className="result-box">
+              <div className="result-number">{result}</div>
 
+              <div className="result-label">business days remaining</div>
+            </div>
+          )}
+        </div>
       </CalculatorLayout>
 
-      <section style={{ marginTop: 40 }}>
+      <CalculatorContent type="until" />
 
-        <h2>Frequently Asked Questions</h2>
-
-        <h3>Does this include weekends?</h3>
-
-        <p>
-          No. The result excludes Saturdays and Sundays and only counts
-          standard working days (Monday through Friday).
-        </p>
-
-        <h3>Can I calculate past dates?</h3>
+      <section className="content-section">
+        <h2>How business days are calculated</h2>
 
         <p>
-          Yes. If you enter a past date the calculator will still show the
-          number of business days between today and that date.
+          This calculator counts only weekdays (Monday through Friday) and
+          excludes weekends. Public holidays are not automatically removed.
         </p>
 
+        <p>
+          This provides a realistic estimate for working time between today and
+          a future date.
+        </p>
       </section>
 
       <SmartToolLinks />
-
       <RelatedTools />
-
     </div>
   );
 }

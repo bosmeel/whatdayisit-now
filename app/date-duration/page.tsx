@@ -1,115 +1,61 @@
 "use client";
 
-import { useMemo, useState } from "react";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import CalculatorLayout from "@/components/CalculatorLayout";
+import DateRangeCalculator from "@/components/DateRangeCalculator";
+import CalculatorContent from "@/components/CalculatorContent";
 import RelatedTools from "@/components/RelatedTools";
 import SmartToolLinks from "@/components/SmartToolLinks";
-import { getDateDuration, parseDateUTC } from "@/lib/date";
 
 export default function DateDurationPage() {
-
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-
-  const result = useMemo(() => {
-
-    if (!startDate || !endDate) return null;
-
-    const start = parseDateUTC(startDate);
-    const end = parseDateUTC(endDate);
-
-    if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) {
-      return null;
-    }
-
-    return getDateDuration(start, end);
-
-  }, [startDate, endDate]);
-
   return (
     <div>
-
       <Breadcrumbs
         items={[
           { name: "Home", href: "/" },
           { name: "Date Calculators", href: "/" },
-          { name: "Date Duration Calculator" }
+          { name: "Date Duration" },
         ]}
       />
 
       <CalculatorLayout
         title="Date Duration Calculator"
-        description="Calculate the exact time between two dates. The duration is shown in years, months, weeks, and total days."
+        description="Calculate the full duration between two dates in days, weeks, months, or years."
       >
+        <p className="mt-3 text-neutral-600 leading-relaxed">
+          This calculator helps you determine the full duration between two
+          dates. It can be used for planning, tracking timelines, and
+          understanding how long a period lasts across multiple units of time.
+        </p>
 
-        <div className="date-field">
-          <label className="date-label">Start date</label>
-          <input
-            type="date"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-            className="date-input"
-          />
-        </div>
-
-        <div className="date-field">
-          <label className="date-label">End date</label>
-          <input
-            type="date"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-            className="date-input"
-          />
-        </div>
-
-        {result && (
-
-          <div className="result-box">
-
-            <div className="result-number">
-              {result.years}y {result.months}m {result.days}d
-            </div>
-
-            <div className="result-label">
-              Duration
-            </div>
-
-            <div className="result-note">
-              {result.totalWeeks} weeks • {result.totalDays} days
-            </div>
-
-          </div>
-
-        )}
-
+        <DateRangeCalculator
+          unit="days"
+          calculate={(start, end) => {
+            const diff = end.getTime() - start.getTime();
+            return Math.floor(diff / 86400000);
+          }}
+        />
       </CalculatorLayout>
 
-      <section style={{ marginTop: 40 }}>
+      <CalculatorContent type="between" />
 
-        <h2>Frequently Asked Questions</h2>
-
-        <h3>How accurate is this calculator?</h3>
-
-        <p>
-          The calculator uses standard calendar calculations and accounts for
-          leap years where applicable. Results are based on UTC date
-          calculations to avoid timezone errors.
-        </p>
-
-        <h3>Can I use past and future dates?</h3>
+      <section className="content-section">
+        <h2>Understanding date duration</h2>
 
         <p>
-          Yes. The calculator works for both past and future dates and can be
-          used for planning, scheduling, and analyzing historical timelines.
+          Date duration represents the total time between two dates. This is
+          typically measured in days, but can also be interpreted as weeks,
+          months, or years depending on the context.
         </p>
 
+        <p>
+          This makes the calculator useful for scheduling, planning projects,
+          and analyzing timelines across different periods.
+        </p>
       </section>
 
       <SmartToolLinks />
-
       <RelatedTools />
-
     </div>
   );
 }
