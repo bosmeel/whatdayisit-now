@@ -5,11 +5,10 @@
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 100; /* 🔥 iets hoger, maar onder menu */
+  z-index: 100;
 
   background: var(--background);
   border-bottom: 1px solid var(--border);
-
   backdrop-filter: saturate(180%) blur(6px);
 
   padding: 14px 0;
@@ -43,18 +42,8 @@
 }
 
 /* ===============================
-   NAV (DESKTOP)
+   NAV
 ================================ */
-
-.menu-toggle {
-  display: none;
-}
-
-@media (max-width: 720px) {
-  .menu-toggle {
-    display: flex;
-  }
-}
 
 .main-nav {
   display: flex;
@@ -73,7 +62,21 @@
 }
 
 /* ===============================
-   MOBILE FIX
+   MENU TOGGLE
+================================ */
+
+.menu-toggle {
+  display: none !important;
+}
+
+@media (max-width: 720px) {
+  .menu-toggle {
+    display: flex !important;
+  }
+}
+
+/* ===============================
+   MOBILE
 ================================ */
 
 @media (max-width: 720px) {
@@ -88,6 +91,10 @@
   }
 
   .main-nav {
-    display: none; /* 🔥 belangrijk */
+    display: none;
+  }
+
+  .menu-toggle {
+    display: flex !important;
   }
 }
