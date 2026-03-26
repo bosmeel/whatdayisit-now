@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 type NavItem = {
   href: string;
@@ -10,17 +10,9 @@ type NavItem = {
 
 export default function MobileNav({ links }: { links: NavItem[] }) {
   const [open, setOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
 
-  /* 🔥 FIX: voorkomt hydration mismatch */
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
-
-  function toggleMenu() {
-    setOpen((prev) => !prev);
+  function openMenu() {
+    setOpen(true);
   }
 
   function closeMenu() {
@@ -28,34 +20,45 @@ export default function MobileNav({ links }: { links: NavItem[] }) {
   }
 
   return (
-    <div className="mobile-nav">
+    <div>
+      {/* hamburger */}
       <button
         className="menu-toggle"
-        aria-label="Toggle navigation"
-        onClick={toggleMenu}
+        aria-label="Open navigation"
+        onClick={openMenu}
       >
         ☰
       </button>
 
-      {/* overlay */}
-      <div
-        className={`menu-overlay ${open ? "open" : ""}`}
-        onClick={closeMenu}
-      />
+      {/* drawer */}
+      {open && (
+        <div className="mobile-menu-overlay" onClick={closeMenu}>
+          <div className="mobile-menu" onClick={(e) => e.stopPropagation()}>
+            {/* close */}
+            <button
+              className="mobile-menu-close"
+              onClick={closeMenu}
+              aria-label="Close navigation"
+            >
+              ✕
+            </button>
 
-      {/* menu */}
-      <nav className={`mobile-menu ${open ? "open" : ""}`}>
-        {links.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            className="nav-link"
-            onClick={closeMenu}
-          >
-            {item.label}
-          </Link>
-        ))}
-      </nav>
+            {/* links */}
+            <nav className="mobile-nav">
+              {links.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="mobile-nav-link"
+                  onClick={closeMenu}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
