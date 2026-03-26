@@ -1,5 +1,7 @@
 "use client";
 
+import { useRef } from "react";
+
 type Props = {
   label: string;
   value: string;
@@ -36,12 +38,27 @@ function autoFormatDisplay(input: string): string {
 
 export default function DateTextInput({ label, value, onChange }: Props) {
   const isoValue = formatDisplayToIso(value);
+  const pickerRef = useRef<HTMLInputElement>(null);
+
+  function openPicker() {
+    if (!pickerRef.current) return;
+
+    // moderne browsers (Chrome/Edge/Safari)
+    if (pickerRef.current.showPicker) {
+      pickerRef.current.showPicker();
+    } else {
+      // fallback
+      pickerRef.current.focus();
+      pickerRef.current.click();
+    }
+  }
 
   return (
     <div className="date-field">
       <label className="date-label">{label}</label>
 
       <div className="date-input-wrap">
+        {/* TEXT INPUT */}
         <input
           type="text"
           inputMode="numeric"
@@ -51,18 +68,24 @@ export default function DateTextInput({ label, value, onChange }: Props) {
           className="date-input-text"
         />
 
-        <label
+        {/* CALENDAR BUTTON */}
+        <button
+          type="button"
           className="date-picker-button"
+          onClick={openPicker}
           aria-label={`Open calendar for ${label}`}
         >
-          📅
-          <input
-            type="date"
-            value={isoValue}
-            onChange={(e) => onChange(formatIsoToDisplay(e.target.value))}
-            className="date-input-native"
-          />
-        </label>
+          <span className="calendar-icon">📅</span>
+        </button>
+
+        {/* HIDDEN NATIVE INPUT */}
+        <input
+          ref={pickerRef}
+          type="date"
+          value={isoValue}
+          onChange={(e) => onChange(formatIsoToDisplay(e.target.value))}
+          className="date-input-native"
+        />
       </div>
     </div>
   );

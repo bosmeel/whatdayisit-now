@@ -100,9 +100,10 @@
 
 .date-input-native {
   position: absolute;
-  inset: 0;
+  width: 0;
+  height: 0;
   opacity: 0;
-  cursor: pointer;
+  pointer-events: none;
 }
 
 /* ===============================
