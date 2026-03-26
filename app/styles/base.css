@@ -166,6 +166,50 @@ p {
 }
 
 /* ===============================
+   TODAY HERO
+================================ */
+
+.today-hero {
+  margin-top: 20px;
+}
+
+/* vraag (H1) */
+
+.today-question {
+  font-size: 20px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+/* antwoord */
+
+.today-answer {
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+.today-weekday {
+  color: var(--accent);
+}
+
+/* meta info */
+
+.today-meta {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* mobile */
+
+@media (max-width: 640px) {
+  .today-answer {
+    font-size: 28px;
+  }
+}
+
+/* ===============================
    DAILY BLOCK
 ================================ */
 
