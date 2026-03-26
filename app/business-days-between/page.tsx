@@ -1,12 +1,11 @@
 "use client";
 
-import { useState, useMemo } from "react";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import CalculatorLayout from "@/components/CalculatorLayout";
 import CalculatorContent from "@/components/CalculatorContent";
 import RelatedTools from "@/components/RelatedTools";
 import SmartToolLinks from "@/components/SmartToolLinks";
-import { parseDateUTC } from "@/lib/date";
+import DateRangeCalculator from "@/components/DateRangeCalculator";
 
 function calculateBusinessDays(start: Date, end: Date) {
   let count = 0;
@@ -26,22 +25,6 @@ function calculateBusinessDays(start: Date, end: Date) {
 }
 
 export default function BusinessDaysBetweenPage() {
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-
-  const result = useMemo(() => {
-    if (!startDate || !endDate) return null;
-
-    const start = parseDateUTC(startDate);
-    const end = parseDateUTC(endDate);
-
-    if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) {
-      return null;
-    }
-
-    return Math.abs(calculateBusinessDays(start, end));
-  }, [startDate, endDate]);
-
   return (
     <div>
       <Breadcrumbs
@@ -63,37 +46,13 @@ export default function BusinessDaysBetweenPage() {
           in standard working days instead of total calendar days.
         </p>
 
-        <div className="calculator">
-          <div className="date-field">
-            <label className="date-label">Start date</label>
-            <input
-              type="date"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-              className="date-input"
-            />
-          </div>
-
-          <div className="date-field">
-            <label className="date-label">End date</label>
-            <input
-              type="date"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-              className="date-input"
-            />
-          </div>
-
-          {result !== null && (
-            <div className="result-box">
-              <div className="result-number">{result}</div>
-
-              <div className="result-label">business days</div>
-
-              <div className="result-sub">excluding Saturdays and Sundays</div>
-            </div>
-          )}
-        </div>
+        {/* 🔥 NIEUWE INPUT + LOGICA */}
+        <DateRangeCalculator
+          unit="business days"
+          calculate={(start, end) =>
+            Math.abs(calculateBusinessDays(start, end))
+          }
+        />
       </CalculatorLayout>
 
       <CalculatorContent type="between" />

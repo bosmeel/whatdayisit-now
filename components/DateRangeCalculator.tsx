@@ -2,6 +2,7 @@
 
 import { useMemo, useState, useEffect } from "react";
 import { parseDateUTC } from "@/lib/date";
+import DateTextInput from "@/components/DateTextInput";
 
 type Props = {
   labelStart?: string;
@@ -18,7 +19,6 @@ export default function DateRangeCalculator({
 }: Props) {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-
   const [animate, setAnimate] = useState(false);
 
   const result = useMemo(() => {
@@ -34,7 +34,6 @@ export default function DateRangeCalculator({
     return calculate(start, end);
   }, [startDate, endDate, calculate]);
 
-  // ✅ animation trigger (correcte plek, niet in useMemo)
   useEffect(() => {
     if (result !== null) {
       setAnimate(true);
@@ -45,27 +44,13 @@ export default function DateRangeCalculator({
 
   return (
     <div className="calculator">
-      <div className="date-field">
-        <label className="date-label">{labelStart}</label>
+      <DateTextInput
+        label={labelStart}
+        value={startDate}
+        onChange={setStartDate}
+      />
 
-        <input
-          type="date"
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
-          className="date-input"
-        />
-      </div>
-
-      <div className="date-field">
-        <label className="date-label">{labelEnd}</label>
-
-        <input
-          type="date"
-          value={endDate}
-          onChange={(e) => setEndDate(e.target.value)}
-          className="date-input"
-        />
-      </div>
+      <DateTextInput label={labelEnd} value={endDate} onChange={setEndDate} />
 
       {result !== null && (
         <div className={`result-box ${animate ? "result-animate" : ""}`}>
