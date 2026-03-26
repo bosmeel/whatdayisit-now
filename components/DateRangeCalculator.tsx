@@ -43,18 +43,6 @@ export default function DateRangeCalculator({
     }
   }, [result]);
 
-  function handleReport() {
-    const url = window.location.href;
-
-    const message = encodeURIComponent(
-      `Incorrect result on:\n${url}\n\nStart date: ${startDate}\nEnd date: ${endDate}\nResult: ${result} ${unit}\n\nDescribe the issue:`,
-    );
-
-    const link = `/contact?type=wrong-calculation&message=${message}`;
-
-    window.location.href = link;
-  }
-
   return (
     <div className="calculator">
       <div className="date-field">
@@ -118,10 +106,6 @@ export default function DateRangeCalculator({
           <div className="result-number">{result}</div>
 
           <div className="result-label">{unit}</div>
-
-          <button onClick={handleReport} className="report-link">
-            Report issue
-          </button>
         </div>
       )}
     </div>
