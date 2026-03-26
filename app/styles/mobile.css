@@ -2,6 +2,8 @@
    Mobile drawer menu
 ================================ */
 
+/* overlay */
+
 .mobile-menu-overlay {
   position: fixed;
   inset: 0;
@@ -12,7 +14,7 @@
   display: flex;
   justify-content: flex-end;
 
-  z-index: 100;
+  z-index: 9000; /* 🔥 onder menu & knop */
 }
 
 /* drawer */
@@ -37,7 +39,7 @@
   transform: translateX(100%);
   animation: slideMenu 0.28s ease forwards;
 
-  z-index: 101;
+  z-index: 9001; /* 🔥 boven overlay */
 }
 
 /* slide animation */
@@ -46,7 +48,6 @@
   from {
     transform: translateX(100%);
   }
-
   to {
     transform: translateX(0);
   }
@@ -75,33 +76,14 @@
   font-weight: 600;
 }
 
-@media (max-width: 640px) {
-  .today-dashboard {
-    margin-top: 16px;
-  }
-
-  .dashboard-header h2 {
-    font-size: 22px; /* was 24 */
-    font-weight: 700; /* was 800 */
-  }
-
-  .today-grid {
-    gap: 12px;
-  }
-
-  .today-card {
-    padding: 16px;
-  }
-}
-.today-value {
-  font-variant-numeric: tabular-nums;
-}
-
 /* ===============================
-   MENU TOGGLE (FIX)
+   MENU TOGGLE (CRITICAL FIX)
 ================================ */
 
 .menu-toggle {
+  position: relative;
+  z-index: 9999; /* 🔥 altijd boven alles */
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -117,7 +99,33 @@
   color: var(--foreground);
 
   cursor: pointer;
+}
 
-  position: relative;
-  z-index: 110; /* boven overlay */
+/* ===============================
+   MOBILE DASHBOARD TWEAKS
+================================ */
+
+@media (max-width: 640px) {
+  .today-dashboard {
+    margin-top: 16px;
+  }
+
+  .dashboard-header h2 {
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  .today-grid {
+    gap: 12px;
+  }
+
+  .today-card {
+    padding: 16px;
+  }
+}
+
+/* number alignment */
+
+.today-value {
+  font-variant-numeric: tabular-nums;
 }

@@ -1,97 +1,83 @@
-.site-header{
-  position:sticky;
-  top:0;
-  z-index:50;
+/* ===============================
+   HEADER
+================================ */
 
-  background:var(--background);
-  border-bottom:1px solid var(--border);
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100; /* 🔥 iets hoger, maar onder menu */
 
-  backdrop-filter:saturate(180%) blur(6px);
+  background: var(--background);
+  border-bottom: 1px solid var(--border);
 
-  padding:14px 0; /* FIX: consistente spacing */
+  backdrop-filter: saturate(180%) blur(6px);
+
+  padding: 14px 0;
 }
 
 /* ===============================
    HEADER LAYOUT
 ================================ */
 
-.header-inner{
-  display:grid;
-  grid-template-columns:auto 1fr auto;
-  align-items:center;
-  gap:20px;
+.header-inner {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 20px;
 }
 
 /* ===============================
    LOGO
 ================================ */
 
-.logo-link{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  font-weight:700;
+.logo-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
 }
 
-.logo-icon{
-  width:18px;
-  height:18px;
-}
-
-/* ===============================
-   NAV
-================================ */
-
-.main-nav{
-  display:flex;
-  justify-content:center;
-  gap:18px;
-}
-
-.nav-link{
-  font-size:14px;
-  padding:4px 0;
-  border-bottom:2px solid transparent;
-}
-
-.nav-link:hover{
-  border-bottom:2px solid var(--accent);
+.logo-icon {
+  width: 18px;
+  height: 18px;
 }
 
 /* ===============================
-   MOBILE MENU BUTTON
+   NAV (DESKTOP)
 ================================ */
 
-.mobile-menu-button{
-  display:none;
-  font-size:22px;
-  border:none;
-  background:none;
-  cursor:pointer;
+.main-nav {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+}
+
+.nav-link {
+  font-size: 14px;
+  padding: 4px 0;
+  border-bottom: 2px solid transparent;
+}
+
+.nav-link:hover {
+  border-bottom: 2px solid var(--accent);
 }
 
 /* ===============================
    MOBILE FIX
 ================================ */
 
-@media (max-width:720px){
-
-  .site-header{
-    padding:12px 0; /* iets compacter */
+@media (max-width: 720px) {
+  .site-header {
+    padding: 12px 0;
   }
 
-  .header-inner{
-    display:flex; /* FIX: grid → flex voorkomt rare compressie */
-    justify-content:space-between;
-    align-items:center;
+  .header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
-  .desktop-nav{
-    display:none;
+  .main-nav {
+    display: none; /* 🔥 belangrijk */
   }
-
-  .mobile-menu-button{
-    display:block;
-  }
-
 }
