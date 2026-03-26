@@ -65,8 +65,9 @@
   border: 1px solid var(--border);
   border-radius: 10px;
   font-size: 16px;
-  background: var(--background);
-  color: var(--foreground);
+
+  background: var(--card); /* 🔥 fix */
+  color: var(--foreground); /* 🔥 fix */
 
   transition:
     border-color 0.15s ease,
@@ -115,13 +116,8 @@
 
   border-radius: 16px;
 
-  background: linear-gradient(
-    135deg,
-    rgba(99, 102, 241, 0.08),
-    rgba(99, 102, 241, 0.02)
-  );
-
-  border: 1px solid rgba(99, 102, 241, 0.18);
+  background: var(--card); /* FIX */
+  border: 1px solid var(--border); /* FIX */
 
   display: flex;
   flex-direction: column;
@@ -132,7 +128,7 @@
 
   transition:
     transform 0.2s ease,
-    box-shadow 0.2s ease;
+    box-shadow 0.2s ease; /* ✅ laten staan */
 }
 
 /* hover subtle (desktop only gevoel) */
@@ -173,6 +169,14 @@
   font-size: 13px;
   color: var(--muted);
   margin-top: 8px;
+}
+
+.result-number {
+  color: var(--foreground); /* 🔥 zorgt dat nooit wit-op-wit ontstaat */
+}
+
+.result-label {
+  color: var(--muted);
 }
 
 /* ===============================
