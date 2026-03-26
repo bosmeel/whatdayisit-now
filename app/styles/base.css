@@ -94,6 +94,10 @@ body {
   border-radius: 12px;
 }
 
+.page-section:last-of-type {
+  margin-top: 32px; /* 🔥 extra ruimte vóór formulier */
+}
+
 .page-section h2 {
   font-size: 18px;
   font-weight: 600;
