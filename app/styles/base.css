@@ -55,7 +55,60 @@ body {
   padding-top: 16px;
 }
 
-/* 🔥 SECTION SPACING FIX */
+/* ===============================
+   PAGE (Contact / About / Legal)
+================================ */
+
+.page {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.page-header {
+  margin-bottom: 28px;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.page-intro {
+  margin-top: 6px;
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.page-section {
+  margin-top: 28px;
+  padding: 20px;
+
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+
+.page-section h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.page-section p {
+  margin-top: 8px;
+}
+
+.page-list {
+  margin-top: 10px;
+  line-height: 1.8;
+  padding-left: 18px;
+}
+
+/* ===============================
+   SECTION SPACING
+================================ */
 
 section {
   margin-top: 32px;
@@ -87,7 +140,7 @@ h1 {
 h2 {
   font-size: 22px;
   font-weight: 700;
-  margin-bottom: 12px; /* 🔥 belangrijk voor jouw probleem */
+  margin-bottom: 12px;
 }
 
 h3 {
@@ -100,6 +153,10 @@ p {
   font-size: 15px;
   margin: 0;
 }
+
+/* ===============================
+   DAILY BLOCK (homepage extra)
+================================ */
 
 .daily-block {
   margin: 20px 0 10px;
@@ -130,6 +187,52 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+
+/* ===============================
+   FORM ELEMENTS (voor contact)
+================================ */
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+
+  background: var(--background);
+  color: var(--foreground);
+
+  font-size: 14px;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+}
+
+/* ===============================
+   BUTTON
+================================ */
+
+button {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+
+  background: var(--accent);
+  color: white;
+
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+button:hover {
+  background: #4f46e5;
 }
 
 /* ===============================

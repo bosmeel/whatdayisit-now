@@ -3,7 +3,6 @@
 import { useState } from "react";
 
 export default function ContactForm() {
-
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [type, setType] = useState("feedback");
@@ -27,7 +26,6 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={submit} className="mt-4 space-y-4 not-prose">
-
       <select
         value={type}
         onChange={(e) => setType(e.target.value)}
@@ -68,11 +66,10 @@ export default function ContactForm() {
 
       <button
         type="submit"
-        className="bg-black text-white px-4 py-2 rounded hover:bg-neutral-800"
+        className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"
       >
         Send message
       </button>
-
     </form>
   );
 }
