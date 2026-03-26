@@ -77,33 +77,37 @@
 
 .date-picker-button {
   position: absolute;
-  right: 10px;
+  right: 8px;
   top: 50%;
   transform: translateY(-50%);
 
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   cursor: pointer;
+}
+
+/* icoon */
+
+.calendar-icon {
+  pointer-events: none;
   opacity: 0.6;
 }
 
-.date-picker-button:hover {
-  opacity: 1;
-}
-
-/* hidden native picker */
+/* 🔥 CRUCIAAL: MOBILE click werkt via input */
 
 .date-input-native {
   position: absolute;
-  width: 0;
-  height: 0;
+  inset: 0;
+
   opacity: 0;
-  pointer-events: none;
+  cursor: pointer;
+
+  z-index: 2;
 }
 
 /* ===============================

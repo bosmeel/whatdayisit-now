@@ -40,16 +40,12 @@ export default function DateTextInput({ label, value, onChange }: Props) {
   const isoValue = formatDisplayToIso(value);
   const pickerRef = useRef<HTMLInputElement>(null);
 
-  function openPicker() {
+  function handleDesktopClick() {
     if (!pickerRef.current) return;
 
-    // moderne browsers (Chrome/Edge/Safari)
-    if (pickerRef.current.showPicker) {
+    // alleen desktop → showPicker
+    if (window.innerWidth > 768 && pickerRef.current.showPicker) {
       pickerRef.current.showPicker();
-    } else {
-      // fallback
-      pickerRef.current.focus();
-      pickerRef.current.click();
     }
   }
 
@@ -68,24 +64,18 @@ export default function DateTextInput({ label, value, onChange }: Props) {
           className="date-input-text"
         />
 
-        {/* CALENDAR BUTTON */}
-        <button
-          type="button"
-          className="date-picker-button"
-          onClick={openPicker}
-          aria-label={`Open calendar for ${label}`}
-        >
+        {/* 🔥 MOBILE = native click, DESKTOP = showPicker */}
+        <div className="date-picker-button" onClick={handleDesktopClick}>
           <span className="calendar-icon">📅</span>
-        </button>
 
-        {/* HIDDEN NATIVE INPUT */}
-        <input
-          ref={pickerRef}
-          type="date"
-          value={isoValue}
-          onChange={(e) => onChange(formatIsoToDisplay(e.target.value))}
-          className="date-input-native"
-        />
+          <input
+            ref={pickerRef}
+            type="date"
+            value={isoValue}
+            onChange={(e) => onChange(formatIsoToDisplay(e.target.value))}
+            className="date-input-native"
+          />
+        </div>
       </div>
     </div>
   );
