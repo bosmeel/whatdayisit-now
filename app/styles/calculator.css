@@ -152,9 +152,11 @@
 /* label */
 
 .result-label {
-  font-size: 14px;
-  color: var(--muted);
-  margin-top: 6px;
+  font-size: 13px;
+  margin-top: 2px; /* dichter op getal */
+
+  color: var(--accent); /* 🔥 indigo */
+  font-weight: 500;
 }
 
 /* extra text */
@@ -172,7 +174,10 @@
 }
 
 .result-number {
-  color: var(--foreground); /* 🔥 zorgt dat nooit wit-op-wit ontstaat */
+  font-size: 64px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1; /* 🔥 minder ruimte */
 }
 
 .result-label {
@@ -180,24 +185,15 @@
 }
 
 .report-link {
-  margin-top: 10px;
-
-  font-size: 12px; /* kleiner */
-  color: var(--muted); /* subtiel */
-
-  text-decoration: none;
-  opacity: 0.7;
-
-  transition: opacity 0.15s ease;
+  margin-top: 14px; /* iets verder weg */
+  font-size: 12px;
+  color: var(--muted);
+  opacity: 0.6;
 }
 
 .report-link:hover {
   opacity: 1;
   text-decoration: underline;
-}
-
-.report-link {
-  align-self: flex-end;
 }
 
 /* ===============================
