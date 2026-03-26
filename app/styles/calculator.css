@@ -179,6 +179,27 @@
   color: var(--muted);
 }
 
+.report-link {
+  margin-top: 10px;
+
+  font-size: 12px; /* kleiner */
+  color: var(--muted); /* subtiel */
+
+  text-decoration: none;
+  opacity: 0.7;
+
+  transition: opacity 0.15s ease;
+}
+
+.report-link:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.report-link {
+  align-self: flex-end;
+}
+
 /* ===============================
    ANIMATION
 ================================ */

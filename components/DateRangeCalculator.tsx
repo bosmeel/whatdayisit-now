@@ -16,28 +16,22 @@ export default function DateRangeCalculator({
   unit,
   calculate,
 }: Props) {
-
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
   const [animate, setAnimate] = useState(false);
 
   const result = useMemo(() => {
-
     if (!startDate || !endDate) return null;
 
     const start = parseDateUTC(startDate);
     const end = parseDateUTC(endDate);
 
-    if (
-      Number.isNaN(start.getTime()) ||
-      Number.isNaN(end.getTime())
-    ) {
+    if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) {
       return null;
     }
 
     return calculate(start, end);
-
   }, [startDate, endDate, calculate]);
 
   // ✅ animation trigger (correcte plek, niet in useMemo)
@@ -53,7 +47,7 @@ export default function DateRangeCalculator({
     const url = window.location.href;
 
     const message = encodeURIComponent(
-      `Incorrect result on:\n${url}\n\nStart date: ${startDate}\nEnd date: ${endDate}\nResult: ${result} ${unit}\n\nDescribe the issue:`
+      `Incorrect result on:\n${url}\n\nStart date: ${startDate}\nEnd date: ${endDate}\nResult: ${result} ${unit}\n\nDescribe the issue:`,
     );
 
     const link = `/contact?type=wrong-calculation&message=${message}`;
@@ -62,9 +56,7 @@ export default function DateRangeCalculator({
   }
 
   return (
-
     <div className="calculator">
-
       <div className="date-field">
         <label className="date-label">{labelStart}</label>
 
@@ -77,7 +69,6 @@ export default function DateRangeCalculator({
       </div>
 
       <div className="date-quick">
-
         <button
           type="button"
           onClick={() => {
@@ -109,7 +100,6 @@ export default function DateRangeCalculator({
         >
           +30 days
         </button>
-
       </div>
 
       <div className="date-field">
@@ -124,30 +114,16 @@ export default function DateRangeCalculator({
       </div>
 
       {result !== null && (
-
         <div className={`result-box ${animate ? "result-animate" : ""}`}>
+          <div className="result-number">{result}</div>
 
-          <div className="result-number">
-            {result}
-          </div>
+          <div className="result-label">{unit}</div>
 
-          <div className="result-label">
-            {unit}
-          </div>
-
-          <button
-            onClick={handleReport}
-            className="text-sm text-red-600 underline mt-3 hover:text-red-800"
-          >
-            Report incorrect result
+          <button onClick={handleReport} className="report-link">
+            Report issue
           </button>
-
         </div>
-
       )}
-
     </div>
-
   );
-
 }
