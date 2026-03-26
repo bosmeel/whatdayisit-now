@@ -36,6 +36,11 @@ export default function AboutPage() {
           on user feedback.
         </p>
       </section>
+
+      <section className="page-section">
+        <h2>Contact</h2>
+        <p>For questions or feedback, please visit the contact page.</p>
+      </section>
     </div>
   );
 }
