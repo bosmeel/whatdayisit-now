@@ -1,173 +1,155 @@
-.dashboard-header{
-  margin-top:28px;
-  margin-bottom:24px;
+/* ===============================
+   HEADER
+================================ */
+
+.dashboard-header {
+  margin-top: 26px;
+  margin-bottom: 20px;
 }
 
-.dashboard-header h2{
-  font-size:24px;
-  font-weight:800;
-  letter-spacing:-0.01em;
+.dashboard-header h2 {
+  font-size: 22px;
+  font-weight: 700;
 }
 
-.dashboard-header p{
-  margin-top:6px;
-  color:var(--muted);
-  font-size:14px;
+.dashboard-header p {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 14px;
 }
 
 /* ===============================
    GRID
 ================================ */
 
-.today-grid{
-  margin-top:28px;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-  gap:18px; /* verbeterd */
+.today-grid {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
 }
 
 /* ===============================
-   CARD
+   CARD (clean + modern)
 ================================ */
 
-.today-card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:20px 18px;
-  display:flex;
-  flex-direction:column;
-  gap:2px; /* strakker */
-  min-height:86px;
-  box-shadow:0 4px 12px rgba(0,0,0,0.06);
-  text-decoration:none;
-  color:var(--foreground);
-  position:relative;
-  overflow:hidden;
-  align-items:flex-start; /* fix alignment */
-  cursor:default;
+.today-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
 
-  transition:
-    transform .18s ease,
-    box-shadow .18s ease,
-    border-color .18s ease;
+  padding: 16px;
+  min-height: 80px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  text-decoration: none;
+  color: var(--foreground);
+
+  transition: all 0.15s ease;
 }
 
-/* TOP accent i.p.v. linker balk */
+/* subtle hover */
 
-.today-card::before{
-  content:"";
-  position:absolute;
-  left:0;
-  top:0;
-  height:3px;
-  width:100%;
-  background:var(--accent);
-  opacity:.6;
+.today-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(99, 102, 241, 0.25);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
+}
+
+.today-card:active {
+  transform: scale(0.98);
 }
 
 /* ===============================
-   LABEL (subtiel)
+   LABEL
 ================================ */
 
-.today-label{
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:.06em;
-  color:var(--muted);
-  font-weight:600;
-  margin-top:4px;
+.today-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  margin-bottom: 4px;
 }
 
 /* ===============================
-   VALUE (dominant)
+   VALUE (main number)
 ================================ */
 
-.today-value{
-  font-size:28px;
-  font-weight:800;
-  color:var(--foreground);
-  line-height:1.2;
+.today-value {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 /* ===============================
-   HOVER (rustiger)
+   PROGRESS BAR
 ================================ */
 
-.today-card:hover{
-  box-shadow:0 6px 14px rgba(0,0,0,0.07);
+.year-progress-bar {
+  margin-top: 8px;
+  height: 6px;
+  border-radius: 4px;
+  background: var(--border);
+  overflow: hidden;
 }
 
-.today-card:hover::before{
-  opacity:1;
-}
-
-.today-card:active{
-  transform:scale(.98);
+.year-progress-fill {
+  height: 100%;
+  background: var(--accent);
 }
 
 /* ===============================
-   PROGRESS BAR (verbeterd)
+   HERO (homepage)
 ================================ */
 
-.year-progress-bar{
-  margin-top:8px;
-  height:6px;
-  border-radius:4px;
-  background:var(--border);
-  overflow:hidden;
+.today-hero {
+  margin-top: 24px;
+  margin-bottom: 12px;
 }
 
-.year-progress-fill{
-  height:100%;
-  background:var(--accent);
-  border-radius:4px;
+/* vraag */
+
+.today-question {
+  font-size: 18px;
+  color: var(--muted);
+  margin-bottom: 4px;
 }
 
-/* ===============================
-   HERO
-================================ */
+/* antwoord */
 
-.today-hero{
-  margin-bottom:22px;
+.today-answer {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
 }
 
-.today-answer{
-  font-size:36px;
-  font-weight:700;
-  letter-spacing:-0.02em;
+.today-weekday {
+  color: var(--accent);
 }
 
-.today-weekday{
-  color:var(--accent);
-  font-weight:800;
-}
+/* meta */
 
-.today-context{
-  margin-top:6px;
-  font-size:15px;
-  color:var(--muted);
-}
-
-.today-meta{
-  margin-top:4px;
-  font-size:14px;
-  color:var(--muted);
+.today-meta {
+  font-size: 13px;
+  color: var(--muted);
 }
 
 /* ===============================
    MOBILE
 ================================ */
 
-@media (max-width:640px){
-
-  .today-grid{
-    grid-template-columns:repeat(2,1fr);
-    gap:14px;
+@media (max-width: 640px) {
+  .today-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
 
-  .today-answer{
-    font-size:28px;
+  .today-answer {
+    font-size: 28px;
   }
-
 }

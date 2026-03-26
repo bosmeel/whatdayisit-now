@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 type NavItem = {
   href: string;
@@ -9,33 +9,43 @@ type NavItem = {
 };
 
 export default function MobileNav({ links }: { links: NavItem[] }) {
+  const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  const [open,setOpen] = useState(false);
+  /* 🔥 FIX: voorkomt hydration mismatch */
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-  function closeMenu(){
+  if (!mounted) return null;
+
+  function toggleMenu() {
+    setOpen((prev) => !prev);
+  }
+
+  function closeMenu() {
     setOpen(false);
   }
 
   return (
-
     <div className="mobile-nav">
-
       <button
         className="menu-toggle"
         aria-label="Toggle navigation"
-        onClick={()=>setOpen(!open)}
+        onClick={toggleMenu}
       >
         ☰
       </button>
 
+      {/* overlay */}
       <div
         className={`menu-overlay ${open ? "open" : ""}`}
         onClick={closeMenu}
       />
 
+      {/* menu */}
       <nav className={`mobile-menu ${open ? "open" : ""}`}>
-
-        {links.map((item)=>(
+        {links.map((item) => (
           <Link
             key={item.href}
             href={item.href}
@@ -45,11 +55,7 @@ export default function MobileNav({ links }: { links: NavItem[] }) {
             {item.label}
           </Link>
         ))}
-
       </nav>
-
     </div>
-
   );
-
 }

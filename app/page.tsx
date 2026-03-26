@@ -12,6 +12,16 @@ export default function HomePage() {
 
       <TodayDashboard />
 
+      <section className="content-section">
+        <h2>About this site</h2>
+        <p>
+          WhatDayIsIt.now provides simple and accurate date tools to answer
+          common questions about time, dates, and durations. All calculations
+          are based on standard calendar rules and work instantly in your
+          browser.
+        </p>
+      </section>
+
       {/* POPULAR DATE CALCULATORS */}
 
       <section className="homepage-section">
