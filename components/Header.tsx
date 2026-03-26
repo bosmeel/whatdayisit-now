@@ -10,12 +10,14 @@ export default function Header() {
     { href: "/days-between", label: "Days Between" },
     { href: "/days-until", label: "Days Until" },
     { href: "/days-since", label: "Days Since" },
-    { href: "/age-calculator", label: "Age Calculator" },
     { href: "/business-days-between", label: "Business Days Between" },
     { href: "/business-days-until", label: "Business Days Until" },
-    { href: "/birthday-weekday", label: "Birthday Weekday" },
-    { href: "/weeks-between", label: "Weeks" },
-    { href: "/months-between", label: "Months" },
+
+    { href: "/weeks-between", label: "Weeks Between" },
+    { href: "/months-between", label: "Months Between" },
+    { href: "/years-between", label: "Years Between" },
+
+    { href: "/age-calculator", label: "Age Calculator" },
   ];
 
   return (

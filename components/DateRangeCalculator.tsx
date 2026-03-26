@@ -56,40 +56,6 @@ export default function DateRangeCalculator({
         />
       </div>
 
-      <div className="date-quick">
-        <button
-          type="button"
-          onClick={() => {
-            const d = new Date();
-            setStartDate(d.toISOString().slice(0, 10));
-          }}
-        >
-          Today
-        </button>
-
-        <button
-          type="button"
-          onClick={() => {
-            const d = new Date();
-            d.setDate(d.getDate() + 7);
-            setEndDate(d.toISOString().slice(0, 10));
-          }}
-        >
-          +7 days
-        </button>
-
-        <button
-          type="button"
-          onClick={() => {
-            const d = new Date();
-            d.setDate(d.getDate() + 30);
-            setEndDate(d.toISOString().slice(0, 10));
-          }}
-        >
-          +30 days
-        </button>
-      </div>
-
       <div className="date-field">
         <label className="date-label">{labelEnd}</label>
 

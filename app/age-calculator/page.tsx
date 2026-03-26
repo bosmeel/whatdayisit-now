@@ -7,6 +7,7 @@ import CalculatorContent from "@/components/CalculatorContent";
 import RelatedTools from "@/components/RelatedTools";
 import SmartToolLinks from "@/components/SmartToolLinks";
 import { parseDateUTC } from "@/lib/date";
+import DateTextInput from "@/components/DateTextInput";
 
 export default function AgeCalculatorPage() {
   const [birthDate, setBirthDate] = useState("");
@@ -63,16 +64,11 @@ export default function AgeCalculatorPage() {
 
         {/* Calculator */}
         <div className="calculator">
-          <div className="date-field">
-            <label className="date-label">Birth date</label>
-
-            <input
-              type="date"
-              value={birthDate}
-              onChange={(e) => setBirthDate(e.target.value)}
-              className="date-input"
-            />
-          </div>
+          <DateTextInput
+            label="Birth date"
+            value={birthDate}
+            onChange={setBirthDate}
+          />
 
           {age && (
             <div className="result-box">

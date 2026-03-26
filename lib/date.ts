@@ -14,11 +14,15 @@ export function getTotalDaysInYear(year: number): number {
 }
 
 export function getISOWeekNumber(date: Date): number {
-  const tempDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  const tempDate = new Date(
+    Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()),
+  );
   const dayNum = tempDate.getUTCDay() || 7;
   tempDate.setUTCDate(tempDate.getUTCDate() + 4 - dayNum);
   const yearStart = new Date(Date.UTC(tempDate.getUTCFullYear(), 0, 1));
-  return Math.ceil(((tempDate.getTime() - yearStart.getTime()) / 86400000 + 1) / 7);
+  return Math.ceil(
+    ((tempDate.getTime() - yearStart.getTime()) / 86400000 + 1) / 7,
+  );
 }
 
 export function getQuarter(date: Date): string {
@@ -53,7 +57,6 @@ export function getDaysUntilWeekend(date: Date): number {
 /* ------------------------------------------------ */
 
 export function getDateDuration(start: Date, end: Date) {
-
   if (end < start) {
     const temp = start;
     start = end;
@@ -69,7 +72,11 @@ export function getDateDuration(start: Date, end: Date) {
 
   if (days < 0) {
     months--;
-    const prevMonth = new Date(endCopy.getFullYear(), endCopy.getMonth(), 0).getDate();
+    const prevMonth = new Date(
+      endCopy.getFullYear(),
+      endCopy.getMonth(),
+      0,
+    ).getDate();
     days += prevMonth;
   }
 
@@ -87,10 +94,23 @@ export function getDateDuration(start: Date, end: Date) {
     months,
     days,
     totalDays,
-    totalWeeks
+    totalWeeks,
   };
 }
-export function parseDateUTC(dateStr: string): Date {
-  const [y, m, d] = dateStr.split("-").map(Number);
-  return new Date(Date.UTC(y, m - 1, d));
+export function parseDateUTC(value: string): Date {
+  if (!value) return new Date(NaN);
+
+  // yyyy-mm-dd
+  if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+    const [year, month, day] = value.split("-").map(Number);
+    return new Date(Date.UTC(year, month - 1, day));
+  }
+
+  // dd-mm-yyyy
+  if (/^\d{2}-\d{2}-\d{4}$/.test(value)) {
+    const [day, month, year] = value.split("-").map(Number);
+    return new Date(Date.UTC(year, month - 1, day));
+  }
+
+  return new Date(NaN);
 }

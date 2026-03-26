@@ -7,6 +7,7 @@ import CalculatorContent from "@/components/CalculatorContent";
 import RelatedTools from "@/components/RelatedTools";
 import SmartToolLinks from "@/components/SmartToolLinks";
 import { parseDateUTC } from "@/lib/date";
+import DateTextInput from "@/components/DateTextInput";
 
 function calculateBusinessDaysUntil(target: Date) {
   const now = new Date();
@@ -65,16 +66,7 @@ export default function BusinessDaysUntilPage() {
         </p>
 
         <div className="calculator">
-          <div className="date-field">
-            <label className="date-label">Target date</label>
-
-            <input
-              type="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              className="date-input"
-            />
-          </div>
+          <DateTextInput label="Target date" value={date} onChange={setDate} />
 
           {result !== null && (
             <div className="result-box">

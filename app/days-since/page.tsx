@@ -7,6 +7,7 @@ import CalculatorContent from "@/components/CalculatorContent";
 import RelatedTools from "@/components/RelatedTools";
 import SmartToolLinks from "@/components/SmartToolLinks";
 import { parseDateUTC } from "@/lib/date";
+import DateTextInput from "@/components/DateTextInput";
 
 export default function DaysSincePage() {
   const [date, setDate] = useState("");
@@ -50,16 +51,7 @@ export default function DaysSincePage() {
 
         {/* Calculator */}
         <div className="calculator">
-          <div className="date-field">
-            <label className="date-label">Start date</label>
-
-            <input
-              type="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              className="date-input"
-            />
-          </div>
+          <DateTextInput label="Start date" value={date} onChange={setDate} />
 
           {result !== null && (
             <div className="result-box">

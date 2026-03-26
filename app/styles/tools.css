@@ -1,65 +1,134 @@
-.tool-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:18px;
-  margin-top:20px;
+/* ===============================
+   TOOL GRID
+================================ */
+
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
 }
 
-.tool-card{
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  min-height:100px;
-  padding:20px 22px;
-  border:1px solid var(--border);
-  border-radius:14px;
-  background:var(--card);
-  color:var(--foreground);
-  box-shadow:0 2px 6px rgba(0,0,0,0.04);
-  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+.tool-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 90px;
+
+  padding: 16px 18px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+
+  background: var(--card);
+  color: var(--foreground);
+
+  transition: all 0.15s ease;
 }
 
-.tool-card strong{
-  font-size:17px;
-  font-weight:700;
+.tool-card strong {
+  font-size: 16px;
+  font-weight: 700;
 }
 
-.tool-card div{
-  font-size:13px;
-  color:var(--muted);
-  margin-top:4px;
+.tool-card div {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 4px;
 }
 
-.tool-card:hover{
-  border-color:var(--accent);
-  transform:translateY(-4px);
-  box-shadow:0 14px 28px rgba(0,0,0,0.08);
+.tool-card:hover {
+  border-color: rgba(99, 102, 241, 0.25);
+  background: rgba(99, 102, 241, 0.05);
+  transform: translateY(-2px);
 }
 
-/* Tools navigation spacing */
+/* ===============================
+   DATE INPUT (🔥 NIEUW - STAP 4)
+================================ */
 
-.tools-nav{
-  margin-top:32px;
+.date-input-wrap {
+  position: relative;
 }
 
-.tools-nav ul{
-  display:flex;
-  flex-wrap:wrap;
-  gap:12px 20px;
-  padding:0;
-  list-style:none;
+.date-input-text {
+  width: 100%;
+  padding: 14px 44px 14px 14px;
+
+  border: 1px solid var(--border);
+  border-radius: 10px;
+
+  font-size: 16px;
+
+  background: var(--card);
+  color: var(--foreground);
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
-.tools-nav li{
-  margin:0;
+.date-input-text:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
 }
 
-/* Related tools spacing */
+/* calendar icon */
 
-.related-tools{
-  margin-top:40px;
+.date-picker-button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 28px;
+  height: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  opacity: 0.6;
 }
 
-.related-tools .tool-grid{
-  gap:20px;
+.date-picker-button:hover {
+  opacity: 1;
+}
+
+/* hidden native picker */
+
+.date-input-native {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* ===============================
+   NAV / RELATED
+================================ */
+
+.tools-nav {
+  margin-top: 28px;
+}
+
+.tools-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  padding: 0;
+  list-style: none;
+}
+
+.tools-nav li {
+  margin: 0;
+}
+
+.related-tools {
+  margin-top: 32px;
+}
+
+.related-tools .tool-grid {
+  gap: 16px;
 }
