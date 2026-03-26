@@ -1,76 +1,54 @@
-import Script from "next/script";
-import type { Metadata } from "next";
-import Link from "next/link";
+"use client";
+
+import { useState } from "react";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import Link from "next/link";
+import Script from "next/script";
+import DateTextInput from "@/components/DateTextInput";
+import { parseDateUTC } from "@/lib/date";
 
-export const metadata: Metadata = {
-  title: "What Day Was I Born?",
-  description:
-    "Find out what day of the week you were born. Enter your birth date to see if you were born on a Monday, Tuesday, or any other day.",
-  alternates: {
-    canonical: "https://whatdayisit.now/what-day-was-i-born",
-  },
-  openGraph: {
-    title: "What Day Was I Born?",
-    description:
-      "Discover what day of the week you were born with this simple calculator.",
-    url: "https://whatdayisit.now/what-day-was-i-born",
-    siteName: "WhatDayIsIt.now",
-    type: "website",
-  },
-};
+const weekdays = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
 
-type PageProps = {
-  searchParams?: Promise<{
-    dob?: string;
-  }>;
-};
-
-function isValidDate(value: string) {
-  return /^\d{4}-\d{2}-\d{2}$/.test(value);
+function formatDateReadable(date: Date) {
+  return date.toLocaleDateString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 }
 
-export default async function WhatDayWasIBornPage({ searchParams }: PageProps) {
-  const params = (await searchParams) ?? {};
-  const dobParam = params.dob ?? "";
+export default function WhatDayWasIBornPage() {
+  const [birthDate, setBirthDate] = useState("");
+  const [weekday, setWeekday] = useState<string | null>(null);
+  const [fullDate, setFullDate] = useState<string | null>(null);
 
-  let result:
-    | {
-        day: string;
-        formattedDate: string;
-      }
-    | null = null;
+  function calculate(dateStr: string) {
+    setBirthDate(dateStr);
 
-  let error = "";
+    if (!dateStr) return;
 
-  if (dobParam) {
-    if (!isValidDate(dobParam)) {
-      error = "Enter a valid date.";
-    } else {
-      const dob = new Date(`${dobParam}T00:00:00`);
+    const birth = parseDateUTC(dateStr);
 
-      if (Number.isNaN(dob.getTime())) {
-        error = "Enter a valid date.";
-      } else {
-        const day = dob.toLocaleDateString("en-US", {
-          weekday: "long",
-        });
+    if (Number.isNaN(birth.getTime())) return;
 
-        const formattedDate = dob.toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        });
-
-        result = { day, formattedDate };
-      }
-    }
+    setWeekday(weekdays[birth.getUTCDay()]);
+    setFullDate(formatDateReadable(birth));
   }
 
   const schema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "What Day Was I Born Calculator",
+    name: "What Day Was I Born",
+    description: "Find out what day of the week you were born on.",
     applicationCategory: "CalculatorApplication",
     operatingSystem: "Web",
     url: "https://whatdayisit.now/what-day-was-i-born",
@@ -78,98 +56,77 @@ export default async function WhatDayWasIBornPage({ searchParams }: PageProps) {
 
   return (
     <div>
-     
       <Script
-        id="born-day-schema"
+        id="what-day-born-schema"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(schema),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
 
       <Breadcrumbs
-        items={[
-          { name: "Home", href: "/" },
-          { name: "Birthday Tools", href: "/" },
-          { name: "What Day Was I Born" },
-        ]}
+        items={[{ name: "Home", href: "/" }, { name: "What Day Was I Born" }]}
       />
 
       <h1>What Day Was I Born?</h1>
 
       <p>
-        Enter your birth date to find out which day of the week you were born.
+        Enter your birth date to find out what day of the week you were born.
+        This tool instantly calculates your birth weekday and shows your full
+        birth date in a readable format.
       </p>
 
-      <form method="GET" className="calculator">
-        <label className="date-label" htmlFor="dob">
-          Birth date
-        </label>
+      <div className="calculator">
+        {/* 🔥 NIEUWE INPUT */}
+        <DateTextInput
+          label="Birth date"
+          value={birthDate}
+          onChange={calculate}
+        />
 
-        <div className="date-input-row">
-          <input
-            id="dob"
-            type="date"
-            name="dob"
-            defaultValue={dobParam}
-            className="date-input"
-          />
+        {weekday && fullDate && (
+          <div className="result-box">
+            <div className="result-number">{weekday}</div>
 
-          <button type="submit">
-            Calculate
-          </button>
-        </div>
-      </form>
+            <div className="result-sub">You were born on {fullDate}</div>
+          </div>
+        )}
+      </div>
 
-      {error && (
-        <div className="result-box">
-          <div className="result-label">{error}</div>
-        </div>
-      )}
+      {/* SEO SECTION */}
 
-      {result && (
-        <div className="result-box">
-          <div className="result-number">{result.day}</div>
-          <div className="result-label">{result.formattedDate}</div>
-        </div>
-      )}
-
-      <section style={{ marginTop: 40 }}>
-        <h2>About the Birth Day Calculator</h2>
+      <section className="content-section">
+        <h2>How to find your birth weekday</h2>
 
         <p>
-          This calculator shows the exact weekday you were born on. Simply
-          enter your birth date and the tool will determine whether you were
-          born on a Monday, Tuesday, Wednesday, Thursday, Friday, Saturday or
-          Sunday.
+          Your birth weekday is determined by the calendar date on which you
+          were born. Because calendars follow a repeating weekly cycle, every
+          date corresponds to a specific day of the week.
         </p>
 
         <p>
-          Many people search for their birth weekday out of curiosity, for
-          astrology, or to explore interesting patterns in the calendar.
+          This calculator quickly determines your birth weekday and removes the
+          need for manual calendar calculations.
         </p>
       </section>
 
-      <section style={{ marginTop: 40 }}>
-        <h2>Related Tools</h2>
+      <section className="content-section">
+        <h2>Related birthday tools</h2>
 
-        <ul style={{ lineHeight: 1.8 }}>
-          <li>
-            <Link href="/birthday-weekday">
-              Birthday Weekday Calculator
-            </Link>
-          </li>
-          <li>
-            <Link href="/age-calculator">
-              Age Calculator
-            </Link>
-          </li>
-          <li>
-            <Link href="/days-between">
-              Days Between Dates
-            </Link>
-          </li>
-        </ul>
+        <div className="tool-grid">
+          <Link href="/birthday-weekday" className="tool-card">
+            <strong>Birthday Weekday</strong>
+            <div>Find your next birthday weekday</div>
+          </Link>
+
+          <Link href="/age-calculator" className="tool-card">
+            <strong>Age Calculator</strong>
+            <div>Calculate your exact age</div>
+          </Link>
+
+          <Link href="/born-on" className="tool-card">
+            <strong>Famous Birthdays</strong>
+            <div>Explore notable birthdays by date</div>
+          </Link>
+        </div>
       </section>
     </div>
   );
