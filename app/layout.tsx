@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "./styles/calculator.css";
 import Header from "@/components/Header";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://whatdayisit.now"),
@@ -74,6 +75,7 @@ export default function RootLayout({
           </div>
         </footer>
 
+        <Analytics />
       </body>
     </html>
   );
